@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Docto</string>
+    <string name="pref_name">docto_pref</string>
+</resources>

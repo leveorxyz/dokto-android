@@ -11,7 +11,7 @@ android {
     buildToolsVersion = "30.0.3"
     defaultConfig {
         applicationId = "com.toybeth.docto"
-        minSdk = 19
+        minSdk = 21
         targetSdk = 30
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.3"
     }
 }
 
@@ -109,4 +115,14 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
+    // Jetpack Compose
+    implementation("androidx.compose.ui:ui:1.0.3")
+    implementation("androidx.compose.ui:ui-tooling:1.0.3")
+    implementation("androidx.compose.foundation:foundation:1.0.3")
+    implementation("androidx.compose.material:material:1.0.3")
+    implementation("androidx.compose.material:material-icons-core:1.0.3")
+    implementation("androidx.compose.material:material-icons-extended:1.0.3")
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.3")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.0.3")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.0.3")
 }

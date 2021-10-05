@@ -12,9 +12,6 @@ class MainFragment : BaseFragment<MainViewModel>() {
 
     override val viewModel: MainViewModel by viewModels()
 
-    override fun getLayoutId(): Int = R.layout.fragment_main
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_main
 }

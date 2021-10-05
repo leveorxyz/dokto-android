@@ -2,20 +2,20 @@ package com.toybeth.docto.core.data.network
 
 import android.content.Context
 import com.toybeth.docto.utils.ConnectivityAndInternetAccess
-import io.reactivex.*
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.*
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.HttpException
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
 
 class RxErrorHandlingCallAdapterFactory(private val context: Context) : CallAdapter.Factory() {
 
     private val _original by lazy {
-        RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
+        RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io())
     }
 
     companion object {

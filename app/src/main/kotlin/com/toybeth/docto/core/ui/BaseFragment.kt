@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import java.lang.reflect.ParameterizedType
 
@@ -15,7 +17,9 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     abstract val viewModel: ViewModel
 
-    abstract fun getLayoutId(): Int
+    open val layoutId: Int = 0
+
+    open val composeView: ComposeView? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,7 +34,16 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         lifecycle.addObserver(viewModel)
-        return inflater.inflate(getLayoutId(), container, false)
+        return if(composeView != null) {
+            composeView!!.apply {
+                // Dispose the Composition when viewLifecycleOwner is destroyed
+                setViewCompositionStrategy(
+                    ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)
+                )
+            }
+        } else {
+            inflater.inflate(layoutId, container, false)
+        }
     }
 
     fun startActivity(clz: Class<*>?, bundle: Bundle?) {

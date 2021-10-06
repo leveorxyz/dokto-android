@@ -4,7 +4,9 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.dependencies
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class CommonModulePlugin : Plugin<Project> {
@@ -12,6 +14,7 @@ class CommonModulePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         // apply plugin common to all projects
         project.plugins.apply("kotlin-android")
+        project.plugins.apply("kotlin-parcelize")
         project.plugins.apply("androidx.navigation.safeargs.kotlin")
 
         // configure the android block
@@ -25,13 +28,17 @@ class CommonModulePlugin : Plugin<Project> {
                     sourceCompatibility = JavaVersion.VERSION_1_8
                     targetCompatibility = JavaVersion.VERSION_1_8
                 }
+                
+                ((androidExtensions as ExtensionAware)
+                    .extensions
+                    .getByName("kotlinOptions") as KotlinJvmOptions)
+                    .jvmTarget = JavaVersion.VERSION_1_8.toString()
 
                 project.tasks.withType(KotlinCompile::class.java).configureEach {
                     kotlinOptions {
                         jvmTarget = JavaVersion.VERSION_1_8.toString()
                     }
                 }
-
                 testOptions {
                     unitTests.isReturnDefaultValues = true
                 }
@@ -91,7 +98,10 @@ class CommonModulePlugin : Plugin<Project> {
 
         // dependencies common to all projects
         project.dependencies {
-            add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30")
+            add(
+                "implementation",
+                "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+            )
             add("implementation", "androidx.core:core-ktx:1.6.0")
             add("implementation", "androidx.appcompat:appcompat:1.3.1")
             add("implementation", "androidx.multidex:multidex:2.0.1")
@@ -113,8 +123,14 @@ class CommonModulePlugin : Plugin<Project> {
             add("implementation", "com.squareup.okhttp3:logging-interceptor:4.9.1")
 
             // Navigation component
-            add("implementation", "androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION")
-            add("implementation", "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION")
+            add(
+                "implementation",
+                "androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION"
+            )
+            add(
+                "implementation",
+                "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION"
+            )
 
             // Jetpack compose
             add("implementation", "androidx.compose.ui:ui:$JETPACK_COMPOSE_VERSION")

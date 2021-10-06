@@ -14,6 +14,7 @@ class CommonModulePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         // apply plugin common to all projects
         project.plugins.apply("kotlin-android")
+        project.plugins.apply("kotlin-kapt")
         project.plugins.apply("kotlin-parcelize")
         project.plugins.apply("androidx.navigation.safeargs.kotlin")
 
@@ -28,7 +29,7 @@ class CommonModulePlugin : Plugin<Project> {
                     sourceCompatibility = JavaVersion.VERSION_1_8
                     targetCompatibility = JavaVersion.VERSION_1_8
                 }
-                
+
                 ((androidExtensions as ExtensionAware)
                     .extensions
                     .getByName("kotlinOptions") as KotlinJvmOptions)
@@ -63,6 +64,11 @@ class CommonModulePlugin : Plugin<Project> {
                     is LibraryExtension -> {
                         defaultConfig {
                             // apply the pro guard rules for library
+                            buildConfigField(
+                                "String",
+                                "BASE_URL",
+                                "\"https://raw.githubusercontent.com/ToybethSystems/Dokto-Android/master/\""
+                            )
                             consumerProguardFiles("consumer-rules.pro")
                         }
                     }
@@ -75,7 +81,6 @@ class CommonModulePlugin : Plugin<Project> {
                                     "BASE_URL",
                                     "\"https://raw.githubusercontent.com/ToybethSystems/Dokto-Android/master/\""
                                 )
-                                buildConfigField("String", "DB_NAME", "\"app_db\"")
                             }
                             getByName("release") {
                                 isMinifyEnabled = false
@@ -88,7 +93,6 @@ class CommonModulePlugin : Plugin<Project> {
                                     "BASE_URL",
                                     "\"https://raw.githubusercontent.com/ToybethSystems/Dokto-Android/master/\""
                                 )
-                                buildConfigField("String", "DB_NAME", "\"app_db\"")
                             }
                         }
                     }

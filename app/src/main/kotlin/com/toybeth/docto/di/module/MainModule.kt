@@ -1,7 +1,7 @@
 package com.toybeth.docto.di.module
 
 import android.content.Context
-import com.toybeth.docto.core.data.network.NetworkFactory
+import com.toybeth.docto.base.data.network.NetworkFactory
 import com.toybeth.docto.data.ApiService
 import dagger.Module
 import dagger.Provides

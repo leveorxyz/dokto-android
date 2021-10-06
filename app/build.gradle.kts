@@ -1,9 +1,6 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
     id("module-plugin")
 }
 
@@ -15,6 +12,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(project(":base"))
 
     addTestDependencies()
 

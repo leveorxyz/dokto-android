@@ -1,6 +1,6 @@
 package com.toybeth.docto.ui.features.main
 
-import com.toybeth.docto.core.ui.BaseViewModel
+import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.data.main.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

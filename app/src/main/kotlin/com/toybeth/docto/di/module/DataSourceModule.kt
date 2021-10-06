@@ -1,7 +1,7 @@
 package com.toybeth.docto.di.module
 
-import com.toybeth.docto.core.data.preference.AppPreference
-import com.toybeth.docto.core.data.preference.AppPreferenceImpl
+import com.toybeth.docto.base.data.preference.AppPreference
+import com.toybeth.docto.base.data.preference.AppPreferenceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -2,7 +2,7 @@ package com.toybeth.docto.ui.features.main
 
 import androidx.activity.viewModels
 import com.toybeth.docto.R
-import com.toybeth.docto.core.ui.BaseActivity
+import com.toybeth.docto.base.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

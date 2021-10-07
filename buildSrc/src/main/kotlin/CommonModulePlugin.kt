@@ -46,7 +46,7 @@ class CommonModulePlugin : Plugin<Project> {
 
                 defaultConfig {
                     minSdk = 21
-                    targetSdk = 29
+                    targetSdk = 30
                     versionCode = 1
                     versionName = "1.0"
                     multiDexEnabled = true
@@ -97,70 +97,11 @@ class CommonModulePlugin : Plugin<Project> {
                         }
                     }
                 }
+                project.dependencies {
+                    add("implementation", "com.google.dagger:hilt-android:$HILT_VERSION")
+                    add("kapt", "com.google.dagger:hilt-compiler:$HILT_VERSION")
+                }
             }
-        }
-
-        // dependencies common to all projects
-        project.dependencies {
-            add(
-                "implementation",
-                "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
-            )
-            add("implementation", "androidx.core:core-ktx:1.6.0")
-            add("implementation", "androidx.appcompat:appcompat:1.3.1")
-            add("implementation", "androidx.multidex:multidex:2.0.1")
-            add("implementation", "androidx.fragment:fragment-ktx:1.3.6")
-            add("implementation", "androidx.constraintlayout:constraintlayout:2.1.1")
-
-            // material component
-            add("implementation", "com.google.android.material:material:1.4.0")
-
-            // gson
-            add("implementation", "com.google.code.gson:gson:2.8.6")
-
-            // rxjava3
-            add("implementation", "io.reactivex.rxjava3:rxjava:3.1.0")
-            add("implementation", "io.reactivex.rxjava3:rxandroid:3.0.0")
-
-            // logging
-            add("implementation", "com.orhanobut:logger:2.2.0")
-            add("implementation", "com.squareup.okhttp3:logging-interceptor:4.9.1")
-
-            // Navigation component
-            add(
-                "implementation",
-                "androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION"
-            )
-            add(
-                "implementation",
-                "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION"
-            )
-
-            // Jetpack compose
-            add("implementation", "androidx.compose.ui:ui:$JETPACK_COMPOSE_VERSION")
-            add("implementation", "androidx.compose.ui:ui-tooling:$JETPACK_COMPOSE_VERSION")
-            add("implementation", "androidx.compose.foundation:foundation:$JETPACK_COMPOSE_VERSION")
-            add("implementation", "androidx.compose.material:material:$JETPACK_COMPOSE_VERSION")
-            add(
-                "implementation",
-                "androidx.compose.material:material-icons-core:$JETPACK_COMPOSE_VERSION"
-            )
-            add(
-                "implementation",
-                "androidx.compose.material:material-icons-extended:$JETPACK_COMPOSE_VERSION"
-            )
-            add(
-                "implementation",
-                "androidx.compose.runtime:runtime-livedata:$JETPACK_COMPOSE_VERSION"
-            )
-            add(
-                "implementation",
-                "androidx.compose.runtime:runtime-rxjava2:$JETPACK_COMPOSE_VERSION"
-            )
-
-            // Hilt
-            add("implementation", "com.google.dagger:hilt-android:$HILT_VERSION")
-            add("kapt", "com.google.dagger:hilt-compiler:$HILT_VERSION")
         }
     }
 }

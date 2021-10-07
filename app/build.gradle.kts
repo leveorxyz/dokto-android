@@ -17,9 +17,6 @@ dependencies {
 
     addTestDependencies()
 
-    // retrofit
-    addRetrofit()
-
     // mockwebserver
     testImplementation("com.squareup.okhttp3:mockwebserver:4.3.1")
 }

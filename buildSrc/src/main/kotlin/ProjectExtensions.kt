@@ -1,16 +1,8 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-
-fun Project.addRetrofit() {
-    dependencies {
-        add("implementation", "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION")
-        add("implementation", "com.squareup.retrofit2:adapter-rxjava3:$RETROFIT_VERSION")
-        add("implementation", "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION")
-
-        add("implementation", "com.squareup.okhttp3:okhttp:4.7.2")
-        add("implementation", "com.squareup.okhttp3:logging-interceptor:4.9.1")
-    }
-}
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
 
 fun Project.addTestDependencies() {
     dependencies {
@@ -29,4 +21,11 @@ fun Project.addTestDependencies() {
         add("testImplementation", "androidx.test.ext:junit:1.1.3")
         add("testImplementation", "org.robolectric:robolectric:4.5.1")
     }
+}
+
+fun Project.getProperty(key: String): String {
+    val prop = Properties().apply {
+        load(FileInputStream(File(rootProject.rootDir, "local.properties")))
+    }
+    return prop.getProperty(key)
 }

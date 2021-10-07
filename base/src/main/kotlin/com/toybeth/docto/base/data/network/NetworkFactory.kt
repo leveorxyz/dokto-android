@@ -17,25 +17,42 @@ object NetworkFactory {
     private const val BASE_URL = BuildConfig.BASE_URL
     private const val TIME_OUT = 60L
 
-    fun <Service> createService(appContext: Context, serviceClass: Class<Service>): Service {
+    fun <Service> createService(appContext: Context, serviceClass: Class<Service>, baseUrl: String = BASE_URL, token: String = ""): Service {
         return getRetrofit(
             appContext,
-            BASE_URL,
+            baseUrl,
             getOkHttpClient(
                 getAuthInterceptor(
-                    appContext
+                    appContext,
+                    token
                 ),
                 getLogInterceptors()
             )
         ).create(serviceClass)
     }
 
-    fun getRetrofit(appContext: Context): Retrofit {
+    fun <Service> createServiceForCoroutine(appContext: Context, serviceClass: Class<Service>, baseUrl: String = BASE_URL, token: String = ""): Service {
+        return getRetrofitForCoroutine(
+            appContext,
+            baseUrl,
+            getOkHttpClient(
+                getAuthInterceptor(
+                    appContext,
+                    token
+                ),
+                getLogInterceptors()
+            )
+        ).create(serviceClass)
+    }
+
+    fun getRetrofit(appContext: Context, baseUrl: String = "", token: String = ""): Retrofit {
         return getRetrofit(
             context = appContext,
+            baseUrl = baseUrl,
             okHttpClient = getOkHttpClient(
                 getAuthInterceptor(
-                    appContext
+                    appContext,
+                    token
                 ),
                 getLogInterceptors()
             )
@@ -62,6 +79,21 @@ object NetworkFactory {
             .build()
     }
 
+    fun getRetrofitForCoroutine(
+        context: Context,
+        baseUrl: String = BASE_URL,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .callbackExecutor {
+                Logger.d("returning")
+            }
+            .build()
+    }
+
     fun getOkHttpClient(authInterceptor: Interceptor, logInterceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(
@@ -72,6 +104,8 @@ object NetworkFactory {
                 TIME_OUT,
                 TimeUnit.SECONDS
             )
+            .followRedirects(false)
+            .followSslRedirects(false)
             .addInterceptor(logInterceptor)
             .addInterceptor(authInterceptor)
             .authenticator(object : Authenticator {
@@ -84,12 +118,11 @@ object NetworkFactory {
             .build()
     }
 
-    fun getAuthInterceptor(appContext: Context): Interceptor {
+    fun getAuthInterceptor(appContext: Context, token: String = ""): Interceptor {
         return object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val requestBuilder = chain.request().newBuilder()
 //            val token = getSharedPreference(appContext).token
-                val token = ""
                 if (token.isNotEmpty()) {
                     requestBuilder.addHeader("Authorization", token)
                         .addHeader("Cache-control", "no-cache")
@@ -97,6 +130,7 @@ object NetworkFactory {
                 try {
                     return chain.proceed(requestBuilder.build())
                 } catch (e: Exception) {
+                    e.printStackTrace()
                     if (ConnectivityAndInternetAccess.isConnectedToInternet(
                             appContext,
                             chain.request().url.host
@@ -114,7 +148,7 @@ object NetworkFactory {
 
     fun getLogInterceptors(): Interceptor {
         return HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.HEADERS
             else HttpLoggingInterceptor.Level.NONE
         }
     }

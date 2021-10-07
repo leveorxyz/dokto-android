@@ -46,4 +46,7 @@ dependencies {
     api("com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION")
     api("com.squareup.okhttp3:okhttp:$OKHTTP3_VERSION")
     api("com.squareup.okhttp3:logging-interceptor:$OKHTTP3_VERSION")
+
+    // Coroutine
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 }

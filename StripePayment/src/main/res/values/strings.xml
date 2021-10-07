@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pay_s_using">Pay $%s using</string>
+    <string name="card_information">Card information</string>
+    <string name="card_number_placeholder">Card number</string>
+</resources>

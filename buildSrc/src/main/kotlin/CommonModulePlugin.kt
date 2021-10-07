@@ -118,8 +118,8 @@ class CommonModulePlugin : Plugin<Project> {
             // gson
             add("implementation", "com.google.code.gson:gson:2.8.6")
 
-            // rxjava2
-            add("implementation", "io.reactivex.rxjava3:rxjava:3.1.1")
+            // rxjava3
+            add("implementation", "io.reactivex.rxjava3:rxjava:3.1.0")
             add("implementation", "io.reactivex.rxjava3:rxandroid:3.0.0")
 
             // logging

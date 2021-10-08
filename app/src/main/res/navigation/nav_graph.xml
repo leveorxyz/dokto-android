@@ -5,14 +5,21 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/paymentFragment">
 
+    <include app:graph="@navigation/flutterwave_payment_nav_graph"/>
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
+
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
-        android:label="PaymentFragment" />
+        android:label="PaymentFragment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_flutterwavePaymentNavGraph"
+            app:destination="@id/flutterwavePaymentNavGraph" />
+    </fragment>
 
 </navigation>

@@ -8,8 +8,8 @@ android {
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "BASE_URL", "\"https://api.stripe.com/\"")
-            buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"${getProperty("STRIPE_PUBLISHABLE_KEY")}\"")
-            buildConfigField("String", "STRIPE_API_KEY", "\"${getProperty("STRIPE_API_KEY")}\"")
+            buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_TYooMQauvdEDq54NiTphI7jx\"")
+            buildConfigField("String", "STRIPE_API_KEY", "\"c2tfdGVzdF80ZUMzOUhxTHlqV0Rhcmp0VDF6ZHA3ZGM6\"")
         }
     }
 }

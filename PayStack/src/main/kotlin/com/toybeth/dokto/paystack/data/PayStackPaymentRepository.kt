@@ -1,16 +1,25 @@
 package com.toybeth.dokto.paystack.data
 
-import co.paystack.android.PaystackSdk
-import co.paystack.android.Transaction
-import co.paystack.android.model.Card
-import retrofit2.Response
+import com.toybeth.dokto.paystack.data.model.request.InitializeTransactionRequest
+import com.toybeth.dokto.paystack.data.model.response.BasePayStackApiResponse
+import com.toybeth.dokto.paystack.data.model.response.PayStackPayment
 import javax.inject.Inject
 
 class PayStackPaymentRepository @Inject constructor(
     private val payStackApiService: PayStackApiService
 ) {
 
-    suspend fun validateTransaction(transactionReference: String): ValidatePayStackTransactionResponse {
+    suspend fun initializeTransaction(email: String, amount: String): PayStackPayment {
+        val body = InitializeTransactionRequest(email, amount)
+        val response = payStackApiService.initializeTransaction(body)
+        if(response.body() != null && response.isSuccessful) {
+            return response.body()!!.data
+        } else {
+            throw Throwable(response.errorBody()?.toString())
+        }
+    }
+
+    suspend fun validateTransaction(transactionReference: String): BasePayStackApiResponse {
         val response = payStackApiService.validateTransaction(transactionReference)
         if(response.body() != null && response.isSuccessful) {
             return response.body()!!

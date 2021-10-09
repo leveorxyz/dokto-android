@@ -20,6 +20,7 @@ class PayStackPaymentViewModel @Inject constructor(
     val isExpireDateWrong = SingleLiveEvent<Boolean>()
     val isCcvWrong = SingleLiveEvent<Boolean>()
     val validCard = SingleLiveEvent<Card>()
+    val paymentUrl = SingleLiveEvent<String>()
 
     fun validateCard(cardNumber: String, ccv: String, expireDate: String) {
         val expireMonth = getExpireMonthFromExpireDate(expireDate)
@@ -34,6 +35,15 @@ class PayStackPaymentViewModel @Inject constructor(
         } else {
             validCard.postValue(card)
         }
+    }
+
+    fun initializeTransaction(email: String, amount: String) {
+        viewModelScope.launchIOWithExceptionHandler({
+            val transaction = repository.initializeTransaction(email, amount)
+            paymentUrl.postValue(transaction.paymentUrl)
+        }, {
+            it.printStackTrace()
+        })
     }
 
     private fun getExpireMonthFromExpireDate(expireDate: String): Int {

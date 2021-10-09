@@ -11,10 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.ui.features.payment.components.selectPaymentType
+import com.toybeth.docto.ui.features.payment.data.PaymentType
 import com.toybeth.docto.ui.features.payment.data.paymentTypes
 
 @Composable
-fun PaymentScreen() {
+fun PaymentScreen(
+    navigateToPayStackPayment: (() -> Unit)? = null
+) {
 
     var selectedPayment by remember {
         mutableStateOf(paymentTypes[0])
@@ -41,7 +44,11 @@ fun PaymentScreen() {
         }
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                      if(selectedPayment.name.equals("Paystack", true)) {
+                          navigateToPayStackPayment?.invoke()
+                      }
+            },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .height(56.dp)

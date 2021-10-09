@@ -2,7 +2,9 @@ package com.toybeth.dokto.flutterwavepayment.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.flutterwave.raveandroid.RaveUiManager
 import com.toybeth.docto.base.ui.BaseFragment
@@ -14,15 +16,17 @@ import androidx.navigation.fragment.findNavController
 import com.flutterwave.raveandroid.RavePayActivity
 
 import com.flutterwave.raveandroid.rave_java_commons.RaveConstants
+import com.toybeth.docto.base.ui.BaseViewBindingFragment
+import com.toybeth.dokto.flutterwavepayment.databinding.FragmentFlutterwavePaymentBinding
 
 @AndroidEntryPoint
-class FlutterwavePaymentFragment : BaseFragment<FlutterwavePaymentViewModel>() {
+class FlutterwavePaymentFragment : BaseViewBindingFragment<FlutterwavePaymentViewModel, FragmentFlutterwavePaymentBinding>() {
 
     override val viewModel: FlutterwavePaymentViewModel by viewModels()
     private lateinit var raveUiManager: RaveUiManager
 
-    override val layoutId: Int
-        get() = R.layout.fragment_flutterwave_payment
+    override val inflater: (inflater: LayoutInflater, parent: ViewGroup?, attachToParent: Boolean) -> FragmentFlutterwavePaymentBinding
+        get() = FragmentFlutterwavePaymentBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

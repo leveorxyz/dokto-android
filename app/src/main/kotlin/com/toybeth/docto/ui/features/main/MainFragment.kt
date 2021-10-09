@@ -10,6 +10,4 @@ class MainFragment : BaseFragment<MainViewModel>() {
 
     override val viewModel: MainViewModel by viewModels()
 
-    override val layoutId: Int
-        get() = R.layout.fragment_main
 }

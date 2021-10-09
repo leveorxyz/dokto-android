@@ -27,9 +27,11 @@ class FlutterwavePaymentFragment : BaseFragment<FlutterwavePaymentViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        raveUiManager = RaveUiManager(this).apply {
-            viewModel.configureRaveUiManager(this)
-        }
+        raveUiManager = RaveUiManager(this)
+            .withTheme(R.style.FlutterwaveTheme)
+            .apply {
+                viewModel.configureRaveUiManager(this)
+            }
 
         raveUiManager.initialize()
     }

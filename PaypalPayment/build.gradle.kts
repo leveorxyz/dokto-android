@@ -14,5 +14,5 @@ android {
 
 dependencies {
     implementation(project(":base"))
-    api("com.paypal.checkout:android-sdk:0.2.0")
+    api("com.paypal.checkout:android-sdk:0.3.1")
 }

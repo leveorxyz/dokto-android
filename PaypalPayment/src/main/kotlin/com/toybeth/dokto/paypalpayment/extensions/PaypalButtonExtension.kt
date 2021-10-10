@@ -1,4 +1,4 @@
-package com.toybeth.dokto.paypalpayment
+package com.toybeth.dokto.paypalpayment.extensions
 
 import com.orhanobut.logger.Logger
 import com.paypal.checkout.approve.OnApprove
@@ -20,7 +20,6 @@ fun PayPalButton.setupData(
     onError: (() -> Unit)? = null,
     onCancel: (() -> Unit)? = null
 ) {
-
     setup(
         createOrder = CreateOrder { createOrderActions ->
             val order = Order(

@@ -14,7 +14,9 @@ import com.toybeth.docto.ui.features.payment.components.selectPaymentType
 import com.toybeth.docto.ui.features.payment.data.paymentTypes
 
 @Composable
-fun PaymentScreen() {
+fun PaymentScreen(
+    navigateToPaymentScreen : () -> Unit
+) {
 
     var selectedPayment by remember {
         mutableStateOf(paymentTypes[0])
@@ -41,7 +43,7 @@ fun PaymentScreen() {
         }
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToPaymentScreen() },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .height(56.dp)

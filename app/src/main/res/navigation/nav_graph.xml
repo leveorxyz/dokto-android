@@ -5,6 +5,8 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/paymentFragment">
 
+    <include app:graph="@navigation/paypal_payment_nav_graph"/>
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
@@ -13,6 +15,12 @@
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
-        android:label="PaymentFragment" />
+        android:label="PaymentFragment" >
+
+    <action
+        android:id="@+id/action_paymentFragment_to_paypalPaymentNavGraph"
+        app:destination="@id/paypalPaymentNavGraph" />
+
+    </fragment>
 
 </navigation>

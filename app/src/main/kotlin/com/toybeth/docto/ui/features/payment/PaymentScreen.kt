@@ -15,7 +15,8 @@ import com.toybeth.docto.ui.features.payment.data.paymentTypes
 
 @Composable
 fun PaymentScreen(
-    navigateToStripePayment: () -> Unit
+    navigateToStripePayment: () -> Unit,
+    navigateToFlutterwavePayment: () -> Unit
 ) {
 
     var selectedPayment by remember {
@@ -46,6 +47,9 @@ fun PaymentScreen(
             onClick = {
                 if(selectedPayment.name.equals("stripe", true)) {
                     navigateToStripePayment()
+                }
+                else if(selectedPayment.name.equals("Flutterwave", true)) {
+                    navigateToFlutterwavePayment()
                 }
             },
             modifier = Modifier

@@ -15,7 +15,10 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
         get() {
             return ComposeView(requireContext()).apply {
                 setContent {
-                    PaymentScreen(::navigateToStripePayment)
+                    PaymentScreen(
+                        ::navigateToStripePayment,
+                        ::navigateToFlutterwavePayment
+                    )
                 }
             }
         }
@@ -23,6 +26,12 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
     private fun navigateToStripePayment() {
         findNavController().navigate(
             PaymentFragmentDirections.actionPaymentFragmentToStripePaymentNavGraph()
+        )
+    }
+
+    private fun navigateToFlutterwavePayment() {
+        findNavController().navigate(
+            PaymentFragmentDirections.actionPaymentFragmentToFlutterwavePaymentNavGraph()
         )
     }
 }

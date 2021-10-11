@@ -8,6 +8,8 @@
     <include
         app:graph="@navigation/stripe_payment_nav_graph"/>
 
+    <include app:graph="@navigation/flutterwave_payment_nav_graph"/>
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
@@ -22,6 +24,10 @@
         <action
             android:id="@+id/action_paymentFragment_to_stripePaymentNavGraph"
             app:destination="@id/stripePaymentNavGraph"/>
+
+        <action
+            android:id="@+id/action_paymentFragment_to_flutterwavePaymentNavGraph"
+            app:destination="@id/flutterwavePaymentNavGraph" />
 
     </fragment>
 

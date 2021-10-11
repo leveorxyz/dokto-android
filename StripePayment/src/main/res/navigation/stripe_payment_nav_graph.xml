@@ -4,7 +4,7 @@
     android:id="@+id/stripePaymentNavGraph"
     app:startDestination="@id/stripePaymentFragment">
 
-    <fragment
+    <dialog
         android:id="@+id/stripePaymentFragment"
         android:name="com.toybeth.dokto.stripepayment.ui.StripePaymentFragment"
         android:label="StripPaymentFragment" />

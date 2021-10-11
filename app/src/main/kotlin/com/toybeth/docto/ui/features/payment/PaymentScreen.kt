@@ -44,7 +44,9 @@ fun PaymentScreen(
 
         Button(
             onClick = {
-                      navigateToStripePayment()
+                if(selectedPayment.name.equals("stripe", true)) {
+                    navigateToStripePayment()
+                }
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)

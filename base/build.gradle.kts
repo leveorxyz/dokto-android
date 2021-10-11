@@ -49,4 +49,7 @@ dependencies {
 
     // Coroutine
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+
+    // Startup
+    api("androidx.startup:startup-runtime:1.1.0")
 }

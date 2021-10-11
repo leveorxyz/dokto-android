@@ -5,10 +5,11 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/paymentFragment">
 
-    <include
-        app:graph="@navigation/stripe_payment_nav_graph"/>
+    <include app:graph="@navigation/stripe_payment_nav_graph"/>
 
     <include app:graph="@navigation/flutterwave_payment_nav_graph"/>
+
+    <include app:graph="@navigation/paystack_nav_graph" />
 
     <fragment
         android:id="@+id/mainFragment"
@@ -28,6 +29,10 @@
         <action
             android:id="@+id/action_paymentFragment_to_flutterwavePaymentNavGraph"
             app:destination="@id/flutterwavePaymentNavGraph" />
+
+        <action
+            android:id="@+id/action_paymentFragment_to_payStackPaymentDialog"
+            app:destination="@id/payStackNavGraph" />
 
     </fragment>
 

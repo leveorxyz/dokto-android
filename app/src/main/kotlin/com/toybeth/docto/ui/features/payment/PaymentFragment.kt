@@ -17,7 +17,8 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
                 setContent {
                     PaymentScreen(
                         ::navigateToStripePayment,
-                        ::navigateToFlutterwavePayment
+                        ::navigateToFlutterwavePayment,
+                        ::navigateToPayStackPayment
                     )
                 }
             }
@@ -32,6 +33,12 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
     private fun navigateToFlutterwavePayment() {
         findNavController().navigate(
             PaymentFragmentDirections.actionPaymentFragmentToFlutterwavePaymentNavGraph()
+        )
+    }
+
+    private fun navigateToPayStackPayment() {
+        findNavController().navigate(
+            PaymentFragmentDirections.actionPaymentFragmentToPayStackPaymentDialog()
         )
     }
 }

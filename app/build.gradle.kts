@@ -15,6 +15,7 @@ dependencies {
     implementation(project(":base"))
     implementation(project(":StripePayment"))
     implementation(project(":FlutterwavePayment"))
+    implementation(project(":PayStack"))
 
     addTestDependencies()
 

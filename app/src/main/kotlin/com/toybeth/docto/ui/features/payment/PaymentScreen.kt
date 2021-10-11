@@ -43,7 +43,11 @@ fun PaymentScreen(
         }
 
         Button(
-            onClick = { navigateToFlutterwavePayment() },
+            onClick = {
+                if(selectedPayment.name.equals("Flutterwave", true)) {
+                    navigateToFlutterwavePayment()
+                }
+              },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .height(56.dp)

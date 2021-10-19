@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import com.orhanobut.logger.Logger
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
-import com.toybeth.dokto.twilio.databinding.ContentVideoBinding
 import com.toybeth.dokto.twilio.databinding.FragmentTwilioCallBinding
 import com.twilio.audioswitch.AudioDevice
 import com.twilio.audioswitch.AudioSwitch

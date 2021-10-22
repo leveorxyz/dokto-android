@@ -1,9 +1,7 @@
-package com.toybeth.dokto.twilio
+package com.toybeth.dokto.twilio.ui.common
 
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import com.toybeth.docto.base.ui.BaseViewModel
-import com.toybeth.docto.base.utils.SingleLiveEvent
 import com.toybeth.dokto.twilio.data.TwilioCallRepository
 import com.twilio.video.LocalVideoTrack
 import com.twilio.video.RemoteVideoTrack
@@ -67,7 +65,19 @@ class TwilioCallViewModel @Inject constructor(
         repository.toggleLocalVideo()
     }
 
+    fun toggleLocalAudioStream() {
+        repository.toggleLocalAudio()
+    }
+
     fun checkPermissionForCameraAndMicrophone(): Boolean {
         return repository.checkPermissionForCameraAndMicrophone()
+    }
+
+    fun switchCamera() {
+        repository.switchCamera()
+    }
+
+    fun endCall() {
+        repository.disconnect()
     }
 }

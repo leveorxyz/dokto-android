@@ -18,5 +18,6 @@ dependencies {
     implementation(project(":base"))
 
     implementation("com.twilio:video-android-ktx:7.0.1")
+    implementation("com.twilio:conversations-android:2.0.0")
     implementation("com.twilio:audioswitch:1.1.2")
 }

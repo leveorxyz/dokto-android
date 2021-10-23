@@ -1,4 +1,4 @@
-package com.toybeth.dokto.twilio
+package com.toybeth.dokto.twilio.utils
 
 import android.annotation.TargetApi
 import android.content.Context

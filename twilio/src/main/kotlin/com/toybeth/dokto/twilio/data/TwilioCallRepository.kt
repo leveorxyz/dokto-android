@@ -3,13 +3,12 @@ package com.toybeth.dokto.twilio.data
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import com.toybeth.docto.base.data.preference.AppPreference
 import com.toybeth.dokto.twilio.BuildConfig
-import com.toybeth.dokto.twilio.CameraCapturerCompat
+import com.toybeth.dokto.twilio.utils.CameraCapturerCompat
 import com.twilio.audioswitch.AudioDevice
 import com.twilio.audioswitch.AudioSwitch
 import com.twilio.video.*
@@ -17,7 +16,6 @@ import com.twilio.video.ktx.Video
 import com.twilio.video.ktx.createLocalAudioTrack
 import com.twilio.video.ktx.createLocalVideoTrack
 import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.internal.notify
 import javax.inject.Inject
 
 class TwilioCallRepository @Inject constructor(
@@ -32,7 +30,8 @@ class TwilioCallRepository @Inject constructor(
     val videoEnabled = MutableLiveData(true)
     val backCameraEnabled = MutableLiveData(false)
 
-    private val cameraCapturerCompat = CameraCapturerCompat(context, CameraCapturerCompat.Source.FRONT_CAMERA)
+    private val cameraCapturerCompat =
+        CameraCapturerCompat(context, CameraCapturerCompat.Source.FRONT_CAMERA)
     private var localAudioTrack: LocalAudioTrack? = null
     private var room: Room? = null
     private var localParticipant: LocalParticipant? = null
@@ -375,7 +374,7 @@ class TwilioCallRepository @Inject constructor(
                 AudioDevice.Earpiece::class.java
             )
         )
-        audioSwitch.start {_, _ -> }
+        audioSwitch.start { _, _ -> }
         audioSwitch.selectDevice(audioSwitch.availableAudioDevices[0])
         audioSwitch.activate()
 
@@ -463,7 +462,7 @@ class TwilioCallRepository @Inject constructor(
         }
     }
 
-    fun mute() {
+    fun toggleLocalAudio() {
         localAudioTrack?.let {
             val enable = !it.isEnabled
             it.enable(enable)
@@ -484,9 +483,9 @@ class TwilioCallRepository @Inject constructor(
     }
 
     fun initializeTwilio() {
-        if(checkPermissionForCameraAndMicrophone()) {
+        if (checkPermissionForCameraAndMicrophone()) {
             localAudioTrack = createLocalAudioTrack(context, true)
-            if(localVideoTrackLiveData.value == null) {
+            if (localVideoTrackLiveData.value == null) {
                 val videoTrack = createLocalVideoTrack(
                     context,
                     true,

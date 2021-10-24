@@ -17,15 +17,23 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
         get() {
             return ComposeView(requireContext()).apply {
                 setContent {
+                    PaymentScreen(::navigateToPaypalPayment)
                     PaymentScreen(
                         ::navigateToStripePayment,
                         ::navigateToFlutterwavePayment,
-                        ::navigateToPayStackPayment
+                        ::navigateToPayStackPayment,
+                        ::navigateToPaypalPayment
                     )
                 }
             }
         }
 
+    private fun navigateToPaypalPayment() {
+        findNavController().navigate(
+            PaymentFragmentDirections.actionPaymentFragmentToPaypalPaymentNavGraph()
+          )
+    }
+          
     private fun navigateToStripePayment() {
         findNavController().navigate(
             PaymentFragmentDirections.actionPaymentFragmentToStripePaymentNavGraph()

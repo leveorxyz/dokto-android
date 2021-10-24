@@ -9,5 +9,4 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : BaseFragment<MainViewModel>() {
 
     override val viewModel: MainViewModel by viewModels()
-
 }

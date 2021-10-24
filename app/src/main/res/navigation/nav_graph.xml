@@ -3,7 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/paymentFragment">
+    app:startDestination="@id/twilio_call_nav_graph">
+
+    <include app:graph="@navigation/twilio_call_nav_graph"/>
+
+
+    <include app:graph="@navigation/stripe_payment_nav_graph"/>
+
+    <include app:graph="@navigation/flutterwave_payment_nav_graph"/>
+
+    <include app:graph="@navigation/paystack_nav_graph" />
 
     <include app:graph="@navigation/paypal_payment_nav_graph"/>
 
@@ -12,6 +21,7 @@
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
+
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
@@ -21,6 +31,23 @@
         android:id="@+id/action_paymentFragment_to_paypalPaymentNavGraph"
         app:destination="@id/paypalPaymentNavGraph" />
 
+        <action
+            android:id="@+id/action_paymentFragment_to_stripePaymentNavGraph"
+            app:destination="@id/stripePaymentNavGraph"/>
+      
+        <action
+            android:id="@+id/action_paymentFragment_to_flutterwavePaymentNavGraph"
+            app:destination="@id/flutterwavePaymentNavGraph" />
+
+        <action
+            android:id="@+id/action_paymentFragment_to_payStackPaymentDialog"
+            app:destination="@id/payStackNavGraph" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.toybeth.docto.ui.features.maps.MapsFragment"
+        android:label="MapsFragment" />
 
 </navigation>

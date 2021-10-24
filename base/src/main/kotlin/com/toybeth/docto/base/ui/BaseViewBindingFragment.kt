@@ -35,6 +35,6 @@ abstract class BaseViewBindingFragment<ViewModel : BaseViewModel, Binding: ViewB
         savedInstanceState: Bundle?
     ): View? {
         binding = inflater(inflater, container, false)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 }

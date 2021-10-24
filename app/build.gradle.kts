@@ -16,6 +16,10 @@ dependencies {
     implementation(project(":StripePayment"))
     implementation(project(":FlutterwavePayment"))
     implementation(project(":PayStack"))
+    implementation(project(":twilio"))
+
+    // Google Maps
+    implementation("com.google.android.gms:play-services-maps:17.0.1")
 
     addTestDependencies()
 

@@ -2,28 +2,9 @@ package com.toybeth.dokto.twilio.data
 
 import android.content.Context
 import com.orhanobut.logger.Logger
+import com.twilio.conversations.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import com.toybeth.docto.ui.features.main.MainActivity
-import com.twilio.conversations.*
-
-import java.lang.Exception
-import com.toybeth.docto.ui.features.main.MainActivity
-
-import org.gradle.internal.impldep.com.google.api.client.auth.oauth2.TokenResponse
-
-import okhttp3.OkHttpClient
-import com.toybeth.docto.ui.features.main.MainActivity
-
-import com.twilio.conversations.StatusListener
-
-import com.twilio.conversations.Conversation
-
-
-
-
-
-
 
 
 class TwilioChatRepository @Inject constructor(
@@ -71,21 +52,25 @@ class TwilioChatRepository @Inject constructor(
 
     private fun initializeWithAccessToken(token: String) {
         val props = ConversationsClient.Properties.newBuilder().createProperties()
-        ConversationsClient.create(context, token, props, object: CallbackListener<ConversationsClient> {
-            override fun onSuccess(result: ConversationsClient?) {
-                conversationsClient = result
-                Logger.d("Waiting room initialization successful")
-            }
+        ConversationsClient.create(
+            context,
+            token,
+            props,
+            object : CallbackListener<ConversationsClient> {
+                override fun onSuccess(result: ConversationsClient?) {
+                    conversationsClient = result
+                    Logger.d("Waiting room initialization successful")
+                }
 
-            override fun onError(errorInfo: ErrorInfo?) {
-                super.onError(errorInfo)
-                Logger.e(errorInfo?.message ?: "", errorInfo?.reason)
-            }
-        })
+                override fun onError(errorInfo: ErrorInfo?) {
+                    super.onError(errorInfo)
+                    Logger.e(errorInfo?.message ?: "", errorInfo?.reason)
+                }
+            })
     }
 
     private fun loadChannels() {
-        if(conversationsClient != null && !conversationsClient?.myConversations.isNullOrEmpty()) {
+        if (conversationsClient != null && !conversationsClient?.myConversations.isNullOrEmpty()) {
             Logger.d("Conversations found")
         }
         return

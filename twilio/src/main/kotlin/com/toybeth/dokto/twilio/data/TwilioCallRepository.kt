@@ -340,10 +340,12 @@ class TwilioCallRepository @Inject constructor(
         }
 
         override fun onParticipantConnected(room: Room, participant: RemoteParticipant) {
+            Logger.d("PARTICIPATN CONNECTED - ${participant.sid}")
             addRemoteParticipant(participant)
         }
 
         override fun onParticipantDisconnected(room: Room, participant: RemoteParticipant) {
+            Logger.d("PARTICIPATN DISCONNECTED - ${participant.sid}")
             removeRemoteParticipant(participant)
         }
 
@@ -364,7 +366,7 @@ class TwilioCallRepository @Inject constructor(
         }
     }
 
-    fun connectToRoom(roomName: String, enableVideo: Boolean, enableAudio: Boolean) {
+    fun connectToRoom(roomName: String, enableVideo: Boolean = true, enableAudio: Boolean = true) {
         audioSwitch = AudioSwitch(
             context,
             preferredDeviceList = listOf(

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/twilio_call_nav_graph"
+    app:startDestination="@id/preparationFragment">
+
+    <fragment
+        android:id="@+id/twilioCallFragment"
+        android:name="com.toybeth.dokto.twilio.ui.call.TwilioCallFragment"
+        android:label="MainFragment" />
+    <fragment
+        android:id="@+id/preparationFragment"
+        android:name="com.toybeth.dokto.twilio.ui.preparation.PreparationFragment"
+        android:label="PreparationFragment">
+        <action
+            android:id="@+id/action_preparationFragment_to_twilioCallFragment"
+            app:destination="@id/twilioCallFragment" />
+    </fragment>
+
+</navigation>

@@ -25,5 +25,9 @@
 
 
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.toybeth.docto.ui.features.maps.MapsFragment"
+        android:label="MapsFragment" />
 
 </navigation>

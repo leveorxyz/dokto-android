@@ -17,14 +17,13 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
         get() {
             return ComposeView(requireContext()).apply {
                 setContent {
-                    PaymentScreen()
+                    PaymentScreen(::navigateToFlutterwavePayment)
                 }
             }
         }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToTwilioCallFragment())
-    }
+    private fun navigateToFlutterwavePayment() {
+        findNavController().navigate(
+            PaymentFragmentDirections.actionPaymentFragmentToFlutterwavePaymentNavGraph()
+        )
 }

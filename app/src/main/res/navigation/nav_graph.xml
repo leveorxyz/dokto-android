@@ -8,7 +8,11 @@
     <include app:graph="@navigation/twilio_call_nav_graph"/>
 
 
+    <include app:graph="@navigation/stripe_payment_nav_graph"/>
+
     <include app:graph="@navigation/flutterwave_payment_nav_graph"/>
+
+    <include app:graph="@navigation/paystack_nav_graph" />
 
     <fragment
         android:id="@+id/mainFragment"
@@ -20,10 +24,19 @@
         android:id="@+id/paymentFragment"
         android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
         android:label="PaymentFragment" >
+
+        <action
+            android:id="@+id/action_paymentFragment_to_stripePaymentNavGraph"
+            app:destination="@id/stripePaymentNavGraph"/>
       
         <action
             android:id="@+id/action_paymentFragment_to_flutterwavePaymentNavGraph"
             app:destination="@id/flutterwavePaymentNavGraph" />
+
+        <action
+            android:id="@+id/action_paymentFragment_to_payStackPaymentDialog"
+            app:destination="@id/payStackNavGraph" />
+
     </fragment>
 
     <fragment

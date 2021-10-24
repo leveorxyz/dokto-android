@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payStackNavGraph"
+    app:startDestination="@id/payStackPaymentDialog">
+
+    <dialog
+        android:id="@+id/payStackPaymentDialog"
+        android:name="com.toybeth.dokto.paystack.ui.PayStackPaymentDialog"
+        android:label="PayStackPaymentDialog"
+        tools:layout="@layout/dialog_paystack_payment" />
+
+</navigation>

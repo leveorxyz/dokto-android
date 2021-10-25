@@ -340,10 +340,12 @@ class TwilioCallRepository @Inject constructor(
         }
 
         override fun onParticipantConnected(room: Room, participant: RemoteParticipant) {
+            Logger.d("PARTICIPATN CONNECTED - ${participant.sid}")
             addRemoteParticipant(participant)
         }
 
         override fun onParticipantDisconnected(room: Room, participant: RemoteParticipant) {
+            Logger.d("PARTICIPATN DISCONNECTED - ${participant.sid}")
             removeRemoteParticipant(participant)
         }
 
@@ -364,7 +366,7 @@ class TwilioCallRepository @Inject constructor(
         }
     }
 
-    fun connectToRoom(roomName: String) {
+    fun connectToRoom(roomName: String, enableVideo: Boolean = true, enableAudio: Boolean = true) {
         audioSwitch = AudioSwitch(
             context,
             preferredDeviceList = listOf(
@@ -380,20 +382,20 @@ class TwilioCallRepository @Inject constructor(
 
         room = Video.connect(context, BuildConfig.TWILIO_ACCESS_TOKEN, roomListener) {
             roomName(roomName)
-            /*
+            if(enableAudio) {
+                /*
              * Add local audio track to connect options to share with participants.
              */
-            audioTracks(listOf(localAudioTrack))
-            /*
-             * Add local video track to connect options to share with participants.
-             */
-            videoTracks(listOf(localVideoTrackLiveData.value))
-
-            /*
-             * Set the preferred audio and video codec for media.
-             */
-            preferAudioCodecs(listOf(audioCodec))
-            preferVideoCodecs(listOf(videoCodec))
+                audioTracks(listOf(localAudioTrack))
+                preferAudioCodecs(listOf(audioCodec))
+            }
+            if(enableVideo) {
+                /*
+                * Add local video track to connect options to share with participants.
+                */
+                videoTracks(listOf(localVideoTrackLiveData.value))
+                preferVideoCodecs(listOf(videoCodec))
+            }
 
             /*
              * Set the sender side encoding parameters.

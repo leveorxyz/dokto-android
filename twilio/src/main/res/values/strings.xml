@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="permissions_needed">Permission needed</string>
+    <string name="leave">Leave</string>
+    <string name="leave_waiting_room">Leave Waiting Room</string>
+    <string name="you_re_at_number">You\'re at number</string>
 </resources>

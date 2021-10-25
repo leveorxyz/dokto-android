@@ -32,10 +32,10 @@ class TwilioCallFragment : BaseViewBindingFragment<TwilioCallViewModel, Fragment
                 TwilioCallScreen(::endCall)
             }
         }
-
-        if(viewModel.checkPermissionForCameraAndMicrophone()) {
-            viewModel.initializeTwilio()
+        viewModel.localVideoTrackLiveData.observe(viewLifecycleOwner) {
+            viewModel.connectToRoom("TEST")
         }
+        viewModel.initializeTwilio()
     }
 
     override fun onPause() {

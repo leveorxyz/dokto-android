@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/twilio_call_nav_graph">
+    app:startDestination="@id/mainFragment">
 
     <include app:graph="@navigation/twilio_call_nav_graph" />
 
@@ -19,7 +19,23 @@
         android:id="@+id/mainFragment"
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+
+        <action
+            android:id="@+id/action_mainFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_videoCallFragment"
+            app:destination="@id/twilio_call_nav_graph" />
+
+
+
+    </fragment>
 
     <fragment
         android:id="@+id/paymentFragment"

@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.toybeth.docto.ui.features.main.MainFragment"
+        android:name="com.toybethsystems.dokto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" >
 
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
+        android:name="com.toybethsystems.dokto.ui.features.payment.PaymentFragment"
         android:label="PaymentFragment">
 
         <action
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.toybeth.docto.ui.features.maps.MapsFragment"
+        android:name="com.toybethsystems.dokto.ui.features.maps.MapsFragment"
         android:label="MapsFragment" />
 
 </navigation>

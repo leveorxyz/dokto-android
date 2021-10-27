@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/flutterwavePaymentFragment"
-        android:name="com.toybeth.dokto.flutterwavepayment.ui.FlutterwavePaymentFragment"
+        android:name="com.toybethsystems.dokto.flutterwavepayment.ui.FlutterwavePaymentFragment"
         android:label="FlutterwavePaymentFragment" />
 
 </navigation>

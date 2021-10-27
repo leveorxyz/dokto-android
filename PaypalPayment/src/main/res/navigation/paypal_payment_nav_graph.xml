@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/paypalPaymentFragment"
-        android:name="com.toybeth.dokto.paypalpayment.ui.PaypalPaymentFragment"
+        android:name="com.toybethsystems.dokto.paypalpayment.ui.PaypalPaymentFragment"
         android:label="PaypalPaymentFragment" />
 
 </navigation>

@@ -52,4 +52,7 @@ dependencies {
 
     // Startup
     api("androidx.startup:startup-runtime:1.1.0")
+
+    // Splash Screen
+    api("androidx.core:core-splashscreen:1.0.0-alpha02")
 }

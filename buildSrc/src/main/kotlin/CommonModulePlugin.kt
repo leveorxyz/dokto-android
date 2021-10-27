@@ -22,8 +22,8 @@ class CommonModulePlugin : Plugin<Project> {
         val androidExtensions = project.extensions.getByName("android")
         if (androidExtensions is BaseExtension) {
             androidExtensions.apply {
-                compileSdkVersion(30)
-                buildToolsVersion = "30.0.3"
+                compileSdkVersion(31)
+//                buildToolsVersion = "30.0.3"
 
                 compileOptions {
                     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -46,7 +46,7 @@ class CommonModulePlugin : Plugin<Project> {
 
                 defaultConfig {
                     minSdk = 21
-                    targetSdk = 30
+                    targetSdk = 31
                     versionCode = 1
                     versionName = "1.0"
                     multiDexEnabled = true

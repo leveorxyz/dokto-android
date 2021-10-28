@@ -7,4 +7,5 @@ interface BaseFragmentCommunicator {
 
     fun startActivity(clz: Class<*>?, bundle: Bundle?)
     fun setupActionBar(toolbar: Toolbar, enableBackButton: Boolean)
+    fun showOrHideActionBar(show: Boolean)
 }

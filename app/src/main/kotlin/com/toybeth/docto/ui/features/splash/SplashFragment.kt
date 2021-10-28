@@ -1,6 +1,9 @@
 package com.toybeth.docto.ui.features.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -9,20 +12,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseActivity
+import com.toybeth.docto.base.ui.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class SplashActivity : ComponentActivity() {
+@AndroidEntryPoint
+class SplashFragment : BaseFragment<SplashViewModel>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
-        super.onCreate(savedInstanceState)
-        setContent {
-            splashView()
+    override val viewModel: SplashViewModel by viewModels()
+
+    override val composeView: ComposeView
+        get() = ComposeView(requireContext()).apply {
+            setContent { splashView() }
         }
-    }
+
+    override val showAppBar: Boolean
+        get() = false
 
     @Composable
     @Preview

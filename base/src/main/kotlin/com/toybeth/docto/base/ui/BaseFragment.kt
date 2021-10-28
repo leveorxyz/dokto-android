@@ -22,6 +22,8 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     open val composeView: ComposeView? = null
 
+    open val showAppBar: Boolean = true
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BaseFragmentCommunicator) {
@@ -45,6 +47,11 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
         } else {
             bindingInflater?.invoke(inflater, container, false)?.root
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        communicator.showOrHideActionBar(showAppBar)
     }
 
     fun startActivity(clz: Class<*>?, bundle: Bundle?) {

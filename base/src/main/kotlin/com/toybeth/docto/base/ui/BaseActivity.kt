@@ -45,4 +45,12 @@ abstract class BaseActivity<ViewModel : BaseViewModel>
             supportActionBar?.setHomeButtonEnabled(true)
         }
     }
+
+    override fun showOrHideActionBar(show: Boolean) {
+        if(show) {
+            supportActionBar?.show()
+        } else {
+            supportActionBar?.hide()
+        }
+    }
 }

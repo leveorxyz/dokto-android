@@ -13,16 +13,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DoktoSplashScreenTheme"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name="com.toybeth.docto.ui.features.main.MainActivity"
-            android:exported="true">
+        <activity android:name="com.toybeth.docto.ui.features.main.MainActivity"/>
+
+        <activity android:name=".ui.features.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/DoktoSplashScreenTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
     </application>

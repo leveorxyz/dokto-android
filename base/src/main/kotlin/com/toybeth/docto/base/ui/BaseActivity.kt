@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 abstract class BaseActivity<ViewModel : BaseViewModel>
     : AppCompatActivity(),
@@ -17,7 +16,6 @@ abstract class BaseActivity<ViewModel : BaseViewModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
         setContentView(getLayoutId())
         lifecycle.addObserver(viewModel)
     }

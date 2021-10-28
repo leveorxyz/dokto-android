@@ -22,7 +22,7 @@ class CommonModulePlugin : Plugin<Project> {
         val androidExtensions = project.extensions.getByName("android")
         if (androidExtensions is BaseExtension) {
             androidExtensions.apply {
-                compileSdkVersion(31)
+                compileSdkVersion(30)
 //                buildToolsVersion = "30.0.3"
 
                 compileOptions {

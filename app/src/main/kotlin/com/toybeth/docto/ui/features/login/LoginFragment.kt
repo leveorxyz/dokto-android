@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalAnimationApi
+@AndroidEntryPoint
 class LoginFragment : BaseViewBindingFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override val viewModel: LoginViewModel by viewModels()
@@ -30,5 +34,7 @@ class LoginFragment : BaseViewBindingFragment<LoginViewModel, FragmentLoginBindi
                 LoginScreen()
             }
         }
+
+        viewModel.initialize()
     }
 }

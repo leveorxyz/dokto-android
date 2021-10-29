@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Docto</string>
     <string name="pref_name">docto_pref</string>
+
+    // ... Login Screen
+    <string name="dokto_logo_description">Dokto Logo</string>
 </resources>

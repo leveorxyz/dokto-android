@@ -26,7 +26,7 @@ import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @Preview
 @Composable
-fun loginForm() {
+fun LoginForm() {
 
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }

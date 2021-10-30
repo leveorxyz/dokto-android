@@ -60,7 +60,7 @@ fun LoginScreen(
                 AnimatedVisibility(
                     visible = loginState.value == true
                 ) {
-                    loginForm()
+                    LoginForm()
                 }
             }
             Row(

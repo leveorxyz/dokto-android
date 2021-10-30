@@ -11,6 +11,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.toybeth.docto.R
@@ -60,7 +61,7 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    modifier = Modifier.aspectRatio(.3f),
+                    modifier = Modifier.width(200.dp),
                     painter = painterResource(id = R.drawable.ic_dokto),
                     contentDescription = null,
                 )

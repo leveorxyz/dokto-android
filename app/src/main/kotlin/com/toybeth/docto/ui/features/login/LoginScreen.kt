@@ -1,9 +1,13 @@
 package com.toybeth.docto.ui.features.login
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
@@ -26,6 +30,14 @@ fun LoginScreen(
     val screenWidth = configuration.screenWidthDp.dp
     val loginFormState = loginViewModel.initializeLoginForm.observeAsState()
     val loginScreenState = loginViewModel.initializeLoginScreen.observeAsState()
+    val value by animateFloatAsState(
+        targetValue = 2.2f,
+        animationSpec = tween(
+            durationMillis = 100,
+            delayMillis = 1000,
+            easing = LinearOutSlowInEasing
+        )
+    )
 
     Box(
         modifier = Modifier
@@ -42,7 +54,7 @@ fun LoginScreen(
             enter = slideInHorizontally() + fadeIn(),
             exit = slideOutHorizontally(
                 targetOffsetX = { -screenWidth.value.toInt() }
-            ) + fadeOut(.3f)
+            ) + fadeOut(targetAlpha = .3f)
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -58,32 +70,26 @@ fun LoginScreen(
                     Image(
                         painter = painterResource(id = R.drawable.dokto_logo),
                         contentDescription = stringResource(R.string.dokto_logo_description),
-                        modifier = Modifier.width(190.dp)
+                        modifier = Modifier.width(200.dp)
                     )
                 }
-                Row(
-                    modifier = Modifier
-                        .weight(2.2f)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                AnimatedVisibility(
+                    modifier = Modifier.weight(value),
+                    visible = loginFormState.value == true,
+                    enter = fadeIn(initialAlpha = .3f) +
+                            slideInHorizontally()
                 ) {
-                    AnimatedVisibility(
-                        visible = loginFormState.value == true,
-                        enter = fadeIn(initialAlpha = .3f) +
-                                slideInHorizontally()
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Spacer(modifier = Modifier.width(24.dp))
-                            LoginForm(
-                                viewModel = loginViewModel,
-                                modifier = Modifier.weight(1f)
-                            )
-                            Spacer(modifier = Modifier.width(24.dp))
-                        }
+                        Spacer(modifier = Modifier.width(24.dp))
+                        LoginForm(
+                            viewModel = loginViewModel,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Spacer(modifier = Modifier.width(24.dp))
                     }
                 }
             }

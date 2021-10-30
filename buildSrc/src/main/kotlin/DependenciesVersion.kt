@@ -1,4 +1,4 @@
-const val JETPACK_COMPOSE_VERSION = "1.0.3"
+const val JETPACK_COMPOSE_VERSION = "1.1.0-beta01"
 const val HILT_VERSION = "2.38.1"
 const val NAVIGATION_COMPONENT_VERSION = "2.3.5"
 const val RETROFIT_VERSION = "2.9.0"

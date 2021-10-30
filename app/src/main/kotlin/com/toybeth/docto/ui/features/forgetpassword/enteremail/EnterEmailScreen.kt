@@ -59,7 +59,7 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                 initialOffsetX = {
                     screenWidth.value.toInt()
                 }
-            ) + fadeIn(.3f)
+            ) + fadeIn(initialAlpha = .3f)
         ) {
             Column(
                 modifier = Modifier.fillMaxSize()

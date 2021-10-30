@@ -12,15 +12,18 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor() : BaseViewModel() {
 
-    private val _initializeLogin = MutableLiveData<Boolean>()
+    private val mutableInitializeLogin = MutableLiveData<Boolean>()
     val initializeLogin: LiveData<Boolean>
-        get() = _initializeLogin
+        get() = mutableInitializeLogin
 
+    init {
+        initialize()
+    }
 
-    fun initialize() {
+    private fun initialize() {
         viewModelScope.launch {
             delay(500)
-            _initializeLogin.postValue(true)
+            mutableInitializeLogin.postValue(true)
         }
     }
 

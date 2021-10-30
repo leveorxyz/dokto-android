@@ -1,40 +1,28 @@
 package com.toybeth.docto.ui.features.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.toybeth.docto.base.ui.BaseViewBindingFragment
-import com.toybeth.docto.databinding.FragmentLoginBinding
+import com.toybeth.docto.base.ui.BaseFragment
+import com.toybeth.docto.base.utils.extensions.setContentView
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalAnimationApi
 @AndroidEntryPoint
-class LoginFragment : BaseViewBindingFragment<LoginViewModel, FragmentLoginBinding>() {
+class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override val viewModel: LoginViewModel by viewModels()
 
-    override val inflater: (
-        inflater: LayoutInflater,
-        parent: ViewGroup?,
-        attachToParent: Boolean
-    ) -> FragmentLoginBinding
-        get() = FragmentLoginBinding::inflate
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.loginScreen.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                LoginScreen()
+    override val composeView: ComposeView
+        get() = ComposeView(requireContext()).apply {
+            setContentView {
+                LoginScreen(viewModel)
             }
         }
 
-        viewModel.initialize()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

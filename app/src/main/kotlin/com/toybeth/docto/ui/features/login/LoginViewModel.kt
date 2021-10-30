@@ -48,7 +48,7 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     fun navigateToForgetPassword() {
         viewModelScope.launchIOWithExceptionHandler({
             exitFromLoginScreen()
-            delay(200)
+            delay(50)
             navigateToForgetPasswordFlow.postValue(true)
         }, {
             it.printStackTrace()

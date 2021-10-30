@@ -24,20 +24,20 @@ import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @Composable
 fun LoginForm(
-    viewModel: LoginViewModel
+    viewModel: LoginViewModel,
+    modifier: Modifier = Modifier.fillMaxSize()
 ) {
 
     var username by remember { viewModel.userNameOrPhone }
     var password by remember { viewModel.password }
 
     Column(
-        modifier = Modifier.aspectRatio(1.0f),
-        verticalArrangement = Arrangement.Center
+        modifier = modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.Top
     ) {
         DoktoTextField(
             value = username,
-            label = "Username",
-            placeholder = "Phone number or email",
+            label = "Phone number or email",
             icon = Icons.Outlined.Person,
             onValueChange = { username = it },
         )

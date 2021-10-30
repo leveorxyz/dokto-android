@@ -17,10 +17,11 @@ import androidx.compose.ui.unit.dp
 fun DoktoTextField(
     value: String,
     label: String,
-    placeholder: String,
     icon: ImageVector,
+    modifier: Modifier = Modifier,
+    placeholder: String = "",
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    maxLines: Int = 1
 ) {
     OutlinedTextField(
         modifier = Modifier
@@ -46,6 +47,7 @@ fun DoktoTextField(
                 tint = Color.White
             )
         },
+        singleLine = maxLines == 1,
         placeholder = {
             Text(
                 text = placeholder,

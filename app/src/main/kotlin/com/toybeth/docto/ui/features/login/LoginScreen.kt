@@ -50,7 +50,7 @@ fun LoginScreen(
             ) {
                 Row(
                     modifier = Modifier
-                        .height(Dp.Infinity)
+                        .weight(1.2f)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
@@ -63,9 +63,8 @@ fun LoginScreen(
                 }
                 Row(
                     modifier = Modifier
-                        .height(Dp.Infinity)
+                        .weight(2.2f)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     AnimatedVisibility(
@@ -73,17 +72,19 @@ fun LoginScreen(
                         enter = fadeIn(initialAlpha = .3f) +
                                 slideInHorizontally()
                     ) {
-                        LoginForm(loginViewModel)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Spacer(modifier = Modifier.width(24.dp))
+                            LoginForm(
+                                viewModel = loginViewModel,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Spacer(modifier = Modifier.width(24.dp))
+                        }
                     }
-                }
-                Row(
-                    modifier = Modifier
-                        .height(Dp.Infinity)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
                 }
             }
         }

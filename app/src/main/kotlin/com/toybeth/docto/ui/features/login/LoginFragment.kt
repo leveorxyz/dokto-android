@@ -5,6 +5,7 @@ import android.view.View
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,5 +25,16 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.navigateToForgetPasswordFlow.observeOn(viewLifecycleOwner) {
+            navigateToForgetPasswordFlow()
+        }
+        viewModel.enterToLoginScreen()
+    }
+
+    private fun navigateToForgetPasswordFlow() {
+        viewModel.exitFromLoginScreen()
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToForgetPasswordEnterEmailFragment()
+        )
     }
 }

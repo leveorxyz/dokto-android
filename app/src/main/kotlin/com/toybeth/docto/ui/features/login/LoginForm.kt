@@ -9,11 +9,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,12 +22,13 @@ import com.toybeth.docto.ui.features.login.components.DoktoTextField
 import com.toybeth.docto.ui.theme.DoktoAccent
 import com.toybeth.docto.ui.theme.DoktoSecondary
 
-@Preview
 @Composable
-fun LoginForm() {
+fun LoginForm(
+    viewModel: LoginViewModel
+) {
 
-    var username by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    var username by remember { viewModel.userNameOrPhone }
+    var password by remember { viewModel.password }
 
     Column(
         modifier = Modifier.aspectRatio(1.0f),
@@ -61,7 +60,9 @@ fun LoginForm() {
             Text(
                 text = "forgot the password?",
                 color = DoktoSecondary,
-                modifier = Modifier.clickable { }
+                modifier = Modifier.clickable {
+                    viewModel.navigateToForgetPassword()
+                }
             )
 
             Text(
@@ -74,7 +75,7 @@ fun LoginForm() {
         Spacer(modifier = Modifier.height(56.dp))
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { viewModel.submit() },
             shape = RoundedCornerShape(24.dp),
             modifier = Modifier
                 .height(56.dp)

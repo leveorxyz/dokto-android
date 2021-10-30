@@ -1,0 +1,125 @@
+package com.toybeth.docto.ui.features.forgetpassword.enteremail
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.ExperimentalUnitApi
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
+import androidx.compose.ui.unit.dp
+import com.toybeth.docto.R
+import com.toybeth.docto.ui.features.login.components.DoktoTextField
+import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.ui.theme.TextColorWhite
+
+@ExperimentalUnitApi
+@Preview
+@Composable
+fun EnterEmailScreen() {
+
+    var email by rememberSaveable { mutableStateOf("") }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.img_splash_background),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Spacer(modifier = Modifier.fillMaxHeight(.1f))
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+            ) {
+                Spacer(modifier = Modifier.width(24.dp))
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_lock),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .width(200.dp)
+                            .weight(1f)
+                    )
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.forget_password),
+                            color = DoktoSecondary,
+                            fontWeight = FontWeight.W700,
+                            fontSize = TextUnit(24f, TextUnitType.Sp)
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Text(
+                            text = stringResource(id = R.string.forget_password_enter_email_message),
+                            textAlign = TextAlign.Center,
+                            fontSize = TextUnit(12f, TextUnitType.Sp),
+                            color = TextColorWhite,
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        DoktoTextField(
+                            modifier = Modifier.weight(1f),
+                            value = email,
+                            label = stringResource(id = R.string.enter_your_mail),
+                            onValueChange = { email = it },
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Button(
+                            onClick = { /*TODO*/ },
+                            shape = RoundedCornerShape(24.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = DoktoSecondary
+                            ),
+                            contentPadding = PaddingValues(30.dp, 15.dp)
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.reset_password),
+                                color = Color.White
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.width(24.dp))
+            }
+            Spacer(modifier = Modifier.fillMaxHeight(.1f))
+        }
+    }
+}

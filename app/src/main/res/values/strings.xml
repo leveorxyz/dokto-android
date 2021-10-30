@@ -4,4 +4,8 @@
 
     // ... Login Screen
     <string name="dokto_logo_description">Dokto Logo</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="forget_password_enter_email_message">Enter your email address for recevory\nyour account.</string>
+    <string name="enter_your_mail">Enter your mail</string>
+    <string name="reset_password">Reset password</string>
 </resources>

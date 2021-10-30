@@ -10,13 +10,26 @@
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
+
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
         android:label="PaymentFragment" />
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.toybeth.docto.ui.features.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordEnterEmailFragment"
+            app:destination="@id/forgetPasswordEnterEmailFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgetPasswordEnterEmailFragment"
+        android:name="com.toybeth.docto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
+        android:label="ForgetPasswordEnterEmailFragment"/>
 
 </navigation>

@@ -57,3 +57,43 @@ fun DoktoTextField(
         )
     )
 }
+
+@Composable
+fun DoktoTextField(
+    value: String,
+    label: String,
+    modifier: Modifier = Modifier,
+    placeholder: String = "",
+    onValueChange: (String) -> Unit,
+    maxLines: Int = 1
+) {
+    OutlinedTextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(modifier),
+        value = value,
+        onValueChange = { onValueChange(it) },
+        label = {
+            Text(
+                text = label,
+                color = Color.White
+            )
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.White,
+            focusedBorderColor = Color.White
+        ),
+        shape = RoundedCornerShape(24.dp),
+        placeholder = {
+            Text(
+                text = placeholder,
+                color = Color.White
+            )
+        },
+        singleLine = maxLines == 1,
+        textStyle = TextStyle(
+            color = Color.White
+        ),
+        maxLines = maxLines,
+    )
+}

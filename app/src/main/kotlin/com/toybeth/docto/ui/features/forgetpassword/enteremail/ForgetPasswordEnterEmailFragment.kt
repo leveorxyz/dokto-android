@@ -27,6 +27,11 @@ class ForgetPasswordEnterEmailFragment : BaseFragment<ForgetPasswordEnterEmailVi
             }
         }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.enterToScreen()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,7 +40,6 @@ class ForgetPasswordEnterEmailFragment : BaseFragment<ForgetPasswordEnterEmailVi
                 navigateToEnterOtpScreen()
             }
         }
-        viewModel.enterToScreen()
     }
 
     private fun navigateToEnterOtpScreen() {

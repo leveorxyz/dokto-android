@@ -2,8 +2,6 @@ package com.toybeth.docto.ui.features.forgetpassword.enteremail
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,18 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.features.login.components.DoktoTextField
+import com.toybeth.docto.base.ui.uiutils.AnimState
+import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
+import com.toybeth.docto.base.ui.uiutils.getExitAnimation
 import com.toybeth.docto.ui.theme.DoktoSecondary
 import com.toybeth.docto.ui.theme.TextColorWhite
 
@@ -40,11 +39,7 @@ import com.toybeth.docto.ui.theme.TextColorWhite
 @Composable
 fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
 
-    val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp.dp
-    val screenWidth = configuration.screenWidthDp.dp
-    val screenState = viewModel.screenVisible.observeAsState()
-
+    val screenAnimState = viewModel.screenAnimState.observeAsState()
     var email by rememberSaveable { mutableStateOf("") }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -54,12 +49,9 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
             contentScale = ContentScale.FillBounds
         )
         AnimatedVisibility(
-            visible = screenState.value == true,
-            enter = slideInHorizontally(
-                initialOffsetX = {
-                    screenWidth.value.toInt()
-                }
-            ) + fadeIn(.3f)
+            visible = screenAnimState.value == AnimState.ENTER || screenAnimState.value == AnimState.POPENTER,
+            enter = getEnterAnimation(animState = screenAnimState.value),
+            exit = getExitAnimation(animState = screenAnimState.value)
         ) {
             Column(
                 modifier = Modifier.fillMaxSize()

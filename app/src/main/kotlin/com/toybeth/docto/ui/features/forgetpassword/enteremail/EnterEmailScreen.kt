@@ -128,7 +128,9 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {
+                                    viewModel.sendOtp("")
+                                },
                                 shape = RoundedCornerShape(24.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     backgroundColor = DoktoSecondary

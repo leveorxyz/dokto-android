@@ -25,6 +25,7 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     val userNameOrPhone = mutableStateOf("")
     val password = mutableStateOf("")
     val navigateToForgetPasswordFlow = SingleLiveEvent<Boolean>()
+    val navigateToRegistrationFlow = SingleLiveEvent<Boolean>()
 
     val initializeLoginForm: LiveData<Boolean>
         get() = mutableInitializeLoginForm
@@ -47,9 +48,17 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
 
     fun navigateToForgetPassword() {
         viewModelScope.launchIOWithExceptionHandler({
+            navigateToForgetPasswordFlow.postValue(true)
+        }, {
+            it.printStackTrace()
+        })
+    }
+
+    fun navigateToRegistration() {
+        viewModelScope.launchIOWithExceptionHandler({
             exitFromLoginScreen()
             delay(50)
-            navigateToForgetPasswordFlow.postValue(true)
+            navigateToRegistrationFlow.postValue(true)
         }, {
             it.printStackTrace()
         })

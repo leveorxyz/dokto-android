@@ -9,6 +9,10 @@ enum class AnimState {
     ENTER, EXIT, POPENTER, POPEXIT
 }
 
+fun AnimState.isVisible(): Boolean {
+    return this == AnimState.ENTER || this == AnimState.POPENTER
+}
+
 @ExperimentalAnimationApi
 @Composable
 fun getEnterAnimation(animState: AnimState?): EnterTransition {
@@ -39,7 +43,7 @@ private fun getEnterAnimation(): EnterTransition {
         initialOffsetX = {
             screenWidth.value.toInt()
         }
-    ) + fadeIn(.3f)
+    ) + fadeIn(initialAlpha = .3f)
 }
 
 @ExperimentalAnimationApi
@@ -52,7 +56,7 @@ private fun getPopEnterAnimation(): EnterTransition {
         initialOffsetX = {
             -screenWidth.value.toInt()
         }
-    ) + fadeIn(.3f)
+    ) + fadeIn(initialAlpha = .3f)
 }
 
 @ExperimentalAnimationApi
@@ -65,7 +69,7 @@ private fun getExitAnimation(): ExitTransition {
         targetOffsetX = {
             -screenWidth.value.toInt()
         }
-    ) + fadeOut(.3f)
+    ) + fadeOut(targetAlpha = .3f)
 }
 
 @ExperimentalAnimationApi
@@ -78,5 +82,5 @@ private fun getPopExitAnimation(): ExitTransition {
         targetOffsetX = {
             screenWidth.value.toInt()
         }
-    ) + fadeOut(.3f)
+    ) + fadeOut(targetAlpha = .3f)
 }

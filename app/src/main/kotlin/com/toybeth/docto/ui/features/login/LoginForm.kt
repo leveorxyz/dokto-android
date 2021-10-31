@@ -68,7 +68,9 @@ fun LoginForm(
             Text(
                 text = "register here",
                 color = DoktoAccent,
-                modifier = Modifier.clickable { }
+                modifier = Modifier.clickable {
+                    viewModel.navigateToRegistration()
+                }
             )
         }
 

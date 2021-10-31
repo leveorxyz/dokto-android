@@ -8,4 +8,8 @@
     <string name="forget_password_enter_email_message">Enter your email address for recevory\nyour account.</string>
     <string name="enter_your_mail">Enter your mail</string>
     <string name="reset_password">Reset password</string>
+    <string name="register">Register</string>
+    <string name="as_doctor_or_patient">as a Doctor or Patient</string>
+    <string name="doctor">Doctor</string>
+    <string name="patient">Patient</string>
 </resources>

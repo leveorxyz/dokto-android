@@ -25,8 +25,12 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.navigateToForgetPasswordFlow.observeOn(viewLifecycleOwner) {
             navigateToForgetPasswordFlow()
+        }
+        viewModel.navigateToRegistrationFlow.observeOn(viewLifecycleOwner) {
+            navigateToRegistrationFlow()
         }
         viewModel.enterToLoginScreen()
     }
@@ -35,6 +39,13 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         viewModel.exitFromLoginScreen()
         findNavController().navigate(
             LoginFragmentDirections.actionLoginFragmentToForgetPasswordEnterEmailFragment()
+        )
+    }
+
+    private fun navigateToRegistrationFlow() {
+        viewModel.exitFromLoginScreen()
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToSelectRegistrationUserTypeFragment()
         )
     }
 }

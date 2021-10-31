@@ -6,9 +6,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
-import com.toybeth.docto.ui.features.forgetpassword.ForgetPasswordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalAnimationApi
@@ -21,13 +21,28 @@ class ForgetPasswordEnterEmailFragment : BaseFragment<ForgetPasswordEnterEmailVi
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
             setContentView {
-                EnterEmailScreen(viewModel)
+                EnterEmailScreen(viewModel = viewModel)
             }
         }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.enterToScreen()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.enterToScreen()
+        viewModel.navigateToOtp.observeOn(viewLifecycleOwner) {
+            if (it) {
+                navigateToEnterOtpScreen()
+            }
+        }
+    }
+
+    private fun navigateToEnterOtpScreen() {
+        findNavController().navigate(
+            ForgetPasswordEnterEmailFragmentDirections.actionForgetPasswordEnterEmailFragmentToForgetPasswordEnterOtpFragment()
+        )
     }
 }

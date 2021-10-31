@@ -1,25 +1,16 @@
 package com.toybeth.docto.ui.features.forgetpassword.enteremail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
-import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
+import com.toybeth.docto.base.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgetPasswordEnterEmailViewModel @Inject constructor(): BaseViewModel() {
+class ForgetPasswordEnterEmailViewModel @Inject constructor() : BaseViewModel() {
 
-    private val screenVisibleMutableLiveData = MutableLiveData(false)
-    val screenVisible: LiveData<Boolean>
-        get() = screenVisibleMutableLiveData
+    val navigateToOtp = SingleLiveEvent<Boolean>()
 
-    fun enterToScreen() {
-        viewModelScope.launchIOWithExceptionHandler({
-            screenVisibleMutableLiveData.postValue(true)
-        }, {
-            it.printStackTrace()
-        })
+    fun sendOtp(email: String) {
+        navigateToOtp.postValue(true)
     }
 }

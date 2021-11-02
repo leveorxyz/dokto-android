@@ -1,7 +1,9 @@
 package com.toybeth.dokto.twilio.ui.common
 
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
+import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.dokto.twilio.data.TwilioCallRepository
 import com.twilio.video.LocalVideoTrack
 import com.twilio.video.RemoteVideoTrack
@@ -50,7 +52,11 @@ class TwilioCallViewModel @Inject constructor(
     }
 
     fun connectToRoom(roomName: String) {
-        repository.connectToRoom(roomName)
+        viewModelScope.launchIOWithExceptionHandler({
+            repository.connectToRoom(roomName)
+        }, {
+            it.printStackTrace()
+        })
     }
 
     fun pause() {

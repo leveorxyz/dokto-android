@@ -67,7 +67,7 @@ class CommonModulePlugin : Plugin<Project> {
                             buildConfigField(
                                 "String",
                                 "BASE_URL",
-                                "\"https://raw.githubusercontent.com/ToybethSystems/Dokto-Android/master/\""
+                                "\"http://159.203.72.156/\""
                             )
                             consumerProguardFiles("consumer-rules.pro")
                         }

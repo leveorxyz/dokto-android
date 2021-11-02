@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import com.toybeth.docto.base.data.preference.AppPreference
 import com.toybeth.dokto.twilio.BuildConfig
+import com.toybeth.dokto.twilio.data.rest.TwilioRestApiDataSource
+import com.toybeth.dokto.twilio.data.rest.model.request.TwilioVideoCallRequest
 import com.toybeth.dokto.twilio.utils.CameraCapturerCompat
 import com.twilio.audioswitch.AudioDevice
 import com.twilio.audioswitch.AudioSwitch
@@ -20,7 +22,8 @@ import javax.inject.Inject
 
 class TwilioCallRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val preference: AppPreference
+    private val preference: AppPreference,
+    private val apiService: TwilioRestApiDataSource
 ) {
     val participantDisconnectedLiveData = MutableLiveData<Boolean>()
     val subscribedVideoTrackLiveData = MutableLiveData<RemoteVideoTrack?>()
@@ -366,7 +369,7 @@ class TwilioCallRepository @Inject constructor(
         }
     }
 
-    fun connectToRoom(roomName: String, enableVideo: Boolean = true, enableAudio: Boolean = true) {
+    suspend fun connectToRoom(roomName: String, enableVideo: Boolean = true, enableAudio: Boolean = true) {
         audioSwitch = AudioSwitch(
             context,
             preferredDeviceList = listOf(
@@ -379,9 +382,9 @@ class TwilioCallRepository @Inject constructor(
         audioSwitch.start { _, _ -> }
         audioSwitch.selectDevice(audioSwitch.availableAudioDevices[0])
         audioSwitch.activate()
-
-        room = Video.connect(context, BuildConfig.TWILIO_ACCESS_TOKEN, roomListener) {
-            roomName(roomName)
+        val accessToken = getTwilioVideoCallAccessToken()
+        room = Video.connect(context, accessToken, roomListener) {
+            roomName("3fa85f64")
             if(enableAudio) {
                 /*
              * Add local audio track to connect options to share with participants.
@@ -500,6 +503,23 @@ class TwilioCallRepository @Inject constructor(
             localParticipant?.setEncodingParameters(encodingParameters)
         }
 
+    }
+
+    private suspend fun getTwilioVideoCallAccessToken(): String {
+        val requestBody1 = TwilioVideoCallRequest(
+            "a309fd116b99463eb52402988d5a35d7",
+            "3fa85f64"
+        )
+        val requestBody2 = TwilioVideoCallRequest(
+            "b869452dfaf94bf5abfc21ae9dc6956f",
+            "3fa85f64"
+        )
+        val response = apiService.getTwilioVideoCallAccessToken(requestBody2)
+        return if(response.isSuccessful && response.body() != null) {
+            response.body()!!.result.token
+        } else {
+            ""
+        }
     }
 
     private fun addRemoteParticipant(remoteParticipant: RemoteParticipant) {

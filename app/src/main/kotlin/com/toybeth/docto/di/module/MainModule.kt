@@ -3,6 +3,7 @@ package com.toybeth.docto.di.module
 import android.content.Context
 import com.toybeth.docto.base.data.network.NetworkFactory
 import com.toybeth.docto.data.ApiService
+import com.toybeth.dokto.twilio.data.rest.TwilioRestApiDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,10 +17,19 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideMessageNetworkService(@ApplicationContext context: Context): ApiService {
+    fun provideNetworkService(@ApplicationContext context: Context): ApiService {
         return NetworkFactory.createService(
             context,
             ApiService::class.java
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideTwilioNetworkService(@ApplicationContext context: Context): TwilioRestApiDataSource {
+        return NetworkFactory.createServiceForCoroutine(
+            context,
+            TwilioRestApiDataSource::class.java
         )
     }
 }

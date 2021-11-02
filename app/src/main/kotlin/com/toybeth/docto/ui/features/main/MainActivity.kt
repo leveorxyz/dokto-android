@@ -1,14 +1,17 @@
 package com.toybeth.docto.ui.features.main
 
+import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseActivity
+import com.toybeth.docto.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<MainViewModel>() {
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override val viewModel: MainViewModel by viewModels()
 
-    override fun getLayoutId(): Int = R.layout.activity_main
+    override val bindingInflater: (inflater: LayoutInflater) -> ActivityMainBinding
+        get() = ActivityMainBinding::inflate
 }

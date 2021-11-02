@@ -22,91 +22,91 @@ import com.toybeth.dokto.twilio.ui.common.TwilioCallViewModel
 import com.toybeth.dokto.twilio.ui.common.components.Fab
 import com.toybeth.dokto.twilio.ui.common.components.TwilioVideo
 
-@Composable
-fun PreparationScreen(
-    onJoinRoomClick: () -> Unit,
-    preparationViewModel: TwilioCallViewModel = viewModel()
-) {
-
-    val localVideoTrack = preparationViewModel.localVideoTrackLiveData.observeAsState()
-    val videoEnabled = preparationViewModel.videoEnabled.observeAsState()
-    val audioEnabled = preparationViewModel.audioEnabled.observeAsState()
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        TwilioVideo(modifier = Modifier.fillMaxSize()) { videoView ->
-            localVideoTrack.value?.let { track ->
-                if (track.isEnabled) {
-                    track.addSink(videoView)
-                }
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.Black
-                        )
-                    )
-                )
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(256.dp)
-        )
-
-        Row(
-            modifier = Modifier
-                .wrapContentWidth()
-                .align(Alignment.BottomCenter)
-                .padding(24.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (videoEnabled.value == true) {
-                Fab(
-                    backgroundColor = Color.White,
-                    icon = Icons.Filled.Videocam,
-                    iconTint = Color.DarkGray,
-                    onClick = { preparationViewModel.toggleLocalVideoStream() }
-                )
-            } else {
-                Fab(
-                    backgroundColor = Color.LightGray,
-                    icon = Icons.Filled.VideocamOff,
-                    iconTint = Color.White,
-                    onClick = { preparationViewModel.toggleLocalVideoStream() }
-                )
-            }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            ExtendedFloatingActionButton(
-                text = {
-                    Text(text = "Join Room")
-                },
-                onClick = { onJoinRoomClick() },
-                modifier = Modifier.height(64.dp)
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            if (audioEnabled.value == true) {
-                Fab(
-                    backgroundColor = Color.White,
-                    icon = Icons.Filled.Mic,
-                    iconTint = Color.DarkGray,
-                    onClick = { preparationViewModel.toggleLocalAudioStream() }
-                )
-            } else {
-                Fab(
-                    backgroundColor = Color.LightGray,
-                    icon = Icons.Filled.MicOff,
-                    iconTint = Color.White,
-                    onClick = { preparationViewModel.toggleLocalAudioStream() }
-                )
-            }
-        }
-    }
-}
+//@Composable
+//fun PreparationScreen(
+//    onJoinRoomClick: () -> Unit,
+//    preparationViewModel: TwilioCallViewModel = viewModel()
+//) {
+//
+//    val localVideoTrack = preparationViewModel.localVideoTrackLiveData.observeAsState()
+//    val videoEnabled = preparationViewModel.videoEnabled.observeAsState()
+//    val audioEnabled = preparationViewModel.audioEnabled.observeAsState()
+//
+//    Box(modifier = Modifier.fillMaxSize()) {
+//        TwilioVideo(modifier = Modifier.fillMaxSize()) { videoView ->
+//            localVideoTrack.value?.let { track ->
+//                if (track.isEnabled) {
+//                    track.addSink(videoView)
+//                }
+//            }
+//        }
+//
+//        Box(
+//            modifier = Modifier
+//                .background(
+//                    brush = Brush.verticalGradient(
+//                        colors = listOf(
+//                            Color.Transparent,
+//                            Color.Black
+//                        )
+//                    )
+//                )
+//                .align(Alignment.BottomCenter)
+//                .fillMaxWidth()
+//                .height(256.dp)
+//        )
+//
+//        Row(
+//            modifier = Modifier
+//                .wrapContentWidth()
+//                .align(Alignment.BottomCenter)
+//                .padding(24.dp),
+//            horizontalArrangement = Arrangement.Center,
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            if (videoEnabled.value == true) {
+//                Fab(
+//                    backgroundColor = Color.White,
+//                    icon = Icons.Filled.Videocam,
+//                    iconTint = Color.DarkGray,
+//                    onClick = { preparationViewModel.toggleLocalVideoStream() }
+//                )
+//            } else {
+//                Fab(
+//                    backgroundColor = Color.LightGray,
+//                    icon = Icons.Filled.VideocamOff,
+//                    iconTint = Color.White,
+//                    onClick = { preparationViewModel.toggleLocalVideoStream() }
+//                )
+//            }
+//
+//            Spacer(modifier = Modifier.width(16.dp))
+//
+//            ExtendedFloatingActionButton(
+//                text = {
+//                    Text(text = "Join Room")
+//                },
+//                onClick = { onJoinRoomClick() },
+//                modifier = Modifier.height(64.dp)
+//            )
+//
+//            Spacer(modifier = Modifier.width(16.dp))
+//
+//            if (audioEnabled.value == true) {
+//                Fab(
+//                    backgroundColor = Color.White,
+//                    icon = Icons.Filled.Mic,
+//                    iconTint = Color.DarkGray,
+//                    onClick = { preparationViewModel.toggleLocalAudioStream() }
+//                )
+//            } else {
+//                Fab(
+//                    backgroundColor = Color.LightGray,
+//                    icon = Icons.Filled.MicOff,
+//                    iconTint = Color.White,
+//                    onClick = { preparationViewModel.toggleLocalAudioStream() }
+//                )
+//            }
+//        }
+//    }
+//}

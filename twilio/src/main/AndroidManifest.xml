@@ -21,12 +21,8 @@
         <activity
             android:name=".ui.call.TwilioCallActivity"
             android:supportsPictureInPicture="true"
-            android:taskAffinity=".ui.call.TwilioCallActivity"
             android:resizeableActivity="true"
-            android:autoRemoveFromRecents="true"
-            android:excludeFromRecents="true"
             android:allowTaskReparenting="true"
-            android:noHistory="true"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask" />
         <service

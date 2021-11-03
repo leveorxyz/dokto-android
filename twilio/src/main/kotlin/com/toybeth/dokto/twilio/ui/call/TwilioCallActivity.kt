@@ -210,9 +210,11 @@ class TwilioCallActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         if(!canEnterPictureInPictureMode) {
+            super.onBackPressed()
             viewModel.processInput(RoomViewEvent.Disconnect)
+        } else {
+            enterPipMode()
         }
     }
 

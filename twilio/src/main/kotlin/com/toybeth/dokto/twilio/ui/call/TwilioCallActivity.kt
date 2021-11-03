@@ -18,10 +18,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -40,6 +36,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.uniflow.android.livedata.onEvents
 import io.uniflow.android.livedata.onStates
 import javax.inject.Inject
+import android.app.PictureInPictureParams
+import android.content.res.Configuration
+import android.graphics.Point
+import android.util.Rational
+import android.view.*
+
 
 @AndroidEntryPoint
 class TwilioCallActivity : AppCompatActivity() {
@@ -53,6 +55,7 @@ class TwilioCallActivity : AppCompatActivity() {
     private lateinit var primaryParticipantController: PrimaryParticipantController
     private lateinit var participantAdapter: ParticipantAdapter
     private lateinit var recordingAnimation: ObjectAnimator
+    private var canEnterPictureInPictureMode = false
 
     @Inject
     lateinit var sharedPreferences: TwilioSharedPreference
@@ -99,6 +102,19 @@ class TwilioCallActivity : AppCompatActivity() {
         setupRecordingAnimation()
     }
 
+    override fun onPictureInPictureModeChanged(
+        isInPictureInPictureMode: Boolean,
+        newConfig: Configuration?
+    ) {
+        if(isInPictureInPictureMode) {
+            binding.controlButtons.visibility = View.GONE
+            binding.room.remoteVideoThumbnails.visibility = View.GONE
+        } else {
+            binding.controlButtons.visibility = View.VISIBLE
+            binding.room.remoteVideoThumbnails.visibility = View.VISIBLE
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         recordingAnimation.cancel()
@@ -118,11 +134,10 @@ class TwilioCallActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        if(canEnterPictureInPictureMode) {
+            enterPipMode()
+        }
         viewModel.processInput(RoomViewEvent.OnPause)
-    }
-
-    public override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
     }
 
     override fun onRequestPermissionsResult(
@@ -176,7 +191,7 @@ class TwilioCallActivity : AppCompatActivity() {
         }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MEDIA_PROJECTION_REQUEST_CODE) {
             if (resultCode != RESULT_OK) {
@@ -196,7 +211,31 @@ class TwilioCallActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        viewModel.processInput(RoomViewEvent.Disconnect)
+        if(!canEnterPictureInPictureMode) {
+            viewModel.processInput(RoomViewEvent.Disconnect)
+        }
+    }
+
+    private fun enterPipMode() {
+        val d: Display = windowManager
+            .defaultDisplay
+        val p = Point()
+        d.getSize(p)
+        val width: Int = p.x
+        val height: Int = p.y
+
+        val ratio = Rational(width, height)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val pipBuilder = PictureInPictureParams.Builder()
+                pipBuilder
+                    .setAspectRatio(ratio)
+                    .build()
+                enterPictureInPictureMode(pipBuilder.build())
+            } else {
+                enterPictureInPictureMode()
+            }
+        }
     }
 
     private fun setupRecordingAnimation() {
@@ -291,8 +330,10 @@ class TwilioCallActivity : AppCompatActivity() {
         var toolbarTitle = displayName
         var joinStatus = ""
         var recordingWarningVisibility = View.GONE
+        canEnterPictureInPictureMode = false
         when (roomViewState.configuration) {
             RoomViewConfiguration.Connecting -> {
+                canEnterPictureInPictureMode = true
                 disconnectButtonState = View.VISIBLE
                 joinRoomLayoutState = View.GONE
                 joinStatusLayoutState = View.VISIBLE
@@ -303,8 +344,10 @@ class TwilioCallActivity : AppCompatActivity() {
                     roomName = roomEditable.toString()
                 }
                 joinStatus = "Joining..."
+                binding.shareScreen.visibility = View.GONE
             }
             RoomViewConfiguration.Connected -> {
+                canEnterPictureInPictureMode = true
                 disconnectButtonState = View.VISIBLE
                 joinRoomLayoutState = View.GONE
                 joinStatusLayoutState = View.GONE
@@ -316,11 +359,14 @@ class TwilioCallActivity : AppCompatActivity() {
                 joinStatus = ""
                 binding.recordingIndicator.visibility =
                     if (roomViewState.isRecording) View.VISIBLE else View.GONE
+                binding.shareScreen.visibility = View.VISIBLE
             }
             RoomViewConfiguration.Lobby -> {
+                canEnterPictureInPictureMode = false
                 connectButtonEnabled = isRoomTextNotEmpty
                 screenCaptureMenuItemState = false
                 binding.recordingIndicator.visibility = View.GONE
+                binding.shareScreen.visibility = View.GONE
             }
         }
         val isMicEnabled = roomViewState.isMicEnabled
@@ -394,7 +440,6 @@ class TwilioCallActivity : AppCompatActivity() {
                     statsListAdapter.updateStatsData(roomViewState.roomStats)
                     binding.statsRecyclerView.visibility = View.VISIBLE
                     binding.statsDisabled.visibility = View.GONE
-                    binding.shareScreen.visibility = View.VISIBLE
 
                     // disable stats if there is room but no participants (no media)
                     val isStreamingMedia = roomViewState.participantThumbnails?.let { thumbnails ->
@@ -414,7 +459,6 @@ class TwilioCallActivity : AppCompatActivity() {
                         getString(R.string.stats_description_join_room)
                     binding.statsRecyclerView.visibility = View.GONE
                     binding.statsDisabled.visibility = View.VISIBLE
-                    binding.shareScreen.visibility = View.GONE
                 }
             }
         } else {

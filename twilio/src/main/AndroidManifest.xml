@@ -4,6 +4,7 @@
 
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
@@ -16,6 +17,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application>
-        <activity android:name=".ui.call.TwilioCallActivity" />
+        <activity android:name=".ui.call.TwilioCallActivity"
+            android:launchMode="singleTask"/>
+        <service
+            android:foregroundServiceType="mediaProjection"
+            android:name=".data.service.VideoService"/>
     </application>
 </manifest>

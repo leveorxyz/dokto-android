@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/video_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:keepScreenOn="true" >
+    android:keepScreenOn="true">
 
     <com.toybeth.dokto.twilio.ui.call.ParticipantPrimaryView
         android:id="@+id/primary_video"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:identity="@string/you"
-        app:tviScaleType="balanced"/>
+        app:tviScaleType="balanced"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/remote_video_thumbnails"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/remote_video_thumbnails"
-        android:scrollbars="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="8dp">
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

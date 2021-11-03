@@ -44,12 +44,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TwilioCallActivity : AppCompatActivity() {
 
-    private lateinit var switchCameraMenuItem: MenuItem
-    private lateinit var pauseVideoMenuItem: MenuItem
-    private lateinit var pauseAudioMenuItem: MenuItem
-    private lateinit var screenCaptureMenuItem: MenuItem
-    private lateinit var settingsMenuItem: MenuItem
-    private lateinit var deviceMenuItem: MenuItem
     private var savedVolumeControlStream = 0
     private var displayName: String? = null
     private var localParticipantSid = LOCAL_PARTICIPANT_STUB_SID
@@ -78,7 +72,9 @@ class TwilioCallActivity : AppCompatActivity() {
         binding.disconnect.setOnClickListener { disconnectButtonClick() }
         binding.localVideo.setOnClickListener { toggleLocalVideo() }
         binding.localAudio.setOnClickListener { toggleLocalAudio() }
-
+        binding.startShareScreen.setOnClickListener { requestScreenCapturePermission() }
+        binding.stopShareScreen.setOnClickListener { viewModel.processInput(RoomViewEvent.StopScreenCapture) }
+        
         // So calls can be answered when screen is locked
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
@@ -87,14 +83,18 @@ class TwilioCallActivity : AppCompatActivity() {
         // Grab views
         setupThumbnailRecyclerView()
 
-        // Setup toolbar
-        setSupportActionBar(binding.toolbar)
-
         // Cache volume control stream
         savedVolumeControlStream = volumeControlStream
 
         // Setup participant controller
         primaryParticipantController = PrimaryParticipantController(binding.room.primaryVideo)
+
+        onStates(viewModel) { state ->
+            if (state is RoomViewState) bindRoomViewState(state)
+        }
+        onEvents(viewModel) { event ->
+            if (event is RoomViewEffect) bindRoomViewEffects(event)
+        }
 
         setupRecordingAnimation()
     }
@@ -111,7 +111,7 @@ class TwilioCallActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        displayName = "shafayat3"
+        displayName = "shafayat1"
         setTitle(displayName)
         viewModel.processInput(RoomViewEvent.OnResume)
     }
@@ -138,26 +138,6 @@ class TwilioCallActivity : AppCompatActivity() {
                 viewModel.processInput(RoomViewEvent.OnResume)
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.room_menu, menu)
-        settingsMenuItem = menu.findItem(R.id.settings_menu_item)
-        // Grab menu items for updating later
-        switchCameraMenuItem = menu.findItem(R.id.switch_camera_menu_item)
-        pauseVideoMenuItem = menu.findItem(R.id.pause_video_menu_item)
-        pauseAudioMenuItem = menu.findItem(R.id.pause_audio_menu_item)
-        screenCaptureMenuItem = menu.findItem(R.id.share_screen_menu_item)
-        deviceMenuItem = menu.findItem(R.id.device_menu_item)
-
-        onStates(viewModel) { state ->
-            if (state is RoomViewState) bindRoomViewState(state)
-        }
-        onEvents(viewModel) { event ->
-            if (event is RoomViewEffect) bindRoomViewEffects(event)
-        }
-        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -365,27 +345,14 @@ class TwilioCallActivity : AppCompatActivity() {
         binding.joinStatus.text = joinStatus
         binding.joinRoomName.text = roomName
         binding.recordingNotice.visibility = recordingWarningVisibility
-        val pauseAudioTitle =
-            getString(if (roomViewState.isAudioEnabled) R.string.pause_audio else R.string.resume_audio)
-        val pauseVideoTitle =
-            getString(if (roomViewState.isVideoEnabled) R.string.pause_video else R.string.resume_video)
-        pauseAudioMenuItem.title = pauseAudioTitle
-        pauseVideoMenuItem.title = pauseVideoTitle
 
         // TODO: Remove when we use a Service to obtainTokenAndConnect to a room
-        settingsMenuItem.isVisible = settingsMenuItemState
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            screenCaptureMenuItem.isVisible = screenCaptureMenuItemState
-            val screenCaptureResources = if (roomViewState.isScreenCaptureOn) {
-                R.drawable.ic_stop_screen_share_white_24dp to getString(R.string.stop_screen_share)
-            } else {
-                R.drawable.ic_screen_share_white_24dp to getString(R.string.share_screen)
-            }
-            screenCaptureMenuItem.icon = ContextCompat.getDrawable(
-                this,
-                screenCaptureResources.first
-            )
-            screenCaptureMenuItem.title = screenCaptureResources.second
+        val screenCaptureResources = if (roomViewState.isScreenCaptureOn) {
+            binding.startShareScreen.visibility = View.GONE
+            binding.stopShareScreen.visibility = View.VISIBLE
+        } else {
+            binding.startShareScreen.visibility = View.VISIBLE
+            binding.stopShareScreen.visibility = View.GONE
         }
     }
 
@@ -427,6 +394,7 @@ class TwilioCallActivity : AppCompatActivity() {
                     statsListAdapter.updateStatsData(roomViewState.roomStats)
                     binding.statsRecyclerView.visibility = View.VISIBLE
                     binding.statsDisabled.visibility = View.GONE
+                    binding.shareScreen.visibility = View.VISIBLE
 
                     // disable stats if there is room but no participants (no media)
                     val isStreamingMedia = roomViewState.participantThumbnails?.let { thumbnails ->
@@ -446,6 +414,7 @@ class TwilioCallActivity : AppCompatActivity() {
                         getString(R.string.stats_description_join_room)
                     binding.statsRecyclerView.visibility = View.GONE
                     binding.statsDisabled.visibility = View.VISIBLE
+                    binding.shareScreen.visibility = View.GONE
                 }
             }
         } else {
@@ -464,11 +433,9 @@ class TwilioCallActivity : AppCompatActivity() {
     }
 
     private fun bindRoomViewState(roomViewState: RoomViewState) {
-        deviceMenuItem.isVisible = roomViewState.availableAudioDevices?.isNotEmpty() ?: false
         renderPrimaryView(roomViewState.primaryParticipant)
         renderThumbnails(roomViewState)
         updateLayout(roomViewState)
-        updateAudioDeviceIcon(roomViewState.selectedDevice)
         updateStatsUI(roomViewState)
     }
 
@@ -503,15 +470,15 @@ class TwilioCallActivity : AppCompatActivity() {
             }
         )
 
-    private fun updateAudioDeviceIcon(selectedAudioDevice: AudioDevice?) {
-        val audioDeviceMenuIcon = when (selectedAudioDevice) {
-            is AudioDevice.BluetoothHeadset -> R.drawable.ic_bluetooth_white_24dp
-            is AudioDevice.WiredHeadset -> R.drawable.ic_headset_mic_white_24dp
-            is AudioDevice.Speakerphone -> R.drawable.ic_volume_up_white_24dp
-            else -> R.drawable.ic_phonelink_ring_white_24dp
-        }
-        this.deviceMenuItem.setIcon(audioDeviceMenuIcon)
-    }
+//    private fun updateAudioDeviceIcon(selectedAudioDevice: AudioDevice?) {
+//        val audioDeviceMenuIcon = when (selectedAudioDevice) {
+//            is AudioDevice.BluetoothHeadset -> R.drawable.ic_bluetooth_white_24dp
+//            is AudioDevice.WiredHeadset -> R.drawable.ic_headset_mic_white_24dp
+//            is AudioDevice.Speakerphone -> R.drawable.ic_volume_up_white_24dp
+//            else -> R.drawable.ic_phonelink_ring_white_24dp
+//        }
+//        this.deviceMenuItem.setIcon(audioDeviceMenuIcon)
+//    }
 
     private fun renderPrimaryView(primaryParticipant: ParticipantViewState) {
         primaryParticipant.run {

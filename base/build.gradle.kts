@@ -55,4 +55,8 @@ dependencies {
     // Startup
     api("androidx.startup:startup-runtime:1.1.0")
 
+    // ssp, sdp
+    api("com.intuit.sdp:sdp-android:1.0.6")
+    api("com.intuit.ssp:ssp-android:1.0.6")
+
 }

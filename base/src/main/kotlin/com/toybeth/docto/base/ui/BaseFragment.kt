@@ -1,13 +1,16 @@
 package com.toybeth.docto.base.ui
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
@@ -37,6 +40,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         lifecycle.addObserver(viewModel)
+        makePageNormal()
         return if(composeView != null) {
             composeView!!.apply {
                 // Dispose the Composition when viewLifecycleOwner is destroyed
@@ -60,5 +64,27 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     fun setupActionBar(toolbar: Toolbar, enableBackButton: Boolean) {
         communicator.setupActionBar(toolbar, enableBackButton)
+    }
+
+    fun getColor(resId: Int): Int {
+        return ContextCompat.getColor(requireContext(), resId)
+    }
+
+    fun getDrawable(resId: Int): Drawable? {
+        return ContextCompat.getDrawable(requireContext(), resId)
+    }
+
+    fun makePageFullScreen() {
+        activity?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+    }
+
+    fun makePageNormal() {
+        activity?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+        )
     }
 }

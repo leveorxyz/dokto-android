@@ -12,4 +12,6 @@
     <string name="as_doctor_or_patient">as a Doctor or Patient</string>
     <string name="doctor">Doctor</string>
     <string name="patient">Patient</string>
+    <string name="onboarding_title_1">Lorem Ipsulm</string>
+    <string name="onboarding_text_1">Lorem Ipsulm Lorem Ipsulm\nLorem Ipsulm  Lorem Ipsulm  Lorem Ipsulm  </string>
 </resources>

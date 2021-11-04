@@ -38,7 +38,7 @@ import com.toybeth.docto.ui.theme.UserTypeButtonUnselectedColor
 @ExperimentalUnitApi
 @Composable
 fun SelectRegistrationUserTypeScreen(
-    viewModel: SelectRegistrationUserTypeViewModel
+    viewModel: SelectRegistrationUserTypeViewModel,
 ) {
     val screenAnimState = viewModel.screenAnimState.observeAsState()
     val isDoctorSelected = remember { mutableStateOf(false) }
@@ -131,7 +131,7 @@ fun SelectRegistrationUserTypeScreen(
                     ) {
                         Button(
                             onClick = {
-
+                                viewModel.navigateToNextPage(isDoctorSelected.value)
                             },
                             shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.buttonColors(

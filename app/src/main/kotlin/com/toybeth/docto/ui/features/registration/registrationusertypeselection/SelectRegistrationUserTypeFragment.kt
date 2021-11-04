@@ -1,9 +1,12 @@
 package com.toybeth.docto.ui.features.registration.registrationusertypeselection
 
+import android.os.Bundle
+import android.view.View
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,4 +24,18 @@ class SelectRegistrationUserTypeFragment : BaseFragment<SelectRegistrationUserTy
                 SelectRegistrationUserTypeScreen(viewModel)
             }
         }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.navigateToDoctorRegistration.observeOn(viewLifecycleOwner) {
+            navigateToDoctorRegistrationOnBoarding()
+        }
+    }
+
+    private fun navigateToDoctorRegistrationOnBoarding() {
+        findNavController().navigate(
+            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToRegistrationOnBoardingFragment()
+        )
+    }
 }

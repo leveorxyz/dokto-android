@@ -67,13 +67,24 @@
 
         <action
             android:id="@+id/action_selectRegistrationUserTypeFragment_to_registrationOnBoardingFragment"
-            app:destination="@id/registrationOnBoardingFragment"/>
+            app:destination="@id/registrationFormStepsFragment"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/registrationOnBoardingFragment"
         android:name="com.toybeth.docto.ui.features.registration.onboarding.RegistrationOnBoardingFragment"
-        android:label="RegistrationOnBoardingFragment"/>
+        android:label="RegistrationOnBoardingFragment">
+
+        <action
+            android:id="@+id/action_registrationOnBoardingFragment_to_registrationFormStepsFragment"
+            app:destination="@id/registrationFormStepsFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.registrationform.RegistrationFormStepsFragment"
+        android:label="RegistrationFormStepsFragment"/>
 
 </navigation>

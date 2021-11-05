@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_110sdp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_registration_user_type"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/top_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top_view"
+        app:srcCompat="@drawable/img_user_type_provider" />
+
+    <com.toybeth.dokto.stepper.StepperLayout
+        android:id="@+id/registration_stepper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_view"
+        app:ms_activeStepColor="@color/colorAccent"
+        app:ms_backButtonColor="#FFFFFF"
+        app:ms_completeButtonColor="#FFFFFF"
+        app:ms_inactiveStepColor="#44000000"
+        app:ms_nextButtonColor="#FFFFFF"
+        app:ms_showBottomNavigation="true"
+        app:ms_stepperType="tabs"
+        app:ms_tabStepDividerWidth="138dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

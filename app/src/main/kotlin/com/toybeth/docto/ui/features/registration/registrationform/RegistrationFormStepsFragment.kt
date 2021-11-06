@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentRegistrationFormBinding
 
@@ -18,6 +19,7 @@ class RegistrationFormStepsFragment : BaseViewBindingFragment<RegistrationViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(this))
+        val pageTitles = resources.getStringArray(R.array.doctor_registration_form_page_titles).toList()
+        binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(pageTitles, this))
     }
 }

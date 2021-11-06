@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="doctor_registration_form_page_titles">
+        <item>Personal Details</item>
+        <item>Identification Verification</item>
+        <item>Education Profile</item>
+        <item>Profession Profile</item>
+        <item>Practice Location</item>
+    </string-array>
+</resources>

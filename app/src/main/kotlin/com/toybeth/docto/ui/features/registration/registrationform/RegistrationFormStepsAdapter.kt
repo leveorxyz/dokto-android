@@ -5,7 +5,7 @@ import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.adapter.AbstractFragmentStepAdapter
 import com.toybeth.dokto.stepper.viewmodel.StepViewModel
 
-class RegistrationFormStepsAdapter(fragment: Fragment) : AbstractFragmentStepAdapter(
+class RegistrationFormStepsAdapter(private val titles: List<String>, fragment: Fragment) : AbstractFragmentStepAdapter(
     fragment.childFragmentManager,
     fragment.lifecycle,
     fragment.requireContext()
@@ -13,7 +13,7 @@ class RegistrationFormStepsAdapter(fragment: Fragment) : AbstractFragmentStepAda
 
     override fun getViewModel(position: Int): StepViewModel {
         val builder = StepViewModel.Builder(context)
-            .setTitle("Tab title $position")
+            .setTitle(titles[position])
         if (position == 1) {
             builder.setSubtitle("Optional")
         }
@@ -26,6 +26,6 @@ class RegistrationFormStepsAdapter(fragment: Fragment) : AbstractFragmentStepAda
     }
 
     override fun getCount(): Int {
-        return 5
+        return titles.size
     }
 }

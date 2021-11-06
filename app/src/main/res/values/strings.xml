@@ -14,4 +14,7 @@
     <string name="patient">Patient</string>
     <string name="onboarding_title_1">Lorem Ipsulm</string>
     <string name="onboarding_text_1">Lorem Ipsulm Lorem Ipsulm\nLorem Ipsulm  Lorem Ipsulm  Lorem Ipsulm  </string>
+    <string name="hint_userid">Choose your User ID</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_mobile_number">Mobile Number</string>
 </resources>

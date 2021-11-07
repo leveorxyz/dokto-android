@@ -32,7 +32,9 @@ fun DoktoPasswordField(
             .fillMaxWidth()
             .then(modifier),
         value = value,
-        onValueChange = { onValueChange(it) },
+        onValueChange = {
+            onValueChange(it)
+        },
         label = {
             Text(
                 text = label,

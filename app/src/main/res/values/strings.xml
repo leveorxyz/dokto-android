@@ -51,4 +51,16 @@
     <string name="hint_city">City</string>
     <string name="hint_country_code">+00</string>
     <string name="skip">Skip</string>
+    <string name="hint_languages">Languages</string>
+    <string name="label_college">College</string>
+    <string name="hint_college">College</string>
+    <string name="label_course_studied">Course Studied</string>
+    <string name="hint_course_studied">Course Studied</string>
+    <string name="label_year_graduated">Year Graduated</string>
+    <string name="hint_year_graduated">YYYY/MM/DD</string>
+    <string name="label_upload_certification">Upload Certificate</string>
+    <string name="select_course_studied">Select Course Studied</string>
+    <string name="label_specialities">Specialities</string>
+    <string name="hint_specialities">Specialities</string>
+    <string name="label_education">Education Profile</string>
 </resources>

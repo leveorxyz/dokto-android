@@ -10,6 +10,7 @@ import com.toybeth.docto.base.utils.SingleLiveEvent
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.Country
+import com.toybeth.docto.data.Education
 import com.toybeth.docto.data.State
 import com.toybeth.docto.data.registration.RegistrationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,6 +40,9 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val cityList = MutableLiveData<List<City>>()
     val selectedStateName = mutableStateOf("")
     val selectedCityName = mutableStateOf("")
+
+    val selectedLanguages = mutableStateListOf<String>()
+    val educations = mutableStateListOf(Education())
 
     init {
         loadCountryStateAndCities()
@@ -73,6 +77,10 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
         }
     }
 
+    fun addEducation() {
+        educations.add(Education())
+    }
+
     fun verifyFirstStep(): Boolean {
         return !(
             userId.value.isEmpty() ||
@@ -85,7 +93,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
             password.value != confirmPassword.value ||
             gender.value.isEmpty() ||
             dateOfBirth.value.isEmpty()
-        )
+        ) || true
     }
 
     fun moveNext() {

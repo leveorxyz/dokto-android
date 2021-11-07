@@ -40,7 +40,7 @@ dependencies {
     api("androidx.compose.material:material-icons-extended:$JETPACK_COMPOSE_VERSION")
     api("androidx.compose.runtime:runtime-livedata:$JETPACK_COMPOSE_VERSION")
     api("androidx.compose.runtime:runtime-rxjava2:$JETPACK_COMPOSE_VERSION")
-    api("androidx.activity:activity-compose:$JETPACK_COMPOSE_VERSION")
+    api("androidx.activity:activity-compose:1.4.0")
 
     // Retrofit
     api("com.squareup.retrofit2:retrofit:$RETROFIT_VERSION")

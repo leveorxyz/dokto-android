@@ -61,7 +61,6 @@ fun DoctorRegistrationSecondScreen(
     var identityImageUri by remember {
         mutableStateOf<Uri?>(null)
     }
-    val identityImagePath = remember { mutableStateOf(identityImageUri?.path ?: "") }
     val identityImageLauncher = rememberLauncherForActivityResult(
         contract =
         ActivityResultContracts.GetContent()

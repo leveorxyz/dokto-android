@@ -14,21 +14,25 @@ import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@ExperimentalUnitApi
+@AndroidEntryPoint
+@ExperimentalMaterialApi
 class RegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(), Step {
 
     private var datePicker: MaterialDatePicker<Long>? = null
 
-    override val viewModel: RegistrationViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    override val viewModel: RegistrationViewModel by viewModels(
+        ownerProducer = { requireParentFragment() },
+    )
 
-    @ExperimentalMaterialApi
-    @ExperimentalUnitApi
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
             setContentView {
-                RegistrationFirstStepFormScreen(
-                    this@RegistrationFirstStepFragment::showDatePicker
+                DoctorRegistrationSecondScreen(
+                    viewModel
                 )
             }
         }

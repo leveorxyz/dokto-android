@@ -7,4 +7,9 @@
         <item>Profession Profile</item>
         <item>Practice Location</item>
     </string-array>
+    <string-array name="identification">
+        <item>Passport</item>
+        <item>Driving Licence</item>
+        <item>National ID</item>
+    </string-array>
 </resources>

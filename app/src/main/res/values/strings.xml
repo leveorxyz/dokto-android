@@ -35,4 +35,9 @@
     <string name="label_gender">Gender</string>
     <string name="label_date_of_birth">Date of Birth</string>
     <string name="next">Next</string>
+    <string name="label_country">Country</string>
+    <string name="label_identification">Identity Verification</string>
+    <string name="hint_identification">Identity Verification</string>
+    <string name="label_upload_identity">Upload Identity Number</string>
+    <string name="hint_upload_identity"></string>
 </resources>

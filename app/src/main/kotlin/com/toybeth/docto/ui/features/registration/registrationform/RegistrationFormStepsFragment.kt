@@ -4,12 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentRegistrationFormBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class RegistrationFormStepsFragment : BaseViewBindingFragment<RegistrationViewModel, FragmentRegistrationFormBinding>() {
+@ExperimentalMaterialApi
+@ExperimentalUnitApi
+@AndroidEntryPoint
+class RegistrationFormStepsFragment :
+    BaseViewBindingFragment<RegistrationViewModel, FragmentRegistrationFormBinding>() {
 
     override val viewModel: RegistrationViewModel by viewModels()
 
@@ -18,8 +25,8 @@ class RegistrationFormStepsFragment : BaseViewBindingFragment<RegistrationViewMo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val pageTitles = resources.getStringArray(R.array.doctor_registration_form_page_titles).toList()
+        val pageTitles =
+            resources.getStringArray(R.array.doctor_registration_form_page_titles).toList()
         binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(pageTitles, this))
     }
 }

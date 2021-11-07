@@ -14,7 +14,7 @@ import javax.inject.Inject
 class RegistrationRepository @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    fun getCountryStateCityList(): List<Country> {
+    suspend fun getCountryStateCityList(): List<Country> {
         try {
             InputStreamReader(
                 context.resources.openRawResource(R.raw.country_state_city)

@@ -4,8 +4,10 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent
+import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.Country
 import com.toybeth.docto.data.State
@@ -91,7 +93,11 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     private fun loadCountryStateAndCities() {
-        val countries = repository.getCountryStateCityList()
-        countryList.postValue(countries)
+        viewModelScope.launchIOWithExceptionHandler({
+            val countries = repository.getCountryStateCityList()
+            countryList.postValue(countries)
+        }, {
+            it.printStackTrace()
+        })
     }
 }

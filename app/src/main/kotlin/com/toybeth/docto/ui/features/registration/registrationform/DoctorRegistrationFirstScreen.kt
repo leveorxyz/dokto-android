@@ -32,7 +32,6 @@ import com.toybeth.docto.ui.theme.DoktoAccent
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldPlaceholder
 import com.toybeth.docto.ui.theme.DoktoSecondary
-import com.toybeth.docto.utils.CountrieCodes
 
 @ExperimentalMaterialApi
 @ExperimentalUnitApi

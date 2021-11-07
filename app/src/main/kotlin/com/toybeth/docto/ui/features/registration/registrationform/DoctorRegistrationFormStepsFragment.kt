@@ -25,6 +25,7 @@ class DoctorRegistrationFormStepsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        makePageNormal()
         val pageTitles =
             resources.getStringArray(R.array.doctor_registration_form_page_titles).toList()
         binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(pageTitles, this))

@@ -67,7 +67,7 @@
 
         <action
             android:id="@+id/action_selectRegistrationUserTypeFragment_to_registrationOnBoardingFragment"
-            app:destination="@id/doctorRegistrationFormStepsFragment"/>
+            app:destination="@id/registrationOnBoardingFragment"/>
 
     </fragment>
 

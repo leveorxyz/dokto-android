@@ -12,7 +12,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.delay
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
@@ -40,7 +42,6 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         lifecycle.addObserver(viewModel)
-        makePageNormal()
         return if(composeView != null) {
             composeView!!.apply {
                 // Dispose the Composition when viewLifecycleOwner is destroyed
@@ -55,6 +56,10 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launchWhenResumed {
+            delay(100)
+            makePageNormal()
+        }
         communicator.showOrHideActionBar(showAppBar)
     }
 
@@ -82,9 +87,6 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
     }
 
     fun makePageNormal() {
-        activity?.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-        )
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 }

@@ -1,25 +1,33 @@
 package com.toybeth.docto.data
 
+import com.google.gson.annotations.SerializedName
+
 data class City(
+	@SerializedName("id")
+	val id: Int,
+	@SerializedName("name")
 	val name: String,
-	val id: String,
-	val stateId: String
 )
 
 data class State(
+	@SerializedName("id")
+	val id: Int,
+	@SerializedName("name")
+	val name: String,
+	@SerializedName("cities")
 	val cities: List<City>
 )
 
 data class Country(
-	val continent: String,
-	val capital: String,
-	val emojiU: String,
-	val languages: List<String>,
-	val emoji: String,
-	val jsonMemberNative: String,
-	val phone: String,
+	@SerializedName("id")
+	val id: Int,
+	@SerializedName("name")
 	val name: String,
-	val currency: String,
+	@SerializedName("phone_code")
+	val phone: String,
+	@SerializedName("region")
+	val region: String,
+	@SerializedName("states")
 	val states: List<State>
 )
 

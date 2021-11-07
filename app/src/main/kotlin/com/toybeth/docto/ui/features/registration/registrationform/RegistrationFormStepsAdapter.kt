@@ -26,7 +26,10 @@ class RegistrationFormStepsAdapter(private val titles: List<String>, fragment: F
     }
 
     override fun createStep(position: Int): Step {
-        return RegistrationFirstStepFragment()
+        return when(position) {
+            0 -> DoctorRegistrationFirstStepFragment()
+            else -> DoctorRegistrationSecondStepFragment()
+        }
     }
 
     override fun getCount(): Int {

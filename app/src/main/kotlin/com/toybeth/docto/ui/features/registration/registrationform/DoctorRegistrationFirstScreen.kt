@@ -7,14 +7,11 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -41,19 +38,14 @@ import com.toybeth.docto.utils.CountrieCodes
 @ExperimentalUnitApi
 @Composable
 fun DoctorRegistrationFirstScreen(
-    datePicker: ((day: Int, month: Int, year: Int) -> Unit) -> Unit
+    viewModel: RegistrationViewModel,
+    datePicker: () -> Unit,
+    showCountrySelectionDialog: () -> Unit
 ) {
 
     val scrollState = rememberScrollState()
-    val userId = remember { mutableStateOf("") }
-    val name = remember { mutableStateOf("") }
-    val mobileNumber = remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
-    val confirmPassword = remember { mutableStateOf("") }
-    var selectedCountryCode by remember { mutableStateOf(CountrieCodes.list.first().countryCode.toString()) }
+
     var expanded by remember { mutableStateOf(false) }
-    val options = CountrieCodes.list
     var imageUri by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -61,7 +53,6 @@ fun DoctorRegistrationFirstScreen(
     val bitmap = remember {
         mutableStateOf<Bitmap?>(null)
     }
-    val dateOfBirth = remember { mutableStateOf("") }
 
     val launcher = rememberLauncherForActivityResult(
         contract =
@@ -137,12 +128,12 @@ fun DoctorRegistrationFirstScreen(
             }
         }
         RegistrationFormTextField(
-            userId,
+            viewModel.userId,
             R.string.label_userid,
             R.string.hint_userid
         )
         RegistrationFormTextField(
-            name,
+            viewModel.name,
             R.string.label_name,
             R.string.hint_name
         )
@@ -155,80 +146,59 @@ fun DoctorRegistrationFirstScreen(
                 color = Color.White
             )
         }
-        Box(
-            modifier = Modifier.fillMaxWidth(),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
-            ExposedDropdownMenuBox(
-                modifier = Modifier.width(400.dp),
-                expanded = expanded,
-                onExpandedChange = {
-                    expanded = !expanded
-                }
-            ) {
-                TextField(
-                    modifier = Modifier.width(120.dp),
-                    readOnly = true,
-                    value = "+${selectedCountryCode}",
-                    onValueChange = { },
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
-                        )
-                    },
-                    colors = TextFieldDefaults.textFieldColors(
-                        textColor = Color.White,
-                        backgroundColor = DoktoRegistrationFormTextFieldBackground,
-                        cursorColor = DoktoAccent
-                    )
-                )
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = {
-                        expanded = false
-                    }
-                ) {
-                    options.forEach { selectionOption ->
-                        DropdownMenuItem(
-                            onClick = {
-                                selectedCountryCode = selectionOption.countryCode.toString()
-                                expanded = false
-                            }
-                        ) {
-                            Text(text = "${selectionOption.name}(${selectionOption.countryCode})")
-                        }
-                    }
-                }
-            }
-            Row(
+            TextField(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 150.dp)
-            ) {
-                TextField(
-                    value = mobileNumber.value,
-                    onValueChange = {
-                        mobileNumber.value = it
+                    .width(120.dp)
+                    .clickable {
+                        showCountrySelectionDialog.invoke()
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text(stringResource(id = R.string.hint_mobile_number)) },
-                    colors = TextFieldDefaults.textFieldColors(
-                        textColor = Color.White,
-                        backgroundColor = DoktoRegistrationFormTextFieldBackground,
-                        cursorColor = DoktoAccent,
-                        placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                        disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
-                    ),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                readOnly = true,
+                enabled = false,
+                placeholder = {
+                    Text(stringResource(id = R.string.hint_country_code))
+                },
+                value = viewModel.getSelectedCountryCode(),
+                onValueChange = { },
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
+                    disabledTextColor = Color.White,
+                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    cursorColor = DoktoAccent,
+                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
+                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
                 )
-            }
+            )
+            TextField(
+                value = viewModel.mobileNumber.value,
+                onValueChange = {
+                    viewModel.mobileNumber.value = it
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 20.dp),
+                placeholder = { Text(stringResource(id = R.string.hint_mobile_number)) },
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
+                    disabledTextColor = Color.White,
+                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    cursorColor = DoktoAccent,
+                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
+                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
+                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
         }
         RegistrationFormTextField(
-            email,
+            viewModel.email,
             R.string.label_email,
             R.string.hint_email
         )
         RegistrationFormTextField(
-            password,
+            viewModel.password,
             R.string.label_password,
             R.string.hint_password,
             keyboardOptions = KeyboardOptions(
@@ -237,7 +207,7 @@ fun DoctorRegistrationFirstScreen(
             visualTransformation = PasswordVisualTransformation()
         )
         RegistrationFormTextField(
-            confirmPassword,
+            viewModel.confirmPassword,
             R.string.label_confirm_password,
             R.string.hint_confirm_password,
             keyboardOptions = KeyboardOptions(
@@ -260,21 +230,23 @@ fun DoctorRegistrationFirstScreen(
                 context.getString(R.string.female),
                 context.getString(R.string.prefer_not_to_say),
             ),
-        )
+        ) {
+            viewModel.gender.value = it
+        }
         RegistrationFormTextField(
-            dateOfBirth,
+            viewModel.dateOfBirth,
             R.string.label_date_of_birth,
             R.string.hint_date_of_birth,
             onClick = {
-                datePicker.invoke { day, month, year ->
-                    dateOfBirth.value = "$day-$month-$year"
-                }
+                datePicker.invoke()
             },
             keyboardOptions = KeyboardOptions.Default
         )
         Spacer(modifier = Modifier.height(50.dp))
         Button(
-            onClick = { },
+            onClick = {
+                  viewModel.moveNext()
+            },
             shape = RoundedCornerShape(24.dp),
             modifier = Modifier
                 .height(56.dp)

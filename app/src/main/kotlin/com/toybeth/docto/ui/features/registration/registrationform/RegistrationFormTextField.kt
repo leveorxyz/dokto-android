@@ -60,6 +60,7 @@ fun RegistrationFormTextField(
             modifier = modifier,
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.White,
+                disabledTextColor = Color.White,
                 backgroundColor = DoktoRegistrationFormTextFieldBackground,
                 cursorColor = DoktoAccent,
                 placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,

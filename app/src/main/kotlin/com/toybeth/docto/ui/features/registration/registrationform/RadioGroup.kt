@@ -27,16 +27,14 @@ import com.toybeth.docto.ui.theme.DoktoAccent
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.ui.theme.DoktoSecondary
 
-@Preview
 @Composable
 fun RadioGroup(
     radioOptions: List<String> = listOf(),
-    textColor: Color = Color.White
-):String{
-    if (radioOptions.isNotEmpty()){
-        val (selectedOption, onOptionSelected) = remember {
-            mutableStateOf(radioOptions[0])
-        }
+    textColor: Color = Color.White,
+    onOptionSelected: (value: String) -> Unit
+) {
+    if (radioOptions.isNotEmpty()) {
+        val selectedOption = remember { mutableStateOf(radioOptions[0]) }
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -47,7 +45,7 @@ fun RadioGroup(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = (item == selectedOption),
+                        selected = (item == selectedOption.value),
                         onClick = { onOptionSelected(item) },
                         colors = RadioButtonDefaults.colors(
                             selectedColor = DoktoSecondary,
@@ -61,20 +59,18 @@ fun RadioGroup(
                                 color = textColor,
                                 fontFamily = FontFamily(Font(R.font.poppins_regular))
                             )
-                        ){ append("  $item  ") }
+                        ) { append("  $item  ") }
                     }
 
                     ClickableText(
                         text = annotatedString,
                         onClick = {
+                            selectedOption.value = item
                             onOptionSelected(item)
                         }
                     )
                 }
             }
         }
-        return selectedOption
-    }else{
-        return ""
     }
 }

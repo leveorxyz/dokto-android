@@ -18,15 +18,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.vector.VectorProperty
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
@@ -34,9 +31,6 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.data.City
-import com.toybeth.docto.data.Country
-import com.toybeth.docto.data.State
-import com.toybeth.docto.data.States
 import com.toybeth.docto.ui.theme.DoktoAccent
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldPlaceholder
@@ -46,14 +40,19 @@ import com.toybeth.docto.ui.theme.DoktoSecondary
 @ExperimentalMaterialApi
 @Composable
 fun DoctorRegistrationSecondScreen(
-    viewModel: RegistrationViewModel
+    viewModel: RegistrationViewModel,
+    showStateSelectionDialog: () -> Unit,
+    showCitySelectionDialog: () -> Unit,
 ) {
-    var selectedCountryCode by remember { mutableStateOf<Country?>(null) }
+    val scrollState = rememberScrollState()
     var selectedIdentification by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
-    val zipCode = remember{ mutableStateOf("") }
-    val state: MutableState<State?> = remember{ mutableStateOf(null) }
-    val city: MutableState<City?> = remember{ mutableStateOf(null) }
+    val zipCode = remember { mutableStateOf("") }
+    val address = remember { mutableStateOf("") }
+    val selectedState = viewModel.selectedStateName
+    val selectedCity = viewModel.selectedCityName
+    val city: MutableState<City?> = remember { mutableStateOf(null) }
+
     val context = LocalContext.current
     val identificationOptions = context.resources.getStringArray(R.array.identification)
     val bitmap = remember {
@@ -80,14 +79,19 @@ fun DoctorRegistrationSecondScreen(
             }
         }
     }
-    val stroke = Stroke(width = 2f,
+    val stroke = Stroke(
+        width = 2f,
         pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
     )
 
     return Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 20.dp)
+            .verticalScroll(
+                state = scrollState,
+                enabled = true
+            ),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -192,7 +196,7 @@ fun DoctorRegistrationSecondScreen(
                         .padding(20.dp),
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.Bottom
-                ){
+                ) {
                     IconButton(
                         modifier = Modifier
                             .then(Modifier.size(24.dp))
@@ -204,7 +208,8 @@ fun DoctorRegistrationSecondScreen(
                         Icon(
                             Icons.Filled.Edit,
                             "change image",
-                            tint = Color.White)
+                            tint = Color.White
+                        )
                     }
                 }
             } else {
@@ -230,9 +235,45 @@ fun DoctorRegistrationSecondScreen(
             }
         }
         RegistrationFormTextField(
-            state?.value?.,
-            R.string.label_name,
-            R.string.hint_name
+            textFieldValue = zipCode,
+            labelResourceId = R.string.label_zip_code,
+            hintResourceId = R.string.hint_zip_code,
         )
+        RegistrationFormTextField(
+            textFieldValue = address,
+            labelResourceId = R.string.label_address,
+            hintResourceId = R.string.hint_address,
+        )
+        RegistrationFormTextField(
+            textFieldValue = selectedState,
+            labelResourceId = R.string.label_state,
+            hintResourceId = R.string.hint_state,
+            onClick = {
+                showStateSelectionDialog.invoke()
+            }
+        )
+        RegistrationFormTextField(
+            textFieldValue = selectedCity,
+            labelResourceId = R.string.label_city,
+            hintResourceId = R.string.hint_city,
+            onClick = {
+                showCitySelectionDialog.invoke()
+            }
+        )
+        Spacer(modifier = Modifier.height(50.dp))
+        Button(
+            onClick = { },
+            shape = RoundedCornerShape(24.dp),
+            modifier = Modifier
+                .height(56.dp)
+                .width(200.dp)
+                .align(Alignment.CenterHorizontally),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = DoktoSecondary
+            )
+        ) {
+            Text(text = stringResource(id = R.string.next), color = Color.White)
+        }
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }

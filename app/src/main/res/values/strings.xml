@@ -40,4 +40,14 @@
     <string name="hint_identification">Identity Verification</string>
     <string name="label_upload_identity">Upload Identity Number</string>
     <string name="hint_upload_identity"></string>
+    <string name="hint_state">State</string>
+    <string name="select_state">Select State</string>
+    <string name="label_state">State</string>
+    <string name="label_zip_code">Zip Code</string>
+    <string name="hint_zip_code">Zip Code</string>
+    <string name="label_address">Address</string>
+    <string name="hint_address">Address</string>
+    <string name="label_city">City</string>
+    <string name="hint_city">City</string>
+    <string name="hint_country_code">+00</string>
 </resources>

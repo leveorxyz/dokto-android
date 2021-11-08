@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -15,12 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.ui.theme.DoktoAccent
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldPlaceholder
 
 @Composable
 fun RegistrationFormTextField(
@@ -33,7 +32,7 @@ fun RegistrationFormTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     var modifier = Modifier.fillMaxWidth()
-    if(onClick != null) {
+    if (onClick != null) {
         modifier = modifier.clickable {
             onClick.invoke()
         }
@@ -46,7 +45,7 @@ fun RegistrationFormTextField(
             stringResource(id = labelResourceId),
             color = Color.White
         )
-        TextField(
+        OutlinedTextField(
             value = textFieldValue.value,
             onValueChange = {
                 textFieldValue.value = it
@@ -56,18 +55,19 @@ fun RegistrationFormTextField(
             },
             enabled = onClick == null,
             readOnly = onClick != null,
-            singleLine = true,
+            singleLine = singleLine,
             modifier = modifier,
             colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.White,
-                disabledTextColor = Color.White,
-                backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                textColor = Color.Black,
+                disabledTextColor = Color.Gray,
+                backgroundColor = Color.White,
                 cursorColor = DoktoAccent,
-                placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
+                placeholderColor = Color.Gray,
+                disabledPlaceholderColor = Color.Gray,
             ),
             keyboardOptions = keyboardOptions,
-            visualTransformation = visualTransformation
+            visualTransformation = visualTransformation,
+            shape = RoundedCornerShape(16.dp)
         )
     }
 }

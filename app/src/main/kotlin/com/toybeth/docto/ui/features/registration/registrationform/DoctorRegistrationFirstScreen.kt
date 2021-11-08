@@ -28,13 +28,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.ExperimentalUnitApi
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.theme.DoktoAccent
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldPlaceholder
 import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @ExperimentalMaterialApi
@@ -58,8 +55,7 @@ fun DoctorRegistrationFirstScreen(
     }
 
     val launcher = rememberLauncherForActivityResult(
-        contract =
-        ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         imageUri = uri
         imageUri?.let {
@@ -86,8 +82,8 @@ fun DoctorRegistrationFirstScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(20.dp))
-        Box(
-            contentAlignment = Alignment.Center
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (bitmap.value != null) {
                 Image(
@@ -107,28 +103,28 @@ fun DoctorRegistrationFirstScreen(
                     modifier = Modifier
                         .size(140.dp)
                         .clip(CircleShape)
-                        .border(2.dp, Color.Gray, CircleShape)
+                        .border(2.dp, Color.White, CircleShape)
                 )
             }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+//            Column(
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = {
+                    launcher.launch("image/*")
+                },
+                shape = RoundedCornerShape(24.dp),
+                modifier = Modifier
+                    .height(36.dp)
+                    .width(140.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = DoktoSecondary
+                )
             ) {
-                Spacer(modifier = Modifier.height(150.dp))
-                Button(
-                    onClick = {
-                        launcher.launch("image/*")
-                    },
-                    shape = RoundedCornerShape(24.dp),
-                    modifier = Modifier
-                        .height(36.dp)
-                        .width(140.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = DoktoSecondary
-                    )
-                ) {
-                    Text(text = "Choose", color = Color.White)
-                }
+                Text(text = "Choose", color = Color.White)
             }
+//            }
         }
         Spacer(modifier = Modifier.height(30.dp))
         Text(
@@ -137,10 +133,11 @@ fun DoctorRegistrationFirstScreen(
         )
         Box(
             modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterEnd
+            contentAlignment = Alignment.CenterEnd,
         ) {
-            TextField(
-                value =  viewModel.userId.value,
+
+            OutlinedTextField(
+                value = viewModel.userId.value,
                 onValueChange = {
                     viewModel.userId.value = it
                 },
@@ -150,32 +147,34 @@ fun DoctorRegistrationFirstScreen(
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color.White,
-                    disabledTextColor = Color.White,
-                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    textColor = Color.Black,
+                    disabledTextColor = Color.Gray,
+                    backgroundColor = Color.White,
                     cursorColor = DoktoAccent,
-                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
+                    placeholderColor = Color.Gray,
+                    disabledPlaceholderColor = Color.Gray
                 ),
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
+                shape = RoundedCornerShape(16.dp)
             )
             Button(
                 onClick = {
 
                 },
                 modifier = Modifier
-                    .height(IntrinsicSize.Max)
-                    .width(150.dp)
-                    .padding(end = 10.dp),
+//                    .height(IntrinsicSize.Max)
+                    .width(120.dp)
+                    .padding(end = 8.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = DoktoSecondary
-                )
+                ),
+                shape = RoundedCornerShape(16.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.check_availability),
                     color = Color.White,
                     textAlign = TextAlign.Center,
-                    fontSize = TextUnit(value = 10f, type = TextUnitType.Sp)
+                    fontSize = 10.sp
                 )
             }
         }
@@ -197,7 +196,7 @@ fun DoctorRegistrationFirstScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            TextField(
+            OutlinedTextField(
                 modifier = Modifier
                     .width(120.dp)
                     .clickable {
@@ -211,13 +210,14 @@ fun DoctorRegistrationFirstScreen(
                 value = viewModel.getSelectedCountryCode(),
                 onValueChange = { },
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color.White,
-                    disabledTextColor = Color.White,
-                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    textColor = Color.Black,
+                    disabledTextColor = Color.Gray,
+                    backgroundColor = Color.White,
                     cursorColor = DoktoAccent,
-                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
-                )
+                    placeholderColor = Color.Gray,
+                    disabledPlaceholderColor = Color.Gray
+                ),
+                shape = RoundedCornerShape(16.dp)
             )
             TextField(
                 value = viewModel.mobileNumber.value,
@@ -229,14 +229,18 @@ fun DoctorRegistrationFirstScreen(
                     .padding(start = 20.dp),
                 placeholder = { Text(stringResource(id = R.string.hint_mobile_number)) },
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color.White,
-                    disabledTextColor = Color.White,
-                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    textColor = Color.Black,
+                    disabledTextColor = Color.Gray,
+                    backgroundColor = Color.White,
                     cursorColor = DoktoAccent,
-                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
+                    placeholderColor = Color.Gray,
+                    disabledPlaceholderColor = Color.Gray
                 ),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
+                ),
+                shape = RoundedCornerShape(16.dp)
             )
         }
         RegistrationFormTextField(
@@ -292,7 +296,7 @@ fun DoctorRegistrationFirstScreen(
         Spacer(modifier = Modifier.height(50.dp))
         Button(
             onClick = {
-                  viewModel.moveNext()
+                viewModel.moveNext()
             },
             shape = RoundedCornerShape(24.dp),
             modifier = Modifier

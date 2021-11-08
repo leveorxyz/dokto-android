@@ -127,7 +127,7 @@ class TwilioCallActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        displayName = "shafayat1"
+        displayName = "shafayat2"
         setTitle(displayName)
         viewModel.processInput(RoomViewEvent.OnResume)
     }

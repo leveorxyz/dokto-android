@@ -5,6 +5,7 @@
     android:id="@+id/navigation_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".ui.call.TwilioCallActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -13,6 +14,9 @@
 
         <include
             android:id="@+id/room"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/_70sdp"
             layout="@layout/content_room" />
 
         <com.google.android.material.appbar.AppBarLayout

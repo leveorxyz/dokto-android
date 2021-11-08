@@ -50,7 +50,7 @@ class RegistrationOnBoardingPagerFragment : Fragment() {
                 binding.imgOnboarding.setImageResource(R.drawable.img_onboarding_2)
                 binding.tvTitle.apply {
                     text = getString(R.string.onboarding_title_1)
-                    setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                 }
                 binding.tvDescription.text = getString(R.string.onboarding_text_1)
             }

@@ -27,17 +27,9 @@ class RegistrationOnBoardingFragment: BaseViewBindingFragment<RegistrationOnBoar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         makePageFullScreen()
-        binding.vpOnboarding.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                if(position == 1) {
-                    binding.tvSkip.setTextColor(getColor(R.color.white))
-                } else {
-                    binding.tvSkip.setTextColor(getColor(R.color.colorPrimary))
-                }
-            }
-        })
+
         binding.vpOnboarding.adapter = RegistrationOnBoardingPagerAdapter(this)
         binding.dotsIndicator.setViewPager2(binding.vpOnboarding)
 

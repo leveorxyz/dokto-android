@@ -106,56 +106,27 @@ fun DoctorRegistrationSecondScreen(
         Box(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = {
-                    expanded = !expanded
-                }
-            ) {
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    readOnly = true,
-                    value = selectedIdentification,
-                    onValueChange = { },
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
-                        )
-                    },
-                    placeholder = {
-                        Text(stringResource(id = R.string.hint_identification))
-                    },
-                    colors = TextFieldDefaults.textFieldColors(
-                        textColor = Color.White,
-                        backgroundColor = DoktoRegistrationFormTextFieldBackground,
-                        cursorColor = DoktoAccent,
-                        placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                        disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                readOnly = true,
+                value = selectedIdentification,
+                onValueChange = { },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = expanded
                     )
+                },
+                placeholder = {
+                    Text(stringResource(id = R.string.hint_identification))
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
+                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    cursorColor = DoktoAccent,
+                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
+                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
                 )
-                ExposedDropdownMenu(
-                    modifier = Modifier.fillMaxWidth(),
-                    expanded = expanded,
-                    onDismissRequest = {
-                        expanded = false
-                    }
-                ) {
-                    identificationOptions.forEach { selectionOption ->
-                        DropdownMenuItem(
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = {
-                                selectedIdentification = selectionOption
-                                expanded = false
-                            }
-                        ) {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = selectionOption
-                            )
-                        }
-                    }
-                }
-            }
+            )
         }
         Spacer(modifier = Modifier.height(30.dp))
         Row(

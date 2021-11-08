@@ -73,7 +73,7 @@ class DoctorRegistrationThirdStepFragment : BaseFragment<RegistrationViewModel>(
     private fun showSpecialitySelectionDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.select_course_studied))
-            .setItems(resources.getStringArray(R.array.specialities).toList().toTypedArray()) { _, which ->
+            .setItems(R.array.specialities) { _, which ->
 
             }
             .show()

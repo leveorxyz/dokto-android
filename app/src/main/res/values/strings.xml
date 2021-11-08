@@ -65,4 +65,5 @@
     <string name="label_education">Education Profile</string>
     <string name="check_availability">Check Availability</string>
     <string name="get_started">Get Started</string>
+    <string name="choose_photo">Choose Photo</string>
 </resources>

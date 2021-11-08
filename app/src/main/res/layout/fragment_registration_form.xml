@@ -8,6 +8,7 @@
         android:id="@+id/top_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_110sdp"
+        android:background="#F3FDFF"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView

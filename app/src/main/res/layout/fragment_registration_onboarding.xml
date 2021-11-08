@@ -15,12 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        app:cardElevation="0dp"
-        app:rippleColor="@color/colorAccent"
-        app:cardPreventCornerOverlap="true"
         app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/colorAccent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_skip"
@@ -35,11 +35,24 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_get_started"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:layout_marginBottom="@dimen/_64sdp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/get_started"
+        android:textAllCaps="false"
+        app:cornerRadius="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/dots_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_80sdp"
+        android:layout_marginBottom="@dimen/_32sdp"
         app:dotsColor="@color/onboarding_page_indicator_unselected_dot_color"
         app:dotsCornerRadius="8dp"
         app:dotsSize="@dimen/_8sdp"

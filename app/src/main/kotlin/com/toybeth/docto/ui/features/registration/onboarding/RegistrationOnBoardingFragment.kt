@@ -30,10 +30,27 @@ class RegistrationOnBoardingFragment: BaseViewBindingFragment<RegistrationOnBoar
 
         makePageFullScreen()
 
+        binding.vpOnboarding.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if(position == 2) {
+                    binding.btnGetStarted.visibility = View.VISIBLE
+                } else {
+                    binding.btnGetStarted.visibility = View.GONE
+                }
+            }
+        })
+
         binding.vpOnboarding.adapter = RegistrationOnBoardingPagerAdapter(this)
         binding.dotsIndicator.setViewPager2(binding.vpOnboarding)
 
         binding.btnSkip.setOnClickListener {
+            findNavController().navigate(
+                RegistrationOnBoardingFragmentDirections.actionRegistrationOnBoardingFragmentToRegistrationFormStepsFragment()
+            )
+        }
+
+        binding.btnGetStarted.setOnClickListener {
             findNavController().navigate(
                 RegistrationOnBoardingFragmentDirections.actionRegistrationOnBoardingFragmentToRegistrationFormStepsFragment()
             )

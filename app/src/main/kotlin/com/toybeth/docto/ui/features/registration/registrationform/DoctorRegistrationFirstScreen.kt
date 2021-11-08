@@ -23,9 +23,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.ExperimentalUnitApi
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.theme.DoktoAccent
@@ -126,11 +130,55 @@ fun DoctorRegistrationFirstScreen(
                 }
             }
         }
-        RegistrationFormTextField(
-            viewModel.userId,
-            R.string.label_userid,
-            R.string.hint_userid
+        Spacer(modifier = Modifier.height(30.dp))
+        Text(
+            stringResource(id = R.string.label_userid),
+            color = Color.White
         )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            TextField(
+                value =  viewModel.userId.value,
+                onValueChange = {
+                    viewModel.userId.value = it
+                },
+                placeholder = {
+                    Text(stringResource(id = R.string.hint_userid))
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
+                    disabledTextColor = Color.White,
+                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
+                    cursorColor = DoktoAccent,
+                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
+                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
+                ),
+                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
+            )
+            Button(
+                onClick = {
+
+                },
+                modifier = Modifier
+                    .height(IntrinsicSize.Max)
+                    .width(150.dp)
+                    .padding(end = 10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = DoktoSecondary
+                )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.check_availability),
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    fontSize = TextUnit(value = 10f, type = TextUnitType.Sp)
+                )
+            }
+        }
         RegistrationFormTextField(
             viewModel.name,
             R.string.label_name,

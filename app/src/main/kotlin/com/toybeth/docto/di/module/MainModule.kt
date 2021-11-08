@@ -17,7 +17,7 @@ object MainModule {
     @Provides
     @Singleton
     fun provideMessageNetworkService(@ApplicationContext context: Context): ApiService {
-        return NetworkFactory.createService(
+        return NetworkFactory.createServiceForCoroutine(
             context,
             ApiService::class.java
         )

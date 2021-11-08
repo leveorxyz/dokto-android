@@ -8,19 +8,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.orhanobut.logger.Logger
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent
+import com.toybeth.docto.base.utils.extensions.isEmailValid
+import com.toybeth.docto.base.utils.extensions.isPasswordValid
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
+import com.toybeth.docto.data.authentication.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : BaseViewModel() {
+class LoginViewModel @Inject constructor(
+    private val repository: LoginRepository
+) : BaseViewModel() {
 
     private val mutableInitializeLoginForm = MutableLiveData<Boolean>()
     private val mutableInitializeLoginScreen = MutableLiveData<Boolean>(true)
     private val userNameOrPhoneErrorMutableLiveData = MutableLiveData<Boolean>()
     private val passwordErrorMutableLiveData = MutableLiveData<Boolean>()
+    private val loginSuccessfulMutableLiveData = MutableLiveData<Pair<Boolean, String?>>()
 
     val userNameOrPhone = mutableStateOf("")
     val password = mutableStateOf("")
@@ -34,14 +40,32 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         get() = userNameOrPhoneErrorMutableLiveData
     val passwordError: LiveData<Boolean>
         get() = passwordErrorMutableLiveData
+    val loginSuccessful: LiveData<Pair<Boolean, String?>>
+        get() = loginSuccessfulMutableLiveData
 
     fun submit() {
-        validateLoginForm()
+        if(validateLoginForm()) {
+            viewModelScope.launchIOWithExceptionHandler({
+                repository.login(userNameOrPhone.value, password.value)
+                loginSuccessfulMutableLiveData.postValue(Pair(true, null))
+            }, {
+                it.printStackTrace()
+                loginSuccessfulMutableLiveData.postValue(Pair(false, it.localizedMessage))
+            })
+        }
     }
 
-    private fun validateLoginForm() {
-        if(userNameOrPhone.value.isNullOrEmpty()) {
-
+    private fun validateLoginForm(): Boolean {
+        if(!userNameOrPhone.value.isEmailValid()) {
+            userNameOrPhoneErrorMutableLiveData.value = true
+            return false
+        } else if(!password.value.isPasswordValid()) {
+            passwordErrorMutableLiveData.value = true
+            return false
+        } else {
+            userNameOrPhoneErrorMutableLiveData.value = false
+            passwordErrorMutableLiveData.value = false
+            return true
         }
     }
 

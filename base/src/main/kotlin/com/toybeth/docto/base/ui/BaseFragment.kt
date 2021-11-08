@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -60,5 +61,11 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     fun setupActionBar(toolbar: Toolbar, enableBackButton: Boolean) {
         communicator.setupActionBar(toolbar, enableBackButton)
+    }
+
+    fun showMessage(message: String?) {
+        if(!message.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
     }
 }

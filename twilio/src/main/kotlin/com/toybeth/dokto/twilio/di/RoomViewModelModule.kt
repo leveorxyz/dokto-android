@@ -36,7 +36,7 @@ class RoomViewModelModule {
         AudioSwitch(application,
             loggingEnabled = true,
             preferredDeviceList = listOf(
-                AudioDevice.BluetoothHeadset::class.java,
+//                AudioDevice.BluetoothHeadset::class.java,
                 AudioDevice.WiredHeadset::class.java,
                 AudioDevice.Speakerphone::class.java,
                 AudioDevice.Earpiece::class.java))

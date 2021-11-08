@@ -1,6 +1,8 @@
 package com.toybeth.docto.base.data.preference
 
+import com.toybeth.docto.base.data.model.DoktoUser
+
 interface AppPreference {
 
-    var message: String
+    var user: DoktoUser
 }

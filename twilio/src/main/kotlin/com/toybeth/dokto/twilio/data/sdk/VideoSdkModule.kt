@@ -2,6 +2,7 @@ package com.toybeth.dokto.twilio.data.sdk
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.toybeth.docto.base.data.preference.AppPreference
 import com.toybeth.dokto.twilio.data.preferences.TwilioSharedPreference
 import com.toybeth.dokto.twilio.data.rest.TwilioAuthDataSource
 import com.toybeth.dokto.twilio.data.rest.TwilioRestApiDataSource
@@ -21,11 +22,12 @@ class VideoSdkModule {
     fun providesRoomManager(
         @ApplicationContext application: Context,
         sharedPreferences: TwilioSharedPreference,
+        appPreference: AppPreference,
         tokenService: TwilioAuthDataSource
     ): RoomManager {
         val connectOptionsFactory =
             ConnectOptionsFactory(sharedPreferences, tokenService)
         val videoClient = VideoClient(application, connectOptionsFactory)
-        return RoomManager(application, videoClient)
+        return RoomManager(application, videoClient, appPreference)
     }
 }

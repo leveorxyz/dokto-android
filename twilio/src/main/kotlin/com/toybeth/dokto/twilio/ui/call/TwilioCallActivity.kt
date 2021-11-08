@@ -127,7 +127,7 @@ class TwilioCallActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        displayName = "shafayat2"
+        displayName = "Testing Twilio Video Call"
         setTitle(displayName)
         viewModel.processInput(RoomViewEvent.OnResume)
     }
@@ -289,7 +289,7 @@ class TwilioCallActivity : AppCompatActivity() {
         val text = binding.joinRoom.roomName.text
         if (text != null) {
             val roomName = text.toString()
-            val viewEvent = RoomViewEvent.Connect(displayName ?: "", roomName)
+            val viewEvent = RoomViewEvent.Connect(roomName)
             viewModel.processInput(viewEvent)
         }
     }
@@ -312,7 +312,8 @@ class TwilioCallActivity : AppCompatActivity() {
             requestPermissions(
                 arrayOf(
                     Manifest.permission.RECORD_AUDIO,
-                    Manifest.permission.CAMERA
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.BLUETOOTH_CONNECT
                 ),
                 PERMISSIONS_REQUEST_CODE
             )

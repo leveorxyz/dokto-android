@@ -1,9 +1,15 @@
 package com.toybeth.docto.data
 
-import io.reactivex.Maybe
+import com.toybeth.docto.base.data.model.ApiResponse
+import com.toybeth.docto.base.data.model.BaseResponse
+import com.toybeth.docto.base.data.model.DoktoUser
+import com.toybeth.docto.data.authentication.model.LoginRequestBody
 import retrofit2.Response
-import retrofit2.http.GET
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface ApiService {
 
+    @POST("user/login/")
+    suspend fun login(@Body requestBody: LoginRequestBody): Response<ApiResponse<DoktoUser>>
 }

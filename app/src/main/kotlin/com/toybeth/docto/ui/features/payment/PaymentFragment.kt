@@ -24,7 +24,5 @@ class PaymentFragment : BaseFragment<PaymentViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToTwilioCallFragment())
     }
 }

@@ -70,7 +70,7 @@ class TwilioCallViewModel @Inject constructor(
                 audioSwitch.deactivate()
             }
             is RoomViewEvent.Connect -> {
-                connect(viewEvent.identity, viewEvent.roomName)
+                connect(viewEvent.roomName)
             }
             is RoomViewEvent.PinParticipant -> {
                 participantManager.changePinnedParticipant(viewEvent.sid)
@@ -321,10 +321,9 @@ class TwilioCallViewModel @Inject constructor(
         }
     }
 
-    private fun connect(identity: String, roomName: String) =
+    private fun connect(roomName: String) =
         viewModelScope.launch {
             roomManager.connect(
-                identity,
                 roomName
             )
         }

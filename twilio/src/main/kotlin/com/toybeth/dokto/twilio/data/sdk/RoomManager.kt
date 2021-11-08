@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
 import com.orhanobut.logger.Logger
+import com.toybeth.docto.base.data.preference.AppPreference
 import com.toybeth.dokto.twilio.data.preferences.TwilioSharedPreference
 import com.toybeth.dokto.twilio.data.rest.model.response.AuthServiceError
 import com.toybeth.dokto.twilio.data.rest.model.response.AuthServiceException
@@ -30,6 +31,7 @@ const val SCREEN_TRACK_NAME = "screen"
 class RoomManager @Inject constructor(
     private val context: Context,
     private val videoClient: VideoClient,
+    private val appPreference: AppPreference,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
@@ -50,9 +52,9 @@ class RoomManager @Inject constructor(
         room?.disconnect()
     }
 
-    suspend fun connect(identity: String, roomName: String) {
+    suspend fun connect(roomName: String) {
         sendRoomEvent(RoomEvent.Connecting)
-        connectToRoom(identity, roomName)
+        connectToRoom(java.util.UUID.randomUUID().toString(), roomName)
     }
 
     private suspend fun connectToRoom(identity: String, roomName: String) {

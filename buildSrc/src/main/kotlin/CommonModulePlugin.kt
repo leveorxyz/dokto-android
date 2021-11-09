@@ -40,20 +40,6 @@ class CommonModulePlugin : Plugin<Project> {
                         jvmTarget = JavaVersion.VERSION_1_8.toString()
                     }
                 }
-                splits {
-                    density {
-                        isEnable = true
-                        exclude("ldpi", "tvdpi", "xxxhdpi")
-                        compatibleScreens.addAll(mutableListOf("small", "normal", "large", "xlarge"))
-                    }
-
-                    abi {
-                        isEnable = true
-                        include("x86", "armeabi-v7a", "arm64-v8a", "x86_64")
-                        exclude("armeabi", "mips", "mips64")
-                        isUniversalApk = true
-                    }
-                }
                 testOptions {
                     unitTests.isReturnDefaultValues = true
                 }

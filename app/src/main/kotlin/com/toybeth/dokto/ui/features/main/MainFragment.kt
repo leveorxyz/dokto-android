@@ -3,6 +3,7 @@ package com.toybeth.dokto.ui.features.main
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.ComposeView
@@ -36,7 +37,7 @@ class MainFragment : BaseFragment<MainViewModel>() {
                     navigateToVideoCall()
                 }
             ) {
-
+                Text("Video call")
             }
         }
     }

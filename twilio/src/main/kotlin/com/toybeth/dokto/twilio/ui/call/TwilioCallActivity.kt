@@ -311,7 +311,8 @@ class TwilioCallActivity : AppCompatActivity() {
 
     private fun disconnectButtonClick() {
         viewModel.processInput(RoomViewEvent.Disconnect)
-        // TODO Handle screen share
+        viewModel.processInput(RoomViewEvent.StopScreenCapture)
+        finishAndRemoveTask()
     }
 
     private fun toggleLocalVideo() {

@@ -15,11 +15,14 @@
  */
 package com.toybeth.dokto.twilio.ui.call
 
+import android.view.View
+import android.widget.RelativeLayout
 import com.toybeth.dokto.twilio.data.sdk.VideoTrackViewState
 import com.twilio.video.VideoTrack
 
 internal class PrimaryParticipantController(
-    private val primaryView: ParticipantPrimaryView
+    private val primaryView: ParticipantPrimaryView,
+    private val noVideoView: RelativeLayout
 ) {
     private var primaryItem: Item? = null
 
@@ -49,9 +52,15 @@ internal class PrimaryParticipantController(
             newVideoTrack?.let { if (it.isEnabled && primaryView.videoView != null) it.addSink(primaryView.videoView!!) }
         }
 
-        newVideoTrack?.let {
+        if(newVideoTrack != null) {
             primaryView.state = ParticipantView.State.VIDEO
-        } ?: ParticipantView.State.NO_VIDEO
+            primaryView.visibility = View.VISIBLE
+            noVideoView.visibility = View.GONE
+        } else {
+            primaryView.state = ParticipantView.State.NO_VIDEO
+            primaryView.visibility = View.GONE
+            noVideoView.visibility = View.VISIBLE
+        }
     }
 
     private fun removeSink(videoTrack: VideoTrack?, view: ParticipantView) {

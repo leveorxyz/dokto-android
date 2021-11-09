@@ -4,6 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class TwilioVideoCallAccessTokenResponseResult(
     @SerializedName("token")
-    val token: String,
-    @SerializedName("room_type") val topology: Topology? = null
+    val token: String
 )

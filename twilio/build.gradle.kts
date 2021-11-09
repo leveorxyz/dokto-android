@@ -7,7 +7,6 @@ plugins {
 android {
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "BASE_URL", "\"https://video-app-9655-5800-dev.twil.io/\"")
             buildConfigField("String", "TWILIO_ACCESS_TOKEN", "\"${getProperty("TWILIO_ACCESS_TOKEN")}\"")
 
         }

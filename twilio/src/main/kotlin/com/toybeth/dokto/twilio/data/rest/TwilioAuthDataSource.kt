@@ -23,11 +23,11 @@ class TwilioAuthDataSource(
 
     suspend fun getToken(identity: String?, roomName: String?): String {
         val requestBody =
-            TwilioVideoCallAccessTokenRequestBody("61986896555800", identity, roomName, true)
+            TwilioVideoCallAccessTokenRequestBody("3fa85f64-5717-4562-b3fc-2c963f66afa6", roomName)
 
         try {
             apiService.getToken(requestBody).let { response ->
-                return handleResponse(response)
+                return handleResponse(response.result)
                     ?: throw AuthServiceException(message = "Token cannot be null")
             }
         } catch (httpException: HttpException) {
@@ -42,24 +42,15 @@ class TwilioAuthDataSource(
                 "Response successfully retrieved from the Twilio auth service: %s",
                 response
             )
-            response.topology?.let { serverTopology ->
-                val isTopologyChange =
-                    sharedPreferences.topology != serverTopology.value
-                if (isTopologyChange) {
-                    sharedPreferences.topology = serverTopology.value
-                    val (enableSimulcast, videoDimensionsIndex) = when (serverTopology) {
-                        GROUP, GROUP_SMALL -> true to VIDEO_CAPTURE_RESOLUTION_DEFAULT
-                        PEER_TO_PEER, GO -> false to VIDEO_DIMENSIONS.indexOf(VideoDimensions.HD_720P_VIDEO_DIMENSIONS)
-                            .toString()
-                    }
-                    Logger.d(
-                        "Server topology has changed to %s. Setting the codec to Vp8 with simulcast set to %s",
-                        serverTopology, enableSimulcast
-                    )
-                    sharedPreferences.videoCodec = Vp8Codec.NAME
-                    sharedPreferences.vp8SimulCast = enableSimulcast
-                    sharedPreferences.videoCaptureResolution = videoDimensionsIndex
-                }
+            val isTopologyChange =
+                sharedPreferences.topology != GROUP.value
+            if (isTopologyChange) {
+                sharedPreferences.topology = GROUP.value
+                val (enableSimulcast, videoDimensionsIndex) = true to VIDEO_CAPTURE_RESOLUTION_DEFAULT
+
+                sharedPreferences.videoCodec = Vp8Codec.NAME
+                sharedPreferences.vp8SimulCast = enableSimulcast
+                sharedPreferences.videoCaptureResolution = videoDimensionsIndex
             }
             token
         }

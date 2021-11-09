@@ -22,8 +22,7 @@ object TwilioModule {
     fun provideTwilioNetworkService(@ApplicationContext context: Context): TwilioRestApiDataSource {
         return NetworkFactory.createServiceForCoroutine(
             context,
-            TwilioRestApiDataSource::class.java,
-            baseUrl = BuildConfig.BASE_URL
+            TwilioRestApiDataSource::class.java
         )
     }
 

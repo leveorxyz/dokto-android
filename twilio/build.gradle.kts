@@ -7,7 +7,6 @@ plugins {
 android {
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "BASE_URL", "\"https://video-app-9655-5800-dev.twil.io/\"")
             buildConfigField("String", "TWILIO_ACCESS_TOKEN", "\"${getProperty("TWILIO_ACCESS_TOKEN")}\"")
 
         }
@@ -17,8 +16,8 @@ android {
 dependencies {
     implementation(project(":base"))
 
-    implementation("com.twilio:video-android-ktx:7.0.1")
+    implementation("com.twilio:video-android-ktx:7.0.2")
     implementation("com.twilio:conversations-android:2.0.0")
-    api("com.twilio:audioswitch:1.1.2")
+    api("com.twilio:audioswitch:1.1.3")
     implementation("org.uniflow-kt:uniflow-android:1.0.5")
 }

@@ -11,8 +11,8 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface TwilioRestApiDataSource {
-    @POST("token")
+    @POST("twilio/video-token/")
     suspend fun getToken(
         @Body requestBody: TwilioVideoCallAccessTokenRequestBody
-    ): TwilioVideoCallAccessTokenResponseResult
+    ): BaseResponse<TwilioVideoCallAccessTokenResponseResult>
 }

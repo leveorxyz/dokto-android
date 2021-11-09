@@ -60,7 +60,7 @@ class RoomManager @Inject constructor(
     private suspend fun connectToRoom(identity: String, roomName: String) {
         roomScope.launch {
             try {
-                videoClient.connect(identity, roomName, roomListener)
+                videoClient.connect(java.util.UUID.randomUUID().toString(), roomName, roomListener)
             } catch (e: AuthServiceException) {
                 handleTokenException(e, e.error)
             } catch (e: Exception) {

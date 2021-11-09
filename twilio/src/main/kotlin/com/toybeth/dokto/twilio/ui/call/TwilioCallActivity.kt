@@ -41,6 +41,8 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.util.Rational
 import android.view.*
+import androidx.compose.ui.unit.Constraints
+import androidx.constraintlayout.widget.ConstraintSet
 
 
 @AndroidEntryPoint
@@ -75,6 +77,7 @@ class TwilioCallActivity : AppCompatActivity() {
         binding.disconnect.setOnClickListener { disconnectButtonClick() }
         binding.localVideo.setOnClickListener { toggleLocalVideo() }
         binding.localAudio.setOnClickListener { toggleLocalAudio() }
+        binding.switchCamera.setOnClickListener { toggleCameraMirror() }
         binding.startShareScreen.setOnClickListener { requestScreenCapturePermission() }
         binding.stopShareScreen.setOnClickListener { viewModel.processInput(RoomViewEvent.StopScreenCapture) }
         
@@ -90,7 +93,8 @@ class TwilioCallActivity : AppCompatActivity() {
         savedVolumeControlStream = volumeControlStream
 
         // Setup participant controller
-        primaryParticipantController = PrimaryParticipantController(binding.room.primaryVideo)
+        Logger.d(binding.room.selectedLayout)
+        primaryParticipantController = PrimaryParticipantController(binding.room.primaryVideo, binding.room.selectedLayout)
 
         onStates(viewModel) { state ->
             if (state is RoomViewState) bindRoomViewState(state)
@@ -109,9 +113,20 @@ class TwilioCallActivity : AppCompatActivity() {
         if(isInPictureInPictureMode) {
             binding.controlButtons.visibility = View.GONE
             binding.room.remoteVideoThumbnails.visibility = View.GONE
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(binding.room.videoContainer)
+            constraintSet.clear(binding.room.cvPrimaryVideo.id)
+            constraintSet.applyTo(binding.room.videoContainer)
         } else {
             binding.controlButtons.visibility = View.VISIBLE
             binding.room.remoteVideoThumbnails.visibility = View.VISIBLE
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(binding.room.videoContainer)
+            constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.START, resources.getDimension(R.dimen._20sdp).toInt())
+            constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.TOP, resources.getDimension(R.dimen._10sdp).toInt())
+            constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.END, resources.getDimension(R.dimen._20sdp).toInt())
+            constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.BOTTOM, resources.getDimension(R.dimen._10sdp).toInt())
+            constraintSet.applyTo(binding.room.videoContainer)
         }
     }
 
@@ -296,7 +311,8 @@ class TwilioCallActivity : AppCompatActivity() {
 
     private fun disconnectButtonClick() {
         viewModel.processInput(RoomViewEvent.Disconnect)
-        // TODO Handle screen share
+        viewModel.processInput(RoomViewEvent.StopScreenCapture)
+        finishAndRemoveTask()
     }
 
     private fun toggleLocalVideo() {
@@ -305,6 +321,10 @@ class TwilioCallActivity : AppCompatActivity() {
 
     private fun toggleLocalAudio() {
         viewModel.processInput(RoomViewEvent.ToggleLocalAudio)
+    }
+
+    private fun toggleCameraMirror() {
+        viewModel.processInput(RoomViewEvent.SwitchCamera)
     }
 
     private fun requestPermissions() {

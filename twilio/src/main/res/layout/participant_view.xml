@@ -87,6 +87,7 @@
             android:layout_above="@id/stub"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="4dp"
+            android:lines="1"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 

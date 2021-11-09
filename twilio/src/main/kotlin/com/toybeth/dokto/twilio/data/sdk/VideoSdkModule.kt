@@ -2,7 +2,7 @@ package com.toybeth.dokto.twilio.data.sdk
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.toybeth.docto.base.data.preference.AppPreference
+import com.toybeth.dokto.base.data.preference.AppPreference
 import com.toybeth.dokto.twilio.data.preferences.TwilioSharedPreference
 import com.toybeth.dokto.twilio.data.rest.TwilioAuthDataSource
 import com.toybeth.dokto.twilio.data.rest.TwilioRestApiDataSource

@@ -3,7 +3,7 @@ package com.toybeth.dokto.twilio.ui.waitingroom
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.toybeth.docto.base.ui.BaseViewBindingFragment
+import com.toybeth.dokto.base.ui.BaseViewBindingFragment
 import com.toybeth.dokto.twilio.databinding.FragmentWaitingRoomBinding
 
 class WaitingRoomFragment : BaseViewBindingFragment<WaitingRoomViewModel, FragmentWaitingRoomBinding>() {

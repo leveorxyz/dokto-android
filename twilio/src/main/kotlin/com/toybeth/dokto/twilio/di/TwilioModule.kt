@@ -2,7 +2,7 @@ package com.toybeth.dokto.twilio.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.toybeth.docto.base.data.network.NetworkFactory
+import com.toybeth.dokto.base.data.network.NetworkFactory
 import com.toybeth.dokto.twilio.BuildConfig
 import com.toybeth.dokto.twilio.data.preferences.TwilioSharedPreference
 import com.toybeth.dokto.twilio.data.rest.TwilioAuthDataSource
@@ -20,7 +20,7 @@ object TwilioModule {
     @Provides
     @Singleton
     fun provideTwilioNetworkService(@ApplicationContext context: Context): TwilioRestApiDataSource {
-        return NetworkFactory.createServiceForCoroutine(
+        return com.toybeth.dokto.base.data.network.NetworkFactory.createServiceForCoroutine(
             context,
             TwilioRestApiDataSource::class.java
         )

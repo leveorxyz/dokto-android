@@ -1,4 +1,4 @@
-package com.toybeth.docto.base
+package com.toybeth.dokto.base
 
 import org.junit.Test
 

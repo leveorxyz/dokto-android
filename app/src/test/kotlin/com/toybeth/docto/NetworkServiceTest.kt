@@ -1,9 +1,9 @@
-package com.toybeth.docto
+package com.toybeth.dokto
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.toybeth.docto.data.ApiService
+import com.toybeth.dokto.data.ApiService
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -27,7 +27,7 @@ class NetworkServiceTest {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 print(request.path)
                 return when(request.path) {
-                    "/resources/docto.json" -> {
+                    "/resources/dokto.json" -> {
                         MockResponse()
                             .setResponseCode(HttpURLConnection.HTTP_OK)
                             .setBody("{\"message\": \"Docto\"}")
@@ -44,9 +44,9 @@ class NetworkServiceTest {
         mockWebServer.dispatcher = dispatcher
         mockWebServer.start()
         val context = ApplicationProvider.getApplicationContext<Context>()
-        apiService = com.toybeth.docto.core.data.network.NetworkFactory.getRetrofit(context,
+        apiService = com.toybeth.dokto.core.data.network.NetworkFactory.getRetrofit(context,
             mockWebServer.url("/").toUri().toString(),
-            com.toybeth.docto.core.data.network.NetworkFactory.getOkHttpClient(com.toybeth.docto.core.data.network.NetworkFactory.getAuthInterceptor(context), com.toybeth.docto.core.data.network.NetworkFactory.getLogInterceptors()))
+            com.toybeth.dokto.core.data.network.NetworkFactory.getOkHttpClient(com.toybeth.dokto.core.data.network.NetworkFactory.getAuthInterceptor(context), com.toybeth.dokto.core.data.network.NetworkFactory.getLogInterceptors()))
             .create(ApiService::class.java)
     }
 

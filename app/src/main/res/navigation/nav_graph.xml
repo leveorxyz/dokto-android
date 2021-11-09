@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.toybeth.docto.ui.features.splash.SplashFragment"
+        android:name="com.toybeth.dokto.ui.features.splash.SplashFragment"
         android:label="SplashFragment">
 
         <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.toybeth.docto.ui.features.main.MainFragment"
+        android:name="com.toybeth.dokto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" >
 
@@ -40,12 +40,12 @@
 
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
+        android:name="com.toybeth.dokto.ui.features.payment.PaymentFragment"
         android:label="PaymentFragment" />
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.toybeth.docto.ui.features.login.LoginFragment"
+        android:name="com.toybeth.dokto.ui.features.login.LoginFragment"
         android:label="LoginFragment" >
 
         <action
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterEmailFragment"
-        android:name="com.toybeth.docto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
+        android:name="com.toybeth.dokto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
         android:label="ForgetPasswordEnterEmailFragment">
 
         <action
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterOtpFragment"
-        android:name="com.toybeth.docto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
+        android:name="com.toybeth.dokto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
         android:label="ForgetPasswordEnterOtpFragment"/>
 
 </navigation>

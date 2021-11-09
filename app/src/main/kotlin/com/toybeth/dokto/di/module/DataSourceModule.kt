@@ -1,0 +1,17 @@
+package com.toybeth.dokto.di.module
+
+import com.toybeth.dokto.base.data.preference.AppPreference
+import com.toybeth.dokto.base.data.preference.AppPreferenceImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface DataSourceModule {
+
+    @Binds
+    fun provideAppPreference(preference: AppPreferenceImpl): AppPreference
+
+}

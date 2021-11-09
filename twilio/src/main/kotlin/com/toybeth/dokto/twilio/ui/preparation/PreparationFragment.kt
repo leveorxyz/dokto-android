@@ -12,7 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.base.ui.BaseViewBindingFragment
+import com.toybeth.dokto.base.ui.BaseViewBindingFragment
 import com.toybeth.dokto.twilio.R
 import com.toybeth.dokto.twilio.databinding.FragmentPreparationBinding
 import com.toybeth.dokto.twilio.ui.common.TwilioCallViewModel

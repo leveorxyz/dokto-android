@@ -1,4 +1,4 @@
-package com.toybeth.docto
+package com.toybeth.dokto
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

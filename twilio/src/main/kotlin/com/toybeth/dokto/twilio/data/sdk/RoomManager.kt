@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.base.data.preference.AppPreference
+import com.toybeth.dokto.base.data.preference.AppPreference
 import com.toybeth.dokto.twilio.data.preferences.TwilioSharedPreference
 import com.toybeth.dokto.twilio.data.rest.model.response.AuthServiceError
 import com.toybeth.dokto.twilio.data.rest.model.response.AuthServiceException

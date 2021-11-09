@@ -2,8 +2,8 @@ package com.toybeth.dokto.twilio.data.preferences
 
 import android.content.Context
 import com.google.gson.Gson
-import com.toybeth.docto.base.R
-import com.toybeth.docto.base.data.preference.AppPreference
+import com.toybeth.dokto.base.R
+import com.toybeth.dokto.base.data.preference.AppPreference
 import com.twilio.video.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

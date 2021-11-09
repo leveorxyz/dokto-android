@@ -1,6 +1,6 @@
 package com.toybeth.dokto.twilio.data.rest
 
-import com.toybeth.docto.base.data.network.BaseResponse
+import com.toybeth.dokto.base.data.network.BaseResponse
 import com.toybeth.dokto.twilio.data.rest.model.request.TwilioVideoCallAccessTokenRequestBody
 import com.toybeth.dokto.twilio.data.rest.model.request.TwilioVideoCallRequest
 import com.toybeth.dokto.twilio.data.rest.model.response.TwilioVideoCallAccessTokenResponseResult
@@ -14,5 +14,5 @@ interface TwilioRestApiDataSource {
     @POST("twilio/video-token/")
     suspend fun getToken(
         @Body requestBody: TwilioVideoCallAccessTokenRequestBody
-    ): BaseResponse<TwilioVideoCallAccessTokenResponseResult>
+    ): com.toybeth.dokto.base.data.network.BaseResponse<TwilioVideoCallAccessTokenResponseResult>
 }

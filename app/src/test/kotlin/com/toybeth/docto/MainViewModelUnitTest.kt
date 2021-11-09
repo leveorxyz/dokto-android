@@ -1,8 +1,8 @@
-package com.toybeth.docto
+package com.toybeth.dokto
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.toybeth.docto.data.main.MainRepository
-import com.toybeth.docto.ui.features.main.MainViewModel
+import com.toybeth.dokto.data.main.MainRepository
+import com.toybeth.dokto.ui.features.main.MainViewModel
 import io.reactivex.Scheduler
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.Disposable

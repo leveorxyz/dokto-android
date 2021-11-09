@@ -6,7 +6,7 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.toybeth.docto"
+        applicationId = "com.toybeth.dokto"
     }
 }
 

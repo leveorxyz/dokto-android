@@ -15,7 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybeth.docto.ui.theme.DoktoAccent
+import com.toybeth.docto.ui.theme.DoktoError
 
 @Composable
 fun DoktoTextFiled(
@@ -57,13 +59,15 @@ fun DoktoTextFiled(
             readOnly = onClick != null,
             singleLine = singleLine,
             modifier = textFieldModifier,
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
                 disabledTextColor = Color.Gray,
                 backgroundColor = Color.White,
                 cursorColor = DoktoAccent,
                 placeholderColor = Color.Gray,
                 disabledPlaceholderColor = Color.Gray,
+                unfocusedBorderColor = if (errorMessage == null) Color.White else DoktoError,
+                focusedBorderColor = if (errorMessage == null) DoktoAccent else DoktoError
             ),
             keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,
@@ -75,7 +79,8 @@ fun DoktoTextFiled(
         errorMessage?.let {
             Text(
                 text = it,
-                color = Color.White
+                color = DoktoError,
+                fontSize = 14.sp
             )
         }
     }

@@ -2,7 +2,6 @@ package com.toybeth.docto.ui.features.registration.registrationform
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
@@ -44,6 +43,15 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val selectedLanguages = mutableStateListOf<String>()
     val educations = mutableStateListOf(Education())
 
+    val usedIdError = mutableStateOf<String?>(null)
+    val nameError = mutableStateOf<String?>(null)
+    val countryError = mutableStateOf<String?>(null)
+    val mobileNumberError = mutableStateOf<String?>(null)
+    val emailError = mutableStateOf<String?>(null)
+    val passwordError = mutableStateOf<String?>(null)
+    val confirmPasswordError = mutableStateOf<String?>(null)
+    val dateOfBirthError = mutableStateOf<String?>(null)
+
     init {
         loadCountryStateAndCities()
     }
@@ -82,6 +90,43 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     fun verifyFirstStep(): Boolean {
+
+        if (userId.value.isEmpty()) {
+            usedIdError.value = "This field is required"
+        }
+
+        if (name.value.isEmpty()) {
+            nameError.value = "This field is required"
+        }
+
+        if (selectedCountry.value == null) {
+            countryError.value = "Select country"
+        }
+
+        if (mobileNumber.value.isEmpty()) {
+            mobileNumberError.value = "This field is required"
+        }
+
+        if (email.value.isEmpty()) {
+            emailError.value = "This field is required"
+        }
+
+        if (password.value.isEmpty()) {
+            passwordError.value = "This field is required"
+        }
+
+        if (confirmPassword.value.isEmpty()) {
+            confirmPasswordError.value = "This field is required"
+        } else if (
+            password.value != confirmPassword.value
+        ) {
+            confirmPasswordError.value = "Passwords do not match"
+        }
+
+        if (dateOfBirth.value.isEmpty()) {
+            dateOfBirthError.value = "This field is required"
+        }
+
         return !(
             userId.value.isEmpty() ||
             name.value.isEmpty() ||
@@ -93,7 +138,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
             password.value != confirmPassword.value ||
             gender.value.isEmpty() ||
             dateOfBirth.value.isEmpty()
-        ) || true
+        )
     }
 
     fun moveNext() {

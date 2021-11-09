@@ -16,6 +16,7 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     private lateinit var communicator: BaseFragmentCommunicator
+    private var loader: LoadingDialog? = null
 
     abstract val viewModel: ViewModel
 
@@ -53,6 +54,13 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         communicator.showOrHideActionBar(showAppBar)
+        viewModel.loader.observe(viewLifecycleOwner) {
+            if(it) {
+                showLoader()
+            } else {
+                hideLoader()
+            }
+        }
     }
 
     fun startActivity(clz: Class<*>?, bundle: Bundle?) {
@@ -67,5 +75,20 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
         if(!message.isNullOrEmpty()) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showLoader() {
+        if(isAdded) {
+            if(loader == null) {
+                loader = LoadingDialog(requireContext())
+            } else {
+                loader?.dismiss()
+            }
+            loader?.show()
+        }
+    }
+
+    private fun hideLoader() {
+        loader?.dismiss()
     }
 }

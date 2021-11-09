@@ -46,8 +46,10 @@ class LoginViewModel @Inject constructor(
     fun submit() {
         if(validateLoginForm()) {
             viewModelScope.launchIOWithExceptionHandler({
-                repository.login(userNameOrPhone.value, password.value)
-                loginSuccessfulMutableLiveData.postValue(Pair(true, null))
+                loader.postValue(true)
+                val isLogingSuccessful = repository.login(userNameOrPhone.value, password.value)
+                loginSuccessfulMutableLiveData.postValue(Pair(isLogingSuccessful, null))
+                loader.postValue(false)
             }, {
                 it.printStackTrace()
                 loginSuccessfulMutableLiveData.postValue(Pair(false, it.localizedMessage))

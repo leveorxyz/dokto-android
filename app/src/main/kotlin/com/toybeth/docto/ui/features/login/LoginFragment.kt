@@ -40,7 +40,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private fun navigateToDashBoard() {
         findNavController().navigate(
-            LoginFragmentDirections.actionLoginFragmentToTwilioCallFragment()
+            LoginFragmentDirections.actionLoginFragmentToMainFragment()
         )
     }
 

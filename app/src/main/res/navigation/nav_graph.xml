@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/twilio_call_nav_graph">
+    app:startDestination="@id/splashFragment">
 
     <include app:graph="@navigation/twilio_call_nav_graph"/>
 
@@ -18,13 +18,25 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"/>
 
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+
+        <action
+            android:id="@+id/action_mainFragment_to_twilioCallFragment"
+            app:destination="@id/twilio_call_nav_graph"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/paymentFragment"
@@ -41,8 +53,8 @@
             app:destination="@id/forgetPasswordEnterEmailFragment"/>
 
         <action
-            android:id="@+id/action_loginFragment_to_twilioCallFragment"
-            app:destination="@id/twilio_call_nav_graph"/>
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"/>
 
     </fragment>
 

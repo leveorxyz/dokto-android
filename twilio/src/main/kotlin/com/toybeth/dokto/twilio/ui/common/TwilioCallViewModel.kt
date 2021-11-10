@@ -60,6 +60,7 @@ class TwilioCallViewModel @Inject constructor(
         when (viewEvent) {
             RoomViewEvent.OnResume -> checkPermissions()
             RoomViewEvent.OnPause -> roomManager.onPause()
+            RoomViewEvent.OnDestroy -> roomManager.onDestroy()
             is RoomViewEvent.SelectAudioDevice -> {
                 audioSwitch.selectDevice(viewEvent.device)
             }

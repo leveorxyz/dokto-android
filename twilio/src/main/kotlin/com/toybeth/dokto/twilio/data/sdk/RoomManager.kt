@@ -88,6 +88,10 @@ class RoomManager @Inject constructor(
         localParticipantManager.onPause()
     }
 
+    fun onDestroy() {
+        localParticipantManager.onDestroy()
+    }
+
     fun toggleLocalVideo() {
         localParticipantManager.toggleLocalVideo()
     }

@@ -139,6 +139,7 @@ class TwilioCallActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         recordingAnimation.cancel()
+        viewModel.processInput(RoomViewEvent.OnDestroy)
     }
 
     override fun onStart() {

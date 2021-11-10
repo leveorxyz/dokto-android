@@ -6,6 +6,7 @@ import com.twilio.audioswitch.AudioDevice
 sealed class RoomViewEvent {
     object OnResume : RoomViewEvent()
     object OnPause : RoomViewEvent()
+    object OnDestroy : RoomViewEvent()
     object ToggleLocalVideo : RoomViewEvent()
     object EnableLocalVideo : RoomViewEvent()
     object DisableLocalVideo : RoomViewEvent()

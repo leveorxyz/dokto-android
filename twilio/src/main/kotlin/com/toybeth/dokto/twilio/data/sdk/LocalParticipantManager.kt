@@ -63,6 +63,11 @@ class LocalParticipantManager(
         removeCameraTrack()
     }
 
+    fun onDestroy() {
+        removeCameraTrack()
+        removeAudioTrack()
+    }
+
     fun toggleLocalVideo() {
         if (!isVideoMuted) {
             isVideoMuted = true

@@ -115,8 +115,12 @@ class TwilioCallActivity : AppCompatActivity() {
             binding.room.remoteVideoThumbnails.visibility = View.GONE
             val constraintSet = ConstraintSet()
             constraintSet.clone(binding.room.videoContainer)
-            constraintSet.clear(binding.room.cvPrimaryVideo.id)
+            constraintSet.clear(binding.room.cvPrimaryVideo.id, ConstraintSet.START)
+            constraintSet.clear(binding.room.cvPrimaryVideo.id, ConstraintSet.END)
+            constraintSet.clear(binding.room.cvPrimaryVideo.id, ConstraintSet.TOP)
+            constraintSet.clear(binding.room.cvPrimaryVideo.id, ConstraintSet.BOTTOM)
             constraintSet.applyTo(binding.room.videoContainer)
+            binding.room
         } else {
             binding.controlButtons.visibility = View.VISIBLE
             binding.room.remoteVideoThumbnails.visibility = View.VISIBLE
@@ -126,6 +130,8 @@ class TwilioCallActivity : AppCompatActivity() {
             constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.TOP, resources.getDimension(R.dimen._10sdp).toInt())
             constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.END, resources.getDimension(R.dimen._20sdp).toInt())
             constraintSet.setMargin(binding.room.cvPrimaryVideo.id, ConstraintSet.BOTTOM, resources.getDimension(R.dimen._10sdp).toInt())
+            constraintSet.connect(binding.room.cvPrimaryVideo.id, ConstraintSet.BOTTOM, binding.room.remoteVideoThumbnails.id, ConstraintSet.TOP)
+            constraintSet.connect(binding.room.cvPrimaryVideo.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             constraintSet.applyTo(binding.room.videoContainer)
         }
     }
@@ -152,7 +158,7 @@ class TwilioCallActivity : AppCompatActivity() {
         if(canEnterPictureInPictureMode) {
             enterPipMode()
         }
-        viewModel.processInput(RoomViewEvent.OnPause)
+//        viewModel.processInput(RoomViewEvent.OnPause)
     }
 
     override fun onRequestPermissionsResult(
@@ -403,8 +409,6 @@ class TwilioCallActivity : AppCompatActivity() {
         binding.localAudio.setImageResource(micDrawable)
         binding.localVideo.setImageResource(videoDrawable)
         statsListAdapter = StatsListAdapter(this)
-        binding.statsRecyclerView.adapter = statsListAdapter
-        binding.statsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.disconnect.visibility = disconnectButtonState
         binding.joinRoom.joinRoomLayout.visibility = joinRoomLayoutState
         binding.joinStatusLayout.visibility = joinStatusLayoutState
@@ -454,43 +458,6 @@ class TwilioCallActivity : AppCompatActivity() {
         )
     }
 
-    private fun updateStatsUI(roomViewState: RoomViewState) {
-        val enableStats = true
-        if (enableStats) {
-            when (roomViewState.configuration) {
-                RoomViewConfiguration.Connected -> {
-                    statsListAdapter.updateStatsData(roomViewState.roomStats)
-                    binding.statsRecyclerView.visibility = View.VISIBLE
-                    binding.statsDisabled.visibility = View.GONE
-
-                    // disable stats if there is room but no participants (no media)
-                    val isStreamingMedia = roomViewState.participantThumbnails?.let { thumbnails ->
-                        thumbnails.size > 1
-                    } ?: false
-                    if (!isStreamingMedia) {
-                        binding.statsDisabledTitle.text = getString(R.string.stats_unavailable)
-                        binding.statsDisabledDescription.text =
-                            getString(R.string.stats_description_media_not_shared)
-                        binding.statsRecyclerView.visibility = View.GONE
-                        binding.statsDisabled.visibility = View.VISIBLE
-                    }
-                }
-                else -> {
-                    binding.statsDisabledTitle.text = getString(R.string.stats_unavailable)
-                    binding.statsDisabledDescription.text =
-                        getString(R.string.stats_description_join_room)
-                    binding.statsRecyclerView.visibility = View.GONE
-                    binding.statsDisabled.visibility = View.VISIBLE
-                }
-            }
-        } else {
-            binding.statsDisabledTitle.text = getString(R.string.stats_gathering_disabled)
-            binding.statsDisabledDescription.text = getString(R.string.stats_enable_in_settings)
-            binding.statsRecyclerView.visibility = View.GONE
-            binding.statsDisabled.visibility = View.VISIBLE
-        }
-    }
-
     private fun toggleAudioDevice(enableAudioDevice: Boolean) {
         setVolumeControl(enableAudioDevice)
         val viewEvent =
@@ -502,7 +469,6 @@ class TwilioCallActivity : AppCompatActivity() {
         renderPrimaryView(roomViewState.primaryParticipant)
         renderThumbnails(roomViewState)
         updateLayout(roomViewState)
-        updateStatsUI(roomViewState)
     }
 
     private fun bindRoomViewEffects(roomViewEffect: RoomViewEffect) {

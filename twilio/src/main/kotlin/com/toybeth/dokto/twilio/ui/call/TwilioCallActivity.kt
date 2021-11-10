@@ -78,8 +78,8 @@ class TwilioCallActivity : AppCompatActivity() {
         binding.localVideo.setOnClickListener { toggleLocalVideo() }
         binding.localAudio.setOnClickListener { toggleLocalAudio() }
         binding.switchCamera.setOnClickListener { toggleCameraMirror() }
-        binding.startShareScreen.setOnClickListener { requestScreenCapturePermission() }
-        binding.stopShareScreen.setOnClickListener { viewModel.processInput(RoomViewEvent.StopScreenCapture) }
+//        binding.startShareScreen.setOnClickListener { requestScreenCapturePermission() }
+//        binding.stopShareScreen.setOnClickListener { viewModel.processInput(RoomViewEvent.StopScreenCapture) }
         
         // So calls can be answered when screen is locked
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
@@ -367,7 +367,7 @@ class TwilioCallActivity : AppCompatActivity() {
                     roomName = roomEditable.toString()
                 }
                 joinStatus = "Joining..."
-                binding.shareScreen.visibility = View.GONE
+//                binding.shareScreen.visibility = View.GONE
             }
             RoomViewConfiguration.Connected -> {
                 canEnterPictureInPictureMode = true
@@ -382,14 +382,14 @@ class TwilioCallActivity : AppCompatActivity() {
                 joinStatus = ""
                 binding.recordingIndicator.visibility =
                     if (roomViewState.isRecording) View.VISIBLE else View.GONE
-                binding.shareScreen.visibility = View.VISIBLE
+//                binding.shareScreen.visibility = View.VISIBLE
             }
             RoomViewConfiguration.Lobby -> {
                 canEnterPictureInPictureMode = false
                 connectButtonEnabled = isRoomTextNotEmpty
                 screenCaptureMenuItemState = false
                 binding.recordingIndicator.visibility = View.GONE
-                binding.shareScreen.visibility = View.GONE
+//                binding.shareScreen.visibility = View.GONE
             }
         }
         val isMicEnabled = roomViewState.isMicEnabled
@@ -417,11 +417,11 @@ class TwilioCallActivity : AppCompatActivity() {
 
         // TODO: Remove when we use a Service to obtainTokenAndConnect to a room
         val screenCaptureResources = if (roomViewState.isScreenCaptureOn) {
-            binding.startShareScreen.visibility = View.GONE
-            binding.stopShareScreen.visibility = View.VISIBLE
+//            binding.startShareScreen.visibility = View.GONE
+//            binding.stopShareScreen.visibility = View.VISIBLE
         } else {
-            binding.startShareScreen.visibility = View.VISIBLE
-            binding.stopShareScreen.visibility = View.GONE
+//            binding.startShareScreen.visibility = View.VISIBLE
+//            binding.stopShareScreen.visibility = View.GONE
         }
     }
 

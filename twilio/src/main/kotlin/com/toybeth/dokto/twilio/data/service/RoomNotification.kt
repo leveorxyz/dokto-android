@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -20,7 +21,11 @@ class RoomNotification(private val context: Context) {
             get() =
                 Intent(context, TwilioCallActivity::class.java).let { notificationIntent ->
                     notificationIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    PendingIntent.getActivity(context, 0, notificationIntent, 0)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        PendingIntent.getActivity(context, 0, notificationIntent, FLAG_IMMUTABLE)
+                    } else {
+                        PendingIntent.getActivity(context, 0, notificationIntent, 0)
+                    }
                 }
 
     init {

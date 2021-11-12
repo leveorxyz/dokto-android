@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Docto</string>
-    <string name="pref_name">docto_pref</string>
+    <string name="app_name">Dokto</string>
+    <string name="pref_name">dokto_pref</string>
 
     // ... Login Screen
     <string name="dokto_logo_description">Dokto Logo</string>
@@ -38,7 +38,7 @@
     <string name="label_country">Country</string>
     <string name="label_identification">Identity Verification</string>
     <string name="hint_identification">Identity Verification</string>
-    <string name="label_upload_identity">Upload Identity Number</string>
+    <string name="label_upload_identity">Enter your passport, driver\'s license or State ID</string>
     <string name="hint_upload_identity"></string>
     <string name="hint_state">State</string>
     <string name="select_state">Select State</string>
@@ -66,4 +66,8 @@
     <string name="check_availability">Check Availability</string>
     <string name="get_started">Get Started</string>
     <string name="choose_photo">Choose Photo</string>
+    <string name="select">Select</string>
+    <string name="identification_type">Identification Type</string>
+    <string name="identification_number">Identification Number</string>
+    <string name="choose_image">Choose Image…</string>
 </resources>

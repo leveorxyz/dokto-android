@@ -1,10 +1,7 @@
 package com.toybeth.docto.ui.common.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -35,7 +32,7 @@ fun DoktoTextFiled(
     trailingIcon: @Composable (() -> Unit)? = null,
     errorMessage: String? = null,
 ) {
-    var textFieldModifier = Modifier.fillMaxWidth()
+    var textFieldModifier = Modifier.fillMaxSize()
     if (onClick != null) {
         textFieldModifier = textFieldModifier.clickable {
             onClick.invoke()

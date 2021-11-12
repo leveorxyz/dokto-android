@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.doctor.form
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationusertypeselection
+package com.toybeth.docto.ui.features.registration.usertype
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi

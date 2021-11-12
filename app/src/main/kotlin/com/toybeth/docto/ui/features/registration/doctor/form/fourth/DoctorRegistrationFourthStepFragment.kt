@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform.fourth
+package com.toybeth.docto.ui.features.registration.doctor.form.fourth
 
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
@@ -8,7 +8,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
-import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
+import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError

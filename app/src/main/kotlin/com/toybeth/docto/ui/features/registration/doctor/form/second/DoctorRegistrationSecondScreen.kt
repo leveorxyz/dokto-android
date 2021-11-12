@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform.second
+package com.toybeth.docto.ui.features.registration.doctor.form.second
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.layout.*
@@ -22,7 +22,7 @@ import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoDropDownMenu
 import com.toybeth.docto.ui.common.components.DoktoImageUpload
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
+import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 
 @Composable
 fun DoctorRegistrationSecondScreen(

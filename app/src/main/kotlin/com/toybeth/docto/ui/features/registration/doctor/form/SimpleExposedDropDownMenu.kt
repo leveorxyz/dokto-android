@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.doctor.form
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background

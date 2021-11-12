@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform.first
+package com.toybeth.docto.ui.features.registration.doctor.form.first
 
 import android.os.Bundle
 import android.view.View
@@ -15,7 +15,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.Country
-import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
+import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 import dagger.hilt.android.AndroidEntryPoint

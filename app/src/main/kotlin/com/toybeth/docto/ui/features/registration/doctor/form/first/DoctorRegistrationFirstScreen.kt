@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform.first
+package com.toybeth.docto.ui.features.registration.doctor.form.first
 
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -34,8 +34,8 @@ import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.features.registration.registrationform.RadioGroup
-import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
+import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
+import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @ExperimentalMaterialApi

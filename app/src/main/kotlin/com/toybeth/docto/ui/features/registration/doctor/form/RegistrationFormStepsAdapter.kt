@@ -1,12 +1,12 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.doctor.form
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.Fragment
-import com.toybeth.docto.ui.features.registration.registrationform.first.DoctorRegistrationFirstStepFragment
-import com.toybeth.docto.ui.features.registration.registrationform.fourth.DoctorRegistrationFourthStepFragment
-import com.toybeth.docto.ui.features.registration.registrationform.second.DoctorRegistrationSecondStepFragment
-import com.toybeth.docto.ui.features.registration.registrationform.third.DoctorRegistrationThirdStepFragment
+import com.toybeth.docto.ui.features.registration.doctor.form.first.DoctorRegistrationFirstStepFragment
+import com.toybeth.docto.ui.features.registration.doctor.form.fourth.DoctorRegistrationFourthStepFragment
+import com.toybeth.docto.ui.features.registration.doctor.form.second.DoctorRegistrationSecondStepFragment
+import com.toybeth.docto.ui.features.registration.doctor.form.third.DoctorRegistrationThirdStepFragment
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.adapter.AbstractFragmentStepAdapter
 import com.toybeth.dokto.stepper.viewmodel.StepViewModel

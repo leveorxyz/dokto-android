@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.doctor.form
 
 import android.os.Bundle
 import android.view.LayoutInflater

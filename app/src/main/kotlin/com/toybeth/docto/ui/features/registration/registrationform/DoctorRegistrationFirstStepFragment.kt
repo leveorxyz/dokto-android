@@ -46,13 +46,14 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.moveNext()
     }
 
     override fun verifyStep(): VerificationError? {
         return if(viewModel.verifyFirstStep()) {
             null
         } else {
-            VerificationError("Fillup all fields")
+            VerificationError("Fill-up all fields")
         }
     }
 

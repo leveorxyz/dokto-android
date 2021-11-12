@@ -33,6 +33,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.registration.IdentificationType
 import com.toybeth.docto.ui.common.components.DoktoDropDownMenu
+import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.theme.DoktoSecondary
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldPlaceholder
@@ -47,13 +48,7 @@ fun DoctorRegistrationSecondScreen(
     showCitySelectionDialog: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    var selectedIdentification by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
-    val zipCode = remember { mutableStateOf("") }
-    val address = remember { mutableStateOf("") }
-    val selectedState = viewModel.selectedStateName
-    val selectedCity = viewModel.selectedCityName
-    val city: MutableState<City?> = remember { mutableStateOf(null) }
 
     val context = LocalContext.current
     val identificationOptions = context.resources.getStringArray(R.array.identification)
@@ -100,47 +95,27 @@ fun DoctorRegistrationSecondScreen(
 
         DoktoDropDownMenu(
             suggestions = IdentificationType.OPTIONS,
-            textFieldValue = selectedIdentification,
+            textFieldValue = viewModel.identityType.value,
             labelResourceId = R.string.identification_type,
             hintResourceId = R.string.select,
             onValueChange = {
-                selectedIdentification = it
+                viewModel.identityType.value = it
             }
         )
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                stringResource(id = R.string.label_identification),
-                color = Color.White
-            )
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                readOnly = true,
-                value = selectedIdentification,
-                onValueChange = { },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
-                },
-                placeholder = {
-                    Text(stringResource(id = R.string.hint_identification))
-                },
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color.White,
-                    backgroundColor = DoktoRegistrationFormTextFieldBackground,
-                    cursorColor = DoktoSecondary,
-                    placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
-                    disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
-                )
-            )
-        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.identityVerificationNumber.value,
+            hintResourceId = R.string.hint_identification_verification_number,
+            labelResourceId = R.string.label_identification_verufication_number,
+            errorMessage = viewModel.identityVerificationNumberError.value,
+            onValueChange = {
+                viewModel.identityVerificationNumber.value = it
+                viewModel.identityVerificationNumberError.value = null
+            }
+        )
+
         Spacer(modifier = Modifier.height(30.dp))
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -217,33 +192,65 @@ fun DoctorRegistrationSecondScreen(
                 }
             }
         }
-        RegistrationFormTextField(
-            textFieldValue = zipCode,
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.zipCode.value,
             labelResourceId = R.string.label_zip_code,
             hintResourceId = R.string.hint_zip_code,
+            errorMessage = viewModel.zipCodeError.value,
+            onValueChange = {
+                viewModel.zipCode.value = it
+                viewModel.zipCodeError.value = null
+            }
         )
-        RegistrationFormTextField(
-            textFieldValue = address,
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.address.value,
             labelResourceId = R.string.label_address,
             hintResourceId = R.string.hint_address,
+            errorMessage = viewModel.addressError.value,
+            onValueChange = {
+                viewModel.address.value = it
+                viewModel.addressError.value = null
+            }
         )
-        RegistrationFormTextField(
-            textFieldValue = selectedState,
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.selectedStateName.value,
             labelResourceId = R.string.label_state,
             hintResourceId = R.string.hint_state,
+            errorMessage = viewModel.selectedStateNameError.value,
             onClick = {
                 showStateSelectionDialog.invoke()
+            },
+            onValueChange = {
+                viewModel.selectedStateNameError.value = null
             }
         )
-        RegistrationFormTextField(
-            textFieldValue = selectedCity,
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.selectedCityName.value,
             labelResourceId = R.string.label_city,
             hintResourceId = R.string.hint_city,
+            errorMessage = viewModel.selectedCityNameError.value,
             onClick = {
                 showCitySelectionDialog.invoke()
+            },
+            onValueChange = {
+                viewModel.selectedCityNameError.value = null
             }
         )
+
         Spacer(modifier = Modifier.height(50.dp))
+
         Button(
             onClick = { },
             shape = RoundedCornerShape(24.dp),

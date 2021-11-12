@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.registrationform.identificationverificationformpage
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.platform.ComposeView
@@ -11,6 +11,8 @@ import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.State
+import com.toybeth.docto.ui.features.registration.registrationform.DoctorRegistrationSecondScreen
+import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
 import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
@@ -37,7 +39,11 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
         }
 
     override fun verifyStep(): VerificationError? {
-        return null
+        return if(viewModel.verifyDoctorRegistrationSecondStep()) {
+            null
+        } else {
+            VerificationError("Fillup all fields")
+        }
     }
 
     override fun onSelected() {

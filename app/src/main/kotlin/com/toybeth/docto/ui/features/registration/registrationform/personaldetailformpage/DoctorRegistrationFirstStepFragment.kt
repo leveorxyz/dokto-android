@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.registrationform.personaldetailformpage
 
 import android.os.Bundle
 import android.view.View
@@ -14,9 +14,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
-import com.toybeth.docto.data.City
 import com.toybeth.docto.data.Country
-import com.toybeth.docto.data.State
+import com.toybeth.docto.ui.features.registration.registrationform.DoctorRegistrationFirstScreen
+import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +52,7 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
         return if(viewModel.verifyFirstStep()) {
             null
         } else {
-            VerificationError("Fillup all fields")
+            null
         }
     }
 

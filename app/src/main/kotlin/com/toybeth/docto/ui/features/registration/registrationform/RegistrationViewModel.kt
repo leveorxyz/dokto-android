@@ -39,6 +39,10 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
+    val identityType = mutableStateOf<String>("")
+    val identityVerificationNumber = mutableStateOf<String>("")
+    val zipCode = mutableStateOf("")
+    val address = mutableStateOf("")
     val selectedStateName = mutableStateOf("")
     val selectedCityName = mutableStateOf("")
 
@@ -53,6 +57,13 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val passwordError = mutableStateOf<String?>(null)
     val confirmPasswordError = mutableStateOf<String?>(null)
     val dateOfBirthError = mutableStateOf<String?>(null)
+
+    val identityTypeError = mutableStateOf<String?>("")
+    val identityVerificationNumberError = mutableStateOf<String?>("")
+    val zipCodeError = mutableStateOf<String?>("")
+    val addressError = mutableStateOf<String?>("")
+    val selectedStateNameError = mutableStateOf<String?>("")
+    val selectedCityNameError = mutableStateOf<String?>("")
 
     init {
         loadCountryStateAndCities()
@@ -142,6 +153,48 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
         if (dateOfBirth.value.isEmpty()) {
             dateOfBirthError.value = "This field is required"
+            isValid = false
+        }
+
+        return isValid
+    }
+
+    fun verifyDoctorRegistrationSecondStep(): Boolean {
+        var isValid = true
+        identityTypeError.value = null
+        identityVerificationNumberError.value = null
+        zipCodeError.value = null
+        addressError.value = null
+        selectedStateNameError.value = null
+        selectedCityNameError.value = null
+
+        if (identityType.value.isEmpty()) {
+            identityTypeError.value = "This field is required"
+            isValid = false
+        }
+
+        if (identityVerificationNumber.value.isEmpty()) {
+            identityVerificationNumberError.value = "This field is required"
+            isValid = false
+        }
+
+        if (zipCode.value.isEmpty()) {
+            zipCodeError.value = "This field is required"
+            isValid = false
+        }
+
+        if (address.value.isEmpty()) {
+            addressError.value = "This field is required"
+            isValid = false
+        }
+
+        if (stateList.value?.isNullOrEmpty() == false && selectedStateName.value.isEmpty()) {
+            selectedStateNameError.value = "Select your state"
+            isValid = false
+        }
+
+        if (cityList.value?.isNullOrEmpty() == false && selectedCityName.value.isEmpty()) {
+            selectedCityNameError.value = "Select your city"
             isValid = false
         }
 

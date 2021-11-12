@@ -69,4 +69,6 @@
     <string name="identification_type">Identification type</string>
     <string name="select">Select</string>
     <string name="other">Other</string>
+    <string name="hint_identification_verification_number">Identity Verification Number</string>
+    <string name="label_identification_verufication_number">Identity verification number</string>
 </resources>

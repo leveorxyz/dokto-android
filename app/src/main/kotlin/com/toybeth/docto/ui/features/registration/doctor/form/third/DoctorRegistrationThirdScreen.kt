@@ -40,7 +40,7 @@ fun DoctorRegistrationThirdScreen(
     val context = LocalContext.current
     val availableLanguages = context.resources.getStringArray(R.array.languages).toList()
     val specialties = context.resources.getStringArray(R.array.specialities).toMutableList()
-    val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+    val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
 
     return Column(
         modifier = Modifier
@@ -129,6 +129,8 @@ fun DoctorRegistrationThirdScreen(
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         // ------------------------ EDUCATION FORM -------------------------- //
 
@@ -243,7 +245,7 @@ fun DoctorRegistrationThirdScreen(
         // --------------------------- SPECIALITIES ------------------------- //
 
         DoktoDropDownMenu(
-            suggestions = specialties,
+            suggestions = specialties.sorted(),
             textFieldValue = stringResource(id = R.string.label_specialities),
             labelResourceId = R.string.label_specialities,
             hintResourceId = R.string.hint_specialities,
@@ -261,6 +263,7 @@ fun DoctorRegistrationThirdScreen(
             items(viewModel.specialties) { specialty ->
                 specialty.value?.let {
                     DoktoChip(text = it) {
+                        specialties.add(it)
                         viewModel.specialties.remove(specialty)
                     }
                     Spacer(modifier = Modifier.width(16.dp))

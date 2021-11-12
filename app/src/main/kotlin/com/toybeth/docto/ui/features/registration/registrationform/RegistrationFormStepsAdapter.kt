@@ -3,12 +3,16 @@ package com.toybeth.docto.ui.features.registration.registrationform
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.Fragment
+import com.toybeth.docto.ui.features.registration.registrationform.first.DoctorRegistrationFirstStepFragment
+import com.toybeth.docto.ui.features.registration.registrationform.fourth.DoctorRegistrationFourthStepFragment
+import com.toybeth.docto.ui.features.registration.registrationform.second.DoctorRegistrationSecondStepFragment
+import com.toybeth.docto.ui.features.registration.registrationform.third.DoctorRegistrationThirdStepFragment
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.adapter.AbstractFragmentStepAdapter
 import com.toybeth.dokto.stepper.viewmodel.StepViewModel
 
-@ExperimentalUnitApi
 @ExperimentalMaterialApi
+@ExperimentalUnitApi
 class RegistrationFormStepsAdapter(private val titles: List<String>, fragment: Fragment) : AbstractFragmentStepAdapter(
     fragment.childFragmentManager,
     fragment.lifecycle,
@@ -29,6 +33,8 @@ class RegistrationFormStepsAdapter(private val titles: List<String>, fragment: F
         return when(position) {
             0 -> DoctorRegistrationFirstStepFragment()
             1 -> DoctorRegistrationSecondStepFragment()
+            3 -> DoctorRegistrationFourthStepFragment()
+            4 -> DoctorRegistrationThirdStepFragment()
             else -> DoctorRegistrationThirdStepFragment()
         }
     }

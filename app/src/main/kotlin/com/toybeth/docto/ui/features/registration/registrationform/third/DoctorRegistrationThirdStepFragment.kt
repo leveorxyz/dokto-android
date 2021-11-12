@@ -1,7 +1,6 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.registrationform.third
 
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
@@ -9,12 +8,12 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
+import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
 import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 import java.util.*
 
-@ExperimentalUnitApi
 class DoctorRegistrationThirdStepFragment : BaseFragment<RegistrationViewModel>(), Step {
 
     private var datePicker: MaterialDatePicker<Long>? = null

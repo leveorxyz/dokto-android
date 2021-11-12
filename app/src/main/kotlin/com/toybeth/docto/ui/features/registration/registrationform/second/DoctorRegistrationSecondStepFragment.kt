@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.registrationform.second
 
 import android.os.Bundle
 import android.view.View
@@ -14,6 +14,7 @@ import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.Country
 import com.toybeth.docto.data.State
+import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
 import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError

@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.registrationform.third
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.common.components.*
+import com.toybeth.docto.ui.features.registration.registrationform.RegistrationViewModel
 import com.toybeth.docto.ui.theme.DoktoCheckboxUncheckColor
 import com.toybeth.docto.ui.theme.DoktoError
 import com.toybeth.docto.ui.theme.DoktoPrimaryVariant

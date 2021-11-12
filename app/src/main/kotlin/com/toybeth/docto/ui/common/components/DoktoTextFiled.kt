@@ -2,7 +2,9 @@ package com.toybeth.docto.ui.common.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -49,6 +51,8 @@ fun DoktoTextFiled(
                 color = Color.White
             )
         }
+        
+        Spacer(modifier = Modifier.height(8.dp))
 
         // ------------------- TEXT FIELD -------------------- //
         OutlinedTextField(
@@ -61,11 +65,11 @@ fun DoktoTextFiled(
             modifier = textFieldModifier,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
-                disabledTextColor = Color.Gray,
+                disabledTextColor = if (onClick == null) Color.Gray else Color.Black,
                 backgroundColor = Color.White,
                 cursorColor = DoktoSecondary,
-                placeholderColor = Color.Gray,
-                disabledPlaceholderColor = Color.Gray,
+                placeholderColor = if (onClick == null) Color.Gray else Color.Black,
+                disabledPlaceholderColor = if (onClick == null) Color.Gray else Color.Black,
                 unfocusedBorderColor = if (errorMessage == null) Color.White else DoktoError,
                 focusedBorderColor = if (errorMessage == null) DoktoSecondary else DoktoError
             ),

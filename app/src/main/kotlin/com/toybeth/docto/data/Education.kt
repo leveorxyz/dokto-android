@@ -1,8 +1,6 @@
 package com.toybeth.docto.data
 
 import android.graphics.Bitmap
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 
 data class Education(
     var college: College = College(),
@@ -11,22 +9,7 @@ data class Education(
     var certificate: Certificate = Certificate()
 )
 
-data class College(
-    val state: MutableState<String> = mutableStateOf(""),
-    val error: MutableState<String?> = mutableStateOf(null)
-)
-
-data class CourseStudied(
-    val state: MutableState<String> = mutableStateOf(""),
-    val error: MutableState<String?> = mutableStateOf(null)
-)
-
-data class GraduationYear(
-    val state: MutableState<String> = mutableStateOf(""),
-    val error: MutableState<String?> = mutableStateOf(null)
-)
-
-data class Certificate(
-    val state: MutableState<Bitmap?> = mutableStateOf(null),
-    val error: MutableState<String?> = mutableStateOf(null)
-)
+class College : Property<String>()
+class CourseStudied : Property<String>()
+class GraduationYear : Property<String>()
+class Certificate : Property<Bitmap>()

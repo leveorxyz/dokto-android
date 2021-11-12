@@ -149,17 +149,13 @@ fun DoctorRegistrationThirdScreen(
                         color = DoktoPrimaryVariant,
                         fontSize = 18.sp
                     )
-                    IconButton(onClick = {
-                        viewModel.addEducation()
-                    }) {
-                        IconButton(onClick = { viewModel.educations.remove(education) }) {
-                            Icon(
-                                modifier = Modifier.size(24.dp),
-                                imageVector = Icons.Filled.Delete,
-                                contentDescription = stringResource(id = R.string.add),
-                                tint = DoktoError
-                            )
-                        }
+                    IconButton(onClick = { viewModel.educations.remove(education) }) {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            imageVector = Icons.Filled.Delete,
+                            contentDescription = stringResource(id = R.string.add),
+                            tint = DoktoError
+                        )
                     }
                 }
             }
@@ -167,7 +163,7 @@ fun DoctorRegistrationThirdScreen(
             // --------------------------------- COLLEGE -------------------------- //
 
             DoktoTextFiled(
-                textFieldValue = education.college.state.value,
+                textFieldValue = education.college.state.value ?: "",
                 labelResourceId = R.string.label_college,
                 hintResourceId = R.string.hint_college,
                 errorMessage = education.college.error.value,
@@ -181,7 +177,7 @@ fun DoctorRegistrationThirdScreen(
             // --------------------------- COURSE STUDIED ----------------------- //
 
             DoktoTextFiled(
-                textFieldValue = education.courseStudied.state.value,
+                textFieldValue = education.courseStudied.state.value ?: "",
                 labelResourceId = R.string.label_course_studied,
                 hintResourceId = R.string.hint_course_studied,
                 errorMessage = education.courseStudied.error.value,
@@ -195,7 +191,7 @@ fun DoctorRegistrationThirdScreen(
             // ---------------------- GRADUATION YEAR ----------------------- //
 
             DoktoTextFiled(
-                textFieldValue = education.graduationYear.state.value,
+                textFieldValue = education.graduationYear.state.value ?: "",
                 labelResourceId = R.string.label_year_graduated,
                 hintResourceId = R.string.hint_year_graduated,
                 errorMessage = education.college.error.value,

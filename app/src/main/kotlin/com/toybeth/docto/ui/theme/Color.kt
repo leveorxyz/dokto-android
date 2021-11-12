@@ -9,8 +9,8 @@ val Teal200 = Color(0xFF03DAC5)
 
 // ... Dokto colors
 val DoktoPrimary = Color(0xFF170041)
-val DoktoSecondary = Color(0xFFA42BAD)
-val DoktoAccent = Color(0xFF2F97D3)
+val DoktoPrimaryVariant = Color(0xFFA42BAD)
+val DoktoSecondary = Color(0xFF2F97D3)
 val TextColorWhite = Color(0xFFFFFFFF)
 val UserTypeButtonSelectedColor = Color(0xFF2F97D3)
 val UserTypeButtonUnselectedColor = Color(0xFF1C1F5C)

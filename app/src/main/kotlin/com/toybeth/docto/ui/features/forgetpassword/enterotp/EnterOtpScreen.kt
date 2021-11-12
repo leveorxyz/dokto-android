@@ -28,7 +28,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.uiutils.AnimState
 import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
 import com.toybeth.docto.base.ui.uiutils.getExitAnimation
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
 import com.toybeth.docto.ui.theme.TextColorWhite
 
 @ExperimentalAnimationApi
@@ -82,7 +82,7 @@ fun EnterOtpScreen(
                         ) {
                             Text(
                                 text = stringResource(id = R.string.forget_password),
-                                color = DoktoSecondary,
+                                color = DoktoPrimaryVariant,
                                 fontWeight = FontWeight.W700,
                                 fontSize = TextUnit(24f, TextUnitType.Sp)
                             )
@@ -120,7 +120,7 @@ fun EnterOtpScreen(
                                 onClick = { /*TODO*/ },
                                 shape = RoundedCornerShape(24.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = DoktoSecondary
+                                    backgroundColor = DoktoPrimaryVariant
                                 ),
                                 contentPadding = PaddingValues(30.dp, 15.dp)
                             ) {

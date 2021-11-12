@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
@@ -95,7 +94,7 @@ fun DoctorRegistrationThirdScreen(
                             }
                         },
                         colors = CheckboxDefaults.colors(
-                            checkedColor = DoktoSecondary,
+                            checkedColor = DoktoPrimaryVariant,
                             uncheckedColor = DoktoCheckboxUncheckColor
                         )
                     )
@@ -115,7 +114,7 @@ fun DoctorRegistrationThirdScreen(
             Text(
                 stringResource(id = R.string.label_education),
                 modifier = Modifier.weight(1f),
-                color = DoktoSecondary,
+                color = DoktoPrimaryVariant,
                 fontSize = TextUnit(value = 24f, type = TextUnitType.Sp)
             )
             IconButton(onClick = {
@@ -230,7 +229,7 @@ fun DoctorRegistrationThirdScreen(
                                 .height(IntrinsicSize.Max)
                                 .width(150.dp),
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = DoktoSecondary
+                                backgroundColor = DoktoPrimaryVariant
                             )
                         ) {
                             Text(
@@ -262,7 +261,7 @@ fun DoctorRegistrationThirdScreen(
                 .width(200.dp)
                 .align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = DoktoSecondary
+                backgroundColor = DoktoPrimaryVariant
             )
         ) {
             Text(text = stringResource(id = R.string.next), color = Color.White)

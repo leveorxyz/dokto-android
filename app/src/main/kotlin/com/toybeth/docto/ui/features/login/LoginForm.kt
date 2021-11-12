@@ -10,17 +10,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.ui.features.login.components.DoktoPasswordField
 import com.toybeth.docto.ui.features.login.components.DoktoTextField
-import com.toybeth.docto.ui.theme.DoktoAccent
 import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
 
 @Composable
 fun LoginForm(
@@ -59,7 +56,7 @@ fun LoginForm(
         ) {
             Text(
                 text = "forgot the password?",
-                color = DoktoSecondary,
+                color = DoktoPrimaryVariant,
                 modifier = Modifier.clickable {
                     viewModel.navigateToForgetPassword()
                 }
@@ -67,7 +64,7 @@ fun LoginForm(
 
             Text(
                 text = "register here",
-                color = DoktoAccent,
+                color = DoktoSecondary,
                 modifier = Modifier.clickable {
                     viewModel.navigateToRegistration()
                 }
@@ -84,7 +81,7 @@ fun LoginForm(
                 .width(200.dp)
                 .align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = DoktoSecondary
+                backgroundColor = DoktoPrimaryVariant
             )
         ) {
             Text(text = "Login", color = Color.White)

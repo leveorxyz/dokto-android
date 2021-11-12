@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -19,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.toybeth.docto.ui.theme.DoktoAccent
+import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @Composable
 fun RegistrationFormTextField(
@@ -61,7 +60,7 @@ fun RegistrationFormTextField(
                 textColor = Color.Black,
                 disabledTextColor = Color.Gray,
                 backgroundColor = Color.White,
-                cursorColor = DoktoAccent,
+                cursorColor = DoktoSecondary,
                 placeholderColor = Color.Gray,
                 disabledPlaceholderColor = Color.Gray,
             ),

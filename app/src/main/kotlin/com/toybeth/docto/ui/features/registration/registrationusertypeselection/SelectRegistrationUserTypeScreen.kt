@@ -29,7 +29,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
 import com.toybeth.docto.base.ui.uiutils.getExitAnimation
 import com.toybeth.docto.base.ui.uiutils.isVisible
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
 import com.toybeth.docto.ui.theme.TextColorWhite
 import com.toybeth.docto.ui.theme.UserTypeButtonSelectedColor
 import com.toybeth.docto.ui.theme.UserTypeButtonUnselectedColor
@@ -88,7 +88,7 @@ fun SelectRegistrationUserTypeScreen(
                     ) {
                         Text(
                             text = stringResource(id = R.string.register),
-                            color = DoktoSecondary,
+                            color = DoktoPrimaryVariant,
                             fontWeight = FontWeight.W700,
                             fontSize = TextUnit(24f, TextUnitType.Sp)
                         )
@@ -135,7 +135,7 @@ fun SelectRegistrationUserTypeScreen(
                             },
                             shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = DoktoSecondary
+                                backgroundColor = DoktoPrimaryVariant
                             ),
                             modifier = Modifier
                                 .width(200.dp)

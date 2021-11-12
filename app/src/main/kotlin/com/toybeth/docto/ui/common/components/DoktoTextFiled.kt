@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.toybeth.docto.ui.theme.DoktoAccent
+import com.toybeth.docto.ui.theme.DoktoSecondary
 import com.toybeth.docto.ui.theme.DoktoError
 
 @Composable
@@ -63,11 +63,11 @@ fun DoktoTextFiled(
                 textColor = Color.Black,
                 disabledTextColor = Color.Gray,
                 backgroundColor = Color.White,
-                cursorColor = DoktoAccent,
+                cursorColor = DoktoSecondary,
                 placeholderColor = Color.Gray,
                 disabledPlaceholderColor = Color.Gray,
                 unfocusedBorderColor = if (errorMessage == null) Color.White else DoktoError,
-                focusedBorderColor = if (errorMessage == null) DoktoAccent else DoktoError
+                focusedBorderColor = if (errorMessage == null) DoktoSecondary else DoktoError
             ),
             keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,

@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.theme.DoktoAccent
+import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @ExperimentalMaterialApi
 @Composable
@@ -125,7 +125,7 @@ fun DoctorRegistrationFirstScreen(
                     Icon(
                         imageVector = Icons.Filled.Help,
                         contentDescription = stringResource(id = R.string.check_availability),
-                        tint = DoktoAccent
+                        tint = DoktoSecondary
                     )
                 }
             },

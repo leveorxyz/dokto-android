@@ -21,7 +21,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
 import com.toybeth.docto.ui.theme.TextColorWhite
 import kotlin.math.max
 
@@ -70,7 +70,7 @@ fun OtpField(
                 .height(60.dp)
                 .width(60.dp)
                 .weight(1f)
-                .background(DoktoSecondary)
+                .background(DoktoPrimaryVariant)
                 .focusRequester(firstTextFieldFocusRequester),
             textStyle = LocalTextStyle.current.copy(
                 color = TextColorWhite,
@@ -108,7 +108,7 @@ fun OtpField(
                 .height(60.dp)
                 .width(60.dp)
                 .weight(1f)
-                .background(DoktoSecondary)
+                .background(DoktoPrimaryVariant)
                 .focusRequester(secondTextFieldFocusRequester),
             textStyle = LocalTextStyle.current.copy(
                 color = TextColorWhite,
@@ -147,7 +147,7 @@ fun OtpField(
                 .height(60.dp)
                 .width(60.dp)
                 .weight(1f)
-                .background(DoktoSecondary)
+                .background(DoktoPrimaryVariant)
                 .focusRequester(thirdTextFieldFocusRequester),
             textStyle = LocalTextStyle.current.copy(
                 color = TextColorWhite,
@@ -186,7 +186,7 @@ fun OtpField(
                 .height(60.dp)
                 .width(60.dp)
                 .weight(1f)
-                .background(DoktoSecondary)
+                .background(DoktoPrimaryVariant)
                 .focusRequester(fourthTextFieldFocusRequester),
             textStyle = LocalTextStyle.current.copy(
                 color = TextColorWhite,
@@ -236,7 +236,7 @@ private fun OtpTextField(
         modifier = Modifier
             .height(60.dp)
             .width(60.dp)
-            .background(DoktoSecondary)
+            .background(DoktoPrimaryVariant)
             .focusRequester(focusRequester),
         textStyle = LocalTextStyle.current.copy(
             color = TextColorWhite,

@@ -10,6 +10,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.City
+import com.toybeth.docto.data.Country
 import com.toybeth.docto.data.State
 import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
@@ -29,6 +30,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
                 DoktoTheme {
                     DoctorRegistrationSecondScreen(
                         viewModel,
+                        this@DoctorRegistrationSecondStepFragment::showCountrySelectionDialog,
                         this@DoctorRegistrationSecondStepFragment::showStateSelectionDialog,
                         this@DoctorRegistrationSecondStepFragment::showCitySelectionDialog,
                     )
@@ -46,6 +48,20 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
 
     override fun onError(error: VerificationError) {
 
+    }
+
+    private fun showCountrySelectionDialog() {
+        viewModel.countryList.observe(viewLifecycleOwner, object: Observer<List<Country>> {
+            override fun onChanged(countries: List<Country>) {
+                viewModel.countryList.removeObserver(this)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(resources.getString(R.string.select_state))
+                    .setItems(countries.map { it.name }.toTypedArray()) { _, which ->
+                        viewModel.setCountry(countries[which])
+                    }
+                    .show()
+            }
+        })
     }
 
     private fun showStateSelectionDialog() {

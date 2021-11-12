@@ -21,7 +21,6 @@ import javax.inject.Inject
 class RegistrationViewModel @Inject constructor(private val repository: RegistrationRepository) :
     BaseViewModel() {
 
-    private val selectedCountry = mutableStateOf<Country?>(null)
     val moveNext = SingleLiveEvent<Boolean>()
     val userId = mutableStateOf("")
     val name = mutableStateOf("")
@@ -32,11 +31,18 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val gender = mutableStateOf("")
     val dateOfBirth = mutableStateOf("")
 
+    val identificationNumber = mutableStateOf("")
+    val address = mutableStateOf("")
+    val zipCode = mutableStateOf("")
+    val selectedCountry = mutableStateOf<Country?>(null)
     val selectedState = mutableStateOf<State?>(null)
     val selectedCity = mutableStateOf<City?>(null)
+
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
+
+    val selectedCountryName = mutableStateOf("")
     val selectedStateName = mutableStateOf("")
     val selectedCityName = mutableStateOf("")
 
@@ -52,6 +58,13 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val confirmPasswordError = mutableStateOf<String?>(null)
     val dateOfBirthError = mutableStateOf<String?>(null)
 
+    val identificationNumberError = mutableStateOf<String?>(null)
+    val addressError = mutableStateOf<String?>(null)
+    val countryNameError = mutableStateOf<String?>(null)
+    val stateNameError = mutableStateOf<String?>(null)
+    val cityNameError = mutableStateOf<String?>(null)
+    val zipCodeError = mutableStateOf<String?>(null)
+
     init {
         loadCountryStateAndCities()
     }
@@ -62,6 +75,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     fun setCountry(country: Country) {
+        selectedCountryName.value = country.name
         selectedCountry.value = country
         stateList.postValue(country.states)
     }
@@ -127,7 +141,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
             dateOfBirthError.value = "This field is required"
         }
 
-        return !(
+        return true || !(
             userId.value.isEmpty() ||
             name.value.isEmpty() ||
             selectedCountry.value == null ||

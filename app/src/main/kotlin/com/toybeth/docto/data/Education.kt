@@ -1,13 +1,38 @@
 package com.toybeth.docto.data
 
-import android.net.Uri
+import android.graphics.Bitmap
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
 data class Education(
-    var college: MutableState<String> = mutableStateOf(""),
-    var courseStudied: MutableState<String> = mutableStateOf(""),
-    var graduationYear: MutableState<String> = mutableStateOf(""),
-    var speciality: MutableState<String> = mutableStateOf(""),
-    var certificateUri: Uri? = null
+    var college: College = College(),
+    var courseStudied: CourseStudied = CourseStudied(),
+    var graduationYear: GraduationYear = GraduationYear(),
+    var speciality: Speciality = Speciality(),
+    var certificate: Certificate = Certificate()
+)
+
+data class College(
+    val state: MutableState<String> = mutableStateOf(""),
+    val error: MutableState<String?> = mutableStateOf(null)
+)
+
+data class CourseStudied(
+    val state: MutableState<String> = mutableStateOf(""),
+    val error: MutableState<String?> = mutableStateOf(null)
+)
+
+data class GraduationYear(
+    val state: MutableState<String> = mutableStateOf(""),
+    val error: MutableState<String?> = mutableStateOf(null)
+)
+
+data class Speciality(
+    val state: MutableState<String> = mutableStateOf(""),
+    val error: MutableState<String?> = mutableStateOf(null)
+)
+
+data class Certificate(
+    val state: MutableState<Bitmap?> = mutableStateOf(null),
+    val error: MutableState<String?> = mutableStateOf(null)
 )

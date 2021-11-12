@@ -31,10 +31,12 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.data.City
-import com.toybeth.docto.ui.theme.DoktoAccent
+import com.toybeth.docto.data.registration.IdentificationType
+import com.toybeth.docto.ui.common.components.DoktoDropDownMenu
+import com.toybeth.docto.ui.theme.DoktoSecondary
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldPlaceholder
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
 
 @ExperimentalUnitApi
 @ExperimentalMaterialApi
@@ -95,6 +97,17 @@ fun DoctorRegistrationSecondScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoDropDownMenu(
+            suggestions = IdentificationType.OPTIONS,
+            textFieldValue = selectedIdentification,
+            labelResourceId = R.string.identification_type,
+            hintResourceId = R.string.select,
+            onValueChange = {
+                selectedIdentification = it
+            }
+        )
+
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -122,7 +135,7 @@ fun DoctorRegistrationSecondScreen(
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Color.White,
                     backgroundColor = DoktoRegistrationFormTextFieldBackground,
-                    cursorColor = DoktoAccent,
+                    cursorColor = DoktoSecondary,
                     placeholderColor = DoktoRegistrationFormTextFieldPlaceholder,
                     disabledPlaceholderColor = DoktoRegistrationFormTextFieldPlaceholder
                 )
@@ -192,7 +205,7 @@ fun DoctorRegistrationSecondScreen(
                             .height(IntrinsicSize.Max)
                             .width(150.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = DoktoSecondary
+                            backgroundColor = DoktoPrimaryVariant
                         )
                     ) {
                         Text(
@@ -239,7 +252,7 @@ fun DoctorRegistrationSecondScreen(
                 .width(200.dp)
                 .align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = DoktoSecondary
+                backgroundColor = DoktoPrimaryVariant
             )
         ) {
             Text(text = stringResource(id = R.string.next), color = Color.White)

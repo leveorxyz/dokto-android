@@ -11,6 +11,7 @@ import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.State
+import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 
@@ -25,11 +26,13 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
             setContentView {
-                DoctorRegistrationSecondScreen(
-                    viewModel,
-                    this@DoctorRegistrationSecondStepFragment::showStateSelectionDialog,
-                    this@DoctorRegistrationSecondStepFragment::showCitySelectionDialog,
-                )
+                DoktoTheme {
+                    DoctorRegistrationSecondScreen(
+                        viewModel,
+                        this@DoctorRegistrationSecondStepFragment::showStateSelectionDialog,
+                        this@DoctorRegistrationSecondStepFragment::showCitySelectionDialog,
+                    )
+                }
             }
         }
 

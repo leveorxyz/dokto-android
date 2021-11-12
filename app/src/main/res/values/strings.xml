@@ -21,7 +21,7 @@
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Password</string>
     <string name="hint_gender">Gender</string>
-    <string name="hint_date_of_birth">dd-mm-yyyy</string>
+    <string name="hint_date_of_birth">MM/DD/YYYY</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="prefer_not_to_say">Prefer not to say</string>
@@ -57,7 +57,7 @@
     <string name="label_course_studied">Course Studied</string>
     <string name="hint_course_studied">Course Studied</string>
     <string name="label_year_graduated">Year Graduated</string>
-    <string name="hint_year_graduated">YYYY/MM/DD</string>
+    <string name="hint_year_graduated">MM/DD/YYYY</string>
     <string name="label_upload_certification">Upload Certificate</string>
     <string name="select_course_studied">Select Course Studied</string>
     <string name="label_specialities">Specialities</string>
@@ -72,4 +72,21 @@
     <string name="choose_image">Choose Image…</string>
     <string name="add">Add</string>
     <string name="education_profile_number">Profile %d</string>
+    <string name="label_professional_bio">Professional Bio</string>
+    <string name="hint_empty" />
+    <string name="label_experience">Experience</string>
+    <string name="experience_number">Experience %d</string>
+    <string name="label_job_title">Job Title</string>
+    <string name="hint_job_title">Job Title</string>
+    <string name="label_establishment_name">Establishment Name</string>
+    <string name="hint_establishment_name">Establishment Name</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="hint_start_date">MM/DD/YYYY</string>
+    <string name="label_end_date">End Date</string>
+    <string name="hint_end_date">End Date</string>
+    <string name="label_job_description">Job Description</string>
+    <string name="label_license_upload">License Upload</string>
+    <string name="label_doctor_awards">Awards/Publications if any</string>
+    <string name="label_accepted_insurances">Accepted Insurances</string>
+    <string name="submit">Submit</string>
 </resources>

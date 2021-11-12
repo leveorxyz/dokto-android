@@ -27,7 +27,8 @@ class DoctorRegistrationFourthStepFragment : BaseFragment<RegistrationViewModel>
             setContentView {
                 DoktoTheme {
                     DoctorRegistrationFourthScreen(
-                        viewModel
+                        viewModel,
+                        this@DoctorRegistrationFourthStepFragment::showDatePicker
                     )
                 }
             }

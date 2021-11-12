@@ -1,5 +1,6 @@
 package com.toybeth.docto.ui.features.registration.doctor.form
 
+import android.graphics.Bitmap
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
-import com.toybeth.docto.data.City
-import com.toybeth.docto.data.Country
-import com.toybeth.docto.data.Education
-import com.toybeth.docto.data.State
+import com.toybeth.docto.data.*
 import com.toybeth.docto.data.registration.RegistrationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
@@ -67,6 +65,16 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
     val specialties = mutableStateListOf(mutableStateOf<String?>(null))
 
+    val professionalBio = mutableStateOf("")
+    val professionalBioError = mutableStateOf<String?>(null)
+    val experiences = mutableStateListOf(Experience())
+    val doctorLicense = mutableStateOf<Bitmap?>(null)
+    val doctorLicenseError = mutableStateOf<String?>(null)
+    val doctorAwards = mutableStateOf("")
+    val doctorAwardsError = mutableStateOf<String?>(null)
+    val doctorInsurances = mutableStateListOf(mutableStateOf<String?>(null))
+    val doctorInsurancesError = mutableStateOf<String?>(null)
+
     init {
         loadCountryStateAndCities()
     }
@@ -105,8 +113,16 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
         educations.add(Education())
     }
 
+    fun addExperience() {
+        experiences.add(Experience())
+    }
+
     fun addSpecialty(specialty: String) {
         specialties.add(mutableStateOf(specialty))
+    }
+
+    fun addInsurance(insurance: String) {
+        doctorInsurances.add(mutableStateOf(insurance))
     }
 
     fun verifyFirstStep(): Boolean {

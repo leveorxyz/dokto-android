@@ -143,16 +143,16 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
         return true || !(
             userId.value.isEmpty() ||
-            name.value.isEmpty() ||
-            selectedCountry.value == null ||
-            mobileNumber.value.isEmpty() ||
-            email.value.isEmpty() ||
-            password.value.isEmpty() ||
-            confirmPassword.value.isEmpty() ||
-            password.value != confirmPassword.value ||
-            gender.value.isEmpty() ||
-            dateOfBirth.value.isEmpty()
-        )
+                name.value.isEmpty() ||
+                selectedCountry.value == null ||
+                mobileNumber.value.isEmpty() ||
+                email.value.isEmpty() ||
+                password.value.isEmpty() ||
+                confirmPassword.value.isEmpty() ||
+                password.value != confirmPassword.value ||
+                gender.value.isEmpty() ||
+                dateOfBirth.value.isEmpty()
+            )
     }
 
     fun moveNext() {

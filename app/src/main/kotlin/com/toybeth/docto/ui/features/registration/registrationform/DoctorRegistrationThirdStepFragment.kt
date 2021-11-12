@@ -6,10 +6,10 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
+import com.toybeth.docto.ui.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 import java.util.*
@@ -26,11 +26,12 @@ class DoctorRegistrationThirdStepFragment : BaseFragment<RegistrationViewModel>(
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
             setContentView {
-                DoctorRegistrationThirdScreen(
-                    viewModel,
-                    this@DoctorRegistrationThirdStepFragment::showDatePicker,
-                    this@DoctorRegistrationThirdStepFragment::showSpecialitySelectionDialog
-                )
+                DoktoTheme {
+                    DoctorRegistrationThirdScreen(
+                        viewModel,
+                        this@DoctorRegistrationThirdStepFragment::showDatePicker
+                    )
+                }
             }
         }
 
@@ -68,14 +69,5 @@ class DoctorRegistrationThirdStepFragment : BaseFragment<RegistrationViewModel>(
             onDatePicked.invoke(it)
         }
         datePicker?.show(childFragmentManager.beginTransaction(), "date picker")
-    }
-
-    private fun showSpecialitySelectionDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.select_course_studied))
-            .setItems(R.array.specialities) { _, which ->
-
-            }
-            .show()
     }
 }

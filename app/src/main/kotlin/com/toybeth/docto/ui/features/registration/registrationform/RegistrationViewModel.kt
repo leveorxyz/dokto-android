@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent
+import com.toybeth.docto.base.utils.extensions.isEmailValid
+import com.toybeth.docto.base.utils.extensions.isPasswordValid
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.Country
@@ -90,55 +92,60 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     fun verifyFirstStep(): Boolean {
+        var isValid = true
+        usedIdError.value = null
+        nameError.value = null
+        countryError.value = null
+        mobileNumberError.value = null
+        emailError.value = null
+        passwordError.value = null
+        confirmPasswordError.value = null
+        dateOfBirthError.value = null
 
         if (userId.value.isEmpty()) {
             usedIdError.value = "This field is required"
+            isValid = false
         }
 
         if (name.value.isEmpty()) {
             nameError.value = "This field is required"
+            isValid = false
         }
 
         if (selectedCountry.value == null) {
             countryError.value = "Select country"
+            isValid = false
         }
 
         if (mobileNumber.value.isEmpty()) {
             mobileNumberError.value = "This field is required"
+            isValid = false
         }
 
-        if (email.value.isEmpty()) {
+        if (!email.value.isEmailValid()) {
             emailError.value = "This field is required"
+            isValid = false
         }
 
-        if (password.value.isEmpty()) {
+        if (!password.value.isPasswordValid()) {
             passwordError.value = "This field is required"
+            isValid = false
         }
 
-        if (confirmPassword.value.isEmpty()) {
+        if (!confirmPassword.value.isPasswordValid()) {
             confirmPasswordError.value = "This field is required"
-        } else if (
-            password.value != confirmPassword.value
-        ) {
+            isValid = false
+        } else if( password.value != confirmPassword.value) {
             confirmPasswordError.value = "Passwords do not match"
+            isValid = false
         }
 
         if (dateOfBirth.value.isEmpty()) {
             dateOfBirthError.value = "This field is required"
+            isValid = false
         }
 
-        return !(
-            userId.value.isEmpty() ||
-            name.value.isEmpty() ||
-            selectedCountry.value == null ||
-            mobileNumber.value.isEmpty() ||
-            email.value.isEmpty() ||
-            password.value.isEmpty() ||
-            confirmPassword.value.isEmpty() ||
-            password.value != confirmPassword.value ||
-            gender.value.isEmpty() ||
-            dateOfBirth.value.isEmpty()
-        )
+        return isValid
     }
 
     fun moveNext() {

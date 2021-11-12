@@ -61,7 +61,7 @@ fun DoktoTextFiled(
             modifier = textFieldModifier,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
-                disabledTextColor = Color.Gray,
+                disabledTextColor = Color.Black,
                 backgroundColor = Color.White,
                 cursorColor = DoktoSecondary,
                 placeholderColor = Color.Gray,

@@ -246,6 +246,7 @@ fun DoctorRegistrationFirstScreen(
             radioOptions = listOf(
                 context.getString(R.string.male),
                 context.getString(R.string.female),
+                context.getString(R.string.other),
                 context.getString(R.string.prefer_not_to_say),
             ),
         ) {

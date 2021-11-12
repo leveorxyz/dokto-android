@@ -66,4 +66,7 @@
     <string name="check_availability">Check Availability</string>
     <string name="get_started">Get Started</string>
     <string name="choose_photo">Choose Photo</string>
+    <string name="identification_type">Identification type</string>
+    <string name="select">Select</string>
+    <string name="other">Other</string>
 </resources>

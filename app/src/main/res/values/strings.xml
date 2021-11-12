@@ -70,4 +70,6 @@
     <string name="identification_type">Identification Type</string>
     <string name="identification_number">Identification Number</string>
     <string name="choose_image">Choose Image…</string>
+    <string name="add">Add</string>
+    <string name="education_profile_number">Profile %d</string>
 </resources>

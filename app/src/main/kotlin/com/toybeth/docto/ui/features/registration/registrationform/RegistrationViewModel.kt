@@ -65,6 +65,8 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val cityNameError = mutableStateOf<String?>(null)
     val zipCodeError = mutableStateOf<String?>(null)
 
+    val specialties = mutableStateListOf(mutableStateOf<String?>(null))
+
     init {
         loadCountryStateAndCities()
     }
@@ -101,6 +103,10 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
     fun addEducation() {
         educations.add(Education())
+    }
+
+    fun addSpecialty(specialty: String) {
+        specialties.add(mutableStateOf(specialty))
     }
 
     fun verifyFirstStep(): Boolean {

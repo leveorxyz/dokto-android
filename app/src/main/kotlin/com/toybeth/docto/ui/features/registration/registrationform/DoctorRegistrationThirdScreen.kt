@@ -3,6 +3,8 @@ package com.toybeth.docto.ui.features.registration.registrationform
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -19,10 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
-import com.toybeth.docto.ui.common.components.DoktoButton
-import com.toybeth.docto.ui.common.components.DoktoDropDownMenu
-import com.toybeth.docto.ui.common.components.DoktoImageUpload
-import com.toybeth.docto.ui.common.components.DoktoTextFiled
+import com.toybeth.docto.ui.common.components.*
 import com.toybeth.docto.ui.theme.DoktoCheckboxUncheckColor
 import com.toybeth.docto.ui.theme.DoktoError
 import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
@@ -39,8 +38,8 @@ fun DoctorRegistrationThirdScreen(
     val scrollState = rememberScrollState()
     val context = LocalContext.current
     val availableLanguages = context.resources.getStringArray(R.array.languages).toList()
+    val specialties = context.resources.getStringArray(R.array.specialities).toMutableList()
     val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-    val specialties = context.resources.getStringArray(R.array.specialities)
 
     return Column(
         modifier = Modifier
@@ -241,23 +240,37 @@ fun DoctorRegistrationThirdScreen(
             }
 
             Spacer(modifier = Modifier.height(30.dp))
-
-            // --------------------------- SPECIALITIES ------------------------- //
-
-            DoktoDropDownMenu(
-                suggestions = specialties.toList(),
-                textFieldValue = education.speciality.state.value,
-                labelResourceId = R.string.label_specialities,
-                hintResourceId = R.string.hint_specialities,
-                errorMessage = education.speciality.error.value,
-                onValueChange = {
-                    education.speciality.error.value = null
-                    education.speciality.state.value = it
-                }
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
         }
+
+
+        // --------------------------- SPECIALITIES ------------------------- //
+
+        DoktoDropDownMenu(
+            suggestions = specialties,
+            textFieldValue = stringResource(id = R.string.label_specialities),
+            labelResourceId = R.string.label_specialities,
+            hintResourceId = R.string.hint_specialities,
+//            errorMessage = education.speciality.error.value,
+            onValueChange = {
+//                education.speciality.error.value = null
+                viewModel.addSpecialty(it)
+                specialties.remove(it)
+            }
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        LazyRow {
+            items(viewModel.specialties) { specialty ->
+                specialty.value?.let {
+                    DoktoChip(text = it) {
+                        viewModel.specialties.remove(specialty)
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(50.dp))
 
         // -------------------------- NEXT BUTTON -------------------- //

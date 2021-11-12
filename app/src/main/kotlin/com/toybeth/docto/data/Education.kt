@@ -8,7 +8,6 @@ data class Education(
     var college: College = College(),
     var courseStudied: CourseStudied = CourseStudied(),
     var graduationYear: GraduationYear = GraduationYear(),
-    var speciality: Speciality = Speciality(),
     var certificate: Certificate = Certificate()
 )
 
@@ -23,11 +22,6 @@ data class CourseStudied(
 )
 
 data class GraduationYear(
-    val state: MutableState<String> = mutableStateOf(""),
-    val error: MutableState<String?> = mutableStateOf(null)
-)
-
-data class Speciality(
     val state: MutableState<String> = mutableStateOf(""),
     val error: MutableState<String?> = mutableStateOf(null)
 )

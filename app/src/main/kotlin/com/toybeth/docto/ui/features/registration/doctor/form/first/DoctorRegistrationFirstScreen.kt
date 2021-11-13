@@ -1,6 +1,5 @@
 package com.toybeth.docto.ui.features.registration.doctor.form.first
 
-import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -48,7 +47,6 @@ fun DoctorRegistrationFirstScreen(
 
     val scrollState = rememberScrollState()
     var imageUri by remember { mutableStateOf<Uri?>(null) }
-    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
 
     val launcher = rememberLauncherForActivityResult(
@@ -57,13 +55,13 @@ fun DoctorRegistrationFirstScreen(
         imageUri = uri
         imageUri?.let {
             if (Build.VERSION.SDK_INT < 28) {
-                bitmap.value = MediaStore.Images.Media.getBitmap(
+                viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
                     context.contentResolver, it
                 )
 
             } else {
                 val source = ImageDecoder.createSource(context.contentResolver, it)
-                bitmap.value = ImageDecoder.decodeBitmap(source)
+                viewModel.profileImage.state.value = ImageDecoder.decodeBitmap(source)
             }
         }
     }
@@ -85,9 +83,9 @@ fun DoctorRegistrationFirstScreen(
 
             // ------------------------- PROFILE IMAGE ----------------------- //
 
-            if (bitmap.value != null) {
+            if (viewModel.profileImage.state.value != null) {
                 Image(
-                    bitmap = bitmap.value!!.asImageBitmap(),
+                    bitmap = viewModel.profileImage.state.value!!.asImageBitmap(),
                     contentDescription = "avatar",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

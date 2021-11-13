@@ -7,10 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent
+import com.toybeth.docto.base.utils.extensions.isValidEmail
+import com.toybeth.docto.base.utils.extensions.isValidPassword
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.docto.data.*
 import com.toybeth.docto.data.registration.RegistrationRepository
-import com.toybeth.docto.extensions.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -144,14 +145,14 @@ class RegistrationViewModel @Inject constructor(
 
         if (email.state.value.isNullOrEmpty()) {
             email.error.value = "This field is required"
-        }
-
-        if (email.state.value.isValidEmail()) {
+        } else if (!email.state.value.isValidEmail()) {
             email.error.value = "Invalid email address"
         }
 
         if (password.state.value.isNullOrEmpty()) {
             password.error.value = "This field is required"
+        } else if (password.state.value.isValidPassword()) {
+            password.error.value = "Minimum eight characters, at least one letter and one number"
         }
 
         if (confirmPassword.state.value.isNullOrEmpty()) {

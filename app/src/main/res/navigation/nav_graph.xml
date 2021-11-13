@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/doctorRegistrationFormStepsFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/selectRegistrationUserTypeFragment"
-        android:name="com.toybeth.docto.ui.features.registration.registrationusertypeselection.SelectRegistrationUserTypeFragment"
+        android:name="com.toybeth.docto.ui.features.registration.usertype.SelectRegistrationUserTypeFragment"
         android:label="SelectRegistrationUserTypeFragment">
 
         <action
@@ -92,7 +92,7 @@
 
     <fragment
         android:id="@+id/doctorRegistrationFormStepsFragment"
-        android:name="com.toybeth.docto.ui.features.registration.registrationform.DoctorRegistrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
         android:label="DoctorRegistrationFormStepsFragment" />
 
 </navigation>

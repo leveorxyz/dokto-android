@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.ui.features.login.components.DoktoPasswordField
 import com.toybeth.docto.ui.features.login.components.DoktoTextField
-import com.toybeth.docto.ui.theme.DoktoSecondary
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 
 @Composable
 fun LoginForm(

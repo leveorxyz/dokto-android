@@ -1,10 +1,8 @@
-package com.toybeth.docto.ui.features.registration.doctor.form.second
+package com.toybeth.docto.ui.features.registration.patient.second
 
 import android.os.Bundle
 import android.view.View
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -14,27 +12,22 @@ import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.City
 import com.toybeth.docto.data.Country
 import com.toybeth.docto.data.State
-import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
-import com.toybeth.docto.base.theme.DoktoTheme
+import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 
-@ExperimentalMaterialApi
-@ExperimentalUnitApi
-class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>(), Step {
+class PatientRegistrationSecondStepFragment : BaseFragment<PatientRegistrationViewModel>(), Step {
 
-    override val viewModel: RegistrationViewModel by viewModels(
-        ownerProducer = { requireParentFragment() },
-    )
+    override val viewModel: PatientRegistrationViewModel by viewModels()
 
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
             setContentView {
-                DoctorRegistrationSecondScreen(
+                PatientRegistrationSecondScreen(
                     viewModel,
-                    this@DoctorRegistrationSecondStepFragment::showCountrySelectionDialog,
-                    this@DoctorRegistrationSecondStepFragment::showStateSelectionDialog,
-                    this@DoctorRegistrationSecondStepFragment::showCitySelectionDialog,
+                    this@PatientRegistrationSecondStepFragment::showCountrySelectionDialog,
+                    this@PatientRegistrationSecondStepFragment::showStateSelectionDialog,
+                    this@PatientRegistrationSecondStepFragment::showCitySelectionDialog,
                 )
             }
         }
@@ -52,7 +45,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
     }
 
     override fun onError(error: VerificationError) {
-
+//        TODO("Not yet implemented")
     }
 
     private fun showCountrySelectionDialog() {

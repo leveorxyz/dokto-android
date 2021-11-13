@@ -13,11 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Help
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,9 +30,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
-import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
-import com.toybeth.docto.ui.theme.DoktoSecondary
 
 @ExperimentalMaterialApi
 @Composable
@@ -116,37 +110,28 @@ fun PatientRegistrationFirstScreen(
         }
         Spacer(modifier = Modifier.height(30.dp))
 
-        // --------------------------- USER ID -------------------------- //
+        // --------------------------- First name -------------------------- //
         DoktoTextFiled(
-            textFieldValue = viewModel.userId.state.value ?: "",
-            hintResourceId = R.string.hint_userid,
-            labelResourceId = R.string.label_userid,
-            trailingIcon = {
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Filled.Help,
-                        contentDescription = stringResource(id = R.string.check_availability),
-                        tint = DoktoSecondary
-                    )
-                }
-            },
-            errorMessage = viewModel.userId.error.value,
+            textFieldValue = viewModel.firstName.state.value ?: "",
+            hintResourceId = R.string.hint_first_name,
+            labelResourceId = R.string.label_first_name,
+            errorMessage = viewModel.firstName.error.value,
             onValueChange = {
-                viewModel.userId.state.value = it
-                viewModel.userId.error.value = null
+                viewModel.firstName.state.value = it
+                viewModel.firstName.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- NAME ----------------------- //
         DoktoTextFiled(
-            textFieldValue = viewModel.name.state.value ?: "",
-            hintResourceId = R.string.hint_name,
-            labelResourceId = R.string.label_name,
-            errorMessage = viewModel.name.error.value,
+            textFieldValue = viewModel.lastName.state.value ?: "",
+            hintResourceId = R.string.hint_last_name,
+            labelResourceId = R.string.label_last_name,
+            errorMessage = viewModel.lastName.error.value,
             onValueChange = {
-                viewModel.name.state.value = it
-                viewModel.name.error.value = null
+                viewModel.lastName.state.value = it
+                viewModel.lastName.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -247,6 +232,7 @@ fun PatientRegistrationFirstScreen(
             radioOptions = listOf(
                 context.getString(R.string.male),
                 context.getString(R.string.female),
+                context.getString(R.string.other),
                 context.getString(R.string.prefer_not_to_say),
             ),
         ) {

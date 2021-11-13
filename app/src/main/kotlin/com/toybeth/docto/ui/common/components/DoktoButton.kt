@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 
 @Composable
 fun DoktoButton(

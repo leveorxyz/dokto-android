@@ -16,8 +16,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.toybeth.docto.ui.theme.DoktoSecondary
-import com.toybeth.docto.ui.theme.DoktoError
+import com.toybeth.docto.base.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoError
 
 @Composable
 fun DoktoTextFiled(

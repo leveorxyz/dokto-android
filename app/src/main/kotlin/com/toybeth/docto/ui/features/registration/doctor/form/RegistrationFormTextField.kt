@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoSecondary
 
 @Composable
 fun RegistrationFormTextField(

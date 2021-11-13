@@ -21,8 +21,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
-import com.toybeth.docto.ui.theme.TextColorWhite
+import com.toybeth.docto.base.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.TextColorWhite
 import kotlin.math.max
 
 private val firstTextFieldFocusRequester = FocusRequester()

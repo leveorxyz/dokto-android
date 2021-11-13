@@ -17,8 +17,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
 import com.toybeth.docto.base.R
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.DoktoRegistrationFormTextFieldBackground
+import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 
 @Composable
 fun RadioGroup(

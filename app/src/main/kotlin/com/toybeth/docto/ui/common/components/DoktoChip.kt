@@ -15,8 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoRegistrationFormTextFieldBackground
 
 @Composable
 fun DoktoChip(

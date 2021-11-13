@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.ui.common.components.*
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
-import com.toybeth.docto.ui.theme.DoktoCheckboxUncheckColor
-import com.toybeth.docto.ui.theme.DoktoError
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoCheckboxUncheckColor
+import com.toybeth.docto.base.theme.DoktoError
+import com.toybeth.docto.base.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.DoktoSecondary
 import java.text.SimpleDateFormat
 import java.util.*
 

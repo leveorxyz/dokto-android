@@ -21,14 +21,10 @@ class PatientRegistrationViewModel @Inject constructor() : BaseViewModel(){
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
 
-    val selectedCountryName = mutableStateOf("")
-    val selectedStateName = mutableStateOf("")
-    val selectedCityName = mutableStateOf("")
-
     // ... First Screen
     val profileImage = Property<Bitmap>()
-    val userId = Property<String>()
-    val name = Property<String>()
+    val firstName = Property<String>()
+    val lastName = Property<String>()
     val country = Property<Country>()
     val mobileNumber = Property<String>()
     val email = Property<String>()
@@ -37,8 +33,14 @@ class PatientRegistrationViewModel @Inject constructor() : BaseViewModel(){
     val gender = Property<String>()
     val dateOfBirth = Property<String>()
 
-    val address = mutableStateOf("")
-    val zipCode = mutableStateOf("")
+    // Second Screen
+    val identityVerificationNumber = Property<String>()
+    val socialSecurityNumber = Property<String>()
+    val address = Property<String>()
+    val stateName = Property<String>()
+    val cityName = Property<String>()
+    val zipCode = Property<String>()
+
     private val selectedCountry = mutableStateOf<Country?>(null)
     private val selectedState = mutableStateOf<State?>(null)
     private val selectedCity = mutableStateOf<City?>(null)
@@ -51,19 +53,18 @@ class PatientRegistrationViewModel @Inject constructor() : BaseViewModel(){
     }
 
     fun setCountry(country: Country) {
-        selectedCountryName.value = country.name
         selectedCountry.value = country
         stateList.postValue(country.states)
     }
 
     fun setState(state: State) {
-        selectedStateName.value = state.name
+        stateName.state.value = state.name
         selectedState.value = state
         cityList.postValue(state.cities)
     }
 
     fun setCity(city: City) {
-        selectedCityName.value = city.name
+        cityName.state.value = city.name
         selectedCity.value = city
     }
 

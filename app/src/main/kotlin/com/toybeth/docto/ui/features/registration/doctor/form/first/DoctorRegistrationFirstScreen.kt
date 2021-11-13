@@ -35,7 +35,7 @@ import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoSecondary
 
 @ExperimentalMaterialApi
 @Composable

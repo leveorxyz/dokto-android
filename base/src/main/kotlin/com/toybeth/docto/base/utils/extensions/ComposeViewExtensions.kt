@@ -7,11 +7,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import com.toybeth.docto.base.R
+import com.toybeth.docto.base.theme.DoktoTheme
 
 fun ComposeView.setContentView(content: @Composable () -> Unit) {
     setContent {
-        MaterialTheme(
-            typography = Typography(defaultFontFamily = FontFamily(Font(R.font.poppins_regular))),
+        DoktoTheme(
             content = content
         )
     }

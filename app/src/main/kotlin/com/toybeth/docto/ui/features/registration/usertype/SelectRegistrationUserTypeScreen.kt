@@ -26,7 +26,7 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
 import com.toybeth.docto.base.ui.uiutils.getExitAnimation
 import com.toybeth.docto.base.ui.uiutils.isVisible
-import com.toybeth.docto.ui.theme.*
+import com.toybeth.docto.base.theme.*
 
 @ExperimentalAnimationApi
 @ExperimentalUnitApi

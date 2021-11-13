@@ -91,4 +91,11 @@
     <string name="submit">Submit</string>
     <string name="clinic">Clinic</string>
     <string name="pharmacy">Pharmacy</string>
+    <string name="hint_first_name">Enter Your First Name</string>
+    <string name="label_first_name">First name</string>
+    <string name="hint_last_name">Enter Your Last Name</string>
+    <string name="label_last_name">Last name</string>
+    <string name="other">Other</string>
+    <string name="label_identification_number">Scocial Security Number</string>
+    <string name="hint_identification_number">Enter your social security number</string>
 </resources>

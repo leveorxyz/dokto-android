@@ -28,8 +28,8 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.uiutils.AnimState
 import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
 import com.toybeth.docto.base.ui.uiutils.getExitAnimation
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
-import com.toybeth.docto.ui.theme.TextColorWhite
+import com.toybeth.docto.base.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.TextColorWhite
 
 @ExperimentalAnimationApi
 @ExperimentalUnitApi

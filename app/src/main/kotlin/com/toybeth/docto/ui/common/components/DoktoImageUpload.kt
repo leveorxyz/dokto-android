@@ -34,9 +34,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
-import com.toybeth.docto.ui.theme.DoktoError
-import com.toybeth.docto.ui.theme.DoktoRegistrationFormTextFieldBackground
-import com.toybeth.docto.ui.theme.DoktoSecondary
+import com.toybeth.docto.base.theme.DoktoError
+import com.toybeth.docto.base.theme.DoktoRegistrationFormTextFieldBackground
+import com.toybeth.docto.base.theme.DoktoSecondary
 
 @Composable
 @Suppress("DEPRECATION")

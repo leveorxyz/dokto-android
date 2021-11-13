@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.theme
+package com.toybeth.docto.base.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

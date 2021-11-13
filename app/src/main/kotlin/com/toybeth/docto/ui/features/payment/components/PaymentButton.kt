@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.ui.features.payment.data.PaymentType
-import com.toybeth.docto.ui.theme.Purple700
+import com.toybeth.docto.base.theme.Purple700
 
 @Composable
 fun PaymentButton(paymentType: PaymentType, selected: Boolean, onClick: () -> Unit) {

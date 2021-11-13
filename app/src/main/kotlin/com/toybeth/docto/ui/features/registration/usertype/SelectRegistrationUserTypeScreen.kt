@@ -4,11 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -21,18 +20,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.ExperimentalUnitApi
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.*
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
 import com.toybeth.docto.base.ui.uiutils.getExitAnimation
 import com.toybeth.docto.base.ui.uiutils.isVisible
-import com.toybeth.docto.ui.theme.DoktoPrimaryVariant
-import com.toybeth.docto.ui.theme.TextColorWhite
-import com.toybeth.docto.ui.theme.UserTypeButtonSelectedColor
-import com.toybeth.docto.ui.theme.UserTypeButtonUnselectedColor
+import com.toybeth.docto.ui.theme.*
 
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
@@ -42,6 +35,7 @@ fun SelectRegistrationUserTypeScreen(
 ) {
     val screenAnimState = viewModel.screenAnimState.observeAsState()
     val isDoctorSelected = remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -56,32 +50,28 @@ fun SelectRegistrationUserTypeScreen(
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceEvenly
+                verticalArrangement = Arrangement.Top
             ) {
-                Row(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.dokto_logo),
-                        contentDescription = stringResource(R.string.dokto_logo_description),
-                        modifier = Modifier.width(200.dp)
-                    )
-                }
                 Column(
-                    modifier = Modifier
-                        .weight(2f)
-                        .fillMaxHeight(),
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    verticalArrangement = Arrangement.Center
                 ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 30.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.dokto_logo),
+                            contentDescription = stringResource(R.string.dokto_logo_description),
+                            modifier = Modifier.width(200.dp)
+                        )
+                    }
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .weight(.6f),
+                            .fillMaxWidth()
+                            .padding(top = 30.dp),
                         horizontalAlignment =
                         Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Top
@@ -99,52 +89,161 @@ fun SelectRegistrationUserTypeScreen(
                             color = TextColorWhite,
                         )
                     }
-                    Row(
+                }
+
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(
+                            scrollState,
+                            enabled = true
+                        )
+                        .fillMaxHeight()
+                        .weight(1f)
+                        .padding(top = 50.dp)
+                ) {
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(1f),
-                        verticalAlignment = Alignment.Top,
-                        horizontalArrangement = Arrangement.Center
+                            .padding(start = 20.dp, end = 20.dp),
+                        backgroundColor = Color.White.copy(alpha = .3f)
                     ) {
-                        UserTypeButton(
-                            onClick = {
-                                isDoctorSelected.value = true
-                            },
-                            iconResourceId = R.drawable.ic_user_type_doctor,
-                            textResourceId = R.string.doctor,
-                            isSelected = isDoctorSelected.value
-                        )
-                        Spacer(modifier = Modifier.width(40.dp))
-                        UserTypeButton(
-                            onClick = {
-                                isDoctorSelected.value = false
-                            },
-                            iconResourceId = R.drawable.ic_user_type_doctor,
-                            textResourceId = R.string.patient,
-                            isSelected = !isDoctorSelected.value
-                        )
-                    }
-                    Row(
-                        modifier = Modifier.weight(1.2f),
-                        verticalAlignment = Alignment.Top,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Button(
-                            onClick = {
-                                viewModel.navigateToNextPage(isDoctorSelected.value)
-                            },
-                            shape = RoundedCornerShape(20.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = DoktoPrimaryVariant
-                            ),
-                            modifier = Modifier
-                                .width(200.dp)
-                                .height(50.dp)
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = stringResource(id = R.string.register),
-                                color = Color.White
-                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_patient),
+                                    contentDescription = "patient",
+                                    modifier = Modifier.height(100.dp)
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.End
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.patient),
+                                    fontSize = 40.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(end = 30.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                        backgroundColor = Color.White.copy(
+                            alpha = .9f,
+                            green = .1f,
+                            red = .5f,
+                            blue = .9f
+                        )
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_doctor),
+                                    contentDescription = "doctor",
+                                    modifier = Modifier.height(100.dp)
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.End
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.doctor),
+                                    fontSize = 40.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(end = 20.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                        backgroundColor = DoktoUserTypeClinicColor
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_clinic),
+                                    contentDescription = "patient",
+                                    modifier = Modifier
+                                        .height(100.dp)
+                                        .offset(x = -30.dp),
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.End
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.clinic),
+                                    fontSize = 40.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(end = 30.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                        backgroundColor = DoktoUserTypePharmacyColor
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_pharmacy),
+                                    contentDescription = "pharmacy",
+                                    modifier = Modifier.height(100.dp)
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.End
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.pharmacy),
+                                    fontSize = 35.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(end = 20.dp)
+                                )
+                            }
                         }
                     }
                 }

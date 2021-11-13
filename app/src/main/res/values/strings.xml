@@ -89,4 +89,6 @@
     <string name="label_doctor_awards">Awards/Publications if any</string>
     <string name="label_accepted_insurances">Accepted Insurances</string>
     <string name="submit">Submit</string>
+    <string name="clinic">Clinic</string>
+    <string name="pharmacy">Pharmacy</string>
 </resources>

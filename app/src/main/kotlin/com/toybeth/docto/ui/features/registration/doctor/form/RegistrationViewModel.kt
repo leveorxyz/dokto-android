@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent
-import com.toybeth.docto.base.utils.extensions.isValidEmail
-import com.toybeth.docto.base.utils.extensions.isValidPassword
+import com.toybeth.docto.base.utils.extensions.isEmailValid
+import com.toybeth.docto.base.utils.extensions.isPasswordValid
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.docto.data.*
 import com.toybeth.docto.data.registration.RegistrationRepository
@@ -40,9 +40,9 @@ class RegistrationViewModel @Inject constructor(
     val identificationNumber = mutableStateOf("")
     val address = mutableStateOf("")
     val zipCode = mutableStateOf("")
-    val selectedCountry = mutableStateOf<Country?>(null)
-    val selectedState = mutableStateOf<State?>(null)
-    val selectedCity = mutableStateOf<City?>(null)
+    private val selectedCountry = mutableStateOf<Country?>(null)
+    private val selectedState = mutableStateOf<State?>(null)
+    private val selectedCity = mutableStateOf<City?>(null)
 
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
@@ -125,37 +125,44 @@ class RegistrationViewModel @Inject constructor(
         doctorInsurances.add(mutableStateOf(insurance))
     }
 
-    fun verifyFirstStep(): Boolean {
+    fun verifyDoctorRegistrationFirstStep(): Boolean {
+        var isValid = true
 
         if (userId.state.value.isNullOrEmpty()) {
             userId.error.value = "This field is required"
+            isValid = false
         }
 
         if (name.state.value.isNullOrEmpty()) {
             name.error.value = "This field is required"
+            isValid = false
         }
 
         if (country.state.value == null) {
             country.error.value = "Select country"
+            isValid = false
         }
 
         if (mobileNumber.state.value.isNullOrEmpty()) {
             mobileNumber.error.value = "This field is required"
+            isValid = false
         }
 
         if (email.state.value.isNullOrEmpty()) {
             email.error.value = "This field is required"
-        } else if (!email.state.value.isValidEmail()) {
+            isValid = false
+        }
+
+        if (email.state.value.isEmailValid()) {
             email.error.value = "Invalid email address"
+            isValid = false
         }
 
-        if (password.state.value.isNullOrEmpty()) {
+        if (password.state.value.isPasswordValid()) {
             password.error.value = "This field is required"
-        } else if (password.state.value.isValidPassword()) {
-            password.error.value = "Minimum eight characters, at least one letter and one number"
         }
 
-        if (confirmPassword.state.value.isNullOrEmpty()) {
+        if (confirmPassword.state.value.isPasswordValid()) {
             confirmPassword.error.value = "This field is required"
         } else if (
             password.state.value != confirmPassword.state.value
@@ -167,18 +174,7 @@ class RegistrationViewModel @Inject constructor(
             dateOfBirth.error.value = "This field is required"
         }
 
-        return !(
-            userId.state.value.isNullOrEmpty() ||
-                name.state.value.isNullOrEmpty() ||
-                country.state.value == null ||
-                mobileNumber.state.value.isNullOrEmpty() ||
-                email.state.value.isNullOrEmpty() ||
-                password.state.value.isNullOrEmpty() ||
-                confirmPassword.state.value.isNullOrEmpty() ||
-                password.state.value != confirmPassword.state.value ||
-                gender.state.value.isNullOrEmpty() ||
-                dateOfBirth.state.value.isNullOrEmpty()
-            )
+        return isValid
     }
 
     fun moveNext() {

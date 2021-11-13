@@ -43,7 +43,6 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.moveNext()
     }
 
     override fun verifyStep(): VerificationError? {

@@ -29,13 +29,13 @@ class SelectRegistrationUserTypeFragment : BaseFragment<SelectRegistrationUserTy
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.navigateToDoctorRegistration.observeOn(viewLifecycleOwner) {
-            navigateToDoctorRegistrationOnBoarding()
+            navigateToDoctorRegistration()
         }
     }
 
-    private fun navigateToDoctorRegistrationOnBoarding() {
+    private fun navigateToDoctorRegistration() {
         findNavController().navigate(
-            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToRegistrationOnBoardingFragment()
+            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToDoctorRegistrationFormStepsFragment()
         )
     }
 }

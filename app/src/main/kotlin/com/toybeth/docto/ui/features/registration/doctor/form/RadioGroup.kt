@@ -27,6 +27,7 @@ fun RadioGroup(
     onOptionSelected: (value: String) -> Unit
 ) {
     if (radioOptions.isNotEmpty()) {
+        onOptionSelected.invoke(radioOptions[0])
         val selectedOption = remember { mutableStateOf(radioOptions[0]) }
         Column(
             modifier = Modifier

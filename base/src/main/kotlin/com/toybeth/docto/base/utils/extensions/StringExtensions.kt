@@ -5,7 +5,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 fun String?.isEmailValid(): Boolean {
-    return isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this ?: "").matches()
+    return !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this ?: "").matches()
 }
 
 fun String?.isPasswordValid(): Boolean {

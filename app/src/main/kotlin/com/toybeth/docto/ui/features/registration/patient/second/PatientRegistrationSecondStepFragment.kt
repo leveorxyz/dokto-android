@@ -15,10 +15,14 @@ import com.toybeth.docto.data.State
 import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PatientRegistrationSecondStepFragment : BaseFragment<PatientRegistrationViewModel>(), Step {
 
-    override val viewModel: PatientRegistrationViewModel by viewModels()
+    override val viewModel: PatientRegistrationViewModel by viewModels(
+        ownerProducer = { requireParentFragment() },
+    )
 
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {

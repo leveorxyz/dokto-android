@@ -158,11 +158,11 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        if (password.state.value.isPasswordValid()) {
+        if (!password.state.value.isPasswordValid()) {
             password.error.value = "This field is required"
         }
 
-        if (confirmPassword.state.value.isPasswordValid()) {
+        if (!confirmPassword.state.value.isPasswordValid()) {
             confirmPassword.error.value = "This field is required"
         } else if (
             password.state.value != confirmPassword.state.value

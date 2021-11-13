@@ -136,12 +136,13 @@ fun PatientRegistrationThirdScreen(
                     // ------------------------ INSURANCE NAME -------------------- //
 
                     DoktoTextFiled(
-                        textFieldValue = "",
+                        textFieldValue = viewModel.insuranceName.state.value ?: "",
                         labelResourceId = R.string.label_insurance_name,
                         hintResourceId = R.string.hint_insurance_name,
-                        errorMessage = null,
+                        errorMessage = viewModel.insuranceName.error.value,
                         onValueChange = {
-
+                            viewModel.insuranceName.state.value = it
+                            viewModel.insuranceName.error.value = null
                         },
                     )
                     Spacer(modifier = Modifier.height(30.dp))
@@ -149,12 +150,13 @@ fun PatientRegistrationThirdScreen(
                     // ------------------------ INSURANCE NAME -------------------- //
 
                     DoktoTextFiled(
-                        textFieldValue = "",
+                        textFieldValue = viewModel.insuranceNumber.state.value ?: "",
                         labelResourceId = R.string.label_insurance_number,
                         hintResourceId = R.string.hint_insurance_number,
-                        errorMessage = null,
+                        errorMessage = viewModel.insuranceNumber.error.value,
                         onValueChange = {
-
+                            viewModel.insuranceNumber.state.value = it
+                            viewModel.insuranceNumber.error.value = null
                         },
                     )
                     Spacer(modifier = Modifier.height(30.dp))
@@ -162,12 +164,13 @@ fun PatientRegistrationThirdScreen(
                     // ------------------------ INSURANCE NAME -------------------- //
 
                     DoktoTextFiled(
-                        textFieldValue = "",
+                        textFieldValue = viewModel.insurancePolicyHolderName.state.value ?: "",
                         labelResourceId = R.string.label_insurance_policy_holder_name,
                         hintResourceId = R.string.hint_insurance_policy_holder_name,
-                        errorMessage = null,
+                        errorMessage = viewModel.insurancePolicyHolderName.error.value,
                         onValueChange = {
-
+                            viewModel.insurancePolicyHolderName.state.value = it
+                            viewModel.insurancePolicyHolderName.error.value = null
                         },
                     )
                     Spacer(modifier = Modifier.height(30.dp))
@@ -180,7 +183,7 @@ fun PatientRegistrationThirdScreen(
         // -------------------------- NEXT BUTTON -------------------- //
 
         DoktoButton(textResourceId = R.string.next) {
-            viewModel.moveNext()
+            viewModel.verifyThirdPage()
         }
 
         Spacer(modifier = Modifier.height(50.dp))

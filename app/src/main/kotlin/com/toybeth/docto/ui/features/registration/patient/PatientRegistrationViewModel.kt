@@ -189,6 +189,29 @@ class PatientRegistrationViewModel @Inject constructor(
         return isValid
     }
 
+    fun verifyThirdPage(): Boolean {
+        var isValid = true
+        if(insuranceType.state.value.isNullOrEmpty()) {
+            isValid = false
+            insuranceType.error.value = "This field is required"
+        }
+        if(showInsuranceDetailsForm.value) {
+            if (insuranceName.state.value.isNullOrEmpty()) {
+                isValid = false
+                insuranceName.error.value = "This field is required"
+            }
+            if(insuranceNumber.state.value.isNullOrEmpty()) {
+                isValid = false
+                insuranceNumber.error.value = "This field is required"
+            }
+            if(insurancePolicyHolderName.state.value.isNullOrEmpty()) {
+                isValid = false
+                insurancePolicyHolderName.error.value = "This field is required"
+            }
+        }
+        return isValid
+    }
+
     fun moveNext() {
         moveNext.postValue(true)
     }

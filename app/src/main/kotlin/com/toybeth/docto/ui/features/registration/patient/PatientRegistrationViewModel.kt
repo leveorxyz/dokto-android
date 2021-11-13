@@ -1,6 +1,7 @@
 package com.toybeth.docto.ui.features.registration.patient
 
 import android.graphics.Bitmap
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import com.toybeth.docto.base.ui.BaseViewModel
@@ -41,11 +42,26 @@ class PatientRegistrationViewModel @Inject constructor() : BaseViewModel(){
     val cityName = Property<String>()
     val zipCode = Property<String>()
 
+    // Third screen
+    private val insuranceType = Property<String>()
+    val referringDoctorAddress = Property<String>()
+    val referringDoctorName = Property<String>()
+    val referringDoctorPhoneNumber = Property<String>()
+    val insuranceName = Property<String>()
+    val insuranceNumber = Property<String>()
+    val insurancePolicyHolderName = Property<String>()
+    val showInsuranceDetailsForm = mutableStateOf(false)
+    var insuranceTypes = listOf<String>()
+
     private val selectedCountry = mutableStateOf<Country?>(null)
     private val selectedState = mutableStateOf<State?>(null)
     private val selectedCity = mutableStateOf<City?>(null)
 
     val moveNext = SingleLiveEvent<Boolean>()
+
+    init {
+        getInsuranceTypes()
+    }
 
     fun setDateOfBirth(timeInMillis: Long) {
         val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
@@ -68,6 +84,16 @@ class PatientRegistrationViewModel @Inject constructor() : BaseViewModel(){
         selectedCity.value = city
     }
 
+    fun setInsuranceType(insuranceType: String) {
+        this.insuranceType.state.value = insuranceType
+        this.insuranceType.error.value = null
+        showInsuranceDetailsForm.value = insuranceTypes.indexOf(insuranceType) == 1
+    }
+
+    fun getInsuranceType(): Property<String> {
+        return this.insuranceType
+    }
+
     fun getSelectedCountryCode(): String {
         return if (selectedCountry.value != null) {
             selectedCountry.value!!.phone
@@ -78,6 +104,10 @@ class PatientRegistrationViewModel @Inject constructor() : BaseViewModel(){
 
     fun moveNext() {
         moveNext.postValue(true)
+    }
+
+    private fun getInsuranceTypes() {
+        this.insuranceTypes = listOf("Self paid", "Insurance verified")
     }
 
 }

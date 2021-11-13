@@ -98,4 +98,18 @@
     <string name="other">Other</string>
     <string name="label_identification_number">Scocial Security Number</string>
     <string name="hint_identification_number">Enter your social security number</string>
+    <string name="label_referring_physician">Referring Physician Detials</string>
+    <string name="label_referring_doctor_address">Referring Doctor Address</string>
+    <string name="hint_referring_doctor_address">Referring doctor address</string>
+    <string name="label_referring_doctor_full_name">Referring Doctor Full Name</string>
+    <string name="hint_referring_doctor_full_name">Referring doctor full name</string>
+    <string name="label_referring_doctor_phone_number">Referring Doctor Phone Number</string>
+    <string name="hint_referring_doctor_phone_number">Referring doctor phone number</string>
+    <string name="label_insurance_details">Insurance Details</string>
+    <string name="label_insurance_name">Insurance Name</string>
+    <string name="hint_insurance_name">Enter insurance name</string>
+    <string name="label_insurance_number">Insurance Number</string>
+    <string name="hint_insurance_number">Enter insurance number</string>
+    <string name="label_insurance_policy_holder_name">Insurance Policy Holder Name</string>
+    <string name="hint_insurance_policy_holder_name">Enter insurance policy holder name</string>
 </resources>

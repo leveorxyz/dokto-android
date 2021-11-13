@@ -9,6 +9,7 @@ import com.toybeth.docto.ui.features.registration.doctor.form.second.DoctorRegis
 import com.toybeth.docto.ui.features.registration.doctor.form.third.DoctorRegistrationThirdStepFragment
 import com.toybeth.docto.ui.features.registration.patient.first.PatientRegistrationFirstStepFragment
 import com.toybeth.docto.ui.features.registration.patient.second.PatientRegistrationSecondStepFragment
+import com.toybeth.docto.ui.features.registration.patient.third.PatientRegistrationThirdStepFragment
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.adapter.AbstractFragmentStepAdapter
 import com.toybeth.dokto.stepper.viewmodel.StepViewModel
@@ -32,7 +33,7 @@ class PatientRegistrationFormStepsAdapter(private val titles: List<String>, frag
         return when(position) {
             0 -> PatientRegistrationFirstStepFragment()
             1 -> PatientRegistrationSecondStepFragment()
-            else -> PatientRegistrationFirstStepFragment()
+            else -> PatientRegistrationThirdStepFragment()
         }
     }
 

@@ -206,4 +206,8 @@
         <item>Wisconsin Medicaid</item>
         <item>Wyoming Medicaid</item>
     </string-array>
+    <string-array name="insurance_type">
+        <item>Self paid</item>
+        <item>Insurance Verified</item>
+    </string-array>
 </resources>

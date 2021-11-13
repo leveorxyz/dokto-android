@@ -8,6 +8,7 @@ import com.orhanobut.logger.Logger
 import java.lang.Exception
 import android.content.ContentResolver
 import android.util.Base64
+import android.webkit.MimeTypeMap
 import java.io.*
 
 
@@ -34,6 +35,9 @@ fun fileUriToBase64(context: Context, uri: Uri): String {
     try {
         val bytes: ByteArray? = readBytes(uri, resolver)
         encodedBase64 = Base64.encodeToString(bytes, Base64.NO_WRAP)
+        val mime = MimeTypeMap.getSingleton()
+        val mimeType = resolver.getType(uri)
+        encodedBase64 = "data:$mimeType;base64,$encodedBase64"
     } catch (e1: IOException) {
         e1.printStackTrace()
     }

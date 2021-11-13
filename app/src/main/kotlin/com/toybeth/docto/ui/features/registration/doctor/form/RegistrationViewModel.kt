@@ -1,6 +1,7 @@
 package com.toybeth.docto.ui.features.registration.doctor.form
 
 import android.graphics.Bitmap
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
@@ -36,10 +37,15 @@ class RegistrationViewModel @Inject constructor(
 
     val moveNext = SingleLiveEvent<Boolean>()
 
+    // Second Screen
+    val selectedIdentification = Property<String>()
+    val identificationNumber = Property<String>()
+    val address = Property<String>()
+    val selectedCountryName = Property<String>()
+    val selectedStateName = Property<String>()
+    val selectedCityName = Property<String>()
+    val zipCode = Property<String>()
 
-    val identificationNumber = mutableStateOf("")
-    val address = mutableStateOf("")
-    val zipCode = mutableStateOf("")
     private val selectedCountry = mutableStateOf<Country?>(null)
     private val selectedState = mutableStateOf<State?>(null)
     private val selectedCity = mutableStateOf<City?>(null)
@@ -48,32 +54,16 @@ class RegistrationViewModel @Inject constructor(
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
 
-    val selectedCountryName = mutableStateOf("")
-    val selectedStateName = mutableStateOf("")
-    val selectedCityName = mutableStateOf("")
+    // Third page
+    val selectedLanguages = Property<MutableList<String>>()
+    val educations = Property(state = mutableStateOf(mutableListOf(Education())))
+    val specialties = Property<MutableList<MutableState<String?>>>()
 
-    val selectedLanguages = mutableStateListOf<String>()
-    val educations = mutableStateListOf(Education())
-
-
-    val identificationNumberError = mutableStateOf<String?>(null)
-    val addressError = mutableStateOf<String?>(null)
-    val countryNameError = mutableStateOf<String?>(null)
-    val stateNameError = mutableStateOf<String?>(null)
-    val cityNameError = mutableStateOf<String?>(null)
-    val zipCodeError = mutableStateOf<String?>(null)
-
-    val specialties = mutableStateListOf(mutableStateOf<String?>(null))
-
-    val professionalBio = mutableStateOf("")
-    val professionalBioError = mutableStateOf<String?>(null)
-    val experiences = mutableStateListOf(Experience())
-    val doctorLicense = mutableStateOf<Bitmap?>(null)
-    val doctorLicenseError = mutableStateOf<String?>(null)
-    val doctorAwards = mutableStateOf("")
-    val doctorAwardsError = mutableStateOf<String?>(null)
-    val doctorInsurances = mutableStateListOf(mutableStateOf<String?>(null))
-    val doctorInsurancesError = mutableStateOf<String?>(null)
+    val professionalBio = Property<String>()
+    val experiences = Property<MutableList<Experience>>()
+    val doctorLicense = Property<Bitmap?>()
+    val doctorAwards = Property<String>()
+    val doctorInsurances = Property<MutableList<MutableState<String?>>>()
 
     init {
         loadCountryStateAndCities()
@@ -85,19 +75,19 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun setCountry(country: Country) {
-        selectedCountryName.value = country.name
+        selectedCountryName.state.value = country.name
         selectedCountry.value = country
         stateList.postValue(country.states)
     }
 
     fun setState(state: State) {
-        selectedStateName.value = state.name
+        selectedStateName.state.value = state.name
         selectedState.value = state
         cityList.postValue(state.cities)
     }
 
     fun setCity(city: City) {
-        selectedCityName.value = city.name
+        selectedCityName.state.value = city.name
         selectedCity.value = city
     }
 
@@ -110,19 +100,22 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun addEducation() {
-        educations.add(Education())
+        educations.state.value?.add(Education())
     }
 
     fun addExperience() {
-        experiences.add(Experience())
+        experiences.state.value?.add(Experience())
+        experiences.error.value = null
     }
 
     fun addSpecialty(specialty: String) {
-        specialties.add(mutableStateOf(specialty))
+        specialties.state.value?.add(mutableStateOf(specialty))
+        specialties.error.value = null
     }
 
     fun addInsurance(insurance: String) {
-        doctorInsurances.add(mutableStateOf(insurance))
+        doctorInsurances.state.value?.add(mutableStateOf(insurance))
+        doctorInsurances.error.value = null
     }
 
     fun verifyDoctorRegistrationFirstStep(): Boolean {

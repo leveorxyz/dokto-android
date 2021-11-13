@@ -58,15 +58,15 @@ fun DoctorRegistrationFourthScreen(
 
         DoktoTextFiled(
             modifier = Modifier.height(150.dp),
-            textFieldValue = viewModel.professionalBio.value,
+            textFieldValue = viewModel.professionalBio.state.value ?: "",
             hintResourceId = R.string.hint_empty,
             labelResourceId = R.string.label_professional_bio,
-            errorMessage = viewModel.professionalBioError.value,
+            errorMessage = viewModel.professionalBio.error.value,
             singleLine = false,
             onValueChange = {
                 if (it.length <= 200) {
-                    viewModel.professionalBio.value = it
-                    viewModel.professionalBioError.value = null
+                    viewModel.professionalBio.state.value = it
+                    viewModel.professionalBio.error.value = null
                 }
             }
         )
@@ -101,9 +101,9 @@ fun DoctorRegistrationFourthScreen(
 
         // ------------------------ EXPERIENCE FORM -------------------------- //
 
-        viewModel.experiences.reversed().forEachIndexed { index, experience ->
+        viewModel.experiences.state.value?.reversed()?.forEachIndexed { index, experience ->
 
-            AnimatedVisibility(visible = viewModel.experiences.size > 1) {
+            AnimatedVisibility(visible = (viewModel.experiences.state.value?.size ?: 0) > 1) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -112,13 +112,13 @@ fun DoctorRegistrationFourthScreen(
                     Text(
                         stringResource(
                             id = R.string.experience_number,
-                            viewModel.experiences.size - index
+                            (viewModel.experiences.state.value?.size ?: 0) - index
                         ),
                         modifier = Modifier,
                         color = DoktoPrimaryVariant,
                         fontSize = 18.sp
                     )
-                    IconButton(onClick = { viewModel.experiences.remove(experience) }) {
+                    IconButton(onClick = { viewModel.experiences.state.value?.remove(experience) }) {
                         Icon(
                             modifier = Modifier.size(24.dp),
                             imageVector = Icons.Filled.Delete,
@@ -245,11 +245,11 @@ fun DoctorRegistrationFourthScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         DoktoImageUpload(
-            uploadedImage = viewModel.doctorLicense.value,
-            errorMessage = viewModel.doctorLicenseError.value
+            uploadedImage = viewModel.doctorLicense.state.value,
+            errorMessage = viewModel.doctorLicense.error.value
         ) {
-            viewModel.doctorLicenseError.value = null
-            viewModel.doctorLicense.value = it
+            viewModel.doctorLicense.error.value = null
+            viewModel.doctorLicense.state.value = it
         }
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -257,14 +257,14 @@ fun DoctorRegistrationFourthScreen(
 
         DoktoTextFiled(
             modifier = Modifier.height(150.dp),
-            textFieldValue = viewModel.doctorAwards.value,
+            textFieldValue = viewModel.doctorAwards.state.value ?: "",
             hintResourceId = R.string.hint_empty,
             labelResourceId = R.string.label_doctor_awards,
-            errorMessage = viewModel.doctorAwardsError.value,
+            errorMessage = viewModel.doctorAwards.error.value,
             singleLine = false,
             onValueChange = {
-                viewModel.doctorAwards.value = it
-                viewModel.doctorAwardsError.value = null
+                viewModel.doctorAwards.state.value = it
+                viewModel.doctorAwards.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -276,9 +276,8 @@ fun DoctorRegistrationFourthScreen(
             textFieldValue = stringResource(id = R.string.select),
             labelResourceId = R.string.label_accepted_insurances,
             hintResourceId = R.string.select,
-            errorMessage = viewModel.doctorInsurancesError.value,
+            errorMessage = viewModel.doctorInsurances.error.value,
             onValueChange = {
-                viewModel.doctorInsurancesError.value = null
                 viewModel.addInsurance(it)
                 insurances.remove(it)
             }
@@ -287,11 +286,11 @@ fun DoctorRegistrationFourthScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         LazyRow {
-            items(viewModel.doctorInsurances) { insurance ->
+            items(viewModel.doctorInsurances.state.value ?: listOf()) { insurance ->
                 insurance.value?.let {
                     DoktoChip(text = it) {
                         insurances.add(it)
-                        viewModel.doctorInsurances.remove(insurance)
+                        viewModel.doctorInsurances.state.value?.remove(insurance)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                 }

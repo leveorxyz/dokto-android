@@ -4,6 +4,7 @@ import com.toybeth.docto.base.data.model.ApiResponse
 import com.toybeth.docto.base.data.model.BaseResponse
 import com.toybeth.docto.base.data.model.DoktoUser
 import com.toybeth.docto.data.authentication.model.LoginRequestBody
+import com.toybeth.docto.data.registration.model.DoctorRegistrationRequestBody
 import com.toybeth.docto.data.registration.model.PatientRegistrationRequestBody
 import io.reactivex.Maybe
 import retrofit2.Response
@@ -17,4 +18,7 @@ interface ApiService {
 
     @POST("user/patient-signup/")
     suspend fun patientRegistration(@Body requestBody: PatientRegistrationRequestBody): Response<ApiResponse<DoktoUser>>
+
+    @POST("user/doctor-signup/")
+    suspend fun doctorRegistration(@Body requestBody: DoctorRegistrationRequestBody): Response<ApiResponse<DoktoUser>>
 }

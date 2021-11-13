@@ -73,20 +73,20 @@ fun DoctorRegistrationThirdScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            if (viewModel.selectedLanguages.contains(language)) {
-                                viewModel.selectedLanguages.remove(language)
+                            if (viewModel.selectedLanguages.state.value?.contains(language) == true) {
+                                viewModel.selectedLanguages.state.value?.remove(language)
                             } else {
-                                viewModel.selectedLanguages.add(language)
+                                viewModel.selectedLanguages.state.value?.add(language)
                             }
                         }
                 ) {
                     Checkbox(
-                        checked = viewModel.selectedLanguages.contains(language),
+                        checked = viewModel.selectedLanguages.state.value?.contains(language) == true,
                         onCheckedChange = {
                             if (it) {
-                                viewModel.selectedLanguages.add(language)
+                                viewModel.selectedLanguages.state.value?.add(language)
                             } else {
-                                viewModel.selectedLanguages.remove(language)
+                                viewModel.selectedLanguages.state.value?.remove(language)
                             }
                         },
                         colors = CheckboxDefaults.colors(
@@ -134,9 +134,9 @@ fun DoctorRegistrationThirdScreen(
 
         // ------------------------ EDUCATION FORM -------------------------- //
 
-        viewModel.educations.reversed().forEachIndexed { index, education ->
+        viewModel.educations.state.value?.reversed()?.forEachIndexed { index, education ->
 
-            AnimatedVisibility(visible = viewModel.educations.size > 1) {
+            AnimatedVisibility(visible = (viewModel.educations.state.value?.size ?: 1) > 1) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -145,13 +145,13 @@ fun DoctorRegistrationThirdScreen(
                     Text(
                         stringResource(
                             id = R.string.education_profile_number,
-                            viewModel.educations.size - index
+                            (viewModel.educations.state.value?.size ?: 0) - index
                         ),
                         modifier = Modifier,
                         color = DoktoPrimaryVariant,
                         fontSize = 18.sp
                     )
-                    IconButton(onClick = { viewModel.educations.remove(education) }) {
+                    IconButton(onClick = { viewModel.educations.state.value?.remove(education) }) {
                         Icon(
                             modifier = Modifier.size(24.dp),
                             imageVector = Icons.Filled.Delete,
@@ -249,9 +249,8 @@ fun DoctorRegistrationThirdScreen(
             textFieldValue = stringResource(id = R.string.label_specialities),
             labelResourceId = R.string.label_specialities,
             hintResourceId = R.string.hint_specialities,
-//            errorMessage = education.speciality.error.value,
+            errorMessage = viewModel.specialties.error.value,
             onValueChange = {
-//                education.speciality.error.value = null
                 viewModel.addSpecialty(it)
                 specialties.remove(it)
             }
@@ -260,11 +259,11 @@ fun DoctorRegistrationThirdScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         LazyRow {
-            items(viewModel.specialties) { specialty ->
+            items(viewModel.specialties.state.value ?: listOf()) { specialty ->
                 specialty.value?.let {
                     DoktoChip(text = it) {
                         specialties.add(it)
-                        viewModel.specialties.remove(specialty)
+                        viewModel.specialties.state.value?.remove(specialty)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                 }

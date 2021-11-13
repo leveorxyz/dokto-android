@@ -32,7 +32,6 @@ fun DoctorRegistrationSecondScreen(
     showCitySelectionDialog: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    var selectedIdentification by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val identificationOptions = context.resources.getStringArray(R.array.identification)
@@ -56,11 +55,13 @@ fun DoctorRegistrationSecondScreen(
 
         DoktoDropDownMenu(
             suggestions = identificationOptions.toList(),
-            textFieldValue = selectedIdentification,
+            textFieldValue = viewModel.selectedIdentification.state.value ?: "",
             labelResourceId = R.string.identification_type,
             hintResourceId = R.string.select,
+            errorMessage = viewModel.selectedIdentification.error.value,
             onValueChange = {
-                selectedIdentification = it
+                viewModel.selectedIdentification.state.value = it
+                viewModel.selectedIdentification.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -68,13 +69,13 @@ fun DoctorRegistrationSecondScreen(
         // ------------------------ IDENTIFICATION NUMBER -------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.identificationNumber.value,
+            textFieldValue = viewModel.identificationNumber.state.value ?: "",
             labelResourceId = R.string.identification_number,
             hintResourceId = R.string.identification_number,
-            errorMessage = viewModel.identificationNumberError.value,
+            errorMessage = viewModel.identificationNumber.error.value,
             onValueChange = {
-                viewModel.identificationNumber.value = it
-                viewModel.identificationNumberError.value = null
+                viewModel.identificationNumber.state.value = it
+                viewModel.identificationNumber.error.value = null
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
@@ -102,13 +103,13 @@ fun DoctorRegistrationSecondScreen(
         // ----------------------- STREET ADDRESS ---------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.address.value,
+            textFieldValue = viewModel.address.state.value ?: "",
             labelResourceId = R.string.label_address,
             hintResourceId = R.string.hint_address,
-            errorMessage = viewModel.addressError.value,
+            errorMessage = viewModel.address.error.value,
             onValueChange = {
-                viewModel.address.value = it
-                viewModel.addressError.value = null
+                viewModel.address.state.value = it
+                viewModel.address.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -116,13 +117,13 @@ fun DoctorRegistrationSecondScreen(
         // -------------------------- Country ------------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.selectedCountryName.value,
+            textFieldValue = viewModel.selectedCountryName.state.value ?: "",
             labelResourceId = R.string.label_country,
             hintResourceId = R.string.select,
-            errorMessage = viewModel.addressError.value,
+            errorMessage = viewModel.selectedCountryName.error.value,
             onValueChange = {
-                viewModel.selectedCountryName.value = it
-                viewModel.countryNameError.value = null
+                viewModel.selectedCountryName.state.value = it
+                viewModel.selectedCountryName.error.value = null
             },
             onClick = { showCountrySelectionDialog.invoke() },
             trailingIcon = {
@@ -138,13 +139,13 @@ fun DoctorRegistrationSecondScreen(
         // ------------------------------ STATE ----------------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.selectedStateName.value,
+            textFieldValue = viewModel.selectedStateName.state.value ?: "",
             labelResourceId = R.string.label_state,
             hintResourceId = R.string.select,
-            errorMessage = viewModel.stateNameError.value,
+            errorMessage = viewModel.selectedStateName.error.value,
             onValueChange = {
-                viewModel.selectedStateName.value = it
-                viewModel.stateNameError.value = null
+                viewModel.selectedStateName.state.value = it
+                viewModel.selectedStateName.error.value = null
             },
             onClick = { showStateSelectionDialog.invoke() },
             trailingIcon = {
@@ -160,13 +161,13 @@ fun DoctorRegistrationSecondScreen(
         // ------------------------------ CITY ----------------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.selectedCityName.value,
+            textFieldValue = viewModel.selectedCityName.state.value ?: "",
             labelResourceId = R.string.label_city,
             hintResourceId = R.string.select,
-            errorMessage = viewModel.cityNameError.value,
+            errorMessage = viewModel.selectedCityName.error.value,
             onValueChange = {
-                viewModel.selectedCityName.value = it
-                viewModel.cityNameError.value = null
+                viewModel.selectedCityName.state.value = it
+                viewModel.selectedCityName.error.value = null
             },
             onClick = { showCitySelectionDialog.invoke() },
             trailingIcon = {
@@ -182,13 +183,13 @@ fun DoctorRegistrationSecondScreen(
         // ----------------------- ZIP CODE ---------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.zipCode.value,
+            textFieldValue = viewModel.zipCode.state.value ?: "",
             labelResourceId = R.string.label_zip_code,
             hintResourceId = R.string.hint_zip_code,
-            errorMessage = viewModel.zipCodeError.value,
+            errorMessage = viewModel.zipCode.error.value,
             onValueChange = {
-                viewModel.zipCode.value = it
-                viewModel.zipCodeError.value = null
+                viewModel.zipCode.state.value = it
+                viewModel.zipCode.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(50.dp))

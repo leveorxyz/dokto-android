@@ -14,6 +14,11 @@ import com.toybeth.docto.base.utils.fileUriToBase64
 import com.toybeth.docto.base.utils.getFile
 import com.toybeth.docto.data.ApiService
 import com.toybeth.docto.data.Country
+import com.toybeth.docto.data.Education
+import com.toybeth.docto.data.Experience
+import com.toybeth.docto.data.registration.model.DoctorRegistrationRequestBody
+import com.toybeth.docto.data.registration.model.EducationItemInDoctorRegistrationRequestBody
+import com.toybeth.docto.data.registration.model.ExperienceItemInDoctorRegistrationRequestBody
 import com.toybeth.docto.data.registration.model.PatientRegistrationRequestBody
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
@@ -93,6 +98,92 @@ class RegistrationRepository @Inject constructor(
             insurancePolicyHolderName = insurancePolicyHolderName
         )
         val response = safeApiCall { apiService.patientRegistration(requestBody) }
+        return when (response) {
+            is ResultWrapper.Success -> {
+                preference.user = response.value
+                true
+            }
+            else -> false
+        }
+    }
+
+    suspend fun registerDoctor(
+        userId: String,
+        fullName: String,
+        country: String,
+        phoneCode: String,
+        contactNo: String,
+        email: String,
+        password: String,
+        gender: String,
+        dateOfBirth: String,
+        profilePhotoUri: Uri,
+        identificationType: String,
+        identificationNumber: String,
+        identificationPhotoUri: Uri,
+        street: String,
+        state: String,
+        city: String? = null,
+        zipCode: String,
+        languages: List<String>,
+        educationProfiles: List<Education>,
+        specialities: List<String>,
+        professionalBio: String,
+        experiences: List<Experience>,
+        licencePhotoUri: Uri,
+        awards: String,
+        acceptedInsurances: List<String>
+    ): Boolean {
+        val profilePhotoString = fileUriToBase64(context, profilePhotoUri)
+        val identificationPhotoString = fileUriToBase64(context, identificationPhotoUri)
+        val mEducations = mutableListOf<EducationItemInDoctorRegistrationRequestBody>()
+        val mExperiences = mutableListOf<ExperienceItemInDoctorRegistrationRequestBody>()
+        educationProfiles.forEach {
+            val item = EducationItemInDoctorRegistrationRequestBody(
+                college = it.college.state.value!!,
+                year = it.graduationYear.state.value!!,
+                certificate = "",
+                course = it.courseStudied.state.value!!
+            )
+            mEducations.add(item)
+        }
+        experiences.forEach {
+            val item = ExperienceItemInDoctorRegistrationRequestBody(
+                jobDescription = it.jobDescription.state.value!!,
+                jobTitle = it.jobTitle.state.value!!,
+                establishmentName = it.establishmentName.state.value!!,
+                startDate = it.startDate.state.value!!,
+                endDate = it.endDate.state.value
+            )
+            mExperiences.add(item)
+        }
+        val requestBody = DoctorRegistrationRequestBody(
+            username = userId,
+            fullName = fullName,
+            contactNo =  phoneCode + contactNo,
+            email = email,
+            password = password,
+            gender = gender,
+            dateOfBirth = dateOfBirth,
+            profilePhoto = profilePhotoString,
+            identificationType = identificationType,
+            identificationNumber = identificationNumber,
+            identificationPhoto = identificationPhotoString,
+            street = street,
+            state = state,
+            city = city,
+            zipCode = zipCode,
+            country = country,
+            specialty = specialities,
+            education = mEducations,
+            language = languages,
+            professionalBio = professionalBio,
+            experience = mExperiences,
+            acceptedInsurance = acceptedInsurances,
+            licenseFile = "",
+            awards = awards
+        )
+        val response = safeApiCall { apiService.doctorRegistration(requestBody) }
         return when (response) {
             is ResultWrapper.Success -> {
                 preference.user = response.value

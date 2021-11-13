@@ -1,8 +1,7 @@
 package com.toybeth.docto.ui.common.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -33,7 +32,7 @@ fun DoktoTextFiled(
     trailingIcon: @Composable (() -> Unit)? = null,
     errorMessage: String? = null,
 ) {
-    var textFieldModifier = Modifier.fillMaxWidth()
+    var textFieldModifier = Modifier.fillMaxSize()
     if (onClick != null) {
         textFieldModifier = textFieldModifier.clickable {
             onClick.invoke()
@@ -50,6 +49,8 @@ fun DoktoTextFiled(
             )
         }
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         // ------------------- TEXT FIELD -------------------- //
         OutlinedTextField(
             value = textFieldValue,
@@ -61,11 +62,11 @@ fun DoktoTextFiled(
             modifier = textFieldModifier,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
-                disabledTextColor = Color.Black,
+                disabledTextColor = if (onClick == null) Color.Gray else Color.Black,
                 backgroundColor = Color.White,
                 cursorColor = DoktoSecondary,
-                placeholderColor = Color.Gray,
-                disabledPlaceholderColor = Color.Gray,
+                placeholderColor = if (onClick == null) Color.Gray else Color.Black,
+                disabledPlaceholderColor = if (onClick == null) Color.Gray else Color.Black,
                 unfocusedBorderColor = if (errorMessage == null) Color.White else DoktoError,
                 focusedBorderColor = if (errorMessage == null) DoktoSecondary else DoktoError
             ),

@@ -1,5 +1,6 @@
-package com.toybeth.docto.ui.features.registration.registrationform
+package com.toybeth.docto.ui.features.registration.doctor.form
 
+import android.graphics.Bitmap
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +10,7 @@ import com.toybeth.docto.base.utils.SingleLiveEvent
 import com.toybeth.docto.base.utils.extensions.isEmailValid
 import com.toybeth.docto.base.utils.extensions.isPasswordValid
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
-import com.toybeth.docto.data.City
-import com.toybeth.docto.data.Country
-import com.toybeth.docto.data.Education
-import com.toybeth.docto.data.State
+import com.toybeth.docto.data.*
 import com.toybeth.docto.data.registration.RegistrationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
@@ -23,7 +21,6 @@ import javax.inject.Inject
 class RegistrationViewModel @Inject constructor(private val repository: RegistrationRepository) :
     BaseViewModel() {
 
-    private val selectedCountry = mutableStateOf<Country?>(null)
     val moveNext = SingleLiveEvent<Boolean>()
     val userId = mutableStateOf("")
     val name = mutableStateOf("")
@@ -34,15 +31,18 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val gender = mutableStateOf("")
     val dateOfBirth = mutableStateOf("")
 
-    val selectedState = mutableStateOf<State?>(null)
-    val selectedCity = mutableStateOf<City?>(null)
+    val identificationNumber = mutableStateOf("")
+    val address = mutableStateOf("")
+    val zipCode = mutableStateOf("")
+    private val selectedCountry = mutableStateOf<Country?>(null)
+    private val selectedState = mutableStateOf<State?>(null)
+    private val selectedCity = mutableStateOf<City?>(null)
+
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
-    val identityType = mutableStateOf<String>("")
-    val identityVerificationNumber = mutableStateOf<String>("")
-    val zipCode = mutableStateOf("")
-    val address = mutableStateOf("")
+
+    val selectedCountryName = mutableStateOf("")
     val selectedStateName = mutableStateOf("")
     val selectedCityName = mutableStateOf("")
 
@@ -58,12 +58,24 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val confirmPasswordError = mutableStateOf<String?>(null)
     val dateOfBirthError = mutableStateOf<String?>(null)
 
-    val identityTypeError = mutableStateOf<String?>("")
-    val identityVerificationNumberError = mutableStateOf<String?>("")
-    val zipCodeError = mutableStateOf<String?>("")
-    val addressError = mutableStateOf<String?>("")
-    val selectedStateNameError = mutableStateOf<String?>("")
-    val selectedCityNameError = mutableStateOf<String?>("")
+    val identificationNumberError = mutableStateOf<String?>(null)
+    val addressError = mutableStateOf<String?>(null)
+    val countryNameError = mutableStateOf<String?>(null)
+    val stateNameError = mutableStateOf<String?>(null)
+    val cityNameError = mutableStateOf<String?>(null)
+    val zipCodeError = mutableStateOf<String?>(null)
+
+    val specialties = mutableStateListOf(mutableStateOf<String?>(null))
+
+    val professionalBio = mutableStateOf("")
+    val professionalBioError = mutableStateOf<String?>(null)
+    val experiences = mutableStateListOf(Experience())
+    val doctorLicense = mutableStateOf<Bitmap?>(null)
+    val doctorLicenseError = mutableStateOf<String?>(null)
+    val doctorAwards = mutableStateOf("")
+    val doctorAwardsError = mutableStateOf<String?>(null)
+    val doctorInsurances = mutableStateListOf(mutableStateOf<String?>(null))
+    val doctorInsurancesError = mutableStateOf<String?>(null)
 
     init {
         loadCountryStateAndCities()
@@ -75,6 +87,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     fun setCountry(country: Country) {
+        selectedCountryName.value = country.name
         selectedCountry.value = country
         stateList.postValue(country.states)
     }
@@ -102,7 +115,19 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
         educations.add(Education())
     }
 
-    fun verifyFirstStep(): Boolean {
+    fun addExperience() {
+        experiences.add(Experience())
+    }
+
+    fun addSpecialty(specialty: String) {
+        specialties.add(mutableStateOf(specialty))
+    }
+
+    fun addInsurance(insurance: String) {
+        doctorInsurances.add(mutableStateOf(insurance))
+    }
+
+    fun verifyDoctorRegistrationFirstStep(): Boolean {
         var isValid = true
         usedIdError.value = null
         nameError.value = null
@@ -161,20 +186,15 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
     fun verifyDoctorRegistrationSecondStep(): Boolean {
         var isValid = true
-        identityTypeError.value = null
-        identityVerificationNumberError.value = null
+        identificationNumberError.value = null
         zipCodeError.value = null
         addressError.value = null
-        selectedStateNameError.value = null
-        selectedCityNameError.value = null
+        stateNameError.value = null
+        cityNameError.value = null
 
-        if (identityType.value.isEmpty()) {
-            identityTypeError.value = "This field is required"
-            isValid = false
-        }
 
-        if (identityVerificationNumber.value.isEmpty()) {
-            identityVerificationNumberError.value = "This field is required"
+        if (identificationNumber.value.isEmpty()) {
+            identificationNumberError.value = "This field is required"
             isValid = false
         }
 
@@ -189,12 +209,12 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
         }
 
         if (stateList.value?.isNullOrEmpty() == false && selectedStateName.value.isEmpty()) {
-            selectedStateNameError.value = "Select your state"
+            stateNameError.value = "Select your state"
             isValid = false
         }
 
         if (cityList.value?.isNullOrEmpty() == false && selectedCityName.value.isEmpty()) {
-            selectedCityNameError.value = "Select your city"
+            cityNameError.value = "Select your city"
             isValid = false
         }
 

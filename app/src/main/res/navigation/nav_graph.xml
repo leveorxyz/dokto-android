@@ -62,12 +62,20 @@
 
     <fragment
         android:id="@+id/selectRegistrationUserTypeFragment"
-        android:name="com.toybeth.docto.ui.features.registration.registrationusertypeselection.SelectRegistrationUserTypeFragment"
+        android:name="com.toybeth.docto.ui.features.registration.usertype.SelectRegistrationUserTypeFragment"
         android:label="SelectRegistrationUserTypeFragment">
 
         <action
             android:id="@+id/action_selectRegistrationUserTypeFragment_to_registrationOnBoardingFragment"
             app:destination="@id/registrationOnBoardingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_selectRegistrationUserTypeFragment_to_doctorRegistrationFormStepsFragment"
+            app:destination="@id/doctorRegistrationFormStepsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -92,7 +100,7 @@
 
     <fragment
         android:id="@+id/doctorRegistrationFormStepsFragment"
-        android:name="com.toybeth.docto.ui.features.registration.registrationform.DoctorRegistrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
         android:label="DoctorRegistrationFormStepsFragment" />
 
 </navigation>

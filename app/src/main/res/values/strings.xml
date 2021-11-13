@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Docto</string>
-    <string name="pref_name">docto_pref</string>
+    <string name="app_name">Dokto</string>
+    <string name="pref_name">dokto_pref</string>
 
     // ... Login Screen
     <string name="dokto_logo_description">Dokto Logo</string>
@@ -21,7 +21,7 @@
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Password</string>
     <string name="hint_gender">Gender</string>
-    <string name="hint_date_of_birth">dd-mm-yyyy</string>
+    <string name="hint_date_of_birth">MM/DD/YYYY</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="prefer_not_to_say">Prefer not to say</string>
@@ -38,7 +38,7 @@
     <string name="label_country">Country</string>
     <string name="label_identification">Identity Verification</string>
     <string name="hint_identification">Identity Verification</string>
-    <string name="label_upload_identity">Upload Identity Number</string>
+    <string name="label_upload_identity">Enter your passport, driver\'s license or State ID</string>
     <string name="hint_upload_identity"></string>
     <string name="hint_state">State</string>
     <string name="select_state">Select State</string>
@@ -57,7 +57,7 @@
     <string name="label_course_studied">Course Studied</string>
     <string name="hint_course_studied">Course Studied</string>
     <string name="label_year_graduated">Year Graduated</string>
-    <string name="hint_year_graduated">YYYY/MM/DD</string>
+    <string name="hint_year_graduated">MM/DD/YYYY</string>
     <string name="label_upload_certification">Upload Certificate</string>
     <string name="select_course_studied">Select Course Studied</string>
     <string name="label_specialities">Specialities</string>
@@ -66,9 +66,27 @@
     <string name="check_availability">Check Availability</string>
     <string name="get_started">Get Started</string>
     <string name="choose_photo">Choose Photo</string>
-    <string name="identification_type">Identification type</string>
     <string name="select">Select</string>
-    <string name="other">Other</string>
-    <string name="hint_identification_verification_number">Identity Verification Number</string>
-    <string name="label_identification_verufication_number">Identity verification number</string>
+    <string name="identification_type">Identification Type</string>
+    <string name="identification_number">Identification Number</string>
+    <string name="choose_image">Choose Image…</string>
+    <string name="add">Add</string>
+    <string name="education_profile_number">Profile %d</string>
+    <string name="label_professional_bio">Professional Bio</string>
+    <string name="hint_empty" />
+    <string name="label_experience">Experience</string>
+    <string name="experience_number">Experience %d</string>
+    <string name="label_job_title">Job Title</string>
+    <string name="hint_job_title">Job Title</string>
+    <string name="label_establishment_name">Establishment Name</string>
+    <string name="hint_establishment_name">Establishment Name</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="hint_start_date">MM/DD/YYYY</string>
+    <string name="label_end_date">End Date</string>
+    <string name="hint_end_date">End Date</string>
+    <string name="label_job_description">Job Description</string>
+    <string name="label_license_upload">License Upload</string>
+    <string name="label_doctor_awards">Awards/Publications if any</string>
+    <string name="label_accepted_insurances">Accepted Insurances</string>
+    <string name="submit">Submit</string>
 </resources>

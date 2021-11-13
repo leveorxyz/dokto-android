@@ -18,18 +18,24 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(private val repository: RegistrationRepository) :
-    BaseViewModel() {
+class RegistrationViewModel @Inject constructor(
+    private val repository: RegistrationRepository
+) : BaseViewModel() {
+
+    // ... First Screen
+    val profileImage = Property<Bitmap>()
+    val userId = Property<String>()
+    val name = Property<String>()
+    val country = Property<Country>()
+    val mobileNumber = Property<String>()
+    val email = Property<String>()
+    val password = Property<String>()
+    val confirmPassword = Property<String>()
+    val gender = Property<String>()
+    val dateOfBirth = Property<String>()
 
     val moveNext = SingleLiveEvent<Boolean>()
-    val userId = mutableStateOf("")
-    val name = mutableStateOf("")
-    val mobileNumber = mutableStateOf("")
-    val email = mutableStateOf("")
-    val password = mutableStateOf("")
-    val confirmPassword = mutableStateOf("")
-    val gender = mutableStateOf("")
-    val dateOfBirth = mutableStateOf("")
+
 
     val identificationNumber = mutableStateOf("")
     val address = mutableStateOf("")
@@ -49,14 +55,6 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val selectedLanguages = mutableStateListOf<String>()
     val educations = mutableStateListOf(Education())
 
-    val usedIdError = mutableStateOf<String?>(null)
-    val nameError = mutableStateOf<String?>(null)
-    val countryError = mutableStateOf<String?>(null)
-    val mobileNumberError = mutableStateOf<String?>(null)
-    val emailError = mutableStateOf<String?>(null)
-    val passwordError = mutableStateOf<String?>(null)
-    val confirmPasswordError = mutableStateOf<String?>(null)
-    val dateOfBirthError = mutableStateOf<String?>(null)
 
     val identificationNumberError = mutableStateOf<String?>(null)
     val addressError = mutableStateOf<String?>(null)
@@ -82,8 +80,8 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     fun setDateOfBirth(timeInMillis: Long) {
-        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-        dateOfBirth.value = formatter.format(Date(timeInMillis))
+        val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
+        dateOfBirth.state.value = formatter.format(Date(timeInMillis))
     }
 
     fun setCountry(country: Country) {
@@ -129,93 +127,51 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
     fun verifyDoctorRegistrationFirstStep(): Boolean {
         var isValid = true
-        usedIdError.value = null
-        nameError.value = null
-        countryError.value = null
-        mobileNumberError.value = null
-        emailError.value = null
-        passwordError.value = null
-        confirmPasswordError.value = null
-        dateOfBirthError.value = null
 
-        if (userId.value.isEmpty()) {
-            usedIdError.value = "This field is required"
+        if (userId.state.value.isNullOrEmpty()) {
+            userId.error.value = "This field is required"
             isValid = false
         }
 
-        if (name.value.isEmpty()) {
-            nameError.value = "This field is required"
+        if (name.state.value.isNullOrEmpty()) {
+            name.error.value = "This field is required"
             isValid = false
         }
 
-        if (selectedCountry.value == null) {
-            countryError.value = "Select country"
+        if (country.state.value == null) {
+            country.error.value = "Select country"
             isValid = false
         }
 
-        if (mobileNumber.value.isEmpty()) {
-            mobileNumberError.value = "This field is required"
+        if (mobileNumber.state.value.isNullOrEmpty()) {
+            mobileNumber.error.value = "This field is required"
             isValid = false
         }
 
-        if (!email.value.isEmailValid()) {
-            emailError.value = "This field is required"
+        if (email.state.value.isNullOrEmpty()) {
+            email.error.value = "This field is required"
             isValid = false
         }
 
-        if (!password.value.isPasswordValid()) {
-            passwordError.value = "This field is required"
+        if (email.state.value.isEmailValid()) {
+            email.error.value = "Invalid email address"
             isValid = false
         }
 
-        if (!confirmPassword.value.isPasswordValid()) {
-            confirmPasswordError.value = "This field is required"
-            isValid = false
-        } else if( password.value != confirmPassword.value) {
-            confirmPasswordError.value = "Passwords do not match"
-            isValid = false
+        if (password.state.value.isPasswordValid()) {
+            password.error.value = "This field is required"
         }
 
-        if (dateOfBirth.value.isEmpty()) {
-            dateOfBirthError.value = "This field is required"
-            isValid = false
+        if (confirmPassword.state.value.isPasswordValid()) {
+            confirmPassword.error.value = "This field is required"
+        } else if (
+            password.state.value != confirmPassword.state.value
+        ) {
+            confirmPassword.error.value = "Passwords do not match"
         }
 
-        return isValid
-    }
-
-    fun verifyDoctorRegistrationSecondStep(): Boolean {
-        var isValid = true
-        identificationNumberError.value = null
-        zipCodeError.value = null
-        addressError.value = null
-        stateNameError.value = null
-        cityNameError.value = null
-
-
-        if (identificationNumber.value.isEmpty()) {
-            identificationNumberError.value = "This field is required"
-            isValid = false
-        }
-
-        if (zipCode.value.isEmpty()) {
-            zipCodeError.value = "This field is required"
-            isValid = false
-        }
-
-        if (address.value.isEmpty()) {
-            addressError.value = "This field is required"
-            isValid = false
-        }
-
-        if (stateList.value?.isNullOrEmpty() == false && selectedStateName.value.isEmpty()) {
-            stateNameError.value = "Select your state"
-            isValid = false
-        }
-
-        if (cityList.value?.isNullOrEmpty() == false && selectedCityName.value.isEmpty()) {
-            cityNameError.value = "Select your city"
-            isValid = false
+        if (dateOfBirth.state.value.isNullOrEmpty()) {
+            dateOfBirth.error.value = "This field is required"
         }
 
         return isValid

@@ -46,11 +46,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
     }
 
     override fun verifyStep(): VerificationError? {
-        return if(viewModel.verifyDoctorRegistrationSecondStep()) {
-            null
-        } else {
-            VerificationError("Fill-up all fields")
-        }
+        return null
     }
 
     override fun onSelected() {

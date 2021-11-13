@@ -119,7 +119,7 @@ fun DoctorRegistrationFirstScreen(
 
         // --------------------------- USER ID -------------------------- //
         DoktoTextFiled(
-            textFieldValue = viewModel.userId.value,
+            textFieldValue = viewModel.userId.state.value ?: "",
             hintResourceId = R.string.hint_userid,
             labelResourceId = R.string.label_userid,
             trailingIcon = {
@@ -131,23 +131,23 @@ fun DoctorRegistrationFirstScreen(
                     )
                 }
             },
-            errorMessage = viewModel.usedIdError.value,
+            errorMessage = viewModel.userId.error.value,
             onValueChange = {
-                viewModel.userId.value = it
-                viewModel.usedIdError.value = null
+                viewModel.userId.state.value = it
+                viewModel.userId.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- NAME ----------------------- //
         DoktoTextFiled(
-            textFieldValue = viewModel.name.value,
+            textFieldValue = viewModel.name.state.value ?: "",
             hintResourceId = R.string.hint_name,
             labelResourceId = R.string.label_name,
-            errorMessage = viewModel.nameError.value,
+            errorMessage = viewModel.name.error.value,
             onValueChange = {
-                viewModel.name.value = it
-                viewModel.nameError.value = null
+                viewModel.name.state.value = it
+                viewModel.name.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -170,10 +170,10 @@ fun DoctorRegistrationFirstScreen(
                 modifier = Modifier.width(120.dp),
                 textFieldValue = viewModel.getSelectedCountryCode(),
                 hintResourceId = R.string.hint_country_code,
-                errorMessage = viewModel.countryError.value,
+                errorMessage = viewModel.country.error.value,
                 onClick = { showCountrySelectionDialog.invoke() },
                 onValueChange = {
-                    viewModel.countryError.value = null
+                    viewModel.country.error.value = null
                 }
             )
 
@@ -181,12 +181,12 @@ fun DoctorRegistrationFirstScreen(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 20.dp),
-                textFieldValue = viewModel.mobileNumber.value,
+                textFieldValue = viewModel.mobileNumber.state.value ?: "",
                 hintResourceId = R.string.hint_mobile_number,
-                errorMessage = viewModel.mobileNumberError.value,
+                errorMessage = viewModel.mobileNumber.error.value,
                 onValueChange = {
-                    viewModel.mobileNumber.value = it
-                    viewModel.mobileNumberError.value = null
+                    viewModel.mobileNumber.state.value = it
+                    viewModel.mobileNumber.error.value = null
                 }
             )
         }
@@ -195,41 +195,41 @@ fun DoctorRegistrationFirstScreen(
 
         // -------------------------- EMAIL ------------------------ //
 
-        DoktoTextFiled(textFieldValue = viewModel.email.value,
+        DoktoTextFiled(textFieldValue = viewModel.email.state.value ?: "",
             hintResourceId = R.string.hint_email,
             labelResourceId = R.string.label_email,
-            errorMessage = viewModel.emailError.value,
+            errorMessage = viewModel.email.error.value,
             onValueChange = {
-                viewModel.email.value = it
-                viewModel.emailError.value = null
+                viewModel.email.state.value = it
+                viewModel.email.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
 
         // ------------------------ PASSWORD --------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.password.value,
+        DoktoTextFiled(textFieldValue = viewModel.password.state.value ?: "",
             hintResourceId = R.string.hint_password,
             labelResourceId = R.string.label_password,
             visualTransformation = PasswordVisualTransformation(),
-            errorMessage = viewModel.passwordError.value,
+            errorMessage = viewModel.password.error.value,
             onValueChange = {
-                viewModel.password.value = it
-                viewModel.passwordError.value = null
+                viewModel.password.state.value = it
+                viewModel.password.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------- CONFIRM PASSWORD ---------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.confirmPassword.value,
+        DoktoTextFiled(textFieldValue = viewModel.confirmPassword.state.value ?: "",
             hintResourceId = R.string.hint_confirm_password,
             labelResourceId = R.string.label_confirm_password,
             visualTransformation = PasswordVisualTransformation(),
-            errorMessage = viewModel.confirmPasswordError.value,
+            errorMessage = viewModel.confirmPassword.error.value,
             onValueChange = {
-                viewModel.confirmPassword.value = it
-                viewModel.confirmPasswordError.value = null
+                viewModel.confirmPassword.state.value = it
+                viewModel.confirmPassword.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
@@ -251,21 +251,21 @@ fun DoctorRegistrationFirstScreen(
                 context.getString(R.string.prefer_not_to_say),
             ),
         ) {
-            viewModel.gender.value = it
+            viewModel.gender.state.value = it
         }
         Spacer(modifier = Modifier.height(30.dp))
 
         // ----------------------------- DATE OF BIRTH --------------------- //
 
         DoktoTextFiled(
-            textFieldValue = viewModel.dateOfBirth.value,
+            textFieldValue = viewModel.dateOfBirth.state.value ?: "",
             hintResourceId = R.string.hint_date_of_birth,
             labelResourceId = R.string.label_date_of_birth,
-            errorMessage = viewModel.dateOfBirthError.value,
+            errorMessage = viewModel.dateOfBirth.error.value,
             onClick = { datePicker.invoke() },
             onValueChange = {
-                viewModel.dateOfBirth.value = it
-                viewModel.dateOfBirthError.value = null
+                viewModel.dateOfBirth.state.value = it
+                viewModel.dateOfBirth.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))

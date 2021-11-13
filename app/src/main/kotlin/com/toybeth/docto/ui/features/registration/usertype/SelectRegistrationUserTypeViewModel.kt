@@ -8,9 +8,13 @@ import javax.inject.Inject
 @HiltViewModel
 class SelectRegistrationUserTypeViewModel @Inject constructor(): BaseViewModel() {
 
-    var navigateToDoctorRegistration = SingleLiveEvent<Boolean>()
+    var navigateToDoctorRegistration = SingleLiveEvent<Unit>()
+    var navigateToPatientRegistration = SingleLiveEvent<Unit>()
 
-    fun navigateToNextPage(isDoctorSelected: Boolean) {
-        navigateToDoctorRegistration.postValue(isDoctorSelected)
+    fun navigateToNextPage(selectedItemIndex: Int) {
+        when(selectedItemIndex) {
+            0 -> navigateToPatientRegistration.postValue(Unit)
+            1 -> navigateToDoctorRegistration.postValue(Unit)
+        }
     }
 }

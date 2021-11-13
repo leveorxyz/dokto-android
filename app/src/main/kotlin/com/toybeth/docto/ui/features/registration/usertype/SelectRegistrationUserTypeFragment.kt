@@ -31,11 +31,21 @@ class SelectRegistrationUserTypeFragment : BaseFragment<SelectRegistrationUserTy
         viewModel.navigateToDoctorRegistration.observeOn(viewLifecycleOwner) {
             navigateToDoctorRegistration()
         }
+
+        viewModel.navigateToPatientRegistration.observeOn(viewLifecycleOwner) {
+            navigateToPatientRegistration()
+        }
     }
 
     private fun navigateToDoctorRegistration() {
         findNavController().navigate(
             SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToDoctorRegistrationFormStepsFragment()
+        )
+    }
+
+    private fun navigateToPatientRegistration() {
+        findNavController().navigate(
+            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToPatientRegistrationFormStepsFragment()
         )
     }
 }

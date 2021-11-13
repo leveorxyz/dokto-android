@@ -3,6 +3,7 @@ package com.toybeth.docto.ui.features.registration.usertype
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -104,7 +105,10 @@ fun SelectRegistrationUserTypeScreen(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp),
+                            .padding(start = 20.dp, end = 20.dp)
+                            .clickable {
+                                viewModel.navigateToNextPage(0)
+                            },
                         backgroundColor = Color.White.copy(alpha = .3f)
                     ) {
                         Box(
@@ -138,7 +142,10 @@ fun SelectRegistrationUserTypeScreen(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                            .clickable {
+                                viewModel.navigateToNextPage(1)
+                            },
                         backgroundColor = Color.White.copy(
                             alpha = .9f,
                             green = .1f,

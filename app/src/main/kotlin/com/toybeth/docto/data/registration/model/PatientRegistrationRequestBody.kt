@@ -19,6 +19,9 @@ data class PatientRegistrationRequestBody(
 	@SerializedName("identification_number")
 	val identificationNumber: String,
 
+	@SerializedName("identification_photo")
+	val identificationPhoto: String,
+
 	@SerializedName("city")
 	val city: String? = null,
 

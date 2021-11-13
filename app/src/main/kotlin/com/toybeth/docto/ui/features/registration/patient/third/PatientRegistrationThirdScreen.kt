@@ -183,7 +183,7 @@ fun PatientRegistrationThirdScreen(
         // -------------------------- NEXT BUTTON -------------------- //
 
         DoktoButton(textResourceId = R.string.next) {
-            viewModel.verifyThirdPage()
+            viewModel.moveNext()
         }
 
         Spacer(modifier = Modifier.height(50.dp))

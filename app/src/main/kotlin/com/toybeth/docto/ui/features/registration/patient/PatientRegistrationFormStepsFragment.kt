@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
+import com.orhanobut.logger.Logger
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentRegistrationFormBinding
+import com.toybeth.dokto.stepper.StepperLayout
+import com.toybeth.dokto.stepper.VerificationError
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalUnitApi
@@ -29,6 +32,23 @@ class PatientRegistrationFormStepsFragment  :
         val pageTitles =
             resources.getStringArray(R.array.patient_registration_form_page_titles).toList()
         binding.registrationStepper.setAdapter(PatientRegistrationFormStepsAdapter(pageTitles, this))
+        binding.registrationStepper.setListener(object: StepperLayout.StepperListener {
+            override fun onCompleted(completeButton: View?) {
+                viewModel.registerPatient()
+            }
+
+            override fun onError(verificationError: VerificationError?) {
+
+            }
+
+            override fun onStepSelected(newStepPosition: Int) {
+
+            }
+
+            override fun onReturn() {
+
+            }
+        })
 
         viewModel.moveNext.observeOn(viewLifecycleOwner) {
             binding.registrationStepper.proceed()

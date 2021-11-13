@@ -67,7 +67,7 @@ class CommonModulePlugin : Plugin<Project> {
                             buildConfigField(
                                 "String",
                                 "BASE_URL",
-                                "\"http://159.203.72.156/\""
+                                "\"https://doktoapi.toybethdev.net/\""
                             )
                             consumerProguardFiles("consumer-rules.pro")
                         }
@@ -79,7 +79,7 @@ class CommonModulePlugin : Plugin<Project> {
                                 buildConfigField(
                                     "String",
                                     "BASE_URL",
-                                    "\"http://159.203.72.156/\""
+                                    "\"https://doktoapi.toybethdev.net/\""
                                 )
                             }
                             getByName("release") {

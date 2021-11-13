@@ -16,5 +16,5 @@ interface ApiService {
     suspend fun login(@Body requestBody: LoginRequestBody): Response<ApiResponse<DoktoUser>>
 
     @POST("user/patient-signup/")
-    fun patientRegistration(@Body requestBody: PatientRegistrationRequestBody): Response<ApiResponse<DoktoUser>>
+    suspend fun patientRegistration(@Body requestBody: PatientRegistrationRequestBody): Response<ApiResponse<DoktoUser>>
 }

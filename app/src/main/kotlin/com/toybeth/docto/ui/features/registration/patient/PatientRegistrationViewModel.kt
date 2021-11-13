@@ -75,7 +75,7 @@ class PatientRegistrationViewModel @Inject constructor(
     }
 
     fun setDateOfBirth(timeInMillis: Long) {
-        val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         dateOfBirth.state.value = formatter.format(Date(timeInMillis))
     }
 
@@ -214,6 +214,38 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun moveNext() {
         moveNext.postValue(true)
+    }
+
+    fun registerPatient() {
+        viewModelScope.launchIOWithExceptionHandler({
+            repository.registerPatient(
+                firstName.state.value!! + " " + lastName.state.value!!,
+                selectedCountry.state.value!!.phone,
+                mobileNumber.state.value!!,
+                email.state.value!!,
+                password.state.value!!,
+                gender.state.value!!,
+                dateOfBirth.state.value!!,
+                imageUri.value!!,
+                identityVerificationType.state.value!!,
+                identityVerificationNumber.state.value!!,
+                imageUri.value!!,
+                address.state.value!!,
+                socialSecurityNumber.state.value!!,
+                stateName.state.value!!,
+                cityName.state.value!!,
+                zipCode.state.value!!,
+                referringDoctorAddress.state.value,
+                referringDoctorName.state.value,
+                referringDoctorPhoneNumber.state.value,
+                insuranceType.state.value!!,
+                insuranceName.state.value,
+                insuranceNumber.state.value,
+                insurancePolicyHolderName.state.value
+            )
+        }, {
+            it.printStackTrace()
+        })
     }
 
     private fun getInsuranceTypes() {

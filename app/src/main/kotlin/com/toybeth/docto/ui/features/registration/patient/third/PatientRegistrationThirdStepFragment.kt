@@ -30,7 +30,11 @@ class PatientRegistrationThirdStepFragment : BaseFragment<PatientRegistrationVie
     }
 
     override fun verifyStep(): VerificationError? {
-        return null
+        return if(viewModel.verifyThirdPage()) {
+            null
+        } else {
+            VerificationError("Fill-up all fields")
+        }
     }
 
     override fun onSelected() {

@@ -1,5 +1,6 @@
 package com.toybeth.docto.ui.common.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,6 +34,7 @@ fun DoktoTextFiled(
     errorMessage: String? = null,
 ) {
     var textFieldModifier = Modifier.fillMaxSize()
+
     if (onClick != null) {
         textFieldModifier = textFieldModifier.clickable {
             onClick.invoke()
@@ -48,7 +50,7 @@ fun DoktoTextFiled(
                 color = Color.White
             )
         }
-        
+
         Spacer(modifier = Modifier.height(8.dp))
 
         // ------------------- TEXT FIELD -------------------- //
@@ -59,7 +61,17 @@ fun DoktoTextFiled(
             enabled = onClick == null,
             readOnly = onClick != null,
             singleLine = singleLine,
-            modifier = textFieldModifier,
+            modifier = if (errorMessage == null) {
+                textFieldModifier
+            } else {
+                textFieldModifier.then(
+                    Modifier.border(
+                        width = 2.dp,
+                        color = DoktoError,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                )
+            },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
                 disabledTextColor = if (onClick == null) Color.Gray else Color.Black,

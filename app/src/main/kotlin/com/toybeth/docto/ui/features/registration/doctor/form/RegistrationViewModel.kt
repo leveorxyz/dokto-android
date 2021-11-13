@@ -10,24 +10,31 @@ import com.toybeth.docto.base.utils.SingleLiveEvent
 import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
 import com.toybeth.docto.data.*
 import com.toybeth.docto.data.registration.RegistrationRepository
+import com.toybeth.docto.extensions.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(private val repository: RegistrationRepository) :
-    BaseViewModel() {
+class RegistrationViewModel @Inject constructor(
+    private val repository: RegistrationRepository
+) : BaseViewModel() {
+
+    // ... First Screen
+    val profileImage = Property<Bitmap>()
+    val userId = Property<String>()
+    val name = Property<String>()
+    val country = Property<Country>()
+    val mobileNumber = Property<String>()
+    val email = Property<String>()
+    val password = Property<String>()
+    val confirmPassword = Property<String>()
+    val gender = Property<String>()
+    val dateOfBirth = Property<String>()
 
     val moveNext = SingleLiveEvent<Boolean>()
-    val userId = mutableStateOf("")
-    val name = mutableStateOf("")
-    val mobileNumber = mutableStateOf("")
-    val email = mutableStateOf("")
-    val password = mutableStateOf("")
-    val confirmPassword = mutableStateOf("")
-    val gender = mutableStateOf("")
-    val dateOfBirth = mutableStateOf("")
+
 
     val identificationNumber = mutableStateOf("")
     val address = mutableStateOf("")
@@ -47,14 +54,6 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     val selectedLanguages = mutableStateListOf<String>()
     val educations = mutableStateListOf(Education())
 
-    val usedIdError = mutableStateOf<String?>(null)
-    val nameError = mutableStateOf<String?>(null)
-    val countryError = mutableStateOf<String?>(null)
-    val mobileNumberError = mutableStateOf<String?>(null)
-    val emailError = mutableStateOf<String?>(null)
-    val passwordError = mutableStateOf<String?>(null)
-    val confirmPasswordError = mutableStateOf<String?>(null)
-    val dateOfBirthError = mutableStateOf<String?>(null)
 
     val identificationNumberError = mutableStateOf<String?>(null)
     val addressError = mutableStateOf<String?>(null)
@@ -80,8 +79,8 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
     }
 
     fun setDateOfBirth(timeInMillis: Long) {
-        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-        dateOfBirth.value = formatter.format(Date(timeInMillis))
+        val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
+        dateOfBirth.state.value = formatter.format(Date(timeInMillis))
     }
 
     fun setCountry(country: Country) {
@@ -127,53 +126,57 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
     fun verifyFirstStep(): Boolean {
 
-        if (userId.value.isEmpty()) {
-            usedIdError.value = "This field is required"
+        if (userId.state.value.isNullOrEmpty()) {
+            userId.error.value = "This field is required"
         }
 
-        if (name.value.isEmpty()) {
-            nameError.value = "This field is required"
+        if (name.state.value.isNullOrEmpty()) {
+            name.error.value = "This field is required"
         }
 
-        if (selectedCountry.value == null) {
-            countryError.value = "Select country"
+        if (country.state.value == null) {
+            country.error.value = "Select country"
         }
 
-        if (mobileNumber.value.isEmpty()) {
-            mobileNumberError.value = "This field is required"
+        if (mobileNumber.state.value.isNullOrEmpty()) {
+            mobileNumber.error.value = "This field is required"
         }
 
-        if (email.value.isEmpty()) {
-            emailError.value = "This field is required"
+        if (email.state.value.isNullOrEmpty()) {
+            email.error.value = "This field is required"
         }
 
-        if (password.value.isEmpty()) {
-            passwordError.value = "This field is required"
+        if (email.state.value.isValidEmail()) {
+            email.error.value = "Invalid email address"
         }
 
-        if (confirmPassword.value.isEmpty()) {
-            confirmPasswordError.value = "This field is required"
+        if (password.state.value.isNullOrEmpty()) {
+            password.error.value = "This field is required"
+        }
+
+        if (confirmPassword.state.value.isNullOrEmpty()) {
+            confirmPassword.error.value = "This field is required"
         } else if (
-            password.value != confirmPassword.value
+            password.state.value != confirmPassword.state.value
         ) {
-            confirmPasswordError.value = "Passwords do not match"
+            confirmPassword.error.value = "Passwords do not match"
         }
 
-        if (dateOfBirth.value.isEmpty()) {
-            dateOfBirthError.value = "This field is required"
+        if (dateOfBirth.state.value.isNullOrEmpty()) {
+            dateOfBirth.error.value = "This field is required"
         }
 
-        return true || !(
-            userId.value.isEmpty() ||
-                name.value.isEmpty() ||
-                selectedCountry.value == null ||
-                mobileNumber.value.isEmpty() ||
-                email.value.isEmpty() ||
-                password.value.isEmpty() ||
-                confirmPassword.value.isEmpty() ||
-                password.value != confirmPassword.value ||
-                gender.value.isEmpty() ||
-                dateOfBirth.value.isEmpty()
+        return !(
+            userId.state.value.isNullOrEmpty() ||
+                name.state.value.isNullOrEmpty() ||
+                country.state.value == null ||
+                mobileNumber.state.value.isNullOrEmpty() ||
+                email.state.value.isNullOrEmpty() ||
+                password.state.value.isNullOrEmpty() ||
+                confirmPassword.state.value.isNullOrEmpty() ||
+                password.state.value != confirmPassword.state.value ||
+                gender.state.value.isNullOrEmpty() ||
+                dateOfBirth.state.value.isNullOrEmpty()
             )
     }
 

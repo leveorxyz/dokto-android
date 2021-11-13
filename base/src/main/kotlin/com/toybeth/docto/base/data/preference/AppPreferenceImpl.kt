@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.google.gson.Gson
 import com.toybeth.docto.base.R
+import com.toybeth.docto.base.data.model.DoktoUser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -12,17 +13,17 @@ class AppPreferenceImpl @Inject constructor(@ApplicationContext context: Context
     AppPreference {
 
     companion object {
-        const val MESSAGE = "message"
+        const val USER = "Dokto User"
     }
 
     private var preference =
         context.getSharedPreferences(context.getString(R.string.pref_name), MODE_PRIVATE)
     private var editor = preference.edit()
 
-    override var message: String
-        get() = getString(MESSAGE)
+    override var user: DoktoUser
+        get() = getObject(USER, DoktoUser::class.java)
         set(value) {
-            saveString(MESSAGE, value)
+            saveObject(USER, value)
         }
 
     private fun saveString(key: String, value: String) {

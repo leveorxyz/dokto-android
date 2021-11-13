@@ -29,10 +29,23 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         viewModel.navigateToForgetPasswordFlow.observeOn(viewLifecycleOwner) {
             navigateToForgetPasswordFlow()
         }
+
+        viewModel.loginSuccessful.observe(viewLifecycleOwner) {
+            if(it.first) {
+                navigateToDashBoard()
+            } else {
+                showMessage(it.second)
+            }
+        }
+
         viewModel.navigateToRegistrationFlow.observeOn(viewLifecycleOwner) {
             navigateToRegistrationFlow()
         }
         viewModel.enterToLoginScreen()
+    }
+
+    private fun navigateToDashBoard() {
+
     }
 
     private fun navigateToForgetPasswordFlow() {

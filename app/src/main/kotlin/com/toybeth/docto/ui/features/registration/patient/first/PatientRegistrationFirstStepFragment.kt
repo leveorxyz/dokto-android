@@ -49,11 +49,7 @@ class PatientRegistrationFirstStepFragment : BaseFragment<PatientRegistrationVie
     }
 
     override fun verifyStep(): VerificationError? {
-        return if(viewModel.verifyFirstPage()) {
-            null
-        } else {
-            VerificationError("Fill-up all fields")
-        }
+        return null
     }
 
     override fun onSelected() {

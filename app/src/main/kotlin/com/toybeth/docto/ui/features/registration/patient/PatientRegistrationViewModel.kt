@@ -44,6 +44,7 @@ class PatientRegistrationViewModel @Inject constructor(
     val dateOfBirth = Property<String>()
 
     // Second Screen
+    val identityVerificationType = Property<String>()
     val identityVerificationNumber = Property<String>()
     val socialSecurityNumber = Property<String>()
     val address = Property<String>()
@@ -153,6 +154,39 @@ class PatientRegistrationViewModel @Inject constructor(
         }
 
         return isVerified
+    }
+
+    fun verifySecondPage(): Boolean {
+        var isValid = true
+        if(identityVerificationType.state.value.isNullOrEmpty()) {
+            isValid = false
+            identityVerificationType.error.value = "This field is required"
+        }
+        if(identityVerificationNumber.state.value.isNullOrEmpty()) {
+            isValid = false
+            identityVerificationNumber.error.value = "This field is required"
+        }
+        if(socialSecurityNumber.state.value.isNullOrEmpty()) {
+            isValid = false
+            socialSecurityNumber.error.value = "This field is required"
+        }
+        if(address.state.value.isNullOrEmpty()) {
+            isValid = false
+            address.error.value = "This field is required"
+        }
+        if(stateName.state.value.isNullOrEmpty()) {
+            isValid = false
+            stateName.error.value = "This field is required"
+        }
+        if(!cityList.value.isNullOrEmpty() && cityName.state.value.isNullOrEmpty()) {
+            isValid = false
+            cityName.error.value = "This field is required"
+        }
+        if(zipCode.state.value.isNullOrEmpty()) {
+            isValid = false
+            zipCode.error.value = "This field is required"
+        }
+        return isValid
     }
 
     fun moveNext() {

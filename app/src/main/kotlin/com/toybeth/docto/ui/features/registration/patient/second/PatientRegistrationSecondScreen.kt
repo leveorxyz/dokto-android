@@ -33,7 +33,6 @@ fun PatientRegistrationSecondScreen(
     showCitySelectionDialog: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    var selectedIdentification by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val identificationOptions = context.resources.getStringArray(R.array.identification)
@@ -57,11 +56,13 @@ fun PatientRegistrationSecondScreen(
 
         DoktoDropDownMenu(
             suggestions = identificationOptions.toList(),
-            textFieldValue = selectedIdentification,
+            textFieldValue = viewModel.identityVerificationType.state.value ?: "",
             labelResourceId = R.string.identification_type,
             hintResourceId = R.string.select,
+            errorMessage = viewModel.identityVerificationType.error.value,
             onValueChange = {
-                selectedIdentification = it
+                viewModel.identityVerificationType.state.value = it
+                viewModel.identityVerificationType.error.value = null
             }
         )
         Spacer(modifier = Modifier.height(30.dp))

@@ -6,11 +6,13 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -24,9 +26,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
+import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
@@ -48,6 +54,7 @@ fun PatientRegistrationFirstScreen(
     ) { uri: Uri? ->
         viewModel.imageUri.value = uri
         viewModel.imageUri.value?.let {
+            viewModel.profileImage.error.value = null
             if (Build.VERSION.SDK_INT < 28) {
                 viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
                     context.contentResolver, it
@@ -89,13 +96,21 @@ fun PatientRegistrationFirstScreen(
                 )
             } else {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_user_type_doctor),
+                    painter = painterResource(id = R.drawable.ic_user_profile),
                     contentDescription = "avatar",
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
                         .size(140.dp)
                         .clip(CircleShape)
                         .border(2.dp, Color.White, CircleShape)
+                )
+            }
+            AnimatedVisibility(visible = viewModel.profileImage.error.value != null) {
+                Text(
+                    text = viewModel.profileImage.error.value!!,
+                    color = DoktoError,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
                 )
             }
 
@@ -118,7 +133,7 @@ fun PatientRegistrationFirstScreen(
             onValueChange = {
                 viewModel.firstName.state.value = it
                 viewModel.firstName.error.value = null
-            }
+            },
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -170,7 +185,11 @@ fun PatientRegistrationFirstScreen(
                 onValueChange = {
                     viewModel.mobileNumber.state.value = it
                     viewModel.mobileNumber.error.value = null
-                }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
+                )
             )
         }
 
@@ -185,7 +204,11 @@ fun PatientRegistrationFirstScreen(
             onValueChange = {
                 viewModel.email.state.value = it
                 viewModel.email.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -199,7 +222,11 @@ fun PatientRegistrationFirstScreen(
             onValueChange = {
                 viewModel.password.state.value = it
                 viewModel.password.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -213,7 +240,12 @@ fun PatientRegistrationFirstScreen(
             onValueChange = {
                 viewModel.confirmPassword.state.value = it
                 viewModel.confirmPassword.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next
+            )
+
         )
         Spacer(modifier = Modifier.height(30.dp))
 

@@ -47,6 +47,7 @@ class PatientRegistrationViewModel @Inject constructor(
     val identityVerificationType = Property<String>()
     val identityVerificationNumber = Property<String>()
     val socialSecurityNumber = Property<String>()
+    val identityVerificationImageUri = Property<Uri>()
     val address = Property<String>()
     val stateName = Property<String>()
     val cityName = Property<String>()
@@ -107,7 +108,7 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun getSelectedCountryCode(): String {
         return if (selectedCountry.state.value != null) {
-            selectedCountry.state.value!!.phone
+            "+${ selectedCountry.state.value!!.phone }"
         } else {
             ""
         }
@@ -115,6 +116,10 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun verifyFirstPage(): Boolean {
         var isVerified = true
+        if(profileImage.state.value == null) {
+            isVerified = false
+            profileImage.error.value = "Select a profile photo"
+        }
         if(firstName.state.value.isNullOrEmpty()) {
             isVerified = false
             firstName.error.value = "This field is required"
@@ -153,7 +158,7 @@ class PatientRegistrationViewModel @Inject constructor(
             dateOfBirth.error.value = "This field is required"
         }
 
-        return isVerified
+        return true
     }
 
     fun verifySecondPage(): Boolean {
@@ -165,6 +170,10 @@ class PatientRegistrationViewModel @Inject constructor(
         if(identityVerificationNumber.state.value.isNullOrEmpty()) {
             isValid = false
             identityVerificationNumber.error.value = "This field is required"
+        }
+        if(identityVerificationImageUri.state.value == null) {
+            isValid = false
+            identityVerificationImageUri.error.value = "Select identity verification image"
         }
         if(socialSecurityNumber.state.value.isNullOrEmpty()) {
             isValid = false
@@ -186,7 +195,7 @@ class PatientRegistrationViewModel @Inject constructor(
             isValid = false
             zipCode.error.value = "This field is required"
         }
-        return isValid
+        return true
     }
 
     fun verifyThirdPage(): Boolean {
@@ -229,7 +238,7 @@ class PatientRegistrationViewModel @Inject constructor(
                 imageUri.value!!,
                 identityVerificationType.state.value!!,
                 identityVerificationNumber.state.value!!,
-                imageUri.value!!,
+                identityVerificationImageUri.state.value!!,
                 address.state.value!!,
                 socialSecurityNumber.state.value!!,
                 stateName.state.value!!,

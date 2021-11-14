@@ -116,4 +116,6 @@
     <string name="label_clinic_name">Clinic Name</string>
     <string name="hint_number_of_practitioner">Number of practitioner</string>
     <string name="label_number_of_practitioner">Number of Practitioner</string>
+    <string name="title_patient_registration">Patient\nRegistration</string>
+    <string name="select_country">Select Country</string>
 </resources>

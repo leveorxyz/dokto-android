@@ -1,6 +1,7 @@
 package com.toybeth.docto.base.ui
 
 import android.content.Context
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -95,5 +96,22 @@ abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     fun makePageNormal() {
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    }
+
+    fun setKeyboardOpenListener(
+        onKeyboardOpen: () -> Unit,
+        onKeyboardClose: () -> Unit
+    ) {
+        activity?.window?.decorView?.viewTreeObserver?.addOnGlobalLayoutListener {
+            val r = Rect()
+            activity?.window?.decorView?.getWindowVisibleDisplayFrame(r)
+
+            val height = activity?.window?.decorView?.height
+            if ((height ?: 0) - r.bottom > (height ?: 0) * 0.1399) {
+                onKeyboardOpen.invoke()
+            } else {
+                onKeyboardClose.invoke()
+            }
+        }
     }
 }

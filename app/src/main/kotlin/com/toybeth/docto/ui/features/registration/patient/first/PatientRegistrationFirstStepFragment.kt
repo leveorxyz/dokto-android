@@ -15,7 +15,6 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.Country
-import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
@@ -49,7 +48,7 @@ class PatientRegistrationFirstStepFragment : BaseFragment<PatientRegistrationVie
     }
 
     override fun verifyStep(): VerificationError? {
-        return if(viewModel.verifyFirstPage()) {
+        return if (viewModel.verifyFirstPage()) {
             null
         } else {
             VerificationError("Fill-up all fields")
@@ -65,12 +64,13 @@ class PatientRegistrationFirstStepFragment : BaseFragment<PatientRegistrationVie
     }
 
     private fun showCountrySelectionDialog() {
-        viewModel.countryList.observe(viewLifecycleOwner, object: Observer<List<Country>> {
+        viewModel.countryList.observe(viewLifecycleOwner, object : Observer<List<Country>> {
             override fun onChanged(countries: List<Country>) {
                 viewModel.countryList.removeObserver(this)
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(resources.getString(R.string.select_state))
-                    .setItems(countries.map { it.name }.toTypedArray()) { _, which ->
+                    .setTitle(resources.getString(R.string.select_country))
+                    .setItems(countries.map { "${it.name} (${it.phone})" }
+                        .toTypedArray()) { _, which ->
                         viewModel.setCountry(countries[which])
                     }
                     .show()

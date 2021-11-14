@@ -64,12 +64,12 @@ fun DoktoTextFiled(
             isError = errorMessage != null,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
-                disabledTextColor = if (onClick == null) Color.Gray else Color.Black,
+                disabledTextColor = Color.Black,
                 backgroundColor = Color.White,
                 cursorColor = DoktoSecondary,
                 errorBorderColor = DoktoError,
-                placeholderColor = if (onClick == null) Color.Gray else Color.Black,
-                disabledPlaceholderColor = if (onClick == null) Color.Gray else Color.Black,
+                placeholderColor = Color.Gray,
+                disabledPlaceholderColor = Color.Gray,
                 unfocusedBorderColor = if (errorMessage == null) Color.White else DoktoError,
                 focusedBorderColor = if (errorMessage == null) DoktoSecondary else DoktoError
             ),

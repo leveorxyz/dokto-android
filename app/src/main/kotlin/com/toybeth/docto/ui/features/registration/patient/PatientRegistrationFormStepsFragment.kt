@@ -1,5 +1,6 @@
 package com.toybeth.docto.ui.features.registration.patient
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,9 @@ class PatientRegistrationFormStepsFragment  :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        makePageNormal()
+
+        setKeyboardOpenListener()
+        binding.tvTitle.text = getString(R.string.title_patient_registration)
         val pageTitles =
             resources.getStringArray(R.array.patient_registration_form_page_titles).toList()
         binding.registrationStepper.setAdapter(PatientRegistrationFormStepsAdapter(pageTitles, this))
@@ -53,5 +56,13 @@ class PatientRegistrationFormStepsFragment  :
         viewModel.moveNext.observeOn(viewLifecycleOwner) {
             binding.registrationStepper.proceed()
         }
+    }
+
+    private fun setKeyboardOpenListener() {
+        setKeyboardOpenListener({
+            binding.topView.visibility = View.GONE
+        }, {
+            binding.topView.visibility = View.VISIBLE
+        })
     }
 }

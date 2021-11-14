@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
@@ -78,7 +79,10 @@ fun PatientRegistrationSecondScreen(
                 viewModel.identityVerificationNumber.state.value = it
                 viewModel.identityVerificationNumber.error.value = null
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -95,8 +99,13 @@ fun PatientRegistrationSecondScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        DoktoImageUpload(identityValidationBitmap.value) { bitmap, uri ->
+        DoktoImageUpload(
+            identityValidationBitmap.value,
+            errorMessage = viewModel.identityVerificationImageUri.error.value
+        ) { bitmap, uri ->
             identityValidationBitmap.value = bitmap
+            viewModel.identityVerificationImageUri.state.value = uri
+            viewModel.identityVerificationImageUri.error.value = null
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -112,7 +121,10 @@ fun PatientRegistrationSecondScreen(
                 viewModel.socialSecurityNumber.state.value = it
                 viewModel.socialSecurityNumber.error.value = null
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -126,7 +138,11 @@ fun PatientRegistrationSecondScreen(
             onValueChange = {
                 viewModel.address.state.value  = it
                 viewModel.address.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -184,7 +200,11 @@ fun PatientRegistrationSecondScreen(
             onValueChange = {
                 viewModel.zipCode.state.value = it
                 viewModel.zipCode.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            )
         )
         Spacer(modifier = Modifier.height(50.dp))
 

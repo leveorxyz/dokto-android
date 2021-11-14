@@ -3,6 +3,7 @@ package com.toybeth.docto.ui.features.registration.patient.third
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
@@ -95,6 +98,10 @@ fun PatientRegistrationThirdScreen(
                 viewModel.referringDoctorPhoneNumber.state.value = it
                 viewModel.referringDoctorPhoneNumber.error.value = null
             },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Phone,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -158,6 +165,10 @@ fun PatientRegistrationThirdScreen(
                             viewModel.insuranceNumber.state.value = it
                             viewModel.insuranceNumber.error.value = null
                         },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        )
                     )
                     Spacer(modifier = Modifier.height(30.dp))
 

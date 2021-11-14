@@ -316,6 +316,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun registerDoctor() {
+        loader.postValue(true)
         viewModelScope.launchIOWithExceptionHandler({
             repository.registerDoctor(
                 userId = userId.state.value!!,
@@ -344,7 +345,9 @@ class RegistrationViewModel @Inject constructor(
                 awards = doctorAwards.state.value,
                 acceptedInsurances = doctorInsurances.state.value!!
             )
+            loader.postValue(false)
         }, {
+            loader.postValue(false)
             it.printStackTrace()
         })
     }

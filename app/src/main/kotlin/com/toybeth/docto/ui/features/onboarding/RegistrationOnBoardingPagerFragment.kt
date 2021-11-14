@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.onboarding
+package com.toybeth.docto.ui.features.onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater

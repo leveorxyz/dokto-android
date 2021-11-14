@@ -14,6 +14,7 @@ class AppPreferenceImpl @Inject constructor(@ApplicationContext context: Context
 
     companion object {
         const val USER = "Dokto User"
+        const val FIRST_TIME_USER = "First time user"
     }
 
     private var preference =
@@ -24,6 +25,12 @@ class AppPreferenceImpl @Inject constructor(@ApplicationContext context: Context
         get() = getObject(USER, DoktoUser::class.java)
         set(value) {
             saveObject(USER, value)
+        }
+
+    override var isFirstTimeUser: Boolean
+        get() = getBoolean(FIRST_TIME_USER, true)
+        set(value) {
+            saveBoolean(FIRST_TIME_USER, value)
         }
 
     private fun saveString(key: String, value: String) {

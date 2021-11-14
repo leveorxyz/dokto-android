@@ -1,8 +1,13 @@
 package com.toybeth.docto.ui.features.login
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -13,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.ui.features.login.components.DoktoPasswordField
 import com.toybeth.docto.ui.features.login.components.DoktoTextField
@@ -22,14 +28,16 @@ import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 @Composable
 fun LoginForm(
     viewModel: LoginViewModel,
-    modifier: Modifier = Modifier.fillMaxSize()
+    modifier: Modifier = Modifier.fillMaxWidth()
 ) {
 
     var username by remember { viewModel.userNameOrPhone }
     var password by remember { viewModel.password }
+    val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier.fillMaxHeight(),
+        modifier = modifier
+            .verticalScroll(scrollState),
         verticalArrangement = Arrangement.Top
     ) {
         DoktoTextField(
@@ -37,6 +45,7 @@ fun LoginForm(
             label = "Phone number or email",
             icon = Icons.Outlined.Person,
             onValueChange = { username = it },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
         Spacer(modifier = Modifier.height(35.dp))
@@ -86,5 +95,7 @@ fun LoginForm(
         ) {
             Text(text = "Login", color = Color.White)
         }
+
+        Spacer(modifier = Modifier.height(56.dp))
     }
 }

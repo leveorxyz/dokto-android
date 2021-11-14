@@ -2,6 +2,7 @@ package com.toybeth.docto.ui.features.login.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -21,7 +22,8 @@ fun DoktoTextField(
     modifier: Modifier = Modifier,
     placeholder: String = "",
     onValueChange: (String) -> Unit,
-    maxLines: Int = 1
+    maxLines: Int = 1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     OutlinedTextField(
         modifier = Modifier
@@ -37,7 +39,8 @@ fun DoktoTextField(
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = Color.White,
-            focusedBorderColor = Color.White
+            focusedBorderColor = Color.White,
+            cursorColor = Color.White
         ),
         shape = RoundedCornerShape(24.dp),
         leadingIcon = {
@@ -56,7 +59,8 @@ fun DoktoTextField(
         },
         textStyle = TextStyle(
             color = Color.White
-        )
+        ),
+        keyboardOptions = keyboardOptions
     )
 }
 

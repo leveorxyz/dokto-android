@@ -1,19 +1,13 @@
-package com.toybeth.docto.ui.features.registration.onboarding
+package com.toybeth.docto.ui.features.onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.toybeth.docto.R
-import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
-import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.databinding.FragmentRegistrationOnboardingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,15 +39,18 @@ class RegistrationOnBoardingFragment: BaseViewBindingFragment<RegistrationOnBoar
         binding.dotsIndicator.setViewPager2(binding.vpOnboarding)
 
         binding.btnSkip.setOnClickListener {
-            findNavController().navigate(
-                RegistrationOnBoardingFragmentDirections.actionRegistrationOnBoardingFragmentToRegistrationFormStepsFragment()
-            )
+            navigateToLogin()
         }
 
         binding.btnGetStarted.setOnClickListener {
-            findNavController().navigate(
-                RegistrationOnBoardingFragmentDirections.actionRegistrationOnBoardingFragmentToRegistrationFormStepsFragment()
-            )
+            navigateToLogin()
         }
+    }
+
+    private fun navigateToLogin() {
+        viewModel.onBoardingPassed()
+        findNavController().navigate(
+            RegistrationOnBoardingFragmentDirections.actionRegistrationOnBoardingFragmentToLoginFragment()
+        )
     }
 }

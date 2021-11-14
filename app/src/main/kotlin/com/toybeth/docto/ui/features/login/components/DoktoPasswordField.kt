@@ -43,7 +43,8 @@ fun DoktoPasswordField(
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = Color.White,
-            focusedBorderColor = Color.White
+            focusedBorderColor = Color.White,
+            cursorColor = Color.White
         ),
         shape = RoundedCornerShape(24.dp),
         leadingIcon = {

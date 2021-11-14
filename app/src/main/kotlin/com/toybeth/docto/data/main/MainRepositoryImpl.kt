@@ -7,5 +7,16 @@ class MainRepositoryImpl @Inject constructor(
     private val preference: AppPreference
 ) : MainRepository {
 
+    override fun isFirstTimeUser(): Boolean {
+        return preference.isFirstTimeUser
+    }
+
+    override fun isUserLoggedIn(): Boolean {
+        return preference.user.token.isEmpty()
+    }
+
+    override fun onBoardingPassed() {
+        preference.isFirstTimeUser = false
+    }
 
 }

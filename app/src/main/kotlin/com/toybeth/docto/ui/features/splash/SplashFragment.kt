@@ -34,7 +34,15 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.navigateToLogin.observe(viewLifecycleOwner) {
-            navigateToLogin()
+            if(it) {
+                navigateToLogin()
+            } else {
+
+            }
+        }
+
+        viewModel.navigateToOnBoarding.observeOn(viewLifecycleOwner) {
+            navigateToOnBoarding()
         }
         viewModel.initialize()
     }
@@ -42,6 +50,12 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
     private fun navigateToLogin() {
         findNavController().navigate(
             SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+        )
+    }
+
+    private fun navigateToOnBoarding() {
+        findNavController().navigate(
+            SplashFragmentDirections.actionSplashFragmentToOnBoarding()
         )
     }
 

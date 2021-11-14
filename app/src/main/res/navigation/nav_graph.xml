@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/selectRegistrationUserTypeFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splashFragment_to_onBoarding"
+            app:destination="@id/registrationOnBoardingFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
 
@@ -101,12 +107,12 @@
 
     <fragment
         android:id="@+id/registrationOnBoardingFragment"
-        android:name="com.toybeth.docto.ui.features.registration.onboarding.RegistrationOnBoardingFragment"
+        android:name="com.toybeth.docto.ui.features.onboarding.RegistrationOnBoardingFragment"
         android:label="RegistrationOnBoardingFragment">
 
         <action
-            android:id="@+id/action_registrationOnBoardingFragment_to_registrationFormStepsFragment"
-            app:destination="@id/doctorRegistrationFormStepsFragment"
+            android:id="@+id/action_registrationOnBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

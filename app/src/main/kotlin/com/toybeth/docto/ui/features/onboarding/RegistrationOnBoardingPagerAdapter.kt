@@ -1,9 +1,8 @@
-package com.toybeth.docto.ui.features.registration.onboarding
+package com.toybeth.docto.ui.features.onboarding
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.orhanobut.logger.Logger
 
 class RegistrationOnBoardingPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

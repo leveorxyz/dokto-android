@@ -24,6 +24,10 @@ class RegistrationViewModel @Inject constructor(
     private val repository: RegistrationRepository
 ) : BaseViewModel() {
 
+    companion object {
+        private const val USER_TYPE_DOCTOR = "doctor"
+    }
+
     // ... First Screen
     val profileImage = Property<Bitmap>()
     val profileImageUri = Property<Uri>()
@@ -80,6 +84,22 @@ class RegistrationViewModel @Inject constructor(
 
     init {
         loadCountryStateAndCities()
+    }
+
+    fun checkIfUserNameAvailable() {
+        if(!userId.state.value.isNullOrEmpty()) {
+
+            viewModelScope.launchIOWithExceptionHandler({
+                val isUserExists = repository.checkIfUserNameExists(USER_TYPE_DOCTOR, userId.state.value!!)
+                if(isUserExists) {
+                    userId.error.value = "Username not available"
+                } else {
+                    userId.error.value = null
+                }
+            }, {
+                it.printStackTrace()
+            })
+        }
     }
 
     fun setDateOfBirth(timeInMillis: Long) {
@@ -144,7 +164,7 @@ class RegistrationViewModel @Inject constructor(
     fun verifyDoctorRegistrationFirstStep(): Boolean {
         var isValid = true
 
-        if (userId.state.value.isNullOrEmpty()) {
+        if (userId.state.value.isNullOrEmpty() && userId.error.value == null) {
             userId.error.value = "This field is required"
             isValid = false
         }

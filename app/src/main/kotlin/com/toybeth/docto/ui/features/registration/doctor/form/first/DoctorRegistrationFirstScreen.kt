@@ -17,11 +17,15 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Help
+import androidx.compose.material.icons.filled.ManageSearch
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -116,13 +120,20 @@ fun DoctorRegistrationFirstScreen(
 
         // --------------------------- USER ID -------------------------- //
         DoktoTextFiled(
+            modifier = Modifier.onFocusChanged {
+                if(!it.hasFocus) {
+                    viewModel.checkIfUserNameAvailable()
+                }
+            },
             textFieldValue = viewModel.userId.state.value ?: "",
             hintResourceId = R.string.hint_userid,
             labelResourceId = R.string.label_userid,
             trailingIcon = {
-                IconButton(onClick = { }) {
+                IconButton(onClick = {
+                    viewModel.checkIfUserNameAvailable()
+                }) {
                     Icon(
-                        imageVector = Icons.Filled.Help,
+                        imageVector = Icons.Filled.ManageSearch,
                         contentDescription = stringResource(id = R.string.check_availability),
                         tint = DoktoSecondary
                     )

@@ -104,6 +104,16 @@ class RegistrationRepository @Inject constructor(
         }
     }
 
+    suspend fun checkIfUserNameExists(
+        userType: String,
+        userName: String
+    ): Boolean {
+        return when (safeApiCall { apiService.checkIfUserNameAvailable(userType, userName) }) {
+            is ResultWrapper.Success -> true
+            else -> false
+        }
+    }
+
     suspend fun registerDoctor(
         userId: String,
         fullName: String,

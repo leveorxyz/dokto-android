@@ -1,6 +1,5 @@
 package com.toybeth.docto.ui.common.components
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,8 +15,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.toybeth.docto.base.theme.DoktoSecondary
 import com.toybeth.docto.base.theme.DoktoError
+import com.toybeth.docto.base.theme.DoktoSecondary
 
 @Composable
 fun DoktoTextFiled(
@@ -61,22 +60,14 @@ fun DoktoTextFiled(
             enabled = onClick == null,
             readOnly = onClick != null,
             singleLine = singleLine,
-            modifier = if (errorMessage == null) {
-                textFieldModifier
-            } else {
-                textFieldModifier.then(
-                    Modifier.border(
-                        width = 2.dp,
-                        color = DoktoError,
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                )
-            },
+            modifier = textFieldModifier,
+            isError = errorMessage != null,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
                 disabledTextColor = if (onClick == null) Color.Gray else Color.Black,
                 backgroundColor = Color.White,
                 cursorColor = DoktoSecondary,
+                errorBorderColor = DoktoError,
                 placeholderColor = if (onClick == null) Color.Gray else Color.Black,
                 disabledPlaceholderColor = if (onClick == null) Color.Gray else Color.Black,
                 unfocusedBorderColor = if (errorMessage == null) Color.White else DoktoError,
@@ -93,7 +84,8 @@ fun DoktoTextFiled(
             Text(
                 text = it,
                 color = DoktoError,
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                modifier = Modifier.padding(start = 15.dp, top = 3.dp)
             )
         }
     }

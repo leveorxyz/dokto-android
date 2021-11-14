@@ -6,10 +6,8 @@ import com.toybeth.docto.base.data.model.DoktoUser
 import com.toybeth.docto.data.authentication.model.LoginRequestBody
 import com.toybeth.docto.data.registration.model.DoctorRegistrationRequestBody
 import com.toybeth.docto.data.registration.model.PatientRegistrationRequestBody
-import io.reactivex.Maybe
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -18,6 +16,12 @@ interface ApiService {
 
     @POST("user/patient-signup/")
     suspend fun patientRegistration(@Body requestBody: PatientRegistrationRequestBody): Response<ApiResponse<DoktoUser>>
+
+    @GET("user/exists/{user_type}/{username}/")
+    suspend fun checkIfUserNameAvailable(
+        @Path("user_type") userType: String,
+        @Path("username") userName: String
+    ): Response<ApiResponse<Unit>>
 
     @POST("user/doctor-signup/")
     suspend fun doctorRegistration(@Body requestBody: DoctorRegistrationRequestBody): Response<ApiResponse<DoktoUser>>

@@ -1,6 +1,7 @@
 package com.toybeth.docto.ui.features.registration.doctor.form
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +26,7 @@ class RegistrationViewModel @Inject constructor(
 
     // ... First Screen
     val profileImage = Property<Bitmap>()
+    val profileImageUri = Property<Uri>()
     val userId = Property<String>()
     val name = Property<String>()
     val country = Property<Country>()
@@ -40,6 +42,7 @@ class RegistrationViewModel @Inject constructor(
     // Second Screen
     val selectedIdentification = Property<String>()
     val identificationNumber = Property<String>()
+    val identityValidityImageUri = Property<Uri>()
     val address = Property<String>()
     val selectedCountryName = Property<String>()
     val selectedStateName = Property<String>()
@@ -55,22 +58,32 @@ class RegistrationViewModel @Inject constructor(
     val cityList = MutableLiveData<List<City>>()
 
     // Third page
-    val selectedLanguages = Property<MutableList<String>>()
+    val selectedLanguages = Property(
+        state = mutableStateOf(mutableStateListOf<String>())
+    )
     val educations = Property(state = mutableStateOf(mutableListOf(Education())))
-    val specialties = Property<MutableList<MutableState<String?>>>()
+    val specialties = Property(
+        state = mutableStateOf(mutableStateListOf<String>())
+    )
 
+    // Fourth page
     val professionalBio = Property<String>()
-    val experiences = Property<MutableList<Experience>>()
+    val experiences = Property<MutableList<Experience>>(
+        state = mutableStateOf(mutableStateListOf(Experience()))
+    )
     val doctorLicense = Property<Bitmap?>()
+    val doctorLicenseUri = Property<Uri>()
     val doctorAwards = Property<String>()
-    val doctorInsurances = Property<MutableList<MutableState<String?>>>()
+    val doctorInsurances = Property(
+        state = mutableStateOf(mutableStateListOf<String>())
+    )
 
     init {
         loadCountryStateAndCities()
     }
 
     fun setDateOfBirth(timeInMillis: Long) {
-        val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         dateOfBirth.state.value = formatter.format(Date(timeInMillis))
     }
 
@@ -108,14 +121,24 @@ class RegistrationViewModel @Inject constructor(
         experiences.error.value = null
     }
 
+    fun getGraduationYearFromMillis(timeInMillis: Long): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        return formatter.format(Date(timeInMillis))
+    }
+
     fun addSpecialty(specialty: String) {
-        specialties.state.value?.add(mutableStateOf(specialty))
+        specialties.state.value?.add(specialty)
         specialties.error.value = null
     }
 
     fun addInsurance(insurance: String) {
-        doctorInsurances.state.value?.add(mutableStateOf(insurance))
+        doctorInsurances.state.value?.add(insurance)
         doctorInsurances.error.value = null
+    }
+
+    fun getExperienceDateFromMillis(timeInMillis: Long): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        return formatter.format(Date(timeInMillis))
     }
 
     fun verifyDoctorRegistrationFirstStep(): Boolean {
@@ -167,11 +190,122 @@ class RegistrationViewModel @Inject constructor(
             dateOfBirth.error.value = "This field is required"
         }
 
+        return true
+    }
+
+    fun verifyDoctorRegistrationSecondStep(): Boolean {
+        var isValid = true
+
+        if(selectedIdentification.state.value.isNullOrEmpty()) {
+            selectedIdentification.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (identificationNumber.state.value.isNullOrEmpty()) {
+            identificationNumber.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (zipCode.state.value.isNullOrEmpty()) {
+            zipCode.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (address.state.value.isNullOrEmpty()) {
+            address.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (stateList.value?.isNullOrEmpty() == false && selectedStateName.state.value.isNullOrEmpty()) {
+            selectedStateName.error.value = "Select your state"
+            isValid = false
+        }
+
+        if (cityList.value?.isNullOrEmpty() == false && selectedCityName.state.value.isNullOrEmpty()) {
+            selectedCityName.error.value = "Select your city"
+            isValid = false
+        }
+
+        return true
+    }
+
+    fun verifyDoctorRegistrationThirdPage(): Boolean {
+        var isValid = true
+        if(selectedLanguages.state.value?.isNullOrEmpty() == true) {
+            selectedLanguages.error.value = "Select minimum 1 language"
+            isValid = false
+        }
+        educations.state.value?.forEach {
+            if(it.college.state.value.isNullOrEmpty()) {
+                it.college.error.value = "This field is required"
+                isValid = false
+            }
+            if(it.graduationYear.state.value.isNullOrEmpty()) {
+                it.graduationYear.error.value = "This field is required"
+                isValid = false
+            }
+            if(it.courseStudied.state.value.isNullOrEmpty()) {
+                it.courseStudied.error.value = "This field is required"
+                isValid = false
+            }
+            if(it.certificateUri.state.value == null) {
+                it.certificateUri.error.value = "This field is required"
+                isValid = false
+            }
+        }
+        if(specialties.state.value?.isNullOrEmpty() == true) {
+            specialties.error.value = "This field is required"
+            isValid = false
+        }
+        return true
+    }
+
+    fun verifyDoctorRegistrationFourthPage(): Boolean {
+        var isValid = true
+        if(professionalBio.state.value.isNullOrEmpty()) {
+            professionalBio.error.value = "This field is required"
+            isValid = false
+        }
         return isValid
     }
 
+
     fun moveNext() {
         moveNext.postValue(true)
+    }
+
+    fun registerDoctor() {
+        viewModelScope.launchIOWithExceptionHandler({
+            repository.registerDoctor(
+                userId = userId.state.value!!,
+                fullName = name.state.value!!,
+                country = selectedCountry.value!!.name,
+                phoneCode = selectedCountry.value!!.phone,
+                contactNo = mobileNumber.state.value!!,
+                email =  email.state.value!!,
+                password = password.state.value!!,
+                gender = gender.state.value!!,
+                dateOfBirth = dateOfBirth.state.value!!,
+                profilePhotoUri = profileImageUri.state.value!!,
+                identificationType = selectedIdentification.state.value!!,
+                identificationNumber = identificationNumber.state.value!!,
+                identificationPhotoUri = profileImageUri.state.value!!,
+                street = address.state.value!!,
+                state = selectedStateName.state.value,
+                city = selectedCityName.state.value,
+                zipCode = zipCode.state.value!!,
+                languages = selectedLanguages.state.value!!,
+                educationProfiles = educations.state.value!!,
+                specialities = specialties.state.value!!,
+                professionalBio = professionalBio.state.value!!,
+                experiences = experiences.state.value!!,
+                licencePhotoUri = doctorLicenseUri.state.value!!,
+                awards = doctorAwards.state.value,
+                acceptedInsurances = doctorInsurances.state.value!!
+            )
+        }, {
+            it.printStackTrace()
+        })
     }
 
     private fun loadCountryStateAndCities() {

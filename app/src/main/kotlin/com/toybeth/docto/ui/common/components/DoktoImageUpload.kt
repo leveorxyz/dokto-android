@@ -43,7 +43,7 @@ import com.toybeth.docto.base.theme.DoktoSecondary
 fun DoktoImageUpload(
     uploadedImage: Bitmap?,
     errorMessage: String? = null,
-    onImageUpload: (Bitmap?) -> Unit
+    onImageUpload: (Bitmap?, Uri) -> Unit
 ) {
 
     val context = LocalContext.current
@@ -65,10 +65,10 @@ fun DoktoImageUpload(
                 val bitmap = ImageDecoder.decodeBitmap(
                     ImageDecoder.createSource(context.contentResolver, it)
                 )
-                onImageUpload(bitmap)
+                onImageUpload(bitmap, it)
             } else {
                 val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, it)
-                onImageUpload(bitmap)
+                onImageUpload(bitmap, it)
             }
         }
     }

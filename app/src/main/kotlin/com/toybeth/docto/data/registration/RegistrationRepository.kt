@@ -3,15 +3,12 @@ package com.toybeth.docto.data.registration
 import android.content.Context
 import android.net.Uri
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
-import com.orhanobut.logger.Logger
 import com.toybeth.docto.R
 import com.toybeth.docto.base.data.model.ResultWrapper
 import com.toybeth.docto.base.data.network.safeApiCall
 import com.toybeth.docto.base.data.preference.AppPreference
 import com.toybeth.docto.base.utils.fileUriToBase64
-import com.toybeth.docto.base.utils.getFile
 import com.toybeth.docto.data.ApiService
 import com.toybeth.docto.data.Country
 import com.toybeth.docto.data.Education
@@ -121,8 +118,8 @@ class RegistrationRepository @Inject constructor(
         identificationType: String,
         identificationNumber: String,
         identificationPhotoUri: Uri,
-        street: String,
-        state: String,
+        street: String? = null,
+        state: String? = null,
         city: String? = null,
         zipCode: String,
         languages: List<String>,
@@ -131,18 +128,20 @@ class RegistrationRepository @Inject constructor(
         professionalBio: String,
         experiences: List<Experience>,
         licencePhotoUri: Uri,
-        awards: String,
+        awards: String? = null,
         acceptedInsurances: List<String>
     ): Boolean {
         val profilePhotoString = fileUriToBase64(context, profilePhotoUri)
         val identificationPhotoString = fileUriToBase64(context, identificationPhotoUri)
+        val licencePhotoString = fileUriToBase64(context, licencePhotoUri)
         val mEducations = mutableListOf<EducationItemInDoctorRegistrationRequestBody>()
         val mExperiences = mutableListOf<ExperienceItemInDoctorRegistrationRequestBody>()
         educationProfiles.forEach {
+            val certificateBase64String = fileUriToBase64(context, it.certificateUri.state.value!!)
             val item = EducationItemInDoctorRegistrationRequestBody(
                 college = it.college.state.value!!,
                 year = it.graduationYear.state.value!!,
-                certificate = "",
+                certificate = certificateBase64String,
                 course = it.courseStudied.state.value!!
             )
             mEducations.add(item)
@@ -180,7 +179,7 @@ class RegistrationRepository @Inject constructor(
             professionalBio = professionalBio,
             experience = mExperiences,
             acceptedInsurance = acceptedInsurances,
-            licenseFile = "",
+            licenseFile = licencePhotoString,
             awards = awards
         )
         val response = safeApiCall { apiService.doctorRegistration(requestBody) }

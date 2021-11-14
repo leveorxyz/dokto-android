@@ -35,7 +35,7 @@ fun DoctorRegistrationSecondScreen(
 
     val context = LocalContext.current
     val identificationOptions = context.resources.getStringArray(R.array.identification)
-    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val identityValidationBitmap = remember { mutableStateOf<Bitmap?>(null) }
 
     return Column(
         modifier = Modifier
@@ -94,8 +94,9 @@ fun DoctorRegistrationSecondScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        DoktoImageUpload(bitmap.value) {
-            bitmap.value = it
+        DoktoImageUpload(identityValidationBitmap.value) { bitmap, uri ->
+            identityValidationBitmap.value = bitmap
+            viewModel.identityValidityImageUri.state.value = uri
         }
         
         Spacer(modifier = Modifier.height(30.dp))

@@ -46,14 +46,13 @@ fun DoctorRegistrationFirstScreen(
 ) {
 
     val scrollState = rememberScrollState()
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        imageUri = uri
-        imageUri?.let {
+        viewModel.profileImageUri.state.value = uri
+        viewModel.profileImageUri.state.value ?.let {
             if (Build.VERSION.SDK_INT < 28) {
                 viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
                     context.contentResolver, it

@@ -40,7 +40,6 @@ fun DoctorRegistrationThirdScreen(
     val context = LocalContext.current
     val availableLanguages = context.resources.getStringArray(R.array.languages).toList()
     val specialties = context.resources.getStringArray(R.array.specialities).toMutableList()
-    val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
 
     return Column(
         modifier = Modifier
@@ -83,11 +82,7 @@ fun DoctorRegistrationThirdScreen(
                     Checkbox(
                         checked = viewModel.selectedLanguages.state.value?.contains(language) == true,
                         onCheckedChange = {
-                            if (it) {
-                                viewModel.selectedLanguages.state.value?.add(language)
-                            } else {
-                                viewModel.selectedLanguages.state.value?.remove(language)
-                            }
+
                         },
                         colors = CheckboxDefaults.colors(
                             checkedColor = DoktoPrimaryVariant,
@@ -202,9 +197,7 @@ fun DoctorRegistrationThirdScreen(
                 },
                 onClick = {
                     showDatePicker { timeInMillis ->
-                        education.graduationYear.state.value = formatter.format(
-                            Date(timeInMillis)
-                        )
+                        education.graduationYear.state.value = viewModel.getGraduationYearFromMillis(timeInMillis)
                     }
                 },
                 trailingIcon = {
@@ -233,9 +226,10 @@ fun DoctorRegistrationThirdScreen(
             DoktoImageUpload(
                 uploadedImage = education.certificate.state.value,
                 errorMessage = education.certificate.error.value
-            ) {
+            ) { bitmap, uri ->
                 education.certificate.error.value = null
-                education.certificate.state.value = it
+                education.certificate.state.value = bitmap
+                education.certificateUri.state.value = uri
             }
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -260,7 +254,7 @@ fun DoctorRegistrationThirdScreen(
 
         LazyRow {
             items(viewModel.specialties.state.value ?: listOf()) { specialty ->
-                specialty.value?.let {
+                specialty.let {
                     DoktoChip(text = it) {
                         specialties.add(it)
                         viewModel.specialties.state.value?.remove(specialty)

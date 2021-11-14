@@ -1,6 +1,7 @@
 package com.toybeth.docto.base.data.network
 
 import com.google.gson.Gson
+import com.orhanobut.logger.Logger
 import com.toybeth.docto.base.data.model.ApiResponse
 import com.toybeth.docto.base.data.model.BaseResponse
 import com.toybeth.docto.base.data.model.ResultWrapper
@@ -87,7 +88,6 @@ suspend fun <T>safeApiCall(apiCall: suspend () -> Response<ApiResponse<T>>): Res
                 is HttpException -> {
                     val code = throwable.code()
                     convertErrorBody(throwable)
-
                 }
                 else -> {
                     ResultWrapper.GenericError(null, null)
@@ -101,6 +101,7 @@ private fun <T>convertErrorBody(throwable: HttpException): ResultWrapper<T> {
     return try {
         throwable.response()?.errorBody()?.string().let {
             val response = Gson().fromJson(it, BaseResponse::class.java)
+            Logger.d(response.message)
             ResultWrapper.GenericError(throwable.code(), response)
         }
 

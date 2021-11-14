@@ -5,7 +5,6 @@
         <item>Identification Verification</item>
         <item>Education Profile</item>
         <item>Profession Profile</item>
-        <item>Practice Location</item>
     </string-array>
     <string-array name="patient_registration_form_page_titles">
         <item>Personal Details</item>

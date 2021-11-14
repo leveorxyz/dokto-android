@@ -39,7 +39,6 @@ fun DoctorRegistrationFourthScreen(
     val scrollState = rememberScrollState()
     val context = LocalContext.current
     val insurances = context.resources.getStringArray(R.array.insurances).toMutableList()
-    val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
 
     return Column(
         modifier = Modifier
@@ -103,7 +102,7 @@ fun DoctorRegistrationFourthScreen(
 
         viewModel.experiences.state.value?.reversed()?.forEachIndexed { index, experience ->
 
-            AnimatedVisibility(visible = (viewModel.experiences.state.value?.size ?: 0) > 1) {
+            AnimatedVisibility(visible = (viewModel.experiences.state.value?.size ?: 1) > 1) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -169,9 +168,7 @@ fun DoctorRegistrationFourthScreen(
                 },
                 onClick = {
                     showDatePicker { timeInMillis ->
-                        experience.startDate.state.value = formatter.format(
-                            Date(timeInMillis)
-                        )
+                        experience.startDate.state.value = viewModel.getExperienceDateFromMillis(timeInMillis)
                     }
                 },
                 trailingIcon = {
@@ -196,9 +193,7 @@ fun DoctorRegistrationFourthScreen(
                 },
                 onClick = {
                     showDatePicker { timeInMillis ->
-                        experience.endDate.state.value = formatter.format(
-                            Date(timeInMillis)
-                        )
+                        experience.endDate.state.value = viewModel.getExperienceDateFromMillis(timeInMillis)
                     }
                 },
                 trailingIcon = {
@@ -247,9 +242,10 @@ fun DoctorRegistrationFourthScreen(
         DoktoImageUpload(
             uploadedImage = viewModel.doctorLicense.state.value,
             errorMessage = viewModel.doctorLicense.error.value
-        ) {
+        ) { bitmap, uri ->
             viewModel.doctorLicense.error.value = null
-            viewModel.doctorLicense.state.value = it
+            viewModel.doctorLicense.state.value = bitmap
+            viewModel.doctorLicenseUri.state.value = uri
         }
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -287,7 +283,7 @@ fun DoctorRegistrationFourthScreen(
 
         LazyRow {
             items(viewModel.doctorInsurances.state.value ?: listOf()) { insurance ->
-                insurance.value?.let {
+                insurance.let {
                     DoktoChip(text = it) {
                         insurances.add(it)
                         viewModel.doctorInsurances.state.value?.remove(insurance)

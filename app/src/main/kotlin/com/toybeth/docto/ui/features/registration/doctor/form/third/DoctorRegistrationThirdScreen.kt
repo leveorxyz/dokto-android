@@ -97,6 +97,14 @@ fun DoctorRegistrationThirdScreen(
                 }
             }
         }
+        AnimatedVisibility(visible = viewModel.selectedLanguages.error.value != null) {
+            Text(
+                text = viewModel.selectedLanguages.error.value!!,
+                color = DoktoError,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(30.dp))
 
 
@@ -225,9 +233,9 @@ fun DoctorRegistrationThirdScreen(
 
             DoktoImageUpload(
                 uploadedImage = education.certificate.state.value,
-                errorMessage = education.certificate.error.value
+                errorMessage = education.certificateUri.error.value
             ) { bitmap, uri ->
-                education.certificate.error.value = null
+                education.certificateUri.error.value = null
                 education.certificate.state.value = bitmap
                 education.certificateUri.state.value = uri
             }

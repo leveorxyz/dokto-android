@@ -6,21 +6,20 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Assignment
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Help
-import androidx.compose.material.icons.filled.ManageSearch
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,9 +31,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
+import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
@@ -98,7 +101,7 @@ fun DoctorRegistrationFirstScreen(
                 )
             } else {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_user_type_doctor),
+                    painter = painterResource(id = R.drawable.ic_user_profile),
                     contentDescription = "avatar",
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
@@ -107,7 +110,14 @@ fun DoctorRegistrationFirstScreen(
                         .border(2.dp, Color.White, CircleShape)
                 )
             }
-
+            AnimatedVisibility(visible = viewModel.profileImage.error.value != null) {
+                Text(
+                    text = viewModel.profileImage.error.value!!,
+                    color = DoktoError,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
 
             // ---------------------- CHOOSE IMAGE ---------------------- //
@@ -195,7 +205,11 @@ fun DoctorRegistrationFirstScreen(
                 onValueChange = {
                     viewModel.mobileNumber.state.value = it
                     viewModel.mobileNumber.error.value = null
-                }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
+                )
             )
         }
 
@@ -210,7 +224,11 @@ fun DoctorRegistrationFirstScreen(
             onValueChange = {
                 viewModel.email.state.value = it
                 viewModel.email.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -224,7 +242,11 @@ fun DoctorRegistrationFirstScreen(
             onValueChange = {
                 viewModel.password.state.value = it
                 viewModel.password.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -238,7 +260,11 @@ fun DoctorRegistrationFirstScreen(
             onValueChange = {
                 viewModel.confirmPassword.state.value = it
                 viewModel.confirmPassword.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -274,6 +300,13 @@ fun DoctorRegistrationFirstScreen(
             onValueChange = {
                 viewModel.dateOfBirth.state.value = it
                 viewModel.dateOfBirth.error.value = null
+            },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.CalendarToday,
+                    contentDescription = "Pick Date",
+                    tint = Color.Black.copy(alpha = .7f)
+                )
             }
         )
         Spacer(modifier = Modifier.height(30.dp))

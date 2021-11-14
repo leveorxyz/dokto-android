@@ -58,7 +58,7 @@ fun DoctorRegistrationFourthScreen(
         DoktoTextFiled(
             modifier = Modifier.height(150.dp),
             textFieldValue = viewModel.professionalBio.state.value ?: "",
-            hintResourceId = R.string.hint_empty,
+            hintResourceId = R.string.hint_professional_bio,
             labelResourceId = R.string.label_professional_bio,
             errorMessage = viewModel.professionalBio.error.value,
             singleLine = false,
@@ -175,7 +175,7 @@ fun DoctorRegistrationFourthScreen(
                     Icon(
                         imageVector = Icons.Filled.CalendarToday,
                         contentDescription = "Pick Date",
-                        tint = Color.Black
+                        tint = Color.Black.copy(alpha = .7f)
                     )
                 }
             )
@@ -200,7 +200,7 @@ fun DoctorRegistrationFourthScreen(
                     Icon(
                         imageVector = Icons.Filled.CalendarToday,
                         contentDescription = "Pick Date",
-                        tint = Color.Black
+                        tint = Color.Black.copy(alpha = .7f)
                     )
                 }
             )
@@ -211,7 +211,7 @@ fun DoctorRegistrationFourthScreen(
             DoktoTextFiled(
                 modifier = Modifier.height(150.dp),
                 textFieldValue = experience.jobDescription.state.value ?: "",
-                hintResourceId = R.string.hint_empty,
+                hintResourceId = R.string.hint_job_description,
                 labelResourceId = R.string.label_job_description,
                 errorMessage = experience.jobDescription.error.value,
                 singleLine = false,
@@ -241,9 +241,9 @@ fun DoctorRegistrationFourthScreen(
 
         DoktoImageUpload(
             uploadedImage = viewModel.doctorLicense.state.value,
-            errorMessage = viewModel.doctorLicense.error.value
+            errorMessage = viewModel.doctorLicenseUri.error.value
         ) { bitmap, uri ->
-            viewModel.doctorLicense.error.value = null
+            viewModel.doctorLicenseUri.error.value = null
             viewModel.doctorLicense.state.value = bitmap
             viewModel.doctorLicenseUri.state.value = uri
         }
@@ -254,7 +254,7 @@ fun DoctorRegistrationFourthScreen(
         DoktoTextFiled(
             modifier = Modifier.height(150.dp),
             textFieldValue = viewModel.doctorAwards.state.value ?: "",
-            hintResourceId = R.string.hint_empty,
+            hintResourceId = R.string.hint_doctor_awards,
             labelResourceId = R.string.label_doctor_awards,
             errorMessage = viewModel.doctorAwards.error.value,
             singleLine = false,

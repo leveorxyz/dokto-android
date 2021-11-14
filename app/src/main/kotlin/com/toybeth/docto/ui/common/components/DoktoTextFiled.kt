@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,7 +55,7 @@ fun DoktoTextFiled(
 
         // ------------------- TEXT FIELD -------------------- //
         OutlinedTextField(
-            value = textFieldValue,
+            value = if (keyboardOptions.keyboardType == KeyboardType.Number) textFieldValue.filter { it.isDigit() } else textFieldValue,
             onValueChange = { onValueChange(it) },
             placeholder = { Text(stringResource(id = hintResourceId)) },
             enabled = onClick == null,

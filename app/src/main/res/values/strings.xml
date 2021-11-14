@@ -21,7 +21,7 @@
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Password</string>
     <string name="hint_gender">Gender</string>
-    <string name="hint_date_of_birth">MM/DD/YYYY</string>
+    <string name="hint_date_of_birth">YYYY-MM-DD</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="prefer_not_to_say">Prefer not to say</string>
@@ -57,7 +57,7 @@
     <string name="label_course_studied">Course Studied</string>
     <string name="hint_course_studied">Course Studied</string>
     <string name="label_year_graduated">Year Graduated</string>
-    <string name="hint_year_graduated">MM/DD/YYYY</string>
+    <string name="hint_year_graduated">YYYY-MM-DD</string>
     <string name="label_upload_certification">Upload Certificate</string>
     <string name="select_course_studied">Select Course Studied</string>
     <string name="label_specialities">Specialities</string>
@@ -81,7 +81,7 @@
     <string name="label_establishment_name">Establishment Name</string>
     <string name="hint_establishment_name">Establishment Name</string>
     <string name="label_start_date">Start Date</string>
-    <string name="hint_start_date">MM/DD/YYYY</string>
+    <string name="hint_start_date">YYYY-MM-DD</string>
     <string name="label_end_date">End Date</string>
     <string name="hint_end_date">End Date</string>
     <string name="label_job_description">Job Description</string>
@@ -118,4 +118,8 @@
     <string name="label_number_of_practitioner">Number of Practitioner</string>
     <string name="title_patient_registration">Patient\nRegistration</string>
     <string name="select_country">Select Country</string>
+    <string name="title_doctor_registration">Doctor\nRegistration</string>
+    <string name="hint_professional_bio">Profession bio</string>
+    <string name="hint_job_description">Job description</string>
+    <string name="hint_doctor_awards">Awards or publications</string>
 </resources>

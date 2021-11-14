@@ -27,8 +27,12 @@ class DoctorRegistrationFormStepsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tvTitle.text = getString(R.string.title_doctor_registration)
         val pageTitles =
             resources.getStringArray(R.array.doctor_registration_form_page_titles).toList()
+
+        setKeyboardOpenListener()
         binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(pageTitles, this))
         binding.registrationStepper.setListener(object: StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
@@ -51,5 +55,13 @@ class DoctorRegistrationFormStepsFragment :
         viewModel.moveNext.observeOn(viewLifecycleOwner) {
             binding.registrationStepper.proceed()
         }
+    }
+
+    private fun setKeyboardOpenListener() {
+        setKeyboardOpenListener({
+            binding.topView.visibility = View.GONE
+        }, {
+            binding.topView.visibility = View.VISIBLE
+        })
     }
 }

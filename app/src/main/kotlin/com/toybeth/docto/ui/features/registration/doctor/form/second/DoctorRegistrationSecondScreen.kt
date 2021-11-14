@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
@@ -77,7 +78,10 @@ fun DoctorRegistrationSecondScreen(
                 viewModel.identificationNumber.state.value = it
                 viewModel.identificationNumber.error.value = null
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -191,7 +195,11 @@ fun DoctorRegistrationSecondScreen(
             onValueChange = {
                 viewModel.zipCode.state.value = it
                 viewModel.zipCode.error.value = null
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            )
         )
         Spacer(modifier = Modifier.height(50.dp))
 

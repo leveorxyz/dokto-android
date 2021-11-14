@@ -158,6 +158,11 @@ class RegistrationViewModel @Inject constructor(
     fun verifyDoctorRegistrationFirstStep(): Boolean {
         var isValid = true
 
+        if(profileImageUri.state.value == null) {
+            isValid = false
+            profileImageUri.error.value = "Select profile photo"
+        }
+
         if (userId.state.value.isNullOrEmpty() && userId.error.value == null) {
             userId.error.value = "This field is required"
             isValid = false
@@ -204,7 +209,7 @@ class RegistrationViewModel @Inject constructor(
             dateOfBirth.error.value = "This field is required"
         }
 
-        return true
+        return isValid
     }
 
     fun verifyDoctorRegistrationSecondStep(): Boolean {
@@ -240,7 +245,7 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        return true
+        return isValid
     }
 
     fun verifyDoctorRegistrationThirdPage(): Boolean {
@@ -271,7 +276,7 @@ class RegistrationViewModel @Inject constructor(
             specialties.error.value = "This field is required"
             isValid = false
         }
-        return true
+        return isValid
     }
 
     fun verifyDoctorRegistrationFourthPage(): Boolean {
@@ -279,6 +284,28 @@ class RegistrationViewModel @Inject constructor(
         if(professionalBio.state.value.isNullOrEmpty()) {
             professionalBio.error.value = "This field is required"
             isValid = false
+        }
+        experiences.state.value?.forEach {
+            if(it.establishmentName.state.value.isNullOrEmpty()) {
+                isValid = false
+                it.establishmentName.error.value = "This field is required"
+            }
+            if(it.jobTitle.state.value.isNullOrEmpty()) {
+                isValid = false
+                it.jobTitle.error.value = "This field is required"
+            }
+            if(it.startDate.state.value.isNullOrEmpty()) {
+                isValid = false
+                it.startDate.error.value = "This field is required"
+            }
+        }
+        if(doctorLicenseUri.state.value == null) {
+            isValid = false
+            doctorLicenseUri.error.value = "Upload your license photo"
+        }
+        if(doctorInsurances.state.value.isNullOrEmpty()) {
+            isValid = false
+            doctorInsurances.error.value = "Select minimum 1 insurance"
         }
         return isValid
     }

@@ -54,8 +54,8 @@ class SelectRegistrationUserTypeFragment : BaseFragment<SelectRegistrationUserTy
     }
 
     private fun navigateToClinicRegistration() {
-        findNavController().navigate(
-            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToClinicRegistrationFormStepsFragment()
-        )
+//        findNavController().navigate(
+//            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToClinicRegistrationFormStepsFragment()
+//        )
     }
 }

@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.registration.doctor.form
+package com.toybeth.docto.ui.features.registration.clinic
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,17 +10,19 @@ import androidx.fragment.app.viewModels
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentRegistrationFormBinding
+import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationFormStepsAdapter
+import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
 import com.toybeth.dokto.stepper.StepperLayout
 import com.toybeth.dokto.stepper.VerificationError
 import dagger.hilt.android.AndroidEntryPoint
 
-@ExperimentalMaterialApi
 @ExperimentalUnitApi
+@ExperimentalMaterialApi
 @AndroidEntryPoint
-class DoctorRegistrationFormStepsFragment :
-    BaseViewBindingFragment<RegistrationViewModel, FragmentRegistrationFormBinding>() {
+class ClinicRegistrationFormStepsFragment :
+    BaseViewBindingFragment<ClinicRegistrationViewModel, FragmentRegistrationFormBinding>()  {
 
-    override val viewModel: RegistrationViewModel by viewModels()
+    override val viewModel: ClinicRegistrationViewModel by viewModels()
 
     override val inflater: (inflater: LayoutInflater, parent: ViewGroup?, attachToParent: Boolean) -> FragmentRegistrationFormBinding
         get() = FragmentRegistrationFormBinding::inflate
@@ -28,11 +30,11 @@ class DoctorRegistrationFormStepsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pageTitles =
-            resources.getStringArray(R.array.doctor_registration_form_page_titles).toList()
-        binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(pageTitles, this))
+            resources.getStringArray(R.array.clinic_registration_form_page_titles).toList()
+        binding.registrationStepper.setAdapter(ClinicRegistrationFormStepsAdapter(pageTitles, this))
         binding.registrationStepper.setListener(object: StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
-                viewModel.registerDoctor()
+                viewModel.registerClinic()
             }
 
             override fun onError(verificationError: VerificationError?) {

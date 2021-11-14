@@ -185,7 +185,10 @@ fun SelectRegistrationUserTypeScreen(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                            .clickable {
+                                viewModel.navigateToNextPage(2)
+                            },
                         backgroundColor = DoktoUserTypeClinicColor
                     ) {
                         Box(

@@ -35,6 +35,10 @@ class SelectRegistrationUserTypeFragment : BaseFragment<SelectRegistrationUserTy
         viewModel.navigateToPatientRegistration.observeOn(viewLifecycleOwner) {
             navigateToPatientRegistration()
         }
+
+        viewModel.navigateToClinicRegistration.observeOn(viewLifecycleOwner) {
+            navigateToClinicRegistration()
+        }
     }
 
     private fun navigateToDoctorRegistration() {
@@ -46,6 +50,12 @@ class SelectRegistrationUserTypeFragment : BaseFragment<SelectRegistrationUserTy
     private fun navigateToPatientRegistration() {
         findNavController().navigate(
             SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToPatientRegistrationFormStepsFragment()
+        )
+    }
+
+    private fun navigateToClinicRegistration() {
+        findNavController().navigate(
+            SelectRegistrationUserTypeFragmentDirections.actionSelectRegistrationUserTypeFragmentToClinicRegistrationFormStepsFragment()
         )
     }
 }

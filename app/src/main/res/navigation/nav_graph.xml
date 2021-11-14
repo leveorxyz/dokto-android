@@ -89,6 +89,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_selectRegistrationUserTypeFragment_to_clinicRegistrationFormStepsFragment"
+            app:destination="@id/clinicRegistrationFormStepsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -115,5 +123,10 @@
         android:id="@+id/patientRegistrationFormStepsFragment"
         android:name="com.toybeth.docto.ui.features.registration.patient.PatientRegistrationFormStepsFragment"
         android:label="PatientRegistrationFormStepsFragment" />
+
+    <fragment
+        android:id="@+id/clinicRegistrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.clinic.ClinicRegistrationFormStepsFragment"
+        android:label="ClinicRegistrationFormStepsFragment" />
 
 </navigation>

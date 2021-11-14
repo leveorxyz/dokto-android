@@ -10,11 +10,13 @@ class SelectRegistrationUserTypeViewModel @Inject constructor(): BaseViewModel()
 
     var navigateToDoctorRegistration = SingleLiveEvent<Unit>()
     var navigateToPatientRegistration = SingleLiveEvent<Unit>()
+    var navigateToClinicRegistration = SingleLiveEvent<Unit>()
 
     fun navigateToNextPage(selectedItemIndex: Int) {
         when(selectedItemIndex) {
             0 -> navigateToPatientRegistration.postValue(Unit)
             1 -> navigateToDoctorRegistration.postValue(Unit)
+            2 -> navigateToClinicRegistration.postValue(Unit)
         }
     }
 }

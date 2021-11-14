@@ -25,7 +25,7 @@ class RegistrationViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     companion object {
-        private const val USER_TYPE_DOCTOR = "doctor"
+        private const val USER_TYPE = "doctor"
     }
 
     // ... First Screen
@@ -52,10 +52,6 @@ class RegistrationViewModel @Inject constructor(
     val selectedStateName = Property<String>()
     val selectedCityName = Property<String>()
     val zipCode = Property<String>()
-
-    private val selectedCountry = mutableStateOf<Country?>(null)
-    private val selectedState = mutableStateOf<State?>(null)
-    private val selectedCity = mutableStateOf<City?>(null)
 
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
@@ -90,7 +86,7 @@ class RegistrationViewModel @Inject constructor(
         if(!userId.state.value.isNullOrEmpty()) {
 
             viewModelScope.launchIOWithExceptionHandler({
-                val isUserExists = repository.checkIfUserNameExists(USER_TYPE_DOCTOR, userId.state.value!!)
+                val isUserExists = repository.checkIfUserNameExists(USER_TYPE, userId.state.value!!)
                 if(isUserExists) {
                     userId.error.value = "Username not available"
                 } else {
@@ -109,24 +105,22 @@ class RegistrationViewModel @Inject constructor(
 
     fun setCountry(country: Country) {
         selectedCountryName.state.value = country.name
-        selectedCountry.value = country
+        this.country.state.value = country
         stateList.postValue(country.states)
     }
 
     fun setState(state: State) {
         selectedStateName.state.value = state.name
-        selectedState.value = state
         cityList.postValue(state.cities)
     }
 
     fun setCity(city: City) {
         selectedCityName.state.value = city.name
-        selectedCity.value = city
     }
 
     fun getSelectedCountryCode(): String {
-        return if (selectedCountry.value != null) {
-            selectedCountry.value!!.phone
+        return if (country.state.value != null) {
+            country.state.value!!.phone
         } else {
             ""
         }
@@ -299,8 +293,8 @@ class RegistrationViewModel @Inject constructor(
             repository.registerDoctor(
                 userId = userId.state.value!!,
                 fullName = name.state.value!!,
-                country = selectedCountry.value!!.name,
-                phoneCode = selectedCountry.value!!.phone,
+                country = country.state.value!!.name,
+                phoneCode = country.state.value!!.phone,
                 contactNo = mobileNumber.state.value!!,
                 email =  email.state.value!!,
                 password = password.state.value!!,

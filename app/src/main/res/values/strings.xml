@@ -112,4 +112,8 @@
     <string name="hint_insurance_number">Enter insurance number</string>
     <string name="label_insurance_policy_holder_name">Insurance Policy Holder Name</string>
     <string name="hint_insurance_policy_holder_name">Enter insurance policy holder name</string>
+    <string name="hint_clinic_name">Clinic name</string>
+    <string name="label_clinic_name">Clinic Name</string>
+    <string name="hint_number_of_practitioner">Number of practitioner</string>
+    <string name="label_number_of_practitioner">Number of Practitioner</string>
 </resources>

@@ -24,7 +24,7 @@ class SplashViewModel @Inject constructor(
             if(repository.isFirstTimeUser()) {
                 navigateToOnBoarding.postValue(Unit)
             } else {
-                if(repository.isUserLoggedIn()) {
+                if(!repository.isUserLoggedIn()) {
                     navigateToLogin.postValue(false)
                 } else {
                     navigateToLogin.postValue(true)

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#170041</color>
+    <color name="colorPrimaryDark">#170041</color>
+    <color name="colorAccent">#A42BAD</color>
+    <color name="white">#FFF</color>
+    <color name="onboarding_page_indicator_unselected_dot_color">#C4C4C4</color>
 </resources>

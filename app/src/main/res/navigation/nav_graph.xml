@@ -3,16 +3,136 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/paymentFragment">
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.toybeth.docto.ui.features.splash.SplashFragment"
+        android:label="SplashFragment">
+
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splashFragment_to_onBoarding"
+            app:destination="@id/registrationOnBoardingFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.toybeth.docto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
+
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
         android:label="PaymentFragment" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.toybeth.docto.ui.features.login.LoginFragment"
+        android:label="LoginFragment">
+
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordEnterEmailFragment"
+            app:destination="@id/forgetPasswordEnterEmailFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_selectRegistrationUserTypeFragment"
+            app:destination="@id/selectRegistrationUserTypeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgetPasswordEnterEmailFragment"
+        android:name="com.toybeth.docto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
+        android:label="ForgetPasswordEnterEmailFragment">
+
+        <action
+            android:id="@+id/action_forgetPasswordEnterEmailFragment_to_forgetPasswordEnterOtpFragment"
+            app:destination="@id/forgetPasswordEnterOtpFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgetPasswordEnterOtpFragment"
+        android:name="com.toybeth.docto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
+        android:label="ForgetPasswordEnterOtpFragment" />
+
+    <fragment
+        android:id="@+id/selectRegistrationUserTypeFragment"
+        android:name="com.toybeth.docto.ui.features.registration.usertype.SelectRegistrationUserTypeFragment"
+        android:label="SelectRegistrationUserTypeFragment">
+
+        <action
+            android:id="@+id/action_selectRegistrationUserTypeFragment_to_registrationOnBoardingFragment"
+            app:destination="@id/registrationOnBoardingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_selectRegistrationUserTypeFragment_to_doctorRegistrationFormStepsFragment"
+            app:destination="@id/doctorRegistrationFormStepsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_selectRegistrationUserTypeFragment_to_patientRegistrationFormStepsFragment"
+            app:destination="@id/patientRegistrationFormStepsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_selectRegistrationUserTypeFragment_to_clinicRegistrationFormStepsFragment"
+            app:destination="@id/clinicRegistrationFormStepsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationOnBoardingFragment"
+        android:name="com.toybeth.docto.ui.features.onboarding.RegistrationOnBoardingFragment"
+        android:label="RegistrationOnBoardingFragment">
+
+        <action
+            android:id="@+id/action_registrationOnBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/doctorRegistrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
+        android:label="DoctorRegistrationFormStepsFragment" />
+
+    <fragment
+        android:id="@+id/patientRegistrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.patient.PatientRegistrationFormStepsFragment"
+        android:label="PatientRegistrationFormStepsFragment" />
+
+    <fragment
+        android:id="@+id/clinicRegistrationFormStepsFragment"
+        android:name="com.toybeth.docto.ui.features.registration.clinic.ClinicRegistrationFormStepsFragment"
+        android:label="ClinicRegistrationFormStepsFragment" />
 
 </navigation>

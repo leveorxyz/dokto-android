@@ -3,10 +3,14 @@ package com.toybeth.docto.base.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import com.toybeth.docto.base.R
 
 private val DarkColorPalette = darkColors(
     primary = DoktoPrimary,
@@ -39,7 +43,7 @@ fun DoktoTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable 
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = Typography(defaultFontFamily = FontFamily(Font(R.font.poppins_regular))),
         content = content,
         shapes = MaterialTheme.shapes.copy(medium = RoundedCornerShape(16.dp))
     )

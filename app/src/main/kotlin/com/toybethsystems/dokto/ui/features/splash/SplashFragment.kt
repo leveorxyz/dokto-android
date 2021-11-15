@@ -37,7 +37,7 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
             if(it) {
                 navigateToLogin()
             } else {
-
+                navigateToDashboard()
             }
         }
 
@@ -58,6 +58,13 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
             SplashFragmentDirections.actionSplashFragmentToOnBoarding()
         )
     }
+
+    private fun navigateToDashboard() {
+        findNavController().navigate(
+            SplashFragmentDirections.actionSplashFragmentToMainFragment()
+        )
+    }
+
 
     @Composable
     @Preview

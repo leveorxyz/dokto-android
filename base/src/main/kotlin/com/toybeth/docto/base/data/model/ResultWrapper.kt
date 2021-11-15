@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.data.model
+package com.toybethsystems.dokto.base.data.model
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T): ResultWrapper<T>()

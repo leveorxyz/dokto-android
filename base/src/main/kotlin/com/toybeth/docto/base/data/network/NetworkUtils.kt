@@ -1,10 +1,10 @@
-package com.toybeth.docto.base.data.network
+package com.toybethsystems.dokto.base.data.network
 
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.base.data.model.ApiResponse
-import com.toybeth.docto.base.data.model.BaseResponse
-import com.toybeth.docto.base.data.model.ResultWrapper
+import com.toybethsystems.dokto.base.data.model.ApiResponse
+import com.toybethsystems.dokto.base.data.model.BaseResponse
+import com.toybethsystems.dokto.base.data.model.ResultWrapper
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable

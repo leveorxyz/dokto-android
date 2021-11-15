@@ -1,6 +1,6 @@
-package com.toybeth.docto.base.data.preference
+package com.toybethsystems.dokto.base.data.preference
 
-import com.toybeth.docto.base.data.model.DoktoUser
+import com.toybethsystems.dokto.base.data.model.DoktoUser
 
 interface AppPreference {
 

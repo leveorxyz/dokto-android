@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.theme
+package com.toybethsystems.dokto.base.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import com.toybeth.docto.base.R
+import com.toybethsystems.dokto.base.R
 
 private val DarkColorPalette = darkColors(
     primary = DoktoPrimary,

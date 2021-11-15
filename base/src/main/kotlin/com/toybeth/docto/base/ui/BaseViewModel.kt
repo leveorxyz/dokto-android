@@ -1,10 +1,10 @@
-package com.toybeth.docto.base.ui
+package com.toybethsystems.dokto.base.ui
 
 import androidx.lifecycle.*
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.base.ui.uiutils.AnimState
-import com.toybeth.docto.base.utils.SingleLiveEvent
-import com.toybeth.docto.base.utils.extensions.launchIOWithExceptionHandler
+import com.toybethsystems.dokto.base.ui.uiutils.AnimState
+import com.toybethsystems.dokto.base.utils.SingleLiveEvent
+import com.toybethsystems.dokto.base.utils.extensions.launchIOWithExceptionHandler
 import io.reactivex.disposables.CompositeDisposable
 
 open class BaseViewModel : ViewModel(), IViewModel {

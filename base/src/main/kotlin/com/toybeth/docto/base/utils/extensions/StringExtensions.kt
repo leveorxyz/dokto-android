@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.utils.extensions
+package com.toybethsystems.dokto.base.utils.extensions
 
 import android.util.Patterns
 import java.util.regex.Matcher

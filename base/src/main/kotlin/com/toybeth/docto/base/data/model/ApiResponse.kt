@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.data.model
+package com.toybethsystems.dokto.base.data.model
 
 import com.google.gson.annotations.SerializedName
 

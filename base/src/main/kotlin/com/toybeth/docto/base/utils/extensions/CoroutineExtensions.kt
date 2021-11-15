@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.utils.extensions
+package com.toybethsystems.dokto.base.utils.extensions
 
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

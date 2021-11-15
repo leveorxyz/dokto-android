@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.ui
+package com.toybethsystems.dokto.base.ui
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

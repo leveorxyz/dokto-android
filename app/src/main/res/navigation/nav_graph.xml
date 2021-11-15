@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.toybeth.docto.ui.features.splash.SplashFragment"
+        android:name="com.toybethsystems.dokto.ui.features.splash.SplashFragment"
         android:label="SplashFragment">
 
         <action
@@ -26,18 +26,18 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.toybeth.docto.ui.features.main.MainFragment"
+        android:name="com.toybethsystems.dokto.ui.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.toybeth.docto.ui.features.payment.PaymentFragment"
+        android:name="com.toybethsystems.dokto.ui.features.payment.PaymentFragment"
         android:label="PaymentFragment" />
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.toybeth.docto.ui.features.login.LoginFragment"
+        android:name="com.toybethsystems.dokto.ui.features.login.LoginFragment"
         android:label="LoginFragment">
 
         <action
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterEmailFragment"
-        android:name="com.toybeth.docto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
+        android:name="com.toybethsystems.dokto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
         android:label="ForgetPasswordEnterEmailFragment">
 
         <action
@@ -63,12 +63,12 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterOtpFragment"
-        android:name="com.toybeth.docto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
+        android:name="com.toybethsystems.dokto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
         android:label="ForgetPasswordEnterOtpFragment" />
 
     <fragment
         android:id="@+id/selectRegistrationUserTypeFragment"
-        android:name="com.toybeth.docto.ui.features.registration.usertype.SelectRegistrationUserTypeFragment"
+        android:name="com.toybethsystems.dokto.ui.features.registration.usertype.SelectRegistrationUserTypeFragment"
         android:label="SelectRegistrationUserTypeFragment">
 
         <action
@@ -107,7 +107,7 @@
 
     <fragment
         android:id="@+id/registrationOnBoardingFragment"
-        android:name="com.toybeth.docto.ui.features.onboarding.RegistrationOnBoardingFragment"
+        android:name="com.toybethsystems.dokto.ui.features.onboarding.RegistrationOnBoardingFragment"
         android:label="RegistrationOnBoardingFragment">
 
         <action
@@ -122,17 +122,17 @@
 
     <fragment
         android:id="@+id/doctorRegistrationFormStepsFragment"
-        android:name="com.toybeth.docto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
+        android:name="com.toybethsystems.dokto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
         android:label="DoctorRegistrationFormStepsFragment" />
 
     <fragment
         android:id="@+id/patientRegistrationFormStepsFragment"
-        android:name="com.toybeth.docto.ui.features.registration.patient.PatientRegistrationFormStepsFragment"
+        android:name="com.toybethsystems.dokto.ui.features.registration.patient.PatientRegistrationFormStepsFragment"
         android:label="PatientRegistrationFormStepsFragment" />
 
     <fragment
         android:id="@+id/clinicRegistrationFormStepsFragment"
-        android:name="com.toybeth.docto.ui.features.registration.clinic.ClinicRegistrationFormStepsFragment"
+        android:name="com.toybethsystems.dokto.ui.features.registration.clinic.ClinicRegistrationFormStepsFragment"
         android:label="ClinicRegistrationFormStepsFragment" />
 
 </navigation>

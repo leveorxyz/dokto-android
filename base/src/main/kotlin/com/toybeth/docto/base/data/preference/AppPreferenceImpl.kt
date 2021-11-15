@@ -1,10 +1,10 @@
-package com.toybeth.docto.base.data.preference
+package com.toybethsystems.dokto.base.data.preference
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.google.gson.Gson
-import com.toybeth.docto.base.R
-import com.toybeth.docto.base.data.model.DoktoUser
+import com.toybethsystems.dokto.base.R
+import com.toybethsystems.dokto.base.data.model.DoktoUser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

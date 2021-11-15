@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.utils
+package com.toybethsystems.dokto.base.utils
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

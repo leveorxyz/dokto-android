@@ -1,11 +1,11 @@
-package com.toybeth.docto.base.ui
+package com.toybethsystems.dokto.base.ui
 
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.graphics.Color
-import com.toybeth.docto.base.R
+import com.toybethsystems.dokto.base.R
 
 class LoadingDialog(context: Context) : AlertDialog(context) {
 

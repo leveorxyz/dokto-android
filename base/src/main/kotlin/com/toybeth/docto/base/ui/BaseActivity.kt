@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.ui
+package com.toybethsystems.dokto.base.ui
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,8 +1,8 @@
-package com.toybeth.docto.base.data.network
+package com.toybethsystems.dokto.base.data.network
 
 import android.content.Context
 import com.google.gson.annotations.SerializedName
-import com.toybeth.docto.base.utils.ConnectivityAndInternetAccess
+import com.toybethsystems.dokto.base.utils.ConnectivityAndInternetAccess
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Response

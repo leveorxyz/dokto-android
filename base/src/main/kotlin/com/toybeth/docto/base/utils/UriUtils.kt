@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.utils
+package com.toybethsystems.dokto.base.utils
 
 import android.content.Context
 import android.database.Cursor

@@ -1,7 +1,7 @@
-package com.toybeth.docto.base.data.network
+package com.toybethsystems.dokto.base.data.network
 
 import android.content.Context
-import com.toybeth.docto.base.utils.ConnectivityAndInternetAccess
+import com.toybethsystems.dokto.base.utils.ConnectivityAndInternetAccess
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.toybeth.docto.base.ui.uiutils
+package com.toybethsystems.dokto.base.ui.uiutils
 
 import androidx.compose.animation.*
 import androidx.compose.runtime.Composable

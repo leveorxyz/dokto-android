@@ -1,11 +1,11 @@
-package com.toybeth.docto.base.data.network
+package com.toybethsystems.dokto.base.data.network
 
 import android.content.Context
 import com.orhanobut.logger.Logger
-import com.toybeth.docto.base.BuildConfig
-import com.toybeth.docto.base.data.preference.AppPreference
-import com.toybeth.docto.base.data.preference.AppPreferenceImpl
-import com.toybeth.docto.base.utils.ConnectivityAndInternetAccess
+import com.toybethsystems.dokto.base.BuildConfig
+import com.toybethsystems.dokto.base.data.preference.AppPreference
+import com.toybethsystems.dokto.base.data.preference.AppPreferenceImpl
+import com.toybethsystems.dokto.base.utils.ConnectivityAndInternetAccess
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

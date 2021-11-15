@@ -70,6 +70,10 @@
             android:id="@+id/action_loginFragment_to_selectRegistrationUserTypeFragment"
             app:destination="@id/selectRegistrationUserTypeFragment" />
 
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
     </fragment>
 
     <fragment

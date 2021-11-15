@@ -45,7 +45,9 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     }
 
     private fun navigateToDashBoard() {
-
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToMainFragment()
+        )
     }
 
     private fun navigateToForgetPasswordFlow() {

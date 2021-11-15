@@ -6,7 +6,7 @@
 
     <activity
         android:id="@+id/twilioCallActivity"
-        android:name="com.toybeth.dokto.twilio.ui.call.TwilioCallActivity"
+        android:name="com.toybethsystems.dokto.twilio.ui.call.TwilioCallActivity"
         android:label="MainFragment" />
 
 </navigation>

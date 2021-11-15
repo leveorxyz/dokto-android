@@ -48,7 +48,7 @@
 
         </RelativeLayout>
 
-        <com.toybeth.dokto.twilio.ui.call.ParticipantPrimaryView
+        <com.toybethsystems.dokto.twilio.ui.call.ParticipantPrimaryView
             android:id="@+id/primary_video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,4 +1,4 @@
-package com.toybeth.dokto.twilio
+package com.toybethsystems.dokto.twilio
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.toybeth.dokto.twilio.test", appContext.packageName)
+        assertEquals("com.toybethsystems.dokto.twilio.test", appContext.packageName)
     }
 }

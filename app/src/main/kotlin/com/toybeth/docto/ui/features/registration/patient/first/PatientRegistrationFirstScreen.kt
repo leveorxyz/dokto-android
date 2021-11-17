@@ -166,7 +166,7 @@ fun PatientRegistrationFirstScreen(
         ) {
             DoktoTextFiled(
                 modifier = Modifier.width(120.dp),
-                textFieldValue = viewModel.getSelectedCountryCode(),
+                textFieldValue = viewModel.getSelectedCountryPhoneCode(),
                 hintResourceId = R.string.hint_country_code,
                 errorMessage = viewModel.country.error.value,
                 onClick = { showCountrySelectionDialog.invoke() },

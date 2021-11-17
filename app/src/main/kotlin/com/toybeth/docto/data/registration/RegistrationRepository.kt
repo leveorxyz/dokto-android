@@ -2,24 +2,16 @@ package com.toybeth.docto.data.registration
 
 import android.content.Context
 import android.net.Uri
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.toybeth.docto.R
 import com.toybeth.docto.base.data.model.ResultWrapper
 import com.toybeth.docto.base.data.network.safeApiCall
 import com.toybeth.docto.base.data.preference.AppPreference
 import com.toybeth.docto.base.utils.fileUriToBase64
-import com.toybeth.docto.data.ApiService
-import com.toybeth.docto.data.Country
-import com.toybeth.docto.data.Education
-import com.toybeth.docto.data.Experience
+import com.toybeth.docto.data.*
 import com.toybeth.docto.data.registration.model.DoctorRegistrationRequestBody
 import com.toybeth.docto.data.registration.model.EducationItemInDoctorRegistrationRequestBody
 import com.toybeth.docto.data.registration.model.ExperienceItemInDoctorRegistrationRequestBody
 import com.toybeth.docto.data.registration.model.PatientRegistrationRequestBody
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.IOException
-import java.io.InputStreamReader
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
@@ -27,21 +19,6 @@ class RegistrationRepository @Inject constructor(
     private val apiService: ApiService,
     private val preference: AppPreference
 ) {
-    suspend fun getCountryStateCityList(): List<Country> {
-        try {
-            InputStreamReader(
-                context.resources.openRawResource(R.raw.country_state_city)
-            ).use { reader ->
-                val countryListType = object : TypeToken<ArrayList<Country>>() {}.type
-                val result: List<Country> = Gson().fromJson(reader, countryListType)
-                return result
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            return listOf()
-        }
-    }
-
     suspend fun registerPatient(
         fullName: String,
         phoneCode: String,
@@ -67,12 +44,12 @@ class RegistrationRepository @Inject constructor(
         insuranceNumber: String? = null,
         insurancePolicyHolderName: String? = null,
 
-    ): Boolean {
+        ): Boolean {
         val profilePhotoString = fileUriToBase64(context, profilePhotoUri)
         val identificationPhotoString = fileUriToBase64(context, identificationPhotoUri)
         val requestBody = PatientRegistrationRequestBody(
             fullName = fullName,
-            contactNo =  phoneCode + contactNo,
+            contactNo = phoneCode + contactNo,
             email = email,
             password = password,
             gender = gender,
@@ -87,15 +64,14 @@ class RegistrationRepository @Inject constructor(
             city = city,
             zipCode = zipCode,
             referringDoctorAddress = referringDoctorAddress,
-            referringDoctorFullName =  referringDoctorFullName,
+            referringDoctorFullName = referringDoctorFullName,
             referringDoctorPhoneNumber = referringDoctorPhoneNumber,
             insuranceType = insuranceType,
             insuranceName = insuranceName,
-            insuranceNumber =  insuranceNumber,
+            insuranceNumber = insuranceNumber,
             insurancePolicyHolderName = insurancePolicyHolderName
         )
-        val response = safeApiCall { apiService.patientRegistration(requestBody) }
-        return when (response) {
+        return when (val response = safeApiCall { apiService.patientRegistration(requestBody) }) {
             is ResultWrapper.Success -> {
                 preference.user = response.value
                 true
@@ -169,7 +145,7 @@ class RegistrationRepository @Inject constructor(
         val requestBody = DoctorRegistrationRequestBody(
             username = userId,
             fullName = fullName,
-            contactNo =  phoneCode + contactNo,
+            contactNo = phoneCode + contactNo,
             email = email,
             password = password,
             gender = gender,
@@ -192,8 +168,7 @@ class RegistrationRepository @Inject constructor(
             licenseFile = licencePhotoString,
             awards = awards
         )
-        val response = safeApiCall { apiService.doctorRegistration(requestBody) }
-        return when (response) {
+        return when (val response = safeApiCall { apiService.doctorRegistration(requestBody) }) {
             is ResultWrapper.Success -> {
                 preference.user = response.value
                 true
@@ -201,4 +176,38 @@ class RegistrationRepository @Inject constructor(
             else -> false
         }
     }
+
+    suspend fun getCountryList(): List<Country> {
+        return when (val response = safeApiCall { apiService.getCountryList() }) {
+            is ResultWrapper.Success -> {
+                response.value
+            }
+            else -> listOf()
+        }
+    }
+
+    suspend fun getStateList(countryCode: String): List<State> {
+        return when (val response = safeApiCall { apiService.getStateList(countryCode) }) {
+            is ResultWrapper.Success -> {
+                response.value
+            }
+            else -> listOf()
+        }
+    }
+
+    suspend fun getCityList(countryCode: String, stateCode: String): List<City> {
+        return when (val response =
+            safeApiCall { apiService.getCityList(countryCode, stateCode) }) {
+            is ResultWrapper.Success -> {
+                val citiesRaw = response.value
+                val cites = mutableListOf<City>()
+                for (city in citiesRaw) {
+                    cites.add(City(city))
+                }
+                return cites
+            }
+            else -> listOf()
+        }
+    }
+
 }

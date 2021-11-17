@@ -20,5 +20,13 @@ data class Country(
 	@SerializedName("country_code")
 	val code: String,
 	@SerializedName("phone_code")
-	val phone: String
+	var phone: String
+)
+
+// FIXME: Phone code should be merged with country in Backend
+data class Phone(
+	@SerializedName("name")
+	val name: String,
+	@SerializedName("phone_code")
+	val code: String
 )

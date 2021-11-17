@@ -2,7 +2,6 @@ package com.toybeth.docto.ui.features.registration.patient
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -24,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PatientRegistrationViewModel @Inject constructor(
     private val repository: RegistrationRepository
-) : BaseViewModel(){
+) : BaseViewModel() {
 
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
@@ -65,13 +64,11 @@ class PatientRegistrationViewModel @Inject constructor(
     var insuranceTypes = listOf<String>()
 
     private val selectedCountry = Property<Country?>()
-    private val selectedState = mutableStateOf<State?>(null)
-    private val selectedCity = mutableStateOf<City?>(null)
 
     val moveNext = SingleLiveEvent<Boolean>()
 
     init {
-        loadCountryStateAndCities()
+        loadCountryList()
         getInsuranceTypes()
     }
 
@@ -82,18 +79,18 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun setCountry(country: Country) {
         selectedCountry.state.value = country
-        stateList.postValue(country.states)
+        getStateList(country.code)
     }
 
     fun setState(state: State) {
         stateName.state.value = state.name
-        selectedState.value = state
-        cityList.postValue(state.cities)
+        country.state.value?.let {
+            getCityList(it.code, state.code)
+        }
     }
 
     fun setCity(city: City) {
         cityName.state.value = city.name
-        selectedCity.value = city
     }
 
     fun setInsuranceType(insuranceType: String) {
@@ -106,9 +103,14 @@ class PatientRegistrationViewModel @Inject constructor(
         return this.insuranceType
     }
 
-    fun getSelectedCountryCode(): String {
+    fun getSelectedCountryPhoneCode(): String {
         return if (selectedCountry.state.value != null) {
-            "+${ selectedCountry.state.value!!.phone }"
+            val phoneCode = selectedCountry.state.value!!.phone
+            return if (phoneCode.startsWith("+")) {
+                phoneCode
+            } else {
+                "+$phoneCode"
+            }
         } else {
             ""
         }
@@ -116,27 +118,27 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun verifyFirstPage(): Boolean {
         var isVerified = true
-        if(profileImage.state.value == null) {
+        if (profileImage.state.value == null) {
             isVerified = false
             profileImage.error.value = "Select a profile photo"
         }
-        if(firstName.state.value.isNullOrEmpty()) {
+        if (firstName.state.value.isNullOrEmpty()) {
             isVerified = false
             firstName.error.value = "This field is required"
         }
-        if(lastName.state.value.isNullOrEmpty()) {
+        if (lastName.state.value.isNullOrEmpty()) {
             isVerified = false
             lastName.error.value = "This field is required"
         }
-        if(selectedCountry.state.value == null) {
+        if (selectedCountry.state.value == null) {
             isVerified = false
             country.error.value = "Select your country"
         }
-        if(mobileNumber.state.value.isNullOrEmpty()) {
+        if (mobileNumber.state.value.isNullOrEmpty()) {
             isVerified = false
             mobileNumber.error.value = "This field is required"
         }
-        if(!email.state.value.isEmailValid()) {
+        if (!email.state.value.isEmailValid()) {
             isVerified = false
             email.error.value = "This field is required"
         }
@@ -163,35 +165,35 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun verifySecondPage(): Boolean {
         var isValid = true
-        if(identityVerificationType.state.value.isNullOrEmpty()) {
+        if (identityVerificationType.state.value.isNullOrEmpty()) {
             isValid = false
             identityVerificationType.error.value = "This field is required"
         }
-        if(identityVerificationNumber.state.value.isNullOrEmpty()) {
+        if (identityVerificationNumber.state.value.isNullOrEmpty()) {
             isValid = false
             identityVerificationNumber.error.value = "This field is required"
         }
-        if(identityVerificationImageUri.state.value == null) {
+        if (identityVerificationImageUri.state.value == null) {
             isValid = false
             identityVerificationImageUri.error.value = "Select identity verification image"
         }
-        if(socialSecurityNumber.state.value.isNullOrEmpty()) {
+        if (socialSecurityNumber.state.value.isNullOrEmpty()) {
             isValid = false
             socialSecurityNumber.error.value = "This field is required"
         }
-        if(address.state.value.isNullOrEmpty()) {
+        if (address.state.value.isNullOrEmpty()) {
             isValid = false
             address.error.value = "This field is required"
         }
-        if(stateName.state.value.isNullOrEmpty()) {
+        if (stateName.state.value.isNullOrEmpty()) {
             isValid = false
             stateName.error.value = "This field is required"
         }
-        if(!cityList.value.isNullOrEmpty() && cityName.state.value.isNullOrEmpty()) {
+        if (!cityList.value.isNullOrEmpty() && cityName.state.value.isNullOrEmpty()) {
             isValid = false
             cityName.error.value = "This field is required"
         }
-        if(zipCode.state.value.isNullOrEmpty()) {
+        if (zipCode.state.value.isNullOrEmpty()) {
             isValid = false
             zipCode.error.value = "This field is required"
         }
@@ -200,20 +202,20 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun verifyThirdPage(): Boolean {
         var isValid = true
-        if(insuranceType.state.value.isNullOrEmpty()) {
+        if (insuranceType.state.value.isNullOrEmpty()) {
             isValid = false
             insuranceType.error.value = "This field is required"
         }
-        if(showInsuranceDetailsForm.value) {
+        if (showInsuranceDetailsForm.value) {
             if (insuranceName.state.value.isNullOrEmpty()) {
                 isValid = false
                 insuranceName.error.value = "This field is required"
             }
-            if(insuranceNumber.state.value.isNullOrEmpty()) {
+            if (insuranceNumber.state.value.isNullOrEmpty()) {
                 isValid = false
                 insuranceNumber.error.value = "This field is required"
             }
-            if(insurancePolicyHolderName.state.value.isNullOrEmpty()) {
+            if (insurancePolicyHolderName.state.value.isNullOrEmpty()) {
                 isValid = false
                 insurancePolicyHolderName.error.value = "This field is required"
             }
@@ -230,7 +232,7 @@ class PatientRegistrationViewModel @Inject constructor(
         viewModelScope.launchIOWithExceptionHandler({
             repository.registerPatient(
                 firstName.state.value!! + " " + lastName.state.value!!,
-                selectedCountry.state.value!!.phone,
+                "", // selectedCountry.state.value!!.phone,
                 mobileNumber.state.value!!,
                 email.state.value!!,
                 password.state.value!!,
@@ -264,13 +266,30 @@ class PatientRegistrationViewModel @Inject constructor(
         this.insuranceTypes = listOf("Self paid", "Insurance verified")
     }
 
-    private fun loadCountryStateAndCities() {
+    private fun loadCountryList() {
         viewModelScope.launchIOWithExceptionHandler({
-            val countries = repository.getCountryStateCityList()
+            val countries = repository.getCountryList()
             countryList.postValue(countries)
         }, {
             it.printStackTrace()
         })
     }
 
+    private fun getStateList(countryCode: String) {
+        viewModelScope.launchIOWithExceptionHandler({
+            val states = repository.getStateList(countryCode)
+            stateList.postValue(states)
+        }, {
+            it.printStackTrace()
+        })
+    }
+
+    private fun getCityList(countryCode: String, stateCode: String) {
+        viewModelScope.launchIOWithExceptionHandler({
+            val cities = repository.getCityList(countryCode, stateCode)
+            cityList.postValue(cities)
+        }, {
+            it.printStackTrace()
+        })
+    }
 }

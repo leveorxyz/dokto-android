@@ -38,4 +38,8 @@ interface ApiService {
         @Query("country_code") countryCode: String,
         @Query("state_code") stateCode: String
     ) : Response<ApiResponse<List<String>>>
+
+    // FIXME: Phone code should be merged with country in Backend
+    @GET("constant/phone-code/")
+    suspend fun getPhoneCodeList(): Response<ApiResponse<List<Phone>>>
 }

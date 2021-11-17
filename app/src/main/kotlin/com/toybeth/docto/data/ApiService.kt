@@ -25,4 +25,18 @@ interface ApiService {
 
     @POST("user/doctor-signup/")
     suspend fun doctorRegistration(@Body requestBody: DoctorRegistrationRequestBody): Response<ApiResponse<DoktoUser>>
+
+    @GET("/constant/country/")
+    suspend fun getCountryList() : Response<ApiResponse<List<Country>>>
+
+    @GET("/constant/state/")
+    suspend fun getStateList(
+        @Query("country_code") countryCode: String
+    ) : Response<ApiResponse<List<State>>>
+
+    @GET("/constant/city/")
+    suspend fun getCityList(
+        @Query("country_code") countryCode: String,
+        @Query("state_code") stateCode: String
+    ) : Response<ApiResponse<List<String>>>
 }

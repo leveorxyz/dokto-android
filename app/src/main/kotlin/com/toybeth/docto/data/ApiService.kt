@@ -1,7 +1,6 @@
 package com.toybeth.docto.data
 
 import com.toybeth.docto.base.data.model.ApiResponse
-import com.toybeth.docto.base.data.model.BaseResponse
 import com.toybeth.docto.base.data.model.DoktoUser
 import com.toybeth.docto.data.authentication.model.LoginRequestBody
 import com.toybeth.docto.data.registration.model.DoctorRegistrationRequestBody

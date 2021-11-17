@@ -177,10 +177,21 @@ class RegistrationRepository @Inject constructor(
         }
     }
 
+    // FIXME: Phone code should be merged with country in Backend
     suspend fun getCountryList(): List<Country> {
         return when (val response = safeApiCall { apiService.getCountryList() }) {
             is ResultWrapper.Success -> {
-                response.value
+                val countryList = response.value
+                val phoneCodeList = getPhoneCodeList()
+                countryList.forEachIndexed { index, country ->
+                    try {
+                        country.phone = phoneCodeList[index].code
+                    } catch (e: ArrayIndexOutOfBoundsException) {
+                        country.phone = ""
+                        e.printStackTrace()
+                    }
+                }
+                countryList
             }
             else -> listOf()
         }
@@ -210,4 +221,12 @@ class RegistrationRepository @Inject constructor(
         }
     }
 
+    private suspend fun getPhoneCodeList(): List<Phone> {
+        return when (val response = safeApiCall { apiService.getPhoneCodeList() }) {
+            is ResultWrapper.Success -> {
+                response.value
+            }
+            else -> listOf()
+        }
+    }
 }

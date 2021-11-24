@@ -31,8 +31,6 @@ fun LoginForm(
     modifier: Modifier = Modifier.fillMaxWidth()
 ) {
 
-    var username by remember { viewModel.userNameOrPhone }
-    var password by remember { viewModel.password }
     val scrollState = rememberScrollState()
 
     Column(
@@ -41,20 +39,28 @@ fun LoginForm(
         verticalArrangement = Arrangement.Top
     ) {
         DoktoTextField(
-            value = username,
+            value = viewModel.userNameOrPhone.state.value ?: "",
             label = "Phone number or email",
             icon = Icons.Outlined.Person,
-            onValueChange = { username = it },
+            error = viewModel.userNameOrPhone.error.value ?: "",
+            onValueChange = {
+                viewModel.userNameOrPhone.state.value = it
+                viewModel.userNameOrPhone.error.value = ""
+            },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
         Spacer(modifier = Modifier.height(35.dp))
 
         DoktoPasswordField(
-            value = password,
+            value = viewModel.password.state.value ?: "",
             label = "Password",
+            error = viewModel.password.error.value ?: "",
             icon = Icons.Outlined.Lock,
-            onValueChange = { password = it }
+            onValueChange = {
+                viewModel.password.state.value = it
+                viewModel.password.error.value = ""
+            }
         )
 
         Spacer(modifier = Modifier.height(32.dp))

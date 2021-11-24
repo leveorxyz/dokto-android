@@ -109,6 +109,7 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                                 DoktoTextField(
                                     value = email,
                                     label = stringResource(id = R.string.enter_your_mail),
+                                    error = "",
                                     onValueChange = { email = it },
                                 )
                                 Spacer(modifier = Modifier.height(64.dp))

@@ -2,7 +2,6 @@ package com.toybethsystems.dokto.ui.features.registration.doctor.form
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
@@ -43,7 +42,7 @@ class RegistrationViewModel @Inject constructor(
 
     val moveNext = SingleLiveEvent<Boolean>()
 
-    // Second Screen
+    // ... Second Screen
     val selectedIdentification = Property<String>()
     val identificationNumber = Property<String>()
     val identityValidityImageUri = Property<Uri>()
@@ -57,7 +56,7 @@ class RegistrationViewModel @Inject constructor(
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
 
-    // Third page
+    // ... Third Screen
     val selectedLanguages = Property(
         state = mutableStateOf(mutableStateListOf<String>())
     )
@@ -66,7 +65,7 @@ class RegistrationViewModel @Inject constructor(
         state = mutableStateOf(mutableStateListOf<String>())
     )
 
-    // Fourth page
+    // ... Fourth Screen
     val professionalBio = Property<String>()
     val experiences = Property<MutableList<Experience>>(
         state = mutableStateOf(mutableStateListOf(Experience()))
@@ -79,15 +78,15 @@ class RegistrationViewModel @Inject constructor(
     )
 
     init {
-        loadCountryStateAndCities()
+        loadCountryList()
     }
 
     fun checkIfUserNameAvailable() {
-        if(!userId.state.value.isNullOrEmpty()) {
+        if (!userId.state.value.isNullOrEmpty()) {
 
             viewModelScope.launchIOWithExceptionHandler({
                 val isUserExists = repository.checkIfUserNameExists(USER_TYPE, userId.state.value!!)
-                if(isUserExists) {
+                if (isUserExists) {
                     userId.error.value = "Username not available"
                 } else {
                     userId.error.value = null
@@ -106,21 +105,28 @@ class RegistrationViewModel @Inject constructor(
     fun setCountry(country: Country) {
         selectedCountryName.state.value = country.name
         this.country.state.value = country
-        stateList.postValue(country.states)
+        getStateList(country.code)
     }
 
     fun setState(state: State) {
         selectedStateName.state.value = state.name
-        cityList.postValue(state.cities)
+        country.state.value?.let {
+            getCityList(it.code, state.code)
+        }
     }
 
     fun setCity(city: City) {
         selectedCityName.state.value = city.name
     }
 
-    fun getSelectedCountryCode(): String {
+    fun getSelectedCountryPhoneCode(): String {
         return if (country.state.value != null) {
-            country.state.value!!.phone
+            val phoneCode = country.state.value!!.phone
+            return if (phoneCode.startsWith("+")) {
+                phoneCode
+            } else {
+                "+$phoneCode"
+            }
         } else {
             ""
         }
@@ -158,7 +164,7 @@ class RegistrationViewModel @Inject constructor(
     fun verifyDoctorRegistrationFirstStep(): Boolean {
         var isValid = true
 
-        if(profileImageUri.state.value == null) {
+        if (profileImageUri.state.value == null) {
             isValid = false
             profileImageUri.error.value = "Select profile photo"
         }
@@ -188,20 +194,16 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        if (email.state.value.isEmailValid()) {
+        if (!email.state.value.isEmailValid()) {
             email.error.value = "Invalid email address"
             isValid = false
         }
 
         if (!password.state.value.isPasswordValid()) {
-            password.error.value = "This field is required"
+            password.error.value = "Password must be 8 characters long and must have minimum 1 number and 1 letter"
         }
 
-        if (!confirmPassword.state.value.isPasswordValid()) {
-            confirmPassword.error.value = "This field is required"
-        } else if (
-            password.state.value != confirmPassword.state.value
-        ) {
+        if (password.state.value != confirmPassword.state.value) {
             confirmPassword.error.value = "Passwords do not match"
         }
 
@@ -215,7 +217,7 @@ class RegistrationViewModel @Inject constructor(
     fun verifyDoctorRegistrationSecondStep(): Boolean {
         var isValid = true
 
-        if(selectedIdentification.state.value.isNullOrEmpty()) {
+        if (selectedIdentification.state.value.isNullOrEmpty()) {
             selectedIdentification.error.value = "This field is required"
             isValid = false
         }
@@ -250,29 +252,29 @@ class RegistrationViewModel @Inject constructor(
 
     fun verifyDoctorRegistrationThirdPage(): Boolean {
         var isValid = true
-        if(selectedLanguages.state.value?.isNullOrEmpty() == true) {
+        if (selectedLanguages.state.value?.isNullOrEmpty() == true) {
             selectedLanguages.error.value = "Select minimum 1 language"
             isValid = false
         }
         educations.state.value?.forEach {
-            if(it.college.state.value.isNullOrEmpty()) {
+            if (it.college.state.value.isNullOrEmpty()) {
                 it.college.error.value = "This field is required"
                 isValid = false
             }
-            if(it.graduationYear.state.value.isNullOrEmpty()) {
+            if (it.graduationYear.state.value.isNullOrEmpty()) {
                 it.graduationYear.error.value = "This field is required"
                 isValid = false
             }
-            if(it.courseStudied.state.value.isNullOrEmpty()) {
+            if (it.courseStudied.state.value.isNullOrEmpty()) {
                 it.courseStudied.error.value = "This field is required"
                 isValid = false
             }
-            if(it.certificateUri.state.value == null) {
+            if (it.certificateUri.state.value == null) {
                 it.certificateUri.error.value = "This field is required"
                 isValid = false
             }
         }
-        if(specialties.state.value?.isNullOrEmpty() == true) {
+        if (specialties.state.value?.isNullOrEmpty() == true) {
             specialties.error.value = "This field is required"
             isValid = false
         }
@@ -281,35 +283,34 @@ class RegistrationViewModel @Inject constructor(
 
     fun verifyDoctorRegistrationFourthPage(): Boolean {
         var isValid = true
-        if(professionalBio.state.value.isNullOrEmpty()) {
+        if (professionalBio.state.value.isNullOrEmpty()) {
             professionalBio.error.value = "This field is required"
             isValid = false
         }
         experiences.state.value?.forEach {
-            if(it.establishmentName.state.value.isNullOrEmpty()) {
+            if (it.establishmentName.state.value.isNullOrEmpty()) {
                 isValid = false
                 it.establishmentName.error.value = "This field is required"
             }
-            if(it.jobTitle.state.value.isNullOrEmpty()) {
+            if (it.jobTitle.state.value.isNullOrEmpty()) {
                 isValid = false
                 it.jobTitle.error.value = "This field is required"
             }
-            if(it.startDate.state.value.isNullOrEmpty()) {
+            if (it.startDate.state.value.isNullOrEmpty()) {
                 isValid = false
                 it.startDate.error.value = "This field is required"
             }
         }
-        if(doctorLicenseUri.state.value == null) {
+        if (doctorLicenseUri.state.value == null) {
             isValid = false
             doctorLicenseUri.error.value = "Upload your license photo"
         }
-        if(doctorInsurances.state.value.isNullOrEmpty()) {
+        if (doctorInsurances.state.value.isNullOrEmpty()) {
             isValid = false
             doctorInsurances.error.value = "Select minimum 1 insurance"
         }
         return isValid
     }
-
 
     fun moveNext() {
         moveNext.postValue(true)
@@ -324,7 +325,7 @@ class RegistrationViewModel @Inject constructor(
                 country = country.state.value!!.name,
                 phoneCode = country.state.value!!.phone,
                 contactNo = mobileNumber.state.value!!,
-                email =  email.state.value!!,
+                email = email.state.value!!,
                 password = password.state.value!!,
                 gender = gender.state.value!!,
                 dateOfBirth = dateOfBirth.state.value!!,
@@ -352,10 +353,28 @@ class RegistrationViewModel @Inject constructor(
         })
     }
 
-    private fun loadCountryStateAndCities() {
+    private fun loadCountryList() {
         viewModelScope.launchIOWithExceptionHandler({
-            val countries = repository.getCountryStateCityList()
+            val countries = repository.getCountryList()
             countryList.postValue(countries)
+        }, {
+            it.printStackTrace()
+        })
+    }
+
+    private fun getStateList(countryCode: String) {
+        viewModelScope.launchIOWithExceptionHandler({
+            val states = repository.getStateList(countryCode)
+            stateList.postValue(states)
+        }, {
+            it.printStackTrace()
+        })
+    }
+
+    private fun getCityList(countryCode: String, stateCode: String) {
+        viewModelScope.launchIOWithExceptionHandler({
+            val cities = repository.getCityList(countryCode, stateCode)
+            cityList.postValue(cities)
         }, {
             it.printStackTrace()
         })

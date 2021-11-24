@@ -29,7 +29,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.toybethsystems.dokto.R
 import com.toybethsystems.dokto.base.theme.DoktoSecondary
@@ -214,7 +213,7 @@ fun ClinicRegistrationFirstScreen(
         ) {
             DoktoTextFiled(
                 modifier = Modifier.width(120.dp),
-                textFieldValue = viewModel.getSelectedCountryCode(),
+                textFieldValue = viewModel.getSelectedCountryPhoneCode(),
                 hintResourceId = R.string.hint_country_code,
                 errorMessage = viewModel.country.error.value,
                 onClick = { showCountrySelectionDialog.invoke() },

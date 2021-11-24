@@ -1,6 +1,9 @@
 package com.toybethsystems.dokto.ui.features.login.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -13,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.toybethsystems.dokto.base.theme.DoktoError
 
 @Composable
 fun DoktoTextField(
@@ -21,47 +26,61 @@ fun DoktoTextField(
     icon: ImageVector,
     modifier: Modifier = Modifier,
     placeholder: String = "",
+    error: String,
     onValueChange: (String) -> Unit,
     maxLines: Int = 1,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
-        value = value,
-        onValueChange = { onValueChange(it) },
-        label = {
-            Text(
-                text = label,
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(modifier),
+            value = value,
+            onValueChange = { onValueChange(it) },
+            label = {
+                Text(
+                    text = label,
+                    color = Color.White
+                )
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = Color.White,
+                focusedBorderColor = Color.White,
+                cursorColor = Color.White
+            ),
+            shape = RoundedCornerShape(24.dp),
+            leadingIcon = {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "",
+                    tint = Color.White
+                )
+            },
+            singleLine = maxLines == 1,
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    color = Color.White
+                )
+            },
+            textStyle = TextStyle(
                 color = Color.White
-            )
-        },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.White,
-            focusedBorderColor = Color.White,
-            cursorColor = Color.White
-        ),
-        shape = RoundedCornerShape(24.dp),
-        leadingIcon = {
-            Icon(
-                imageVector = icon,
-                contentDescription = "",
-                tint = Color.White
-            )
-        },
-        singleLine = maxLines == 1,
-        placeholder = {
+            ),
+            keyboardOptions = keyboardOptions,
+            isError = error.isNotEmpty()
+        )
+        AnimatedVisibility(visible = error.isNotEmpty()) {
             Text(
-                text = placeholder,
-                color = Color.White
+                error,
+                modifier = Modifier.padding(start = 15.dp),
+                color = DoktoError,
+                fontSize = 13.sp
             )
-        },
-        textStyle = TextStyle(
-            color = Color.White
-        ),
-        keyboardOptions = keyboardOptions
-    )
+        }
+    }
 }
 
 @Composable
@@ -70,36 +89,50 @@ fun DoktoTextField(
     label: String,
     modifier: Modifier = Modifier,
     placeholder: String = "",
+    error: String,
     onValueChange: (String) -> Unit,
     maxLines: Int = 1
 ) {
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
-        value = value,
-        onValueChange = { onValueChange(it) },
-        label = {
-            Text(
-                text = label,
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(modifier),
+            value = value,
+            onValueChange = { onValueChange(it) },
+            label = {
+                Text(
+                    text = label,
+                    color = Color.White
+                )
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = Color.White,
+                focusedBorderColor = Color.White
+            ),
+            shape = RoundedCornerShape(24.dp),
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    color = Color.White
+                )
+            },
+            singleLine = maxLines == 1,
+            textStyle = TextStyle(
                 color = Color.White
-            )
-        },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.White,
-            focusedBorderColor = Color.White
-        ),
-        shape = RoundedCornerShape(24.dp),
-        placeholder = {
+            ),
+            maxLines = maxLines,
+            isError = error.isNotEmpty()
+        )
+        AnimatedVisibility(visible = error.isNotEmpty()) {
             Text(
-                text = placeholder,
-                color = Color.White
+                error,
+                modifier = Modifier.padding(start = 15.dp),
+                color = DoktoError,
+                fontSize = 12.sp
             )
-        },
-        singleLine = maxLines == 1,
-        textStyle = TextStyle(
-            color = Color.White
-        ),
-        maxLines = maxLines,
-    )
+        }
+    }
 }

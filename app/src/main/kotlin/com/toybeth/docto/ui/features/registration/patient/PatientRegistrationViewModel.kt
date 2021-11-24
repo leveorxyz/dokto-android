@@ -140,18 +140,13 @@ class PatientRegistrationViewModel @Inject constructor(
         }
         if (!email.state.value.isEmailValid()) {
             isVerified = false
-            email.error.value = "This field is required"
+            email.error.value = "Enter a valid email"
         }
         if (!password.state.value.isPasswordValid()) {
             isVerified = false
-            password.error.value = "This field is required"
+            password.error.value = "Password must be 8 characters long and must have minimum 1 number and 1 letter"
         }
-        if (!confirmPassword.state.value.isPasswordValid()) {
-            isVerified = false
-            confirmPassword.error.value = "This field is required"
-        } else if (
-            password.state.value != confirmPassword.state.value
-        ) {
+        if (password.state.value != confirmPassword.state.value) {
             isVerified = false
             confirmPassword.error.value = "Passwords do not match"
         }

@@ -194,20 +194,16 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        if (email.state.value.isEmailValid()) {
+        if (!email.state.value.isEmailValid()) {
             email.error.value = "Invalid email address"
             isValid = false
         }
 
         if (!password.state.value.isPasswordValid()) {
-            password.error.value = "This field is required"
+            password.error.value = "Password must be 8 characters long and must have minimum 1 number and 1 letter"
         }
 
-        if (!confirmPassword.state.value.isPasswordValid()) {
-            confirmPassword.error.value = "This field is required"
-        } else if (
-            password.state.value != confirmPassword.state.value
-        ) {
+        if (password.state.value != confirmPassword.state.value) {
             confirmPassword.error.value = "Passwords do not match"
         }
 

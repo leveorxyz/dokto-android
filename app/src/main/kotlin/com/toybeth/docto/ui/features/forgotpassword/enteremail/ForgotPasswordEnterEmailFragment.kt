@@ -42,7 +42,7 @@ class ForgotPasswordEnterEmailFragment : BaseFragment<ForgotPasswordEnterEmailVi
 
     private fun navigateToEnterOtpScreen() {
         findNavController().navigate(
-            ForgetPasswordEnterEmailFragmentDirections.actionForgetPasswordEnterEmailFragmentToForgetPasswordEnterOtpFragment()
+            ForgotPasswordEnterEmailFragmentDirections.actionForgetPasswordEnterEmailFragmentToForgetPasswordEnterOtpFragment()
         )
     }
 }

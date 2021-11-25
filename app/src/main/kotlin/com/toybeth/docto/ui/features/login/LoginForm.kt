@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 import com.toybeth.docto.base.theme.DoktoSecondary
+import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 
 @Composable
@@ -38,7 +39,8 @@ fun LoginForm(
         modifier = modifier
             .fillMaxWidth()
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         // ------------------------------ EMAIL ----------------------------- //
@@ -69,7 +71,7 @@ fun LoginForm(
             )
         )
 
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- PASSWORD ---------------------------- //
 
@@ -92,7 +94,7 @@ fun LoginForm(
             }
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -115,22 +117,12 @@ fun LoginForm(
             )
         }
 
-        Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
-        Button(
-            onClick = { viewModel.submit() },
-            shape = RoundedCornerShape(24.dp),
-            modifier = Modifier
-                .height(56.dp)
-                .width(200.dp)
-                .align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = DoktoPrimaryVariant
-            )
-        ) {
-            Text(text = "Login", color = Color.White)
+        DoktoButton(textResourceId = R.string.login) {
+            viewModel.submit()
         }
 
-        Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }

@@ -251,7 +251,7 @@ class PatientRegistrationViewModel @Inject constructor(
     fun registerPatient() {
         loader.postValue(true)
         viewModelScope.launchIOWithExceptionHandler({
-            registrationSuccess.value = repository.registerPatient(
+            val result = repository.registerPatient(
                 fullName = firstName.state.value!! + " " + lastName.state.value!!,
                 phoneCode = selectedCountry.state.value!!.phone,
                 contactNo = mobileNumber.state.value!!,
@@ -276,6 +276,7 @@ class PatientRegistrationViewModel @Inject constructor(
                 insuranceNumber = insuranceNumber.state.value,
                 insurancePolicyHolderName = insurancePolicyHolderName.state.value
             )
+            registrationSuccess.postValue(result)
             loader.postValue(false)
         }, {
             loader.postValue(false)

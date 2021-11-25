@@ -40,7 +40,8 @@ fun DoktoRadioGroup(
         ) {
             // ---------------- LABEL --------------- //
             labelResourceId?.let {
-                Row(modifier = Modifier.fillMaxWidth()
+                Row(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         stringResource(id = it),
@@ -55,13 +56,16 @@ fun DoktoRadioGroup(
                 ) {
                     RadioButton(
                         selected = (item == selectedOption.value),
-                        onClick = { onOptionSelected(item) },
+                        onClick = {
+                            selectedOption.value = item
+                            onOptionSelected(item)
+                        },
                         colors = RadioButtonDefaults.colors(
                             selectedColor = DoktoPrimaryVariant,
                             unselectedColor = DoktoRegistrationFormTextFieldBackground
                         )
                     )
-                    
+
                     Spacer(modifier = Modifier.width(8.dp))
 
                     val annotatedString = buildAnnotatedString {

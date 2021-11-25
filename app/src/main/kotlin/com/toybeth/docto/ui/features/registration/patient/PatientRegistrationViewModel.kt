@@ -118,38 +118,57 @@ class PatientRegistrationViewModel @Inject constructor(
 
     fun verifyFirstPage(): Boolean {
         var isVerified = true
+
         if (profileImage.state.value == null) {
             isVerified = false
             profileImage.error.value = "Select a profile photo"
         }
+
         if (firstName.state.value.isNullOrEmpty()) {
             isVerified = false
             firstName.error.value = "This field is required"
         }
+
         if (lastName.state.value.isNullOrEmpty()) {
             isVerified = false
             lastName.error.value = "This field is required"
         }
+
         if (selectedCountry.state.value == null) {
             isVerified = false
             country.error.value = "Select your country"
         }
+
         if (mobileNumber.state.value.isNullOrEmpty()) {
             isVerified = false
             mobileNumber.error.value = "This field is required"
         }
-        if (!email.state.value.isEmailValid()) {
+
+        if (email.state.value.isNullOrEmpty()) {
+            isVerified = false
+            email.error.value = "This field is required"
+        } else if (!email.state.value.isEmailValid()) {
             isVerified = false
             email.error.value = "Enter a valid email"
         }
-        if (!password.state.value.isPasswordValid()) {
+
+        if (password.state.value.isNullOrEmpty()) {
             isVerified = false
-            password.error.value = "Password must be 8 characters long and must have minimum 1 number and 1 letter"
+            password.error.value = "This field is required"
+        } else if (!password.state.value.isPasswordValid()) {
+            isVerified = false
+            password.error.value =
+                "Password must be 8 characters long and must have minimum 1 number and 1 letter"
         }
-        if (password.state.value != confirmPassword.state.value) {
+
+        if (confirmPassword.state.value.isNullOrEmpty()) {
+            isVerified = false
+            confirmPassword.error.value = "This field is required"
+        } else if (password.state.value != confirmPassword.state.value) {
             isVerified = false
             confirmPassword.error.value = "Passwords do not match"
         }
+
         if (dateOfBirth.state.value.isNullOrEmpty()) {
             isVerified = false
             dateOfBirth.error.value = "This field is required"

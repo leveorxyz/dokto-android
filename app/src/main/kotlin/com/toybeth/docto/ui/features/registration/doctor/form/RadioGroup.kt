@@ -16,6 +16,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.sp
 import com.toybeth.docto.base.R
 import com.toybeth.docto.base.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.base.theme.DoktoPrimaryVariant
@@ -51,7 +52,8 @@ fun RadioGroup(
                         withStyle(
                             style = SpanStyle(
                                 color = textColor,
-                                fontFamily = FontFamily(Font(R.font.poppins_regular))
+                                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                                fontSize = 16.sp
                             )
                         ) { append("  $item  ") }
                     }

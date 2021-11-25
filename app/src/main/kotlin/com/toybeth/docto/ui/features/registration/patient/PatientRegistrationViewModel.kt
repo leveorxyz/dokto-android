@@ -174,7 +174,7 @@ class PatientRegistrationViewModel @Inject constructor(
             dateOfBirth.error.value = "This field is required"
         }
 
-        return true
+        return isVerified
     }
 
     fun verifySecondPage(): Boolean {

@@ -40,7 +40,11 @@ fun DoktoTextFiled(
     trailingIcon: @Composable (() -> Unit)? = null,
     errorMessage: String? = null
 ) {
-    var textFieldModifier = if (singleLine) Modifier.fillMaxWidth() else Modifier.fillMaxSize()
+    var textFieldModifier = if (singleLine) {
+        Modifier.fillMaxWidth()
+    } else {
+        Modifier.fillMaxWidth().height(150.dp)
+    }
     var passwordVisibility by remember { mutableStateOf(false) }
     val visibilityIcon =
         if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff

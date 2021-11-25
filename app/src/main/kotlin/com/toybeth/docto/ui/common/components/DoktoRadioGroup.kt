@@ -1,10 +1,7 @@
 package com.toybeth.docto.ui.common.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -30,7 +27,7 @@ import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 fun DoktoRadioGroup(
     radioOptions: List<String>,
     labelResourceId: Int? = null,
-    textColor: Color = Color.White,
+    textColor: Color = Color.LightGray,
     errorMessage: String? = null,
     onOptionSelected: (value: String) -> Unit
 ) {
@@ -64,6 +61,8 @@ fun DoktoRadioGroup(
                             unselectedColor = DoktoRegistrationFormTextFieldBackground
                         )
                     )
+                    
+                    Spacer(modifier = Modifier.width(8.dp))
 
                     val annotatedString = buildAnnotatedString {
                         withStyle(
@@ -72,7 +71,7 @@ fun DoktoRadioGroup(
                                 fontFamily = FontFamily(Font(R.font.poppins_regular)),
                                 fontSize = 16.sp
                             )
-                        ) { append("  $item  ") }
+                        ) { append(item) }
                     }
 
                     ClickableText(

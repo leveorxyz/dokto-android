@@ -170,6 +170,11 @@ class PatientRegistrationViewModel @Inject constructor(
             confirmPassword.error.value = "Passwords do not match"
         }
 
+        if (gender.state.value.isNullOrEmpty()) {
+            gender.error.value = "This field is required"
+            isVerified = false
+        }
+
         if (dateOfBirth.state.value.isNullOrEmpty()) {
             isVerified = false
             dateOfBirth.error.value = "This field is required"

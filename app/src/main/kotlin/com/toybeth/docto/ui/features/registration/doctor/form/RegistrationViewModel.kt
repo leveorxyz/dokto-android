@@ -242,6 +242,11 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
+        if (gender.state.value.isNullOrEmpty()) {
+            gender.error.value = "This field is required"
+            isValid = false
+        }
+
         if (dateOfBirth.state.value.isNullOrEmpty()) {
             dateOfBirth.error.value = "This field is required"
             isValid = false

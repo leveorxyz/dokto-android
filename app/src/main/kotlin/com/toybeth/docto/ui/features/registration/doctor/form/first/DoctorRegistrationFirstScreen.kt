@@ -276,9 +276,11 @@ fun DoctorRegistrationFirstScreen(
 
         DoktoRadioGroup(
             radioOptions = genderOptions,
-            labelResourceId = R.string.hint_gender
+            labelResourceId = R.string.hint_gender,
+            errorMessage = viewModel.gender.error.value
         ) {
             viewModel.gender.state.value = it
+            viewModel.gender.error.value = null
         }
         Spacer(modifier = Modifier.height(30.dp))
 

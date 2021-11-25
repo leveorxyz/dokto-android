@@ -123,16 +123,36 @@
     <fragment
         android:id="@+id/doctorRegistrationFormStepsFragment"
         android:name="com.toybeth.docto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
-        android:label="DoctorRegistrationFormStepsFragment" />
+        android:label="DoctorRegistrationFormStepsFragment" >
+        <action
+            android:id="@+id/action_doctorRegistrationFormStepsFragment_to_registrationCompleteFragment"
+            app:destination="@id/registrationCompleteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/patientRegistrationFormStepsFragment"
         android:name="com.toybeth.docto.ui.features.registration.patient.PatientRegistrationFormStepsFragment"
-        android:label="PatientRegistrationFormStepsFragment" />
+        android:label="PatientRegistrationFormStepsFragment" >
+        <action
+            android:id="@+id/action_patientRegistrationFormStepsFragment_to_registrationCompleteFragment"
+            app:destination="@id/registrationCompleteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/clinicRegistrationFormStepsFragment"
         android:name="com.toybeth.docto.ui.features.registration.clinic.ClinicRegistrationFormStepsFragment"
-        android:label="ClinicRegistrationFormStepsFragment" />
+        android:label="ClinicRegistrationFormStepsFragment" >
+        <action
+            android:id="@+id/action_clinicRegistrationFormStepsFragment_to_registrationCompleteFragment"
+            app:destination="@id/registrationCompleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationCompleteFragment"
+        android:name="com.toybeth.docto.ui.features.registration.complete.RegistrationCompleteFragment"
+        android:label="RegistrationCompleteFragment" >
+        <action
+            android:id="@+id/action_registrationCompleteFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

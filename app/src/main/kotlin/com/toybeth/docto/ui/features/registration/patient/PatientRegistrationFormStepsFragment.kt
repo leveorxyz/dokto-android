@@ -1,16 +1,13 @@
 package com.toybeth.docto.ui.features.registration.patient
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.orhanobut.logger.Logger
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentRegistrationFormBinding
@@ -66,11 +63,6 @@ class PatientRegistrationFormStepsFragment :
 
         viewModel.registrationSuccess.observeOn(viewLifecycleOwner) {
             if (it == true) {
-                Toast.makeText(
-                    requireContext(),
-                    "Registration Successful",
-                    Toast.LENGTH_LONG
-                ).show()
                 navigateToRegistrationSuccessFragment()
             }
         }

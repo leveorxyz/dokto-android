@@ -39,7 +39,7 @@ import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoCheckBox
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
+import com.toybeth.docto.ui.common.components.DoktoRadioGroup
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
 
 @ExperimentalMaterialApi
@@ -274,16 +274,9 @@ fun DoctorRegistrationFirstScreen(
 
         // ---------------------------- GENDER ------------------------- //
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                stringResource(id = R.string.hint_gender),
-                color = Color.White,
-            )
-        }
-        RadioGroup(
+        DoktoRadioGroup(
             radioOptions = genderOptions,
+            labelResourceId = R.string.hint_gender
         ) {
             viewModel.gender.state.value = it
         }

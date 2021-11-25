@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
@@ -27,7 +28,8 @@ import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 
 @Composable
 fun DoktoRadioGroup(
-    radioOptions: List<String> = listOf(),
+    radioOptions: List<String>,
+    labelResourceId: Int? = null,
     textColor: Color = Color.White,
     errorMessage: String? = null,
     onOptionSelected: (value: String) -> Unit
@@ -39,6 +41,16 @@ fun DoktoRadioGroup(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.Start
         ) {
+            // ---------------- LABEL --------------- //
+            labelResourceId?.let {
+                Row(modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        stringResource(id = it),
+                        color = Color.White,
+                    )
+                }
+            }
             // --------------------------- RADIO BUTTONS ------------------------ //
             radioOptions.forEach { item ->
                 Row(

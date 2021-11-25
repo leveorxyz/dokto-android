@@ -28,14 +28,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
+import com.toybeth.docto.ui.common.components.DoktoRadioGroup
 import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
 
 @ExperimentalMaterialApi
@@ -261,16 +260,9 @@ fun PatientRegistrationFirstScreen(
 
         // ---------------------------- GENDER ------------------------- //
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                stringResource(id = R.string.hint_gender),
-                color = Color.White,
-            )
-        }
-        RadioGroup(
+        DoktoRadioGroup(
             radioOptions = genderOptions,
+            labelResourceId = R.string.hint_gender
         ) {
             viewModel.gender.state.value = it
         }

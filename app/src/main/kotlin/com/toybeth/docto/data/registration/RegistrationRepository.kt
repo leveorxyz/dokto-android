@@ -91,7 +91,7 @@ class RegistrationRepository @Inject constructor(
     }
 
     suspend fun registerDoctor(
-        userId: String,
+        // userId: String,
         fullName: String,
         country: String,
         phoneCode: String,
@@ -143,7 +143,7 @@ class RegistrationRepository @Inject constructor(
             mExperiences.add(item)
         }
         val requestBody = DoctorRegistrationRequestBody(
-            username = userId,
+            // username = userId,
             fullName = fullName,
             contactNo = phoneCode + contactNo,
             email = email,

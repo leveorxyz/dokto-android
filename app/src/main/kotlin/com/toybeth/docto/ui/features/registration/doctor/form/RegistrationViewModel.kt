@@ -23,14 +23,14 @@ class RegistrationViewModel @Inject constructor(
     private val repository: RegistrationRepository
 ) : BaseViewModel() {
 
-    companion object {
-        private const val USER_TYPE = "doctor"
-    }
+//    companion object {
+//        private const val USER_TYPE = "doctor"
+//    }
 
     // ... First Screen
     val profileImage = Property<Bitmap>()
     val profileImageUri = Property<Uri>()
-    val userId = Property<String>()
+    // val userId = Property<String>()
     val name = Property<String>()
     val country = Property<Country>()
     val mobileNumber = Property<String>()
@@ -81,21 +81,21 @@ class RegistrationViewModel @Inject constructor(
         loadCountryList()
     }
 
-    fun checkIfUserNameAvailable() {
-        if (!userId.state.value.isNullOrEmpty()) {
-
-            viewModelScope.launchIOWithExceptionHandler({
-                val isUserExists = repository.checkIfUserNameExists(USER_TYPE, userId.state.value!!)
-                if (isUserExists) {
-                    userId.error.value = "Username not available"
-                } else {
-                    userId.error.value = null
-                }
-            }, {
-                it.printStackTrace()
-            })
-        }
-    }
+//    fun checkIfUserNameAvailable() {
+//        if (!userId.state.value.isNullOrEmpty()) {
+//
+//            viewModelScope.launchIOWithExceptionHandler({
+//                val isUserExists = repository.checkIfUserNameExists(USER_TYPE, userId.state.value!!)
+//                if (isUserExists) {
+//                    userId.error.value = "Username not available"
+//                } else {
+//                    userId.error.value = null
+//                }
+//            }, {
+//                it.printStackTrace()
+//            })
+//        }
+//    }
 
     fun setDateOfBirth(timeInMillis: Long) {
         val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -328,7 +328,7 @@ class RegistrationViewModel @Inject constructor(
         loader.postValue(true)
         viewModelScope.launchIOWithExceptionHandler({
             repository.registerDoctor(
-                userId = userId.state.value!!,
+                // userId = userId.state.value!!,
                 fullName = name.state.value!!,
                 country = country.state.value!!.name,
                 phoneCode = country.state.value!!.phone,

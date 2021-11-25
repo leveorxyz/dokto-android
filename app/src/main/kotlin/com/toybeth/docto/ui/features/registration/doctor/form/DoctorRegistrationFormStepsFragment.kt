@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
 import com.toybeth.docto.databinding.FragmentRegistrationFormBinding
+import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationFormStepsFragmentDirections
 import com.toybeth.dokto.stepper.StepperLayout
 import com.toybeth.dokto.stepper.VerificationError
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,8 +66,16 @@ class DoctorRegistrationFormStepsFragment :
                     "Registration Successful",
                     Toast.LENGTH_LONG
                 ).show()
+                navigateToRegistrationSuccessFragment()
             }
         }
+    }
+
+    private fun navigateToRegistrationSuccessFragment() {
+        findNavController().navigate(
+            DoctorRegistrationFormStepsFragmentDirections
+                .actionDoctorRegistrationFormStepsFragmentToRegistrationCompleteFragment()
+        )
     }
 
     private fun setKeyboardOpenListener() {

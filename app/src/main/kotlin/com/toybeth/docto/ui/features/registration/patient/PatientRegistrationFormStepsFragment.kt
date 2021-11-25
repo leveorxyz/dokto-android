@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.orhanobut.logger.Logger
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseViewBindingFragment
@@ -70,8 +71,16 @@ class PatientRegistrationFormStepsFragment :
                     "Registration Successful",
                     Toast.LENGTH_LONG
                 ).show()
+                navigateToRegistrationSuccessFragment()
             }
         }
+    }
+
+    private fun navigateToRegistrationSuccessFragment() {
+        findNavController().navigate(
+            PatientRegistrationFormStepsFragmentDirections
+                .actionPatientRegistrationFormStepsFragmentToRegistrationCompleteFragment()
+        )
     }
 
     private fun setKeyboardOpenListener() {

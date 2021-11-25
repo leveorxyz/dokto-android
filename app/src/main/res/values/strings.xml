@@ -28,6 +28,7 @@
     <string name="select_date_of_birth">Select date of birth</string>
     <string name="label_userid">Choose your User ID</string>
     <string name="label_name">Name</string>
+    <string name="label_full_name">Full Name</string>
     <string name="label_mobile_number">Mobile Number</string>
     <string name="label_email">Email</string>
     <string name="label_password">Choose Password</string>

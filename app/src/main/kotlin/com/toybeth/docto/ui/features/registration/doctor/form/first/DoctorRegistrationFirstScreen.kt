@@ -62,11 +62,11 @@ fun DoctorRegistrationFirstScreen(
     ) { uri: Uri? ->
         viewModel.profileImageUri.state.value = uri
         viewModel.profileImageUri.state.value ?.let {
+            viewModel.profileImageUri.error.value = null
             if (Build.VERSION.SDK_INT < 28) {
                 viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
                     context.contentResolver, it
                 )
-
             } else {
                 val source = ImageDecoder.createSource(context.contentResolver, it)
                 viewModel.profileImage.state.value = ImageDecoder.decodeBitmap(source)
@@ -112,13 +112,15 @@ fun DoctorRegistrationFirstScreen(
                         .border(2.dp, Color.White, CircleShape)
                 )
             }
-            AnimatedVisibility(visible = viewModel.profileImage.error.value != null) {
-                Text(
-                    text = viewModel.profileImage.error.value!!,
-                    color = DoktoError,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
-                )
+            AnimatedVisibility(visible = viewModel.profileImageUri.error.value != null) {
+                viewModel.profileImageUri.error.value?.let {
+                    Text(
+                        text = it,
+                        color = DoktoError,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -131,39 +133,39 @@ fun DoctorRegistrationFirstScreen(
         Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- USER ID -------------------------- //
-        DoktoTextFiled(
-            modifier = Modifier.onFocusChanged {
-                if(!it.hasFocus) {
-                    viewModel.checkIfUserNameAvailable()
-                }
-            },
-            textFieldValue = viewModel.userId.state.value ?: "",
-            hintResourceId = R.string.hint_userid,
-            labelResourceId = R.string.label_userid,
-            trailingIcon = {
-                IconButton(onClick = {
-                    viewModel.checkIfUserNameAvailable()
-                }) {
-                    Icon(
-                        imageVector = Icons.Filled.ManageSearch,
-                        contentDescription = stringResource(id = R.string.check_availability),
-                        tint = DoktoSecondary
-                    )
-                }
-            },
-            errorMessage = viewModel.userId.error.value,
-            onValueChange = {
-                viewModel.userId.state.value = it
-                viewModel.userId.error.value = null
-            }
-        )
-        Spacer(modifier = Modifier.height(30.dp))
+//        DoktoTextFiled(
+//            modifier = Modifier.onFocusChanged {
+//                if(!it.hasFocus) {
+//                    viewModel.checkIfUserNameAvailable()
+//                }
+//            },
+//            textFieldValue = viewModel.userId.state.value ?: "",
+//            hintResourceId = R.string.hint_userid,
+//            labelResourceId = R.string.label_userid,
+//            trailingIcon = {
+//                IconButton(onClick = {
+//                    viewModel.checkIfUserNameAvailable()
+//                }) {
+//                    Icon(
+//                        imageVector = Icons.Filled.ManageSearch,
+//                        contentDescription = stringResource(id = R.string.check_availability),
+//                        tint = DoktoSecondary
+//                    )
+//                }
+//            },
+//            errorMessage = viewModel.userId.error.value,
+//            onValueChange = {
+//                viewModel.userId.state.value = it
+//                viewModel.userId.error.value = null
+//            }
+//        )
+//        Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- NAME ----------------------- //
         DoktoTextFiled(
             textFieldValue = viewModel.name.state.value ?: "",
             hintResourceId = R.string.hint_name,
-            labelResourceId = R.string.label_name,
+            labelResourceId = R.string.label_full_name,
             errorMessage = viewModel.name.error.value,
             onValueChange = {
                 viewModel.name.state.value = it

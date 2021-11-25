@@ -165,14 +165,14 @@ class RegistrationViewModel @Inject constructor(
         var isValid = true
 
         if (profileImageUri.state.value == null) {
-            isValid = false
             profileImageUri.error.value = "Select profile photo"
+            isValid = false
         }
 
-        if (userId.state.value.isNullOrEmpty() && userId.error.value == null) {
-            userId.error.value = "This field is required"
-            isValid = false
-        }
+//        if (userId.state.value.isNullOrEmpty() && userId.error.value == null) {
+//            userId.error.value = "This field is required"
+//            isValid = false
+//        }
 
         if (name.state.value.isNullOrEmpty()) {
             name.error.value = "This field is required"
@@ -192,23 +192,31 @@ class RegistrationViewModel @Inject constructor(
         if (email.state.value.isNullOrEmpty()) {
             email.error.value = "This field is required"
             isValid = false
-        }
-
-        if (!email.state.value.isEmailValid()) {
+        } else if (!email.state.value.isEmailValid()) {
             email.error.value = "Invalid email address"
             isValid = false
         }
 
-        if (!password.state.value.isPasswordValid()) {
-            password.error.value = "Password must be 8 characters long and must have minimum 1 number and 1 letter"
+        if (password.state.value.isNullOrEmpty()) {
+            password.error.value = "This field is required"
+            isValid = false
+        } else if (!password.state.value.isPasswordValid()) {
+            password.error.value =
+                "Password must be 8 characters long and must have minimum 1 number and 1 letter"
+            isValid = false
         }
 
-        if (password.state.value != confirmPassword.state.value) {
+        if (confirmPassword.state.value.isNullOrEmpty()) {
+            confirmPassword.error.value = "This field is required"
+            isValid = false
+        } else if (password.state.value != confirmPassword.state.value) {
             confirmPassword.error.value = "Passwords do not match"
+            isValid = false
         }
 
         if (dateOfBirth.state.value.isNullOrEmpty()) {
             dateOfBirth.error.value = "This field is required"
+            isValid = false
         }
 
         return isValid

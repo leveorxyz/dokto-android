@@ -48,6 +48,7 @@ fun PatientRegistrationFirstScreen(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val genderOptions = context.resources.getStringArray(R.array.gender).toList()
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -260,12 +261,7 @@ fun PatientRegistrationFirstScreen(
             )
         }
         RadioGroup(
-            radioOptions = listOf(
-                context.getString(R.string.male),
-                context.getString(R.string.female),
-                context.getString(R.string.other),
-                context.getString(R.string.prefer_not_to_say),
-            ),
+            radioOptions = genderOptions,
         ) {
             viewModel.gender.state.value = it
         }

@@ -65,7 +65,7 @@ class RegistrationViewModel @Inject constructor(
     val selectedLanguages = Property(
         state = mutableStateOf(mutableStateListOf<String>())
     )
-    val educations = Property(state = mutableStateOf(mutableListOf(Education())))
+    val educations = Property(state = mutableStateOf(mutableStateListOf(Education())))
     val specialties = Property(
         state = mutableStateOf(mutableStateListOf<String>())
     )

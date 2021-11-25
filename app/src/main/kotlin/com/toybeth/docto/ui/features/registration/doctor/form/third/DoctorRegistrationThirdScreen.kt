@@ -13,6 +13,8 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,7 +39,13 @@ fun DoctorRegistrationThirdScreen(
     val scrollState = rememberScrollState()
     val context = LocalContext.current
     val availableLanguages = context.resources.getStringArray(R.array.languages).toList()
-    val specialties = context.resources.getStringArray(R.array.specialities).toMutableList()
+    val specialties = remember {
+        val specialtiesList = mutableStateListOf<String>()
+        context.resources.getStringArray(R.array.specialities).forEach { specialty ->
+            specialtiesList.add(specialty)
+        }
+        specialtiesList
+    }
 
     return Column(
         modifier = Modifier
@@ -80,7 +88,7 @@ fun DoctorRegistrationThirdScreen(
                     Checkbox(
                         checked = viewModel.selectedLanguages.state.value?.contains(language) == true,
                         onCheckedChange = {
-                            if(it) {
+                            if (it) {
                                 viewModel.selectedLanguages.state.value?.add(language)
                             } else {
                                 viewModel.selectedLanguages.state.value?.remove(language)
@@ -98,14 +106,16 @@ fun DoctorRegistrationThirdScreen(
                     )
                 }
             }
-        }
-        AnimatedVisibility(visible = viewModel.selectedLanguages.error.value != null) {
-            Text(
-                text = viewModel.selectedLanguages.error.value!!,
-                color = DoktoError,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(start = 15.dp, top = 3.dp)
-            )
+            AnimatedVisibility(visible = viewModel.selectedLanguages.error.value != null) {
+                viewModel.selectedLanguages.error.value?.let {
+                    Text(
+                        text = it,
+                        color = DoktoError,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                    )
+                }
+            }
         }
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -207,7 +217,8 @@ fun DoctorRegistrationThirdScreen(
                 },
                 onClick = {
                     showDatePicker { timeInMillis ->
-                        education.graduationYear.state.value = viewModel.getGraduationYearFromMillis(timeInMillis)
+                        education.graduationYear.state.value =
+                            viewModel.getGraduationYearFromMillis(timeInMillis)
                     }
                 },
                 trailingIcon = {
@@ -262,7 +273,7 @@ fun DoctorRegistrationThirdScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        LazyRow {
+        LazyRow(modifier = Modifier.align(Alignment.Start)) {
             items(viewModel.specialties.state.value ?: listOf()) { specialty ->
                 specialty.let {
                     DoktoChip(text = it) {

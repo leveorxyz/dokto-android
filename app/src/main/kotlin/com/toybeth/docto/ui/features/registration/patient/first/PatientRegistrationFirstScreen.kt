@@ -170,7 +170,10 @@ fun PatientRegistrationFirstScreen(
                 textFieldValue = viewModel.getSelectedCountryPhoneCode(),
                 hintResourceId = R.string.hint_country_code,
                 errorMessage = viewModel.country.error.value,
-                onClick = { showCountrySelectionDialog.invoke() },
+                onClick = {
+                    showCountrySelectionDialog.invoke()
+                    viewModel.country.error.value = null
+                },
                 onValueChange = {
                     viewModel.country.error.value = null
                 }
@@ -198,7 +201,8 @@ fun PatientRegistrationFirstScreen(
 
         // -------------------------- EMAIL ------------------------ //
 
-        DoktoTextFiled(textFieldValue = viewModel.email.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.email.state.value ?: "",
             hintResourceId = R.string.hint_email,
             labelResourceId = R.string.label_email,
             errorMessage = viewModel.email.error.value,
@@ -215,7 +219,8 @@ fun PatientRegistrationFirstScreen(
 
         // ------------------------ PASSWORD --------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.password.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.password.state.value ?: "",
             hintResourceId = R.string.hint_password,
             labelResourceId = R.string.label_password,
             visualTransformation = PasswordVisualTransformation(),
@@ -233,7 +238,8 @@ fun PatientRegistrationFirstScreen(
 
         // --------------------- CONFIRM PASSWORD ---------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.confirmPassword.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.confirmPassword.state.value ?: "",
             hintResourceId = R.string.hint_confirm_password,
             labelResourceId = R.string.label_confirm_password,
             visualTransformation = PasswordVisualTransformation(),

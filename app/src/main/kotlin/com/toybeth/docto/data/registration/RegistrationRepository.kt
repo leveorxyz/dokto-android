@@ -33,7 +33,7 @@ class RegistrationRepository @Inject constructor(
         identificationPhotoUri: Uri,
         street: String,
         socialSecurityNumber: String? = null,
-        state: String,
+        state: String? = null,
         city: String? = null,
         zipCode: String,
         referringDoctorAddress: String? = null,

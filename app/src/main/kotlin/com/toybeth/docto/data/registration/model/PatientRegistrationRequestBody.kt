@@ -59,7 +59,7 @@ data class PatientRegistrationRequestBody(
 	val socialSecurityNumber: String?,
 
 	@SerializedName("state")
-	val state: String,
+	val state: String?,
 
 	@SerializedName("insurance_name")
 	val insuranceName: String? = null,

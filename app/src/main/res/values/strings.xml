@@ -122,4 +122,6 @@
     <string name="hint_professional_bio">Profession bio</string>
     <string name="hint_job_description">Job description</string>
     <string name="hint_doctor_awards">Awards or publications</string>
+    <string name="hint_phone_or_email">Phone or Email</string>
+    <string name="label_phone_or_email">Phone or Email</string>
 </resources>

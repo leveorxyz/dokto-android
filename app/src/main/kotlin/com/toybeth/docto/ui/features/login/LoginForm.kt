@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoPrimaryVariant
@@ -40,6 +41,8 @@ fun LoginForm(
         verticalArrangement = Arrangement.Top
     ) {
 
+        // ------------------------------ EMAIL ----------------------------- //
+
         DoktoTextFiled(
             textFieldValue = viewModel.userNameOrPhone.state.value ?: "",
             labelResourceId = R.string.label_phone_or_email,
@@ -56,16 +59,22 @@ fun LoginForm(
                 viewModel.userNameOrPhone.state.value = it
                 viewModel.userNameOrPhone.error.value = null
             },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email
+            )
         )
 
         Spacer(modifier = Modifier.height(35.dp))
+
+        // --------------------------- PASSWORD ---------------------------- //
 
         DoktoTextFiled(
             textFieldValue = viewModel.password.state.value ?: "",
             labelResourceId = R.string.label_password,
             hintResourceId = R.string.hint_password,
             isPasswordField = true,
+            errorMessage = viewModel.password.error.value,
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Filled.Lock,

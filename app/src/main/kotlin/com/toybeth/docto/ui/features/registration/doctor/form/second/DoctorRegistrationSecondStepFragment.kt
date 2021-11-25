@@ -70,6 +70,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(countries.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setCountry(countries[which])
+                        viewModel.selectedCountryName.error.value = null
                     }
                     .show()
             }
@@ -87,6 +88,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(states.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setState(states[which])
+                        viewModel.selectedStateName.error.value = null
                     }
                     .show()
             }
@@ -101,6 +103,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(cities.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setCity(cities[which])
+                        viewModel.selectedCityName.error.value = null
                     }
                     .show()
             }

@@ -241,7 +241,7 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        return isValid
+        return true
     }
 
     fun verifyDoctorRegistrationSecondStep(): Boolean {
@@ -264,6 +264,11 @@ class RegistrationViewModel @Inject constructor(
 
         if (address.state.value.isNullOrEmpty()) {
             address.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (selectedCountryName.state.value.isNullOrEmpty()) {
+            selectedCountryName.error.value = "This field is required"
             isValid = false
         }
 

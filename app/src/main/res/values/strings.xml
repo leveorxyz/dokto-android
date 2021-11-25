@@ -46,8 +46,8 @@
     <string name="label_state">State</string>
     <string name="label_zip_code">Zip Code</string>
     <string name="hint_zip_code">Zip Code</string>
-    <string name="label_address">Address</string>
-    <string name="hint_address">Address</string>
+    <string name="label_address">Street Address</string>
+    <string name="hint_address">Street Address</string>
     <string name="label_city">City</string>
     <string name="hint_city">City</string>
     <string name="hint_country_code">+00</string>

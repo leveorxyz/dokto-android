@@ -282,7 +282,7 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        return isValid
+        return true
     }
 
     fun verifyDoctorRegistrationThirdPage(): Boolean {

@@ -107,12 +107,14 @@ fun PatientRegistrationFirstScreen(
                 )
             }
             AnimatedVisibility(visible = viewModel.profileImage.error.value != null) {
-                Text(
-                    text = viewModel.profileImage.error.value!!,
-                    color = DoktoError,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
-                )
+                viewModel.profileImage.error.value?.let {
+                    Text(
+                        text = it,
+                        color = DoktoError,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -170,10 +172,7 @@ fun PatientRegistrationFirstScreen(
                 textFieldValue = viewModel.getSelectedCountryPhoneCode(),
                 hintResourceId = R.string.hint_country_code,
                 errorMessage = viewModel.country.error.value,
-                onClick = {
-                    showCountrySelectionDialog.invoke()
-                    viewModel.country.error.value = null
-                },
+                onClick = { showCountrySelectionDialog.invoke() },
                 onValueChange = {
                     viewModel.country.error.value = null
                 }
@@ -223,7 +222,7 @@ fun PatientRegistrationFirstScreen(
             textFieldValue = viewModel.password.state.value ?: "",
             hintResourceId = R.string.hint_password,
             labelResourceId = R.string.label_password,
-            visualTransformation = PasswordVisualTransformation(),
+            isPasswordField = true,
             errorMessage = viewModel.password.error.value,
             onValueChange = {
                 viewModel.password.state.value = it
@@ -242,7 +241,7 @@ fun PatientRegistrationFirstScreen(
             textFieldValue = viewModel.confirmPassword.state.value ?: "",
             hintResourceId = R.string.hint_confirm_password,
             labelResourceId = R.string.label_confirm_password,
-            visualTransformation = PasswordVisualTransformation(),
+            isPasswordField = true,
             errorMessage = viewModel.confirmPassword.error.value,
             onValueChange = {
                 viewModel.confirmPassword.state.value = it

@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgetPasswordEnterEmailViewModel @Inject constructor() : BaseViewModel() {
+class ForgotPasswordEnterEmailViewModel @Inject constructor() : BaseViewModel() {
 
     val navigateToOtp = SingleLiveEvent<Boolean>()
 

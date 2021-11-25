@@ -11,9 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
 @AndroidEntryPoint
-class ForgetPasswordEnterOtpFragment : BaseFragment<ForgetPasswordEnterOtpViewModel>() {
+class ForgotPasswordEnterOtpFragment : BaseFragment<ForgotPasswordEnterOtpViewModel>() {
 
-    override val viewModel: ForgetPasswordEnterOtpViewModel by viewModels()
+    override val viewModel: ForgotPasswordEnterOtpViewModel by viewModels()
 
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {

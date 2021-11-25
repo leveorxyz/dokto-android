@@ -5,6 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgetPasswordEnterOtpViewModel @Inject constructor() : BaseViewModel() {
+class ForgotPasswordEnterOtpViewModel @Inject constructor() : BaseViewModel() {
 
 }

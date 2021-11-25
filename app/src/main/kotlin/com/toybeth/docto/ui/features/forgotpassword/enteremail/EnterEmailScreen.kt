@@ -37,7 +37,7 @@ import com.toybeth.docto.base.theme.TextColorWhite
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
 @Composable
-fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
+fun EnterEmailScreen(viewModel: ForgotPasswordEnterEmailViewModel) {
 
     val screenAnimState = viewModel.screenAnimState.observeAsState()
     var email by rememberSaveable { mutableStateOf("") }

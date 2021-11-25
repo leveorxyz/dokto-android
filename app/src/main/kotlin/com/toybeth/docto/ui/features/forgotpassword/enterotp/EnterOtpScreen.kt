@@ -35,7 +35,7 @@ import com.toybeth.docto.base.theme.TextColorWhite
 @ExperimentalUnitApi
 @Composable
 fun EnterOtpScreen(
-    viewModel: ForgetPasswordEnterOtpViewModel
+    viewModel: ForgotPasswordEnterOtpViewModel
 ) {
     val screenAnimState = viewModel.screenAnimState.observeAsState()
     var otp = remember { "" }

@@ -206,8 +206,12 @@ fun PatientRegistrationFirstScreen(
             labelResourceId = R.string.label_email,
             errorMessage = viewModel.email.error.value,
             onValueChange = {
-                viewModel.email.state.value = it
-                viewModel.email.error.value = null
+                if (it.length > 254) {
+                    viewModel.email.error.value = "Max character reached"
+                } else {
+                    viewModel.email.state.value = it
+                    viewModel.email.error.value = null
+                }
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,

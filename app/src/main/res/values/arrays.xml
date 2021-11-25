@@ -218,4 +218,16 @@
         <item>Self paid</item>
         <item>Insurance Verified</item>
     </string-array>
+    <string-array name="business_associate_agreement">
+        <item>I have read and agree to the Business Associate Agreement</item>
+        <item>I practise outside the United States and exempt from the Business Associate Agreement</item>
+    </string-array>
+    <string-array name="hippa_agreement">
+        <item>I have read and agree to the HIPAA Agreement</item>
+        <item>I practise outside the United States and exempt from the HIPAA Agreement</item>
+    </string-array>
+    <string-array name="gdpr_laws">
+        <item>I have read and agree to the GDPR Laws</item>
+        <item>I live outside the UK and EU and exempt from the GDPR Laws</item>
+    </string-array>
 </resources>

@@ -78,9 +78,14 @@ class RegistrationViewModel @Inject constructor(
     val doctorLicense = Property<Bitmap?>()
     val doctorLicenseUri = Property<Uri>()
     val doctorAwards = Property<String>()
+    val allInsuranceAccepted = Property(mutableStateOf(false))
     val doctorInsurances = Property(
         state = mutableStateOf(mutableStateListOf<String>())
     )
+    val businessAgreement = Property<String>()
+    val hippaAgreement = Property<String>()
+    val gdprAgreement = Property<String>()
+    val termsAccepted = Property(mutableStateOf(false))
 
     init {
         loadCountryList()
@@ -168,6 +173,17 @@ class RegistrationViewModel @Inject constructor(
         doctorInsurances.error.value = null
     }
 
+    fun addAllInsurances(insuranceList: List<String>) {
+        doctorInsurances.state.value?.clear()
+        doctorInsurances.state.value?.addAll(insuranceList)
+        doctorInsurances.error.value = null
+    }
+
+    fun clearInsurances() {
+        doctorInsurances.state.value?.clear()
+        doctorInsurances.error.value = "Select minimum 1 insurance"
+    }
+
     fun getExperienceDateFromMillis(timeInMillis: Long): String {
         val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         return formatter.format(Date(timeInMillis))
@@ -241,7 +257,7 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        return true
+        return isValid
     }
 
     fun verifyDoctorRegistrationSecondStep(): Boolean {
@@ -282,7 +298,7 @@ class RegistrationViewModel @Inject constructor(
             isValid = false
         }
 
-        return true
+        return isValid
     }
 
     fun verifyDoctorRegistrationThirdPage(): Boolean {
@@ -343,6 +359,18 @@ class RegistrationViewModel @Inject constructor(
         if (doctorInsurances.state.value.isNullOrEmpty()) {
             isValid = false
             doctorInsurances.error.value = "Select minimum 1 insurance"
+        }
+        if (businessAgreement.state.value.isNullOrEmpty()) {
+            businessAgreement.error.value = "This field is required"
+        }
+        if (hippaAgreement.state.value.isNullOrEmpty()) {
+            hippaAgreement.error.value = "This field is required"
+        }
+        if (gdprAgreement.state.value.isNullOrEmpty()) {
+            gdprAgreement.error.value = "This field is required"
+        }
+        if (termsAccepted.state.value == false) {
+            termsAccepted.error.value = "This field is required"
         }
         return isValid
     }

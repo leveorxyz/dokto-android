@@ -131,4 +131,9 @@
     <string name="underage_prompt">Date of birth is under 18 years</string>
     <string name="hint_parent_name">Parent\'s Name</string>
     <string name="label_parent_name">Parent\'s Name</string>
+    <string name="accept_all_insurances">I Accept All Insurances</string>
+    <string name="label_business_agreements">Business Associate Agreement</string>
+    <string name="label_hippa_agreements">HIPAA Agreement</string>
+    <string name="label_gdpr_agreements">GDPR Laws</string>
+    <string name="label_terms_privacy"><![CDATA[Terms & Privacy]]></string>
 </resources>

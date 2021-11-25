@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.forgetpassword.enterotp
+package com.toybeth.docto.ui.features.forgotpassword.enterotp
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.platform.ComposeView

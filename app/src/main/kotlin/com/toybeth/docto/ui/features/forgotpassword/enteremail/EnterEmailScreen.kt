@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.forgetpassword.enterotp
+package com.toybeth.docto.ui.features.forgotpassword.enteremail
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -9,8 +9,11 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,22 +26,21 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import com.orhanobut.logger.Logger
 import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.uiutils.AnimState
 import com.toybeth.docto.base.ui.uiutils.getEnterAnimation
 import com.toybeth.docto.base.ui.uiutils.getExitAnimation
+import com.toybeth.docto.ui.features.login.components.DoktoTextField
 import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 import com.toybeth.docto.base.theme.TextColorWhite
 
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
 @Composable
-fun EnterOtpScreen(
-    viewModel: ForgetPasswordEnterOtpViewModel
-) {
+fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
+
     val screenAnimState = viewModel.screenAnimState.observeAsState()
-    var otp = remember { "" }
+    var email by rememberSaveable { mutableStateOf("") }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -69,10 +71,10 @@ fun EnterOtpScreen(
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_email),
+                            painter = painterResource(id = R.drawable.ic_lock),
                             contentDescription = null,
                             modifier = Modifier
-                                .width(150.dp)
+                                .width(200.dp)
                                 .weight(1f)
                         )
                         Column(
@@ -81,7 +83,7 @@ fun EnterOtpScreen(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = stringResource(id = R.string.forget_password),
+                                text = stringResource(id = R.string.forgot_password),
                                 color = DoktoPrimaryVariant,
                                 fontWeight = FontWeight.W700,
                                 fontSize = TextUnit(24f, TextUnitType.Sp)
@@ -104,10 +106,12 @@ fun EnterOtpScreen(
                                 verticalArrangement = Arrangement.SpaceEvenly
                             ) {
                                 Spacer(modifier = Modifier.height(14.dp))
-                                OtpField {
-                                    Logger.d(it)
-                                    otp = it
-                                }
+                                DoktoTextField(
+                                    value = email,
+                                    label = stringResource(id = R.string.enter_your_mail),
+                                    error = "",
+                                    onValueChange = { email = it },
+                                )
                                 Spacer(modifier = Modifier.height(64.dp))
                             }
                         }
@@ -117,7 +121,9 @@ fun EnterOtpScreen(
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {
+                                    viewModel.sendOtp("")
+                                },
                                 shape = RoundedCornerShape(24.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     backgroundColor = DoktoPrimaryVariant

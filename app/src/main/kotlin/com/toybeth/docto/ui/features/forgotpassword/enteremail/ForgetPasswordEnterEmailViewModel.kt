@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.forgetpassword.enteremail
+package com.toybeth.docto.ui.features.forgotpassword.enteremail
 
 import com.toybeth.docto.base.ui.BaseViewModel
 import com.toybeth.docto.base.utils.SingleLiveEvent

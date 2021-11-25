@@ -1,4 +1,4 @@
-package com.toybeth.docto.ui.features.forgetpassword.enteremail
+package com.toybeth.docto.ui.features.forgotpassword.enteremail
 
 import android.os.Bundle
 import android.view.View

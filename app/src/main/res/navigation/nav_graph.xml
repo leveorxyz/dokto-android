@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterEmailFragment"
-        android:name="com.toybeth.docto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
+        android:name="com.toybeth.docto.ui.features.forgotpassword.enteremail.ForgetPasswordEnterEmailFragment"
         android:label="ForgetPasswordEnterEmailFragment">
 
         <action
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterOtpFragment"
-        android:name="com.toybeth.docto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
+        android:name="com.toybeth.docto.ui.features.forgotpassword.enterotp.ForgetPasswordEnterOtpFragment"
         android:label="ForgetPasswordEnterOtpFragment" />
 
     <fragment

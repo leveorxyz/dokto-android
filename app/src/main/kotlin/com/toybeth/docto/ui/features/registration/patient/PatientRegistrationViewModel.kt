@@ -66,6 +66,7 @@ class PatientRegistrationViewModel @Inject constructor(
     val selectedCountry = Property<Country?>()
 
     val moveNext = SingleLiveEvent<Boolean>()
+    val registrationSuccess = SingleLiveEvent<Boolean>()
 
     init {
         loadCountryList()
@@ -250,7 +251,7 @@ class PatientRegistrationViewModel @Inject constructor(
     fun registerPatient() {
         loader.postValue(true)
         viewModelScope.launchIOWithExceptionHandler({
-            repository.registerPatient(
+            registrationSuccess.value = repository.registerPatient(
                 fullName = firstName.state.value!! + " " + lastName.state.value!!,
                 phoneCode = selectedCountry.state.value!!.phone,
                 contactNo = mobileNumber.state.value!!,

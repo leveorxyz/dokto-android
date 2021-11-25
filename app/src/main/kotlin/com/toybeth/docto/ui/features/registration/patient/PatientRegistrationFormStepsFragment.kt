@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalUnitApi
 @ExperimentalMaterialApi
 @AndroidEntryPoint
-class PatientRegistrationFormStepsFragment  :
+class PatientRegistrationFormStepsFragment :
     BaseViewBindingFragment<PatientRegistrationViewModel, FragmentRegistrationFormBinding>() {
 
     override val viewModel: PatientRegistrationViewModel by viewModels()
@@ -34,8 +35,13 @@ class PatientRegistrationFormStepsFragment  :
         binding.tvTitle.text = getString(R.string.title_patient_registration)
         val pageTitles =
             resources.getStringArray(R.array.patient_registration_form_page_titles).toList()
-        binding.registrationStepper.setAdapter(PatientRegistrationFormStepsAdapter(pageTitles, this))
-        binding.registrationStepper.setListener(object: StepperLayout.StepperListener {
+        binding.registrationStepper.setAdapter(
+            PatientRegistrationFormStepsAdapter(
+                pageTitles,
+                this
+            )
+        )
+        binding.registrationStepper.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
                 viewModel.registerPatient()
             }
@@ -55,6 +61,16 @@ class PatientRegistrationFormStepsFragment  :
 
         viewModel.moveNext.observeOn(viewLifecycleOwner) {
             binding.registrationStepper.proceed()
+        }
+
+        viewModel.registrationSuccess.observeOn(viewLifecycleOwner) {
+            if (it == true) {
+                Toast.makeText(
+                    requireContext(),
+                    "Registration Successful",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 

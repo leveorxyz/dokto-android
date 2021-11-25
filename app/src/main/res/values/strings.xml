@@ -125,4 +125,5 @@
     <string name="hint_phone_or_email">Phone or Email</string>
     <string name="label_phone_or_email">Phone or Email</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="identification_verification">Identification Verification</string>
 </resources>

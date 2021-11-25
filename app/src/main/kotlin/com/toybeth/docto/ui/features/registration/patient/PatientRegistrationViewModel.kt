@@ -63,7 +63,7 @@ class PatientRegistrationViewModel @Inject constructor(
     val showInsuranceDetailsForm = mutableStateOf(false)
     var insuranceTypes = listOf<String>()
 
-    private val selectedCountry = Property<Country?>()
+    val selectedCountry = Property<Country?>()
 
     val moveNext = SingleLiveEvent<Boolean>()
 
@@ -174,52 +174,58 @@ class PatientRegistrationViewModel @Inject constructor(
             dateOfBirth.error.value = "This field is required"
         }
 
-        return isVerified
+        return true
     }
 
     fun verifySecondPage(): Boolean {
         var isValid = true
+
         if (identityVerificationType.state.value.isNullOrEmpty()) {
             isValid = false
             identityVerificationType.error.value = "This field is required"
         }
+
         if (identityVerificationNumber.state.value.isNullOrEmpty()) {
             isValid = false
             identityVerificationNumber.error.value = "This field is required"
         }
+
         if (identityVerificationImageUri.state.value == null) {
             isValid = false
             identityVerificationImageUri.error.value = "Select identity verification image"
         }
-        if (socialSecurityNumber.state.value.isNullOrEmpty()) {
-            isValid = false
-            socialSecurityNumber.error.value = "This field is required"
-        }
+
         if (address.state.value.isNullOrEmpty()) {
             isValid = false
             address.error.value = "This field is required"
         }
-        if (stateName.state.value.isNullOrEmpty()) {
+
+        if (!stateList.value.isNullOrEmpty() && stateName.state.value.isNullOrEmpty()) {
             isValid = false
             stateName.error.value = "This field is required"
         }
+
         if (!cityList.value.isNullOrEmpty() && cityName.state.value.isNullOrEmpty()) {
             isValid = false
             cityName.error.value = "This field is required"
         }
+
         if (zipCode.state.value.isNullOrEmpty()) {
             isValid = false
             zipCode.error.value = "This field is required"
         }
+
         return isValid
     }
 
     fun verifyThirdPage(): Boolean {
         var isValid = true
+
         if (insuranceType.state.value.isNullOrEmpty()) {
             isValid = false
             insuranceType.error.value = "This field is required"
         }
+
         if (showInsuranceDetailsForm.value) {
             if (insuranceName.state.value.isNullOrEmpty()) {
                 isValid = false
@@ -245,29 +251,29 @@ class PatientRegistrationViewModel @Inject constructor(
         loader.postValue(true)
         viewModelScope.launchIOWithExceptionHandler({
             repository.registerPatient(
-                firstName.state.value!! + " " + lastName.state.value!!,
-                "", // selectedCountry.state.value!!.phone,
-                mobileNumber.state.value!!,
-                email.state.value!!,
-                password.state.value!!,
-                gender.state.value!!,
-                dateOfBirth.state.value!!,
-                imageUri.value!!,
-                identityVerificationType.state.value!!,
-                identityVerificationNumber.state.value!!,
-                identityVerificationImageUri.state.value!!,
-                address.state.value!!,
-                socialSecurityNumber.state.value!!,
-                stateName.state.value!!,
-                cityName.state.value!!,
-                zipCode.state.value!!,
-                referringDoctorAddress.state.value,
-                referringDoctorName.state.value,
-                referringDoctorPhoneNumber.state.value,
-                insuranceType.state.value!!,
-                insuranceName.state.value,
-                insuranceNumber.state.value,
-                insurancePolicyHolderName.state.value
+                fullName = firstName.state.value!! + " " + lastName.state.value!!,
+                phoneCode = selectedCountry.state.value!!.phone,
+                contactNo = mobileNumber.state.value!!,
+                email = email.state.value!!,
+                password = password.state.value!!,
+                gender = gender.state.value!!,
+                dateOfBirth = dateOfBirth.state.value!!,
+                profilePhotoUri = imageUri.value!!,
+                identificationType = identityVerificationType.state.value!!,
+                identificationNumber = identityVerificationNumber.state.value!!,
+                identificationPhotoUri = identityVerificationImageUri.state.value!!,
+                street = address.state.value!!,
+                socialSecurityNumber = socialSecurityNumber.state.value,
+                state = stateName.state.value,
+                city = cityName.state.value,
+                zipCode = zipCode.state.value!!,
+                referringDoctorAddress = referringDoctorAddress.state.value,
+                referringDoctorFullName = referringDoctorName.state.value,
+                referringDoctorPhoneNumber = referringDoctorPhoneNumber.state.value,
+                insuranceType = insuranceType.state.value!!,
+                insuranceName = insuranceName.state.value,
+                insuranceNumber = insuranceNumber.state.value,
+                insurancePolicyHolderName = insurancePolicyHolderName.state.value
             )
             loader.postValue(false)
         }, {

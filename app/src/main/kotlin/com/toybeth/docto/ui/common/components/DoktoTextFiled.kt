@@ -1,5 +1,6 @@
 package com.toybeth.docto.ui.common.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -55,7 +56,11 @@ fun DoktoTextFiled(
 
         // ------------------- TEXT FIELD -------------------- //
         OutlinedTextField(
-            value = if (keyboardOptions.keyboardType == KeyboardType.Number) textFieldValue.filter { it.isDigit() } else textFieldValue,
+            value = if (keyboardOptions.keyboardType == KeyboardType.Number) {
+                textFieldValue.filter { it.isDigit() }
+            } else {
+                textFieldValue
+            },
             onValueChange = { onValueChange(it) },
             placeholder = { Text(stringResource(id = hintResourceId)) },
             enabled = onClick == null,
@@ -81,13 +86,15 @@ fun DoktoTextFiled(
         )
 
         // ---------------------- ERROR MESSAGE ------------------- //
-        errorMessage?.let {
-            Text(
-                text = it,
-                color = DoktoError,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(start = 15.dp, top = 3.dp)
-            )
+        AnimatedVisibility(visible = errorMessage!= null) {
+            errorMessage?.let {
+                Text(
+                    text = it,
+                    color = DoktoError,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                )
+            }
         }
     }
 }

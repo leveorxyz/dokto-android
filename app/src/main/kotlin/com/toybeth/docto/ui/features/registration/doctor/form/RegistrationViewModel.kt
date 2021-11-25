@@ -40,6 +40,9 @@ class RegistrationViewModel @Inject constructor(
     val gender = Property<String>()
     val dateOfBirth = Property<String>()
 
+    val underAgeDoctorChecked = Property<Boolean>()
+    val parentName = Property<String>()
+
     val moveNext = SingleLiveEvent<Boolean>()
 
     // ... Second Screen
@@ -55,6 +58,8 @@ class RegistrationViewModel @Inject constructor(
     val countryList = MutableLiveData<List<Country>>()
     val stateList = MutableLiveData<List<State>>()
     val cityList = MutableLiveData<List<City>>()
+
+    val isDoctorUnderAge = mutableStateOf(false)
 
     // ... Third Screen
     val selectedLanguages = Property(
@@ -100,6 +105,13 @@ class RegistrationViewModel @Inject constructor(
     fun setDateOfBirth(timeInMillis: Long) {
         val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         dateOfBirth.state.value = formatter.format(Date(timeInMillis))
+        checkDoctorAge(timeInMillis)
+    }
+
+    private fun checkDoctorAge(birthDayMillis: Long) {
+        val currentTimeMillis = System.currentTimeMillis()
+        val age = ((currentTimeMillis - birthDayMillis) / 31_536e6).toInt()
+        isDoctorUnderAge.value = age < 18
     }
 
     fun setCountry(country: Country) {
@@ -216,6 +228,16 @@ class RegistrationViewModel @Inject constructor(
 
         if (dateOfBirth.state.value.isNullOrEmpty()) {
             dateOfBirth.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (isDoctorUnderAge.value && underAgeDoctorChecked.state.value != true) {
+            underAgeDoctorChecked.error.value = "This field is required"
+            isValid = false
+        }
+
+        if (isDoctorUnderAge.value && parentName.state.value.isNullOrEmpty()) {
+            parentName.error.value = "This field is required"
             isValid = false
         }
 

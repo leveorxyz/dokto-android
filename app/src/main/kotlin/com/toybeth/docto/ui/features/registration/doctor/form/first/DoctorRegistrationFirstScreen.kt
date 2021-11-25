@@ -16,16 +16,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.ManageSearch
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -39,8 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoError
-import com.toybeth.docto.base.theme.DoktoSecondary
 import com.toybeth.docto.ui.common.components.DoktoButton
+import com.toybeth.docto.ui.common.components.DoktoCheckBox
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
@@ -61,7 +58,7 @@ fun DoctorRegistrationFirstScreen(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         viewModel.profileImageUri.state.value = uri
-        viewModel.profileImageUri.state.value ?.let {
+        viewModel.profileImageUri.state.value?.let {
             viewModel.profileImageUri.error.value = null
             if (Build.VERSION.SDK_INT < 28) {
                 viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
@@ -221,7 +218,8 @@ fun DoctorRegistrationFirstScreen(
 
         // -------------------------- EMAIL ------------------------ //
 
-        DoktoTextFiled(textFieldValue = viewModel.email.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.email.state.value ?: "",
             hintResourceId = R.string.hint_email,
             labelResourceId = R.string.label_email,
             errorMessage = viewModel.email.error.value,
@@ -238,7 +236,8 @@ fun DoctorRegistrationFirstScreen(
 
         // ------------------------ PASSWORD --------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.password.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.password.state.value ?: "",
             hintResourceId = R.string.hint_password,
             labelResourceId = R.string.label_password,
             visualTransformation = PasswordVisualTransformation(),
@@ -256,7 +255,8 @@ fun DoctorRegistrationFirstScreen(
 
         // --------------------- CONFIRM PASSWORD ---------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.confirmPassword.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.confirmPassword.state.value ?: "",
             hintResourceId = R.string.hint_confirm_password,
             labelResourceId = R.string.label_confirm_password,
             visualTransformation = PasswordVisualTransformation(),
@@ -310,6 +310,42 @@ fun DoctorRegistrationFirstScreen(
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
+
+        // -------------------------- UNDER-AGE DOCTOR --------------------------- //
+
+        AnimatedVisibility(visible = viewModel.isDoctorUnderAge.value) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    modifier = Modifier.align(Alignment.Start),
+                    text = stringResource(R.string.underage_prompt),
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+                DoktoCheckBox(
+                    checkedState = viewModel.underAgeDoctorChecked.state.value ?: false,
+                    textResourceId = R.string.doctor_age_confirmation,
+                    errorMessage = viewModel.underAgeDoctorChecked.error.value,
+                    onCheckedChange = {
+                        viewModel.underAgeDoctorChecked.state.value = it
+                        viewModel.underAgeDoctorChecked.error.value = null
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                DoktoTextFiled(
+                    textFieldValue = viewModel.parentName.state.value ?: "",
+                    labelResourceId = R.string.label_parent_name,
+                    hintResourceId = R.string.hint_empty,
+                    errorMessage = viewModel.parentName.error.value,
+                    onValueChange = {
+                        viewModel.parentName.state.value = it
+                        viewModel.parentName.error.value = null
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.dp))
+            }
+        }
 
         // ------------------------ NEXT BUTTON -------------------- //
 

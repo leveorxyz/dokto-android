@@ -56,8 +56,12 @@ fun LoginForm(
             },
             errorMessage = viewModel.userNameOrPhone.error.value,
             onValueChange = {
-                viewModel.userNameOrPhone.state.value = it
-                viewModel.userNameOrPhone.error.value = null
+                if (it.length > 254) {
+                    viewModel.userNameOrPhone.error.value = "Max character reached"
+                } else {
+                    viewModel.userNameOrPhone.state.value = it
+                    viewModel.userNameOrPhone.error.value = null
+                }
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,

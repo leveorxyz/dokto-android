@@ -5,15 +5,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +30,7 @@ fun DoktoTextFiled(
     textFieldValue: String,
     hintResourceId: Int,
     labelResourceId: Int? = null,
+    isPasswordField: Boolean = false,
     onValueChange: (String) -> Unit,
     onClick: (() -> Unit)? = null,
     singleLine: Boolean = true,
@@ -33,9 +38,12 @@ fun DoktoTextFiled(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    errorMessage: String? = null,
+    errorMessage: String? = null
 ) {
     var textFieldModifier = Modifier.fillMaxSize()
+    var passwordVisibility by remember { mutableStateOf(false) }
+    val visibilityIcon =
+        if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
 
     if (onClick != null) {
         textFieldModifier = textFieldModifier.clickable {
@@ -81,14 +89,32 @@ fun DoktoTextFiled(
                 focusedBorderColor = if (errorMessage == null) DoktoSecondary else DoktoError
             ),
             keyboardOptions = keyboardOptions,
-            visualTransformation = visualTransformation,
+            visualTransformation = if (isPasswordField && !passwordVisibility) {
+                PasswordVisualTransformation()
+            } else {
+                visualTransformation
+            },
             shape = RoundedCornerShape(16.dp),
             leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon
+            trailingIcon = if (isPasswordField) {
+                {
+                    IconButton(onClick = {
+                        passwordVisibility = !passwordVisibility
+                    }) {
+                        Icon(
+                            imageVector = visibilityIcon,
+                            contentDescription = "",
+                            tint = Color.DarkGray
+                        )
+                    }
+                }
+            } else {
+                trailingIcon
+            },
         )
 
         // ---------------------- ERROR MESSAGE ------------------- //
-        AnimatedVisibility(visible = errorMessage!= null) {
+        AnimatedVisibility(visible = errorMessage != null) {
             errorMessage?.let {
                 Text(
                     text = it,

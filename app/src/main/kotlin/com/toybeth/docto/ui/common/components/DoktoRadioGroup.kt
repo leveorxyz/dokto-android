@@ -1,8 +1,10 @@
-package com.toybeth.docto.ui.features.registration.doctor.form
+package com.toybeth.docto.ui.common.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -16,25 +18,28 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.base.R
+import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.base.theme.DoktoRegistrationFormTextFieldBackground
 import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 
 @Composable
-fun RadioGroup(
+fun DoktoRadioGroup(
     radioOptions: List<String> = listOf(),
     textColor: Color = Color.White,
+    errorMessage: String? = null,
     onOptionSelected: (value: String) -> Unit
 ) {
     if (radioOptions.isNotEmpty()) {
-        onOptionSelected.invoke(radioOptions[0])
-        val selectedOption = remember { mutableStateOf(radioOptions[0]) }
+        val selectedOption = remember { mutableStateOf("") }
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.Start
         ) {
+            // --------------------------- RADIO BUTTONS ------------------------ //
             radioOptions.forEach { item ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -64,6 +69,17 @@ fun RadioGroup(
                             selectedOption.value = item
                             onOptionSelected(item)
                         }
+                    )
+                }
+            }
+            // ---------------------- ERROR MESSAGE ------------------- //
+            AnimatedVisibility(visible = errorMessage != null) {
+                errorMessage?.let {
+                    Text(
+                        text = it,
+                        color = DoktoError,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 15.dp, top = 3.dp)
                     )
                 }
             }

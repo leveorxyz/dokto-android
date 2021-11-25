@@ -83,7 +83,7 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = stringResource(id = R.string.forget_password),
+                                text = stringResource(id = R.string.forgot_password),
                                 color = DoktoPrimaryVariant,
                                 fontWeight = FontWeight.W700,
                                 fontSize = TextUnit(24f, TextUnitType.Sp)

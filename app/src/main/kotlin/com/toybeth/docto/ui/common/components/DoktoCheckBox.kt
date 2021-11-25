@@ -21,7 +21,8 @@ import com.toybeth.docto.base.theme.DoktoPrimaryVariant
 fun DoktoCheckBox(
     modifier: Modifier = Modifier,
     checkedState: Boolean,
-    textResourceId: Int,
+    textResourceId: Int? = null,
+    textField: @Composable (() -> Unit)? = null,
     errorMessage: String? = null,
     onCheckedChange: (Boolean) -> Unit
 ) {
@@ -45,11 +46,16 @@ fun DoktoCheckBox(
                 onCheckedChange = { onCheckedChange(it) }
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = stringResource(id = textResourceId),
-                color = Color.LightGray,
-                fontSize = 14.sp
-            )
+            if (textResourceId != null) {
+                Text(
+                    text = stringResource(id = textResourceId),
+                    color = Color.LightGray,
+                    fontSize = 14.sp
+                )
+            }
+            if (textField != null) {
+                textField()
+            }
         }
 
         // ---------------------- ERROR MESSAGE ------------------- //

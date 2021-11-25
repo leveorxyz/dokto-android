@@ -31,6 +31,7 @@ fun DoktoTextFiled(
     singleLine: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     errorMessage: String? = null,
 ) {
@@ -82,6 +83,7 @@ fun DoktoTextFiled(
             keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,
             shape = RoundedCornerShape(16.dp),
+            leadingIcon = leadingIcon,
             trailingIcon = trailingIcon
         )
 

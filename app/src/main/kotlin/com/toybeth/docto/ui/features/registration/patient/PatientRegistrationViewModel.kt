@@ -42,7 +42,7 @@ class PatientRegistrationViewModel @Inject constructor(
     val gender = Property<String>()
     val dateOfBirth = Property<String>()
 
-    // Second Screen
+    // ... Second Screen
     val identityVerificationType = Property<String>()
     val identityVerificationNumber = Property<String>()
     val socialSecurityNumber = Property<String>()
@@ -52,7 +52,7 @@ class PatientRegistrationViewModel @Inject constructor(
     val cityName = Property<String>()
     val zipCode = Property<String>()
 
-    // Third screen
+    // ... Third screen
     private val insuranceType = Property<String>()
     val referringDoctorAddress = Property<String>()
     val referringDoctorName = Property<String>()

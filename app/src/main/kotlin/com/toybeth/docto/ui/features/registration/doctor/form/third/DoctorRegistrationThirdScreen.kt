@@ -83,6 +83,7 @@ fun DoctorRegistrationThirdScreen(
                             } else {
                                 viewModel.selectedLanguages.state.value?.add(language)
                             }
+                            viewModel.selectedLanguages.error.value = null
                         }
                 ) {
                     Checkbox(
@@ -93,6 +94,7 @@ fun DoctorRegistrationThirdScreen(
                             } else {
                                 viewModel.selectedLanguages.state.value?.remove(language)
                             }
+                            viewModel.selectedLanguages.error.value = null
                         },
                         colors = CheckboxDefaults.colors(
                             checkedColor = DoktoPrimaryVariant,

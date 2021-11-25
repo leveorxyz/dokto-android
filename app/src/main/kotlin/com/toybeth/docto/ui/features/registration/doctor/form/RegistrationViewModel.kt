@@ -87,6 +87,8 @@ class RegistrationViewModel @Inject constructor(
     val gdprAgreement = Property<String>()
     val termsAccepted = Property(mutableStateOf(false))
 
+    val registrationSuccess = SingleLiveEvent<Boolean>()
+
     init {
         loadCountryList()
     }
@@ -387,7 +389,7 @@ class RegistrationViewModel @Inject constructor(
     fun registerDoctor() {
         loader.postValue(true)
         viewModelScope.launchIOWithExceptionHandler({
-            repository.registerDoctor(
+            val result = repository.registerDoctor(
                 // userId = userId.state.value!!,
                 fullName = name.state.value!!,
                 country = country.state.value!!.name,
@@ -414,6 +416,7 @@ class RegistrationViewModel @Inject constructor(
                 awards = doctorAwards.state.value,
                 acceptedInsurances = doctorInsurances.state.value!!
             )
+            registrationSuccess.postValue(result)
             loader.postValue(false)
         }, {
             loader.postValue(false)

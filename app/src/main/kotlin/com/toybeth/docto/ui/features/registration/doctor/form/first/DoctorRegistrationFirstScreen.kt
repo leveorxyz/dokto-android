@@ -19,8 +19,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.ManageSearch
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,11 +39,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoError
+import com.toybeth.docto.base.theme.DoktoSecondary
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
 import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
-import com.toybeth.docto.base.theme.DoktoSecondary
 
 @ExperimentalMaterialApi
 @Composable
@@ -54,6 +55,7 @@ fun DoctorRegistrationFirstScreen(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val genderOptions = context.resources.getStringArray(R.array.gender).toList()
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -279,11 +281,7 @@ fun DoctorRegistrationFirstScreen(
             )
         }
         RadioGroup(
-            radioOptions = listOf(
-                context.getString(R.string.male),
-                context.getString(R.string.female),
-                context.getString(R.string.prefer_not_to_say),
-            ),
+            radioOptions = genderOptions,
         ) {
             viewModel.gender.state.value = it
         }

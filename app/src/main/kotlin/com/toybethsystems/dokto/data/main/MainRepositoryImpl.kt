@@ -12,7 +12,7 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun isUserLoggedIn(): Boolean {
-        return preference.user.token.isEmpty()
+        return !preference.user?.token.isNullOrEmpty()
     }
 
     override fun onBoardingPassed() {

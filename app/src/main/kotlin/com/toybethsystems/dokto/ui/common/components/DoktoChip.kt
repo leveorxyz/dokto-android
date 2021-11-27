@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybethsystems.dokto.base.theme.DoktoRegistrationFormTextFieldBackground
 
 @Composable
@@ -31,7 +32,12 @@ fun DoktoChip(
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = text, color = Color.White, modifier = Modifier.padding(start = 16.dp))
+        Text(
+            text = text,
+            color = Color.White,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 16.dp)
+        )
         onDelete?.let {
             IconButton(onClick = { it.invoke() }) {
                 Icon(

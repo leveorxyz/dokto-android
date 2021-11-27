@@ -1,4 +1,4 @@
-package com.toybethsystems.dokto.ui.features.forgetpassword.enteremail
+package com.toybethsystems.dokto.ui.features.forgotpassword.enteremail
 
 import android.os.Bundle
 import android.view.View
@@ -14,9 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
 @AndroidEntryPoint
-class ForgetPasswordEnterEmailFragment : BaseFragment<ForgetPasswordEnterEmailViewModel>() {
+class ForgotPasswordEnterEmailFragment : BaseFragment<ForgotPasswordEnterEmailViewModel>() {
 
-    override val viewModel: ForgetPasswordEnterEmailViewModel by viewModels()
+    override val viewModel: ForgotPasswordEnterEmailViewModel by viewModels()
 
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
@@ -42,7 +42,7 @@ class ForgetPasswordEnterEmailFragment : BaseFragment<ForgetPasswordEnterEmailVi
 
     private fun navigateToEnterOtpScreen() {
         findNavController().navigate(
-            ForgetPasswordEnterEmailFragmentDirections.actionForgetPasswordEnterEmailFragmentToForgetPasswordEnterOtpFragment()
+            ForgotPasswordEnterEmailFragmentDirections.actionForgetPasswordEnterEmailFragmentToForgetPasswordEnterOtpFragment()
         )
     }
 }

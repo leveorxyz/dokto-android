@@ -12,14 +12,13 @@ import com.toybethsystems.dokto.base.utils.extensions.launchIOWithExceptionHandl
 import com.toybethsystems.dokto.data.Country
 import com.toybethsystems.dokto.data.Property
 import com.toybethsystems.dokto.data.registration.RegistrationRepository
-import com.toybethsystems.dokto.ui.features.registration.doctor.form.RegistrationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ClinicRegistrationViewModel @Inject constructor(
     private val repository: RegistrationRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
     companion object {
         private const val USER_TYPE = "clinic"
@@ -42,15 +41,15 @@ class ClinicRegistrationViewModel @Inject constructor(
     val moveNext = SingleLiveEvent<Boolean>()
 
     init {
-        loadCountryStateAndCities()
+        loadCountryList()
     }
 
     fun checkIfUserNameAvailable() {
-        if(!userId.state.value.isNullOrEmpty()) {
+        if (!userId.state.value.isNullOrEmpty()) {
 
             viewModelScope.launchIOWithExceptionHandler({
                 val isUserExists = repository.checkIfUserNameExists(USER_TYPE, userId.state.value!!)
-                if(isUserExists) {
+                if (isUserExists) {
                     userId.error.value = "Username not available"
                 } else {
                     userId.error.value = null
@@ -65,9 +64,14 @@ class ClinicRegistrationViewModel @Inject constructor(
         this.country.state.value = country
     }
 
-    fun getSelectedCountryCode(): String {
+    fun getSelectedCountryPhoneCode(): String {
         return if (country.state.value != null) {
-            country.state.value!!.phone
+            val phoneCode = country.state.value!!.phone
+            return if (phoneCode.startsWith("+")) {
+                phoneCode
+            } else {
+                "+$phoneCode"
+            }
         } else {
             ""
         }
@@ -136,13 +140,12 @@ class ClinicRegistrationViewModel @Inject constructor(
 
     }
 
-    private fun loadCountryStateAndCities() {
+    private fun loadCountryList() {
         viewModelScope.launchIOWithExceptionHandler({
-            val countries = repository.getCountryStateCityList()
+            val countries = repository.getCountryList()
             countryList.postValue(countries)
         }, {
             it.printStackTrace()
         })
     }
-
 }

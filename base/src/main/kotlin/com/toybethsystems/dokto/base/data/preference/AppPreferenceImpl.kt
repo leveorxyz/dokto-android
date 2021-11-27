@@ -21,7 +21,7 @@ class AppPreferenceImpl @Inject constructor(@ApplicationContext context: Context
         context.getSharedPreferences(context.getString(R.string.pref_name), MODE_PRIVATE)
     private var editor = preference.edit()
 
-    override var user: DoktoUser
+    override var user: DoktoUser?
         get() = getObject(USER, DoktoUser::class.java)
         set(value) {
             saveObject(USER, value)
@@ -73,13 +73,13 @@ class AppPreferenceImpl @Inject constructor(@ApplicationContext context: Context
         return preference.getLong(key, defaultValue)
     }
 
-    private fun saveObject(key: String, value: Any) {
+    private fun saveObject(key: String, value: Any?) {
         val valueString = Gson().toJson(value)
         saveString(key, valueString)
     }
 
-    private fun <T> getObject(key: String, clazz: Class<T>): T {
-        return Gson().fromJson<T>(preference.getString(key, "{}"), clazz)
+    private fun <T> getObject(key: String, clazz: Class<T>): T? {
+        return Gson().fromJson(preference.getString(key, null), clazz)
     }
 
 }

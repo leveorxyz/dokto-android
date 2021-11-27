@@ -18,7 +18,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybethsystems.dokto.R
+import com.toybethsystems.dokto.base.theme.DoktoSecondary
 import com.toybethsystems.dokto.ui.common.components.DoktoButton
 import com.toybethsystems.dokto.ui.common.components.DoktoDropDownMenu
 import com.toybethsystems.dokto.ui.common.components.DoktoImageUpload
@@ -28,7 +30,6 @@ import com.toybethsystems.dokto.ui.features.registration.doctor.form.Registratio
 @Composable
 fun DoctorRegistrationSecondScreen(
     viewModel: RegistrationViewModel,
-    showCountrySelectionDialog: () -> Unit,
     showStateSelectionDialog: () -> Unit,
     showCitySelectionDialog: () -> Unit,
 ) {
@@ -51,6 +52,21 @@ fun DoctorRegistrationSecondScreen(
     ) {
 
         Spacer(modifier = Modifier.height(30.dp))
+
+        // ------------------------ IDENTIFICATION VERIFICATION -------------------- //
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                stringResource(id = R.string.identification_verification),
+                modifier = Modifier,
+                color = DoktoSecondary,
+                fontSize = 24.sp
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
 
         // ------------------------ IDENTIFICATION TYPE -------------------- //
 
@@ -105,6 +121,21 @@ fun DoctorRegistrationSecondScreen(
         
         Spacer(modifier = Modifier.height(30.dp))
 
+        // ----------------------------------- ADDRESS ---------------------------------- //
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                stringResource(id = R.string.label_address),
+                modifier = Modifier,
+                color = DoktoSecondary,
+                fontSize = 24.sp
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
         // ----------------------- STREET ADDRESS ---------------------- //
 
         DoktoTextFiled(
@@ -126,18 +157,8 @@ fun DoctorRegistrationSecondScreen(
             labelResourceId = R.string.label_country,
             hintResourceId = R.string.select,
             errorMessage = viewModel.selectedCountryName.error.value,
-            onValueChange = {
-                viewModel.selectedCountryName.state.value = it
-                viewModel.selectedCountryName.error.value = null
-            },
-            onClick = { showCountrySelectionDialog.invoke() },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = stringResource(id = R.string.select),
-                    tint = Color.Black
-                )
-            }
+            onValueChange = {  },
+            onClick = {  }
         )
         Spacer(modifier = Modifier.height(30.dp))
 

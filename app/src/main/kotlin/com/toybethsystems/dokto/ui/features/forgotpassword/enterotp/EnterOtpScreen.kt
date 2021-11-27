@@ -1,4 +1,4 @@
-package com.toybethsystems.dokto.ui.features.forgetpassword.enteremail
+package com.toybethsystems.dokto.ui.features.forgotpassword.enterotp
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -9,11 +9,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,21 +23,22 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import com.orhanobut.logger.Logger
 import com.toybethsystems.dokto.R
 import com.toybethsystems.dokto.base.ui.uiutils.AnimState
 import com.toybethsystems.dokto.base.ui.uiutils.getEnterAnimation
 import com.toybethsystems.dokto.base.ui.uiutils.getExitAnimation
-import com.toybethsystems.dokto.ui.features.login.components.DoktoTextField
 import com.toybethsystems.dokto.base.theme.DoktoPrimaryVariant
 import com.toybethsystems.dokto.base.theme.TextColorWhite
 
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
 @Composable
-fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
-
+fun EnterOtpScreen(
+    viewModel: ForgotPasswordEnterOtpViewModel
+) {
     val screenAnimState = viewModel.screenAnimState.observeAsState()
-    var email by rememberSaveable { mutableStateOf("") }
+    var otp = remember { "" }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -71,10 +69,10 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_lock),
+                            painter = painterResource(id = R.drawable.ic_email),
                             contentDescription = null,
                             modifier = Modifier
-                                .width(200.dp)
+                                .width(150.dp)
                                 .weight(1f)
                         )
                         Column(
@@ -106,11 +104,10 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                                 verticalArrangement = Arrangement.SpaceEvenly
                             ) {
                                 Spacer(modifier = Modifier.height(14.dp))
-                                DoktoTextField(
-                                    value = email,
-                                    label = stringResource(id = R.string.enter_your_mail),
-                                    onValueChange = { email = it },
-                                )
+                                OtpField {
+                                    Logger.d(it)
+                                    otp = it
+                                }
                                 Spacer(modifier = Modifier.height(64.dp))
                             }
                         }
@@ -120,9 +117,7 @@ fun EnterEmailScreen(viewModel: ForgetPasswordEnterEmailViewModel) {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Button(
-                                onClick = {
-                                    viewModel.sendOtp("")
-                                },
+                                onClick = { /*TODO*/ },
                                 shape = RoundedCornerShape(24.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     backgroundColor = DoktoPrimaryVariant

@@ -1,9 +1,9 @@
-package com.toybethsystems.dokto.ui.features.forgetpassword
+package com.toybethsystems.dokto.ui.features.forgotpassword
 
 import com.toybethsystems.dokto.base.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgetPasswordViewModel @Inject constructor(): BaseViewModel() {
+class ForgotPasswordViewModel @Inject constructor(): BaseViewModel() {
 }

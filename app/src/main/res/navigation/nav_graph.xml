@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterEmailFragment"
-        android:name="com.toybethsystems.dokto.ui.features.forgetpassword.enteremail.ForgetPasswordEnterEmailFragment"
+        android:name="com.toybethsystems.dokto.ui.features.forgotpassword.enteremail.ForgotPasswordEnterEmailFragment"
         android:label="ForgetPasswordEnterEmailFragment">
 
         <action
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordEnterOtpFragment"
-        android:name="com.toybethsystems.dokto.ui.features.forgetpassword.enterotp.ForgetPasswordEnterOtpFragment"
+        android:name="com.toybethsystems.dokto.ui.features.forgotpassword.enterotp.ForgotPasswordEnterOtpFragment"
         android:label="ForgetPasswordEnterOtpFragment" />
 
     <fragment
@@ -123,16 +123,36 @@
     <fragment
         android:id="@+id/doctorRegistrationFormStepsFragment"
         android:name="com.toybethsystems.dokto.ui.features.registration.doctor.form.DoctorRegistrationFormStepsFragment"
-        android:label="DoctorRegistrationFormStepsFragment" />
+        android:label="DoctorRegistrationFormStepsFragment" >
+        <action
+            android:id="@+id/action_doctorRegistrationFormStepsFragment_to_registrationCompleteFragment"
+            app:destination="@id/registrationCompleteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/patientRegistrationFormStepsFragment"
         android:name="com.toybethsystems.dokto.ui.features.registration.patient.PatientRegistrationFormStepsFragment"
-        android:label="PatientRegistrationFormStepsFragment" />
+        android:label="PatientRegistrationFormStepsFragment" >
+        <action
+            android:id="@+id/action_patientRegistrationFormStepsFragment_to_registrationCompleteFragment"
+            app:destination="@id/registrationCompleteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/clinicRegistrationFormStepsFragment"
         android:name="com.toybethsystems.dokto.ui.features.registration.clinic.ClinicRegistrationFormStepsFragment"
-        android:label="ClinicRegistrationFormStepsFragment" />
+        android:label="ClinicRegistrationFormStepsFragment" >
+        <action
+            android:id="@+id/action_clinicRegistrationFormStepsFragment_to_registrationCompleteFragment"
+            app:destination="@id/registrationCompleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationCompleteFragment"
+        android:name="com.toybethsystems.dokto.ui.features.registration.complete.RegistrationCompleteFragment"
+        android:label="RegistrationCompleteFragment" >
+        <action
+            android:id="@+id/action_registrationCompleteFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

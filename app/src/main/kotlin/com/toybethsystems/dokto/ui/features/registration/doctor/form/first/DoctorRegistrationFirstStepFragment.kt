@@ -48,7 +48,7 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
     }
 
     override fun verifyStep(): VerificationError? {
-        return if(viewModel.verifyDoctorRegistrationFirstStep()) {
+        return if (viewModel.verifyDoctorRegistrationFirstStep()) {
             null
         } else {
             VerificationError("Fill-up all fields")
@@ -64,13 +64,15 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
     }
 
     private fun showCountrySelectionDialog() {
-        viewModel.countryList.observe(viewLifecycleOwner, object: Observer<List<Country>> {
+        viewModel.countryList.observe(viewLifecycleOwner, object : Observer<List<Country>> {
             override fun onChanged(countries: List<Country>) {
                 viewModel.countryList.removeObserver(this)
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(resources.getString(R.string.select_state))
-                    .setItems(countries.map { it.name }.toTypedArray()) { _, which ->
+                    .setItems(countries.map { "${it.name} (${it.phone})" }
+                        .toTypedArray()) { _, which ->
                         viewModel.setCountry(countries[which])
+                        viewModel.country.error.value = null
                     }
                     .show()
             }
@@ -97,6 +99,7 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
             .build()
         datePicker?.addOnPositiveButtonClickListener {
             viewModel.setDateOfBirth(it)
+            viewModel.dateOfBirth.error.value = null
         }
         datePicker?.show(childFragmentManager.beginTransaction(), "date picker")
     }

@@ -59,4 +59,10 @@ dependencies {
     api("com.intuit.sdp:sdp-android:1.0.6")
     api("com.intuit.ssp:ssp-android:1.0.6")
 
+
+    // firebase
+    api(platform("com.google.firebase:firebase-bom:29.0.0"))
+    api("com.google.firebase:firebase-analytics-ktx")
+    api("com.google.firebase:firebase-crashlytics-ktx")
+    api("com.google.firebase:firebase-analytics-ktx")
 }

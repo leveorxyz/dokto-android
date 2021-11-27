@@ -1,4 +1,4 @@
-package com.toybethsystems.dokto.ui.features.forgetpassword.enterotp
+package com.toybethsystems.dokto.ui.features.forgotpassword.enterotp
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

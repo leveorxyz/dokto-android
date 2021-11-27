@@ -15,13 +15,15 @@ import com.toybethsystems.dokto.base.R
 private val DarkColorPalette = darkColors(
     primary = DoktoPrimary,
     primaryVariant = DoktoPrimaryVariant,
-    secondary = DoktoSecondary
+    secondary = DoktoSecondary,
+    error = DoktoError
 )
 
 private val LightColorPalette = lightColors(
     primary = DoktoPrimary,
     primaryVariant = DoktoPrimaryVariant,
-    secondary = DoktoSecondary
+    secondary = DoktoSecondary,
+    error = DoktoError
 
     /* Other default colors to override
     background = Color.White,

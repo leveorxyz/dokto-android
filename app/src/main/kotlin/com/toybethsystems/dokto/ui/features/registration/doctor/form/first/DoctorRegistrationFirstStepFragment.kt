@@ -72,6 +72,7 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
                     .setItems(countries.map { "${it.name} (${it.phone})" }
                         .toTypedArray()) { _, which ->
                         viewModel.setCountry(countries[which])
+                        viewModel.country.error.value = null
                     }
                     .show()
             }
@@ -98,6 +99,7 @@ class DoctorRegistrationFirstStepFragment : BaseFragment<RegistrationViewModel>(
             .build()
         datePicker?.addOnPositiveButtonClickListener {
             viewModel.setDateOfBirth(it)
+            viewModel.dateOfBirth.error.value = null
         }
         datePicker?.show(childFragmentManager.beginTransaction(), "date picker")
     }

@@ -1,4 +1,4 @@
-package com.toybethsystems.dokto.ui.features.forgetpassword.enterotp
+package com.toybethsystems.dokto.ui.features.forgotpassword.enterotp
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -35,7 +35,7 @@ import com.toybethsystems.dokto.base.theme.TextColorWhite
 @ExperimentalUnitApi
 @Composable
 fun EnterOtpScreen(
-    viewModel: ForgetPasswordEnterOtpViewModel
+    viewModel: ForgotPasswordEnterOtpViewModel
 ) {
     val screenAnimState = viewModel.screenAnimState.observeAsState()
     var otp = remember { "" }

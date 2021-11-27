@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -73,77 +74,82 @@ fun DoktoImageUpload(
         }
     }
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(160.dp)
-            .background(
-                color = DoktoRegistrationFormTextFieldBackground,
-                shape = RoundedCornerShape(16.dp)
-            )
-    ) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            drawRoundRect(
-                color = Color.White,
-                style = stroke,
-                cornerRadius = CornerRadius(
-                    x = cornerRadius,
-                    y = cornerRadius
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(160.dp)
+                .background(
+                    color = DoktoRegistrationFormTextFieldBackground,
+                    shape = RoundedCornerShape(16.dp)
                 )
-            )
-        }
-        if (uploadedImage != null) {
-            Image(
-                bitmap = uploadedImage.asImageBitmap(),
-                contentDescription = "avatar",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .graphicsLayer {
-                        shape = RoundedCornerShape(16.dp)
-                        clip = true
-                    }
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(20.dp),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.Bottom
-            ) {
-                IconButton(
-                    modifier = Modifier
-                        .then(Modifier.size(24.dp))
-                        .clip(CircleShape)
-                        .background(
-                            color = DoktoSecondary
-                        ),
-                    onClick = {
-                        identityImageLauncher.launch("image/*")
-                    }) {
-                    Icon(
-                        Icons.Filled.Edit,
-                        "change image",
-                        tint = Color.White
+        ) {
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                drawRoundRect(
+                    color = Color.White,
+                    style = stroke,
+                    cornerRadius = CornerRadius(
+                        x = cornerRadius,
+                        y = cornerRadius
                     )
-                }
+                )
             }
-        } else {
-            Row {
-                DoktoButton(textResourceId = R.string.choose_image) {
-                    identityImageLauncher.launch("image/*")
+            if (uploadedImage != null) {
+                Image(
+                    bitmap = uploadedImage.asImageBitmap(),
+                    contentDescription = "avatar",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            shape = RoundedCornerShape(16.dp)
+                            clip = true
+                        }
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(20.dp),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    IconButton(
+                        modifier = Modifier
+                            .then(Modifier.size(24.dp))
+                            .clip(CircleShape)
+                            .background(
+                                color = DoktoSecondary
+                            ),
+                        onClick = {
+                            identityImageLauncher.launch("image/*")
+                        }) {
+                        Icon(
+                            Icons.Filled.Edit,
+                            "change image",
+                            tint = Color.White
+                        )
+                    }
+                }
+            } else {
+                Row {
+                    DoktoButton(textResourceId = R.string.choose_image) {
+                        identityImageLauncher.launch("image/*")
+                    }
                 }
             }
         }
-    }
 
-    // ---------------------- ERROR MESSAGE ------------------- //
-    errorMessage?.let {
-        Text(
-            text = it,
-            color = DoktoError,
-            fontSize = 14.sp
-        )
+        // ---------------------- ERROR MESSAGE ------------------- //
+        AnimatedVisibility(visible = errorMessage != null) {
+            errorMessage?.let {
+                Text(
+                    text = it,
+                    color = DoktoError,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                )
+            }
+        }
     }
 }

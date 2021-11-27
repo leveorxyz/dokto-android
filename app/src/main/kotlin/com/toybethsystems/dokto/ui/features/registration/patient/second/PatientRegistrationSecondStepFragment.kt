@@ -1,7 +1,5 @@
 package com.toybethsystems.dokto.ui.features.registration.patient.second
 
-import android.os.Bundle
-import android.view.View
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -10,7 +8,6 @@ import com.toybethsystems.dokto.R
 import com.toybethsystems.dokto.base.ui.BaseFragment
 import com.toybethsystems.dokto.base.utils.extensions.setContentView
 import com.toybethsystems.dokto.data.City
-import com.toybethsystems.dokto.data.Country
 import com.toybethsystems.dokto.data.State
 import com.toybethsystems.dokto.ui.features.registration.patient.PatientRegistrationViewModel
 import com.toybeth.dokto.stepper.Step
@@ -29,16 +26,11 @@ class PatientRegistrationSecondStepFragment : BaseFragment<PatientRegistrationVi
             setContentView {
                 PatientRegistrationSecondScreen(
                     viewModel,
-                    this@PatientRegistrationSecondStepFragment::showCountrySelectionDialog,
                     this@PatientRegistrationSecondStepFragment::showStateSelectionDialog,
                     this@PatientRegistrationSecondStepFragment::showCitySelectionDialog,
                 )
             }
         }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     override fun verifyStep(): VerificationError? {
         return if(viewModel.verifySecondPage()) {
@@ -56,23 +48,6 @@ class PatientRegistrationSecondStepFragment : BaseFragment<PatientRegistrationVi
 //        TODO("Not yet implemented")
     }
 
-    private fun showCountrySelectionDialog() {
-        viewModel.countryList.observe(viewLifecycleOwner, object : Observer<List<Country>> {
-            override fun onChanged(countries: List<Country>) {
-                viewModel.countryList.removeObserver(this)
-                MaterialAlertDialogBuilder(
-                    requireContext(),
-                    R.style.MaterialAlertDialog_Rounded
-                )
-                    .setTitle(resources.getString(R.string.select_state))
-                    .setItems(countries.map { it.name }.toTypedArray()) { _, which ->
-                        viewModel.setCountry(countries[which])
-                    }
-                    .show()
-            }
-        })
-    }
-
     private fun showStateSelectionDialog() {
         viewModel.stateList.observe(viewLifecycleOwner, object : Observer<List<State>> {
             override fun onChanged(states: List<State>) {
@@ -84,6 +59,7 @@ class PatientRegistrationSecondStepFragment : BaseFragment<PatientRegistrationVi
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(states.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setState(states[which])
+                        viewModel.stateName.error.value = null
                     }
                     .show()
             }
@@ -98,6 +74,7 @@ class PatientRegistrationSecondStepFragment : BaseFragment<PatientRegistrationVi
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(cities.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setCity(cities[which])
+                        viewModel.cityName.error.value = null
                     }
                     .show()
             }

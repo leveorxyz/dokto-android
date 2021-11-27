@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.toybeth.dokto.stepper.StepperLayout
+import com.toybeth.dokto.stepper.VerificationError
 import com.toybethsystems.dokto.R
 import com.toybethsystems.dokto.base.ui.BaseViewBindingFragment
 import com.toybethsystems.dokto.databinding.FragmentRegistrationFormBinding
-import com.toybeth.dokto.stepper.StepperLayout
-import com.toybeth.dokto.stepper.VerificationError
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterialApi
@@ -34,7 +35,7 @@ class DoctorRegistrationFormStepsFragment :
 
         setKeyboardOpenListener()
         binding.registrationStepper.setAdapter(RegistrationFormStepsAdapter(pageTitles, this))
-        binding.registrationStepper.setListener(object: StepperLayout.StepperListener {
+        binding.registrationStepper.setListener(object : StepperLayout.StepperListener {
             override fun onCompleted(completeButton: View?) {
                 viewModel.registerDoctor()
             }
@@ -55,6 +56,19 @@ class DoctorRegistrationFormStepsFragment :
         viewModel.moveNext.observeOn(viewLifecycleOwner) {
             binding.registrationStepper.proceed()
         }
+
+        viewModel.registrationSuccess.observeOn(viewLifecycleOwner) {
+            if (it == true) {
+                navigateToRegistrationSuccessFragment()
+            }
+        }
+    }
+
+    private fun navigateToRegistrationSuccessFragment() {
+        findNavController().navigate(
+            DoctorRegistrationFormStepsFragmentDirections
+                .actionDoctorRegistrationFormStepsFragmentToRegistrationCompleteFragment()
+        )
     }
 
     private fun setKeyboardOpenListener() {

@@ -1,11 +1,8 @@
 package com.toybethsystems.dokto.ui.features.login
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.orhanobut.logger.Logger
 import com.toybethsystems.dokto.base.ui.BaseViewModel
 import com.toybethsystems.dokto.base.utils.SingleLiveEvent
 import com.toybethsystems.dokto.base.utils.extensions.isEmailValid
@@ -24,7 +21,7 @@ class LoginViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val mutableInitializeLoginForm = MutableLiveData<Boolean>()
-    private val mutableInitializeLoginScreen = MutableLiveData<Boolean>(true)
+    private val mutableInitializeLoginScreen = MutableLiveData(true)
 
     private val loginSuccessfulMutableLiveData = MutableLiveData<Pair<Boolean, String?>>()
 
@@ -42,7 +39,7 @@ class LoginViewModel @Inject constructor(
         get() = loginSuccessfulMutableLiveData
 
     fun submit() {
-        if(validateLoginForm()) {
+        if (validateLoginForm()) {
             loader.postValue(true)
             viewModelScope.launchIOWithExceptionHandler({
                 repository.login(userNameOrPhone.state.value!!, password.state.value!!)
@@ -58,14 +55,23 @@ class LoginViewModel @Inject constructor(
 
     private fun validateLoginForm(): Boolean {
         var isValid = true
-        if(!userNameOrPhone.state.value.isEmailValid()) {
+        if (userNameOrPhone.state.value.isNullOrEmpty()) {
+            userNameOrPhone.error.value = "This field is required"
+            isValid = false
+        } else if (!userNameOrPhone.state.value.isEmailValid()) {
             userNameOrPhone.error.value = "Enter a valid email"
             isValid = false
         }
-        if(!password.state.value.isPasswordValid()) {
-            password.error.value = "Password must be 8 characters long and must have minimum 1 number and 1 letter"
+
+        if (password.state.value.isNullOrEmpty()) {
+            password.error.value = "This field is required"
+            isValid = false
+        } else if (!password.state.value.isPasswordValid()) {
+            password.error.value =
+                "Password must be 8 characters long and must have minimum 1 number and 1 letter"
             isValid = false
         }
+
         return isValid
     }
 
@@ -96,7 +102,7 @@ class LoginViewModel @Inject constructor(
     fun enterToLoginScreen() {
         viewModelScope.launch {
             mutableInitializeLoginForm.postValue(true)
-            if(mutableInitializeLoginScreen.value == false) {
+            if (mutableInitializeLoginScreen.value == false) {
                 mutableInitializeLoginScreen.postValue(true)
             }
         }

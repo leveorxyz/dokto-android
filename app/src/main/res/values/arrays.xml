@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
     <string-array name="doctor_registration_form_page_titles">
         <item>Personal Details</item>
         <item>Identification Verification</item>
@@ -211,5 +217,17 @@
     <string-array name="insurance_type">
         <item>Self paid</item>
         <item>Insurance Verified</item>
+    </string-array>
+    <string-array name="business_associate_agreement">
+        <item>I have read and agree to the Business Associate Agreement</item>
+        <item>I practise outside the United States and exempt from the Business Associate Agreement</item>
+    </string-array>
+    <string-array name="hippa_agreement">
+        <item>I have read and agree to the HIPAA Agreement</item>
+        <item>I practise outside the United States and exempt from the HIPAA Agreement</item>
+    </string-array>
+    <string-array name="gdpr_laws">
+        <item>I have read and agree to the GDPR Laws</item>
+        <item>I live outside the UK and EU and exempt from the GDPR Laws</item>
     </string-array>
 </resources>

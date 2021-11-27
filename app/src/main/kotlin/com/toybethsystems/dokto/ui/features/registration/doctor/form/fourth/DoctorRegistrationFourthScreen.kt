@@ -6,29 +6,31 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybethsystems.dokto.R
-import com.toybethsystems.dokto.ui.common.components.*
-import com.toybethsystems.dokto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybethsystems.dokto.base.theme.DoktoError
 import com.toybethsystems.dokto.base.theme.DoktoPrimaryVariant
 import com.toybethsystems.dokto.base.theme.DoktoSecondary
-import java.text.SimpleDateFormat
-import java.util.*
+import com.toybethsystems.dokto.ui.common.components.*
+import com.toybethsystems.dokto.ui.features.registration.doctor.form.RegistrationViewModel
 
 @Composable
 fun DoctorRegistrationFourthScreen(
@@ -38,7 +40,17 @@ fun DoctorRegistrationFourthScreen(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
-    val insurances = context.resources.getStringArray(R.array.insurances).toMutableList()
+    val insurances = remember {
+        val insuranceList = mutableStateListOf<String>()
+        context.resources.getStringArray(R.array.insurances).forEach { insurance ->
+            insuranceList.add(insurance)
+        }
+        insuranceList
+    }
+    val businessAgreements =
+        context.resources.getStringArray(R.array.business_associate_agreement).toList()
+    val hippaAgreements = context.resources.getStringArray(R.array.hippa_agreement).toList()
+    val gdprAgreements = context.resources.getStringArray(R.array.gdpr_laws).toList()
 
     return Column(
         modifier = Modifier
@@ -56,14 +68,16 @@ fun DoctorRegistrationFourthScreen(
         // ------------------ PROFESSIONAL BIO --------------------- //
 
         DoktoTextFiled(
-            modifier = Modifier.height(150.dp),
+//            modifier = Modifier.height(150.dp),
             textFieldValue = viewModel.professionalBio.state.value ?: "",
             hintResourceId = R.string.hint_professional_bio,
             labelResourceId = R.string.label_professional_bio,
             errorMessage = viewModel.professionalBio.error.value,
             singleLine = false,
             onValueChange = {
-                if (it.length <= 200) {
+                if (it.length > 200) {
+                    viewModel.professionalBio.error.value = "Must be less than 200 characters"
+                } else {
                     viewModel.professionalBio.state.value = it
                     viewModel.professionalBio.error.value = null
                 }
@@ -168,7 +182,8 @@ fun DoctorRegistrationFourthScreen(
                 },
                 onClick = {
                     showDatePicker { timeInMillis ->
-                        experience.startDate.state.value = viewModel.getExperienceDateFromMillis(timeInMillis)
+                        experience.startDate.state.value =
+                            viewModel.getExperienceDateFromMillis(timeInMillis)
                     }
                 },
                 trailingIcon = {
@@ -193,7 +208,8 @@ fun DoctorRegistrationFourthScreen(
                 },
                 onClick = {
                     showDatePicker { timeInMillis ->
-                        experience.endDate.state.value = viewModel.getExperienceDateFromMillis(timeInMillis)
+                        experience.endDate.state.value =
+                            viewModel.getExperienceDateFromMillis(timeInMillis)
                     }
                 },
                 trailingIcon = {
@@ -267,33 +283,125 @@ fun DoctorRegistrationFourthScreen(
 
         // --------------------------- INSURANCES ------------------------- //
 
-        DoktoDropDownMenu(
-            suggestions = insurances.sorted(),
-            textFieldValue = stringResource(id = R.string.select),
-            labelResourceId = R.string.label_accepted_insurances,
-            hintResourceId = R.string.select,
-            errorMessage = viewModel.doctorInsurances.error.value,
-            onValueChange = {
-                viewModel.addInsurance(it)
-                insurances.remove(it)
+        DoktoCheckBox(
+            checkedState = viewModel.allInsuranceAccepted.state.value ?: false,
+            textResourceId = R.string.accept_all_insurances,
+            onCheckedChange = {
+                if (it) {
+                    viewModel.addAllInsurances(insurances)
+                } else {
+                    viewModel.clearInsurances()
+                }
+                viewModel.allInsuranceAccepted.state.value = it
             }
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        LazyRow {
-            items(viewModel.doctorInsurances.state.value ?: listOf()) { insurance ->
-                insurance.let {
-                    DoktoChip(text = it) {
-                        insurances.add(it)
-                        viewModel.doctorInsurances.state.value?.remove(insurance)
+        AnimatedVisibility(visible = viewModel.allInsuranceAccepted.state.value == false) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                DoktoDropDownMenu(
+                    suggestions = insurances.sorted(),
+                    textFieldValue = stringResource(id = R.string.select),
+                    labelResourceId = R.string.label_accepted_insurances,
+                    hintResourceId = R.string.select,
+                    errorMessage = viewModel.doctorInsurances.error.value,
+                    onValueChange = {
+                        viewModel.addInsurance(it)
+                        insurances.remove(it)
                     }
-                    Spacer(modifier = Modifier.width(16.dp))
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                LazyRow {
+                    items(viewModel.doctorInsurances.state.value ?: listOf()) { insurance ->
+                        insurance.let {
+                            DoktoChip(text = it) {
+                                insurances.add(it)
+                                viewModel.doctorInsurances.state.value?.remove(insurance)
+                            }
+                            Spacer(modifier = Modifier.width(16.dp))
+                        }
+                    }
                 }
+                Spacer(modifier = Modifier.height(30.dp))
             }
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
+        // ---------------------------- AGREEMENTS ------------------------- //
+        DoktoRadioGroup(
+            radioOptions = businessAgreements,
+            labelResourceId = R.string.label_business_agreements,
+            errorMessage = viewModel.businessAgreement.error.value,
+            onOptionSelected = {
+                viewModel.businessAgreement.state.value = it
+                viewModel.businessAgreement.error.value = null
+            }
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoRadioGroup(
+            radioOptions = hippaAgreements,
+            labelResourceId = R.string.label_hippa_agreements,
+            errorMessage = viewModel.hippaAgreement.error.value,
+            onOptionSelected = {
+                viewModel.hippaAgreement.state.value = it
+                viewModel.hippaAgreement.error.value = null
+            }
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+
+        DoktoRadioGroup(
+            radioOptions = gdprAgreements,
+            labelResourceId = R.string.label_gdpr_agreements,
+            errorMessage = viewModel.gdprAgreement.error.value,
+            onOptionSelected = {
+                viewModel.gdprAgreement.state.value = it
+                viewModel.gdprAgreement.error.value = null
+            }
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+
+        // -------------------- TERMS AND CONDITIONS -------------------- //
+        DoktoCheckBox(
+            checkedState = viewModel.termsAccepted.state.value ?: false,
+            errorMessage = viewModel.termsAccepted.error.value,
+            textField = {
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(color = Color.White)) {
+                            append("I agree to the ")
+                        }
+                        withStyle(
+                            style = SpanStyle(
+                                color = DoktoSecondary,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        ) {
+                            append("Terms & Conditions")
+                        }
+                        withStyle(style = SpanStyle(color = Color.White)) {
+                            append(" and ")
+                        }
+                        withStyle(
+                            style = SpanStyle(
+                                color = DoktoSecondary,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        ) {
+                            append("Privacy Policy")
+                        }
+                    }
+                )
+            },
+            onCheckedChange = {
+                viewModel.termsAccepted.state.value = it
+                viewModel.termsAccepted.error.value = null
+            }
+        )
+
+        Spacer(modifier = Modifier.height(60.dp))
 
         // ------------------------ SUBMIT BUTTON -------------------- //
         DoktoButton(textResourceId = R.string.submit) {

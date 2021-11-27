@@ -6,13 +6,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,10 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
 import com.toybethsystems.dokto.R
+import com.toybethsystems.dokto.base.theme.DoktoPrimaryVariant
+import com.toybethsystems.dokto.base.theme.DoktoUserTypeClinicColor
+import com.toybethsystems.dokto.base.theme.DoktoUserTypePharmacyColor
+import com.toybethsystems.dokto.base.theme.TextColorWhite
 import com.toybethsystems.dokto.base.ui.uiutils.getEnterAnimation
 import com.toybethsystems.dokto.base.ui.uiutils.getExitAnimation
 import com.toybethsystems.dokto.base.ui.uiutils.isVisible
-import com.toybethsystems.dokto.base.theme.*
+import com.toybethsystems.dokto.ui.features.registration.usertype.SelectRegistrationUserTypeViewModel
 
 @ExperimentalAnimationApi
 @ExperimentalUnitApi
@@ -35,7 +37,6 @@ fun SelectRegistrationUserTypeScreen(
     viewModel: SelectRegistrationUserTypeViewModel,
 ) {
     val screenAnimState = viewModel.screenAnimState.observeAsState()
-    val isDoctorSelected = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -204,7 +205,7 @@ fun SelectRegistrationUserTypeScreen(
                                     contentDescription = "patient",
                                     modifier = Modifier
                                         .height(100.dp)
-                                        .offset(x = -30.dp),
+                                        .offset(x = (-30).dp),
                                 )
                             }
                             Row(
@@ -258,45 +259,6 @@ fun SelectRegistrationUserTypeScreen(
                     }
                 }
             }
-        }
-    }
-}
-
-@ExperimentalUnitApi
-@Composable
-private fun UserTypeButton(
-    onClick: () -> Unit,
-    iconResourceId: Int,
-    textResourceId: Int,
-    isSelected: Boolean
-) {
-    Button(
-        onClick = onClick,
-        shape = RoundedCornerShape(14.dp),
-        modifier = Modifier
-            .width(120.dp)
-            .height(120.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor =
-            if (isSelected) UserTypeButtonSelectedColor else UserTypeButtonUnselectedColor,
-        ),
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(id = iconResourceId),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(40.dp),
-                tint = Color.White
-            )
-            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-            Text(
-                stringResource(id = textResourceId),
-                fontSize = TextUnit(15f, TextUnitType.Sp),
-                color = Color.White
-            )
         }
     }
 }

@@ -2,9 +2,10 @@ package com.toybethsystems.dokto.data.registration
 
 import android.content.Context
 import android.net.Uri
+import com.toybethsystems.dokto.base.data.preference.AppPreference
+import com.toybethsystems.dokto.data.*
 import com.toybethsystems.dokto.base.data.model.ResultWrapper
 import com.toybethsystems.dokto.base.data.network.safeApiCall
-import com.toybethsystems.dokto.base.data.preference.AppPreference
 import com.toybethsystems.dokto.base.utils.fileUriToBase64
 import com.toybethsystems.dokto.data.*
 import com.toybethsystems.dokto.data.registration.model.DoctorRegistrationRequestBody
@@ -32,8 +33,8 @@ class RegistrationRepository @Inject constructor(
         identificationNumber: String,
         identificationPhotoUri: Uri,
         street: String,
-        socialSecurityNumber: String,
-        state: String,
+        socialSecurityNumber: String? = null,
+        state: String? = null,
         city: String? = null,
         zipCode: String,
         referringDoctorAddress: String? = null,
@@ -91,7 +92,7 @@ class RegistrationRepository @Inject constructor(
     }
 
     suspend fun registerDoctor(
-        userId: String,
+        // userId: String,
         fullName: String,
         country: String,
         phoneCode: String,
@@ -143,7 +144,7 @@ class RegistrationRepository @Inject constructor(
             mExperiences.add(item)
         }
         val requestBody = DoctorRegistrationRequestBody(
-            username = userId,
+            // username = userId,
             fullName = fullName,
             contactNo = phoneCode + contactNo,
             email = email,

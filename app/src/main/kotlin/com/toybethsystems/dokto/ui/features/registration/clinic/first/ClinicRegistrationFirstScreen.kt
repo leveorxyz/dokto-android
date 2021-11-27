@@ -35,7 +35,6 @@ import com.toybethsystems.dokto.base.theme.DoktoSecondary
 import com.toybethsystems.dokto.ui.common.components.DoktoButton
 import com.toybethsystems.dokto.ui.common.components.DoktoTextFiled
 import com.toybethsystems.dokto.ui.features.registration.clinic.ClinicRegistrationViewModel
-import com.toybethsystems.dokto.ui.features.registration.doctor.form.RadioGroup
 
 @Composable
 fun ClinicRegistrationFirstScreen(
@@ -49,7 +48,7 @@ fun ClinicRegistrationFirstScreen(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         viewModel.profileImageUri.state.value = uri
-        viewModel.profileImageUri.state.value ?.let {
+        viewModel.profileImageUri.state.value?.let {
             if (Build.VERSION.SDK_INT < 28) {
                 viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
                     context.contentResolver, it
@@ -114,7 +113,7 @@ fun ClinicRegistrationFirstScreen(
         // --------------------------- USER ID -------------------------- //
         DoktoTextFiled(
             modifier = Modifier.onFocusChanged {
-                if(!it.hasFocus) {
+                if (!it.hasFocus) {
                     viewModel.checkIfUserNameAvailable()
                 }
             },

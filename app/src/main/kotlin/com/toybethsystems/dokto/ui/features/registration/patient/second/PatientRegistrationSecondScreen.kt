@@ -9,7 +9,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,18 +20,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.toybethsystems.dokto.R
+import com.toybethsystems.dokto.base.theme.DoktoSecondary
 import com.toybethsystems.dokto.ui.common.components.DoktoButton
 import com.toybethsystems.dokto.ui.common.components.DoktoDropDownMenu
 import com.toybethsystems.dokto.ui.common.components.DoktoImageUpload
 import com.toybethsystems.dokto.ui.common.components.DoktoTextFiled
-import com.toybethsystems.dokto.ui.features.registration.doctor.form.RegistrationViewModel
 import com.toybethsystems.dokto.ui.features.registration.patient.PatientRegistrationViewModel
 
 @Composable
 fun PatientRegistrationSecondScreen(
     viewModel: PatientRegistrationViewModel,
-    showCountrySelectionDialog: () -> Unit,
     showStateSelectionDialog: () -> Unit,
     showCitySelectionDialog: () -> Unit,
 ) {
@@ -52,6 +54,21 @@ fun PatientRegistrationSecondScreen(
     ) {
 
         Spacer(modifier = Modifier.height(30.dp))
+
+        // ------------------------ IDENTIFICATION VERIFICATION -------------------- //
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                stringResource(id = R.string.identification_verification),
+                modifier = Modifier,
+                color = DoktoSecondary,
+                fontSize = 24.sp
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
 
         // ------------------------ IDENTIFICATION TYPE -------------------- //
 
@@ -116,15 +133,42 @@ fun PatientRegistrationSecondScreen(
             textFieldValue = viewModel.socialSecurityNumber.state.value ?: "",
             labelResourceId = R.string.label_identification_number,
             hintResourceId = R.string.hint_identification_number,
-            errorMessage = viewModel.socialSecurityNumber.error.value,
+            // errorMessage = viewModel.socialSecurityNumber.error.value,
             onValueChange = {
                 viewModel.socialSecurityNumber.state.value = it
-                viewModel.socialSecurityNumber.error.value = null
+                // viewModel.socialSecurityNumber.error.value = null
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             )
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+
+        // ----------------------------------- ADDRESS ---------------------------------- //
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                stringResource(id = R.string.label_address),
+                modifier = Modifier,
+                color = DoktoSecondary,
+                fontSize = 24.sp
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // ----------------------- COUNTRY ---------------------- //
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.selectedCountry.state.value?.name ?: "",
+            labelResourceId = R.string.label_country,
+            hintResourceId = R.string.select,
+            errorMessage = viewModel.selectedCountry.error.value,
+            onValueChange = {  },
+            onClick = {  }
         )
         Spacer(modifier = Modifier.height(30.dp))
 

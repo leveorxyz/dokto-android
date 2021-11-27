@@ -82,8 +82,8 @@ data class DoctorRegistrationRequestBody(
     @SerializedName("linkedin_url")
     val linkedinUrl: String? = null,
 
-    @SerializedName("username")
-    val username: String? = null
+//    @SerializedName("username")
+//    val username: String? = null
 )
 
 data class ExperienceItemInDoctorRegistrationRequestBody(

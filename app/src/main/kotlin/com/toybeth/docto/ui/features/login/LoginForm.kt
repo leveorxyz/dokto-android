@@ -1,8 +1,6 @@
 package com.toybeth.docto.ui.features.login
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,54 +8,93 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.toybeth.docto.ui.features.login.components.DoktoPasswordField
-import com.toybeth.docto.ui.features.login.components.DoktoTextField
-import com.toybeth.docto.base.theme.DoktoSecondary
+import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoPrimaryVariant
+import com.toybeth.docto.base.theme.DoktoSecondary
+import com.toybeth.docto.ui.common.components.DoktoButton
+import com.toybeth.docto.ui.common.components.DoktoTextFiled
 
 @Composable
 fun LoginForm(
     viewModel: LoginViewModel,
-    modifier: Modifier = Modifier.fillMaxWidth()
+    modifier: Modifier = Modifier
 ) {
 
-    var username by remember { viewModel.userNameOrPhone }
-    var password by remember { viewModel.password }
     val scrollState = rememberScrollState()
 
     Column(
         modifier = modifier
+            .fillMaxWidth()
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        DoktoTextField(
-            value = username,
-            label = "Phone number or email",
-            icon = Icons.Outlined.Person,
-            onValueChange = { username = it },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
+
+        // ------------------------------ EMAIL ----------------------------- //
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.userNameOrPhone.state.value ?: "",
+            labelResourceId = R.string.label_phone_or_email,
+            hintResourceId = R.string.hint_phone_or_email,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = stringResource(id = R.string.label_password),
+                    tint = Color.DarkGray
+                )
+            },
+            errorMessage = viewModel.userNameOrPhone.error.value,
+            onValueChange = {
+                if (it.length > 254) {
+                    viewModel.userNameOrPhone.error.value = "Max character reached"
+                } else {
+                    viewModel.userNameOrPhone.state.value = it
+                    viewModel.userNameOrPhone.error.value = null
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email
+            )
         )
 
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        DoktoPasswordField(
-            value = password,
-            label = "Password",
-            icon = Icons.Outlined.Lock,
-            onValueChange = { password = it }
+        // --------------------------- PASSWORD ---------------------------- //
+
+        DoktoTextFiled(
+            textFieldValue = viewModel.password.state.value ?: "",
+            labelResourceId = R.string.label_password,
+            hintResourceId = R.string.hint_password,
+            isPasswordField = true,
+            errorMessage = viewModel.password.error.value,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Lock,
+                    contentDescription = stringResource(id = R.string.label_password),
+                    tint = Color.DarkGray
+                )
+            },
+            onValueChange = {
+                viewModel.password.state.value = it
+                viewModel.password.error.value = null
+            }
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -80,22 +117,12 @@ fun LoginForm(
             )
         }
 
-        Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
-        Button(
-            onClick = { viewModel.submit() },
-            shape = RoundedCornerShape(24.dp),
-            modifier = Modifier
-                .height(56.dp)
-                .width(200.dp)
-                .align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = DoktoPrimaryVariant
-            )
-        ) {
-            Text(text = "Login", color = Color.White)
+        DoktoButton(textResourceId = R.string.login) {
+            viewModel.submit()
         }
 
-        Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }

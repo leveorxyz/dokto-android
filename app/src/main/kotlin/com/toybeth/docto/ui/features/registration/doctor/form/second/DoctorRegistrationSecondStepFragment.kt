@@ -12,10 +12,8 @@ import com.toybeth.docto.R
 import com.toybeth.docto.base.ui.BaseFragment
 import com.toybeth.docto.base.utils.extensions.setContentView
 import com.toybeth.docto.data.City
-import com.toybeth.docto.data.Country
 import com.toybeth.docto.data.State
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
-import com.toybeth.docto.base.theme.DoktoTheme
 import com.toybeth.dokto.stepper.Step
 import com.toybeth.dokto.stepper.VerificationError
 
@@ -32,7 +30,6 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
             setContentView {
                 DoctorRegistrationSecondScreen(
                     viewModel,
-                    this@DoctorRegistrationSecondStepFragment::showCountrySelectionDialog,
                     this@DoctorRegistrationSecondStepFragment::showStateSelectionDialog,
                     this@DoctorRegistrationSecondStepFragment::showCitySelectionDialog,
                 )
@@ -59,23 +56,6 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
 
     }
 
-    private fun showCountrySelectionDialog() {
-        viewModel.countryList.observe(viewLifecycleOwner, object : Observer<List<Country>> {
-            override fun onChanged(countries: List<Country>) {
-                viewModel.countryList.removeObserver(this)
-                MaterialAlertDialogBuilder(
-                    requireContext(),
-                    R.style.MaterialAlertDialog_Rounded
-                )
-                    .setTitle(resources.getString(R.string.select_state))
-                    .setItems(countries.map { it.name }.toTypedArray()) { _, which ->
-                        viewModel.setCountry(countries[which])
-                    }
-                    .show()
-            }
-        })
-    }
-
     private fun showStateSelectionDialog() {
         viewModel.stateList.observe(viewLifecycleOwner, object : Observer<List<State>> {
             override fun onChanged(states: List<State>) {
@@ -87,6 +67,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(states.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setState(states[which])
+                        viewModel.selectedStateName.error.value = null
                     }
                     .show()
             }
@@ -101,6 +82,7 @@ class DoctorRegistrationSecondStepFragment : BaseFragment<RegistrationViewModel>
                     .setTitle(resources.getString(R.string.select_state))
                     .setItems(cities.map { it.name }.toTypedArray()) { _, which ->
                         viewModel.setCity(cities[which])
+                        viewModel.selectedCityName.error.value = null
                     }
                     .show()
             }

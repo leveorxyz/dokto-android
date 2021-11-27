@@ -16,15 +16,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -39,10 +37,10 @@ import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.ui.common.components.DoktoButton
+import com.toybeth.docto.ui.common.components.DoktoCheckBox
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
+import com.toybeth.docto.ui.common.components.DoktoRadioGroup
 import com.toybeth.docto.ui.features.registration.doctor.form.RegistrationViewModel
-import com.toybeth.docto.base.theme.DoktoSecondary
 
 @ExperimentalMaterialApi
 @Composable
@@ -54,17 +52,18 @@ fun DoctorRegistrationFirstScreen(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val genderOptions = context.resources.getStringArray(R.array.gender).toList()
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         viewModel.profileImageUri.state.value = uri
-        viewModel.profileImageUri.state.value ?.let {
+        viewModel.profileImageUri.state.value?.let {
+            viewModel.profileImageUri.error.value = null
             if (Build.VERSION.SDK_INT < 28) {
                 viewModel.profileImage.state.value = MediaStore.Images.Media.getBitmap(
                     context.contentResolver, it
                 )
-
             } else {
                 val source = ImageDecoder.createSource(context.contentResolver, it)
                 viewModel.profileImage.state.value = ImageDecoder.decodeBitmap(source)
@@ -110,13 +109,15 @@ fun DoctorRegistrationFirstScreen(
                         .border(2.dp, Color.White, CircleShape)
                 )
             }
-            AnimatedVisibility(visible = viewModel.profileImage.error.value != null) {
-                Text(
-                    text = viewModel.profileImage.error.value!!,
-                    color = DoktoError,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
-                )
+            AnimatedVisibility(visible = viewModel.profileImageUri.error.value != null) {
+                viewModel.profileImageUri.error.value?.let {
+                    Text(
+                        text = it,
+                        color = DoktoError,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -129,39 +130,39 @@ fun DoctorRegistrationFirstScreen(
         Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- USER ID -------------------------- //
-        DoktoTextFiled(
-            modifier = Modifier.onFocusChanged {
-                if(!it.hasFocus) {
-                    viewModel.checkIfUserNameAvailable()
-                }
-            },
-            textFieldValue = viewModel.userId.state.value ?: "",
-            hintResourceId = R.string.hint_userid,
-            labelResourceId = R.string.label_userid,
-            trailingIcon = {
-                IconButton(onClick = {
-                    viewModel.checkIfUserNameAvailable()
-                }) {
-                    Icon(
-                        imageVector = Icons.Filled.ManageSearch,
-                        contentDescription = stringResource(id = R.string.check_availability),
-                        tint = DoktoSecondary
-                    )
-                }
-            },
-            errorMessage = viewModel.userId.error.value,
-            onValueChange = {
-                viewModel.userId.state.value = it
-                viewModel.userId.error.value = null
-            }
-        )
-        Spacer(modifier = Modifier.height(30.dp))
+//        DoktoTextFiled(
+//            modifier = Modifier.onFocusChanged {
+//                if(!it.hasFocus) {
+//                    viewModel.checkIfUserNameAvailable()
+//                }
+//            },
+//            textFieldValue = viewModel.userId.state.value ?: "",
+//            hintResourceId = R.string.hint_userid,
+//            labelResourceId = R.string.label_userid,
+//            trailingIcon = {
+//                IconButton(onClick = {
+//                    viewModel.checkIfUserNameAvailable()
+//                }) {
+//                    Icon(
+//                        imageVector = Icons.Filled.ManageSearch,
+//                        contentDescription = stringResource(id = R.string.check_availability),
+//                        tint = DoktoSecondary
+//                    )
+//                }
+//            },
+//            errorMessage = viewModel.userId.error.value,
+//            onValueChange = {
+//                viewModel.userId.state.value = it
+//                viewModel.userId.error.value = null
+//            }
+//        )
+//        Spacer(modifier = Modifier.height(30.dp))
 
         // --------------------------- NAME ----------------------- //
         DoktoTextFiled(
             textFieldValue = viewModel.name.state.value ?: "",
             hintResourceId = R.string.hint_name,
-            labelResourceId = R.string.label_name,
+            labelResourceId = R.string.label_full_name,
             errorMessage = viewModel.name.error.value,
             onValueChange = {
                 viewModel.name.state.value = it
@@ -186,7 +187,7 @@ fun DoctorRegistrationFirstScreen(
         ) {
             DoktoTextFiled(
                 modifier = Modifier.width(120.dp),
-                textFieldValue = viewModel.getSelectedCountryCode(),
+                textFieldValue = viewModel.getSelectedCountryPhoneCode(),
                 hintResourceId = R.string.hint_country_code,
                 errorMessage = viewModel.country.error.value,
                 onClick = { showCountrySelectionDialog.invoke() },
@@ -217,7 +218,8 @@ fun DoctorRegistrationFirstScreen(
 
         // -------------------------- EMAIL ------------------------ //
 
-        DoktoTextFiled(textFieldValue = viewModel.email.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.email.state.value ?: "",
             hintResourceId = R.string.hint_email,
             labelResourceId = R.string.label_email,
             errorMessage = viewModel.email.error.value,
@@ -234,7 +236,8 @@ fun DoctorRegistrationFirstScreen(
 
         // ------------------------ PASSWORD --------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.password.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.password.state.value ?: "",
             hintResourceId = R.string.hint_password,
             labelResourceId = R.string.label_password,
             visualTransformation = PasswordVisualTransformation(),
@@ -252,7 +255,8 @@ fun DoctorRegistrationFirstScreen(
 
         // --------------------- CONFIRM PASSWORD ---------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.confirmPassword.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.confirmPassword.state.value ?: "",
             hintResourceId = R.string.hint_confirm_password,
             labelResourceId = R.string.label_confirm_password,
             visualTransformation = PasswordVisualTransformation(),
@@ -270,22 +274,13 @@ fun DoctorRegistrationFirstScreen(
 
         // ---------------------------- GENDER ------------------------- //
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                stringResource(id = R.string.hint_gender),
-                color = Color.White,
-            )
-        }
-        RadioGroup(
-            radioOptions = listOf(
-                context.getString(R.string.male),
-                context.getString(R.string.female),
-                context.getString(R.string.prefer_not_to_say),
-            ),
+        DoktoRadioGroup(
+            radioOptions = genderOptions,
+            labelResourceId = R.string.hint_gender,
+            errorMessage = viewModel.gender.error.value
         ) {
             viewModel.gender.state.value = it
+            viewModel.gender.error.value = null
         }
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -310,6 +305,42 @@ fun DoctorRegistrationFirstScreen(
             }
         )
         Spacer(modifier = Modifier.height(30.dp))
+
+        // -------------------------- UNDER-AGE DOCTOR --------------------------- //
+
+        AnimatedVisibility(visible = viewModel.isDoctorUnderAge.value) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    modifier = Modifier.align(Alignment.Start),
+                    text = stringResource(R.string.underage_prompt),
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+                DoktoCheckBox(
+                    checkedState = viewModel.underAgeDoctorChecked.state.value ?: false,
+                    textResourceId = R.string.doctor_age_confirmation,
+                    errorMessage = viewModel.underAgeDoctorChecked.error.value,
+                    onCheckedChange = {
+                        viewModel.underAgeDoctorChecked.state.value = it
+                        viewModel.underAgeDoctorChecked.error.value = null
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                DoktoTextFiled(
+                    textFieldValue = viewModel.parentName.state.value ?: "",
+                    labelResourceId = R.string.label_parent_name,
+                    hintResourceId = R.string.hint_empty,
+                    errorMessage = viewModel.parentName.error.value,
+                    onValueChange = {
+                        viewModel.parentName.state.value = it
+                        viewModel.parentName.error.value = null
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.dp))
+            }
+        }
 
         // ------------------------ NEXT BUTTON -------------------- //
 

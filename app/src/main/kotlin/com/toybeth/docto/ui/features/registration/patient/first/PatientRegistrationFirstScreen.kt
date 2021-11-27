@@ -28,14 +28,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.toybeth.docto.R
 import com.toybeth.docto.base.theme.DoktoError
 import com.toybeth.docto.ui.common.components.DoktoButton
 import com.toybeth.docto.ui.common.components.DoktoTextFiled
-import com.toybeth.docto.ui.features.registration.doctor.form.RadioGroup
+import com.toybeth.docto.ui.common.components.DoktoRadioGroup
 import com.toybeth.docto.ui.features.registration.patient.PatientRegistrationViewModel
 
 @ExperimentalMaterialApi
@@ -48,6 +47,7 @@ fun PatientRegistrationFirstScreen(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val genderOptions = context.resources.getStringArray(R.array.gender).toList()
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -106,12 +106,14 @@ fun PatientRegistrationFirstScreen(
                 )
             }
             AnimatedVisibility(visible = viewModel.profileImage.error.value != null) {
-                Text(
-                    text = viewModel.profileImage.error.value!!,
-                    color = DoktoError,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(start = 15.dp, top = 3.dp)
-                )
+                viewModel.profileImage.error.value?.let {
+                    Text(
+                        text = it,
+                        color = DoktoError,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 15.dp, top = 3.dp)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -166,7 +168,7 @@ fun PatientRegistrationFirstScreen(
         ) {
             DoktoTextFiled(
                 modifier = Modifier.width(120.dp),
-                textFieldValue = viewModel.getSelectedCountryCode(),
+                textFieldValue = viewModel.getSelectedCountryPhoneCode(),
                 hintResourceId = R.string.hint_country_code,
                 errorMessage = viewModel.country.error.value,
                 onClick = { showCountrySelectionDialog.invoke() },
@@ -197,13 +199,18 @@ fun PatientRegistrationFirstScreen(
 
         // -------------------------- EMAIL ------------------------ //
 
-        DoktoTextFiled(textFieldValue = viewModel.email.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.email.state.value ?: "",
             hintResourceId = R.string.hint_email,
             labelResourceId = R.string.label_email,
             errorMessage = viewModel.email.error.value,
             onValueChange = {
-                viewModel.email.state.value = it
-                viewModel.email.error.value = null
+                if (it.length > 254) {
+                    viewModel.email.error.value = "Max character reached"
+                } else {
+                    viewModel.email.state.value = it
+                    viewModel.email.error.value = null
+                }
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
@@ -214,10 +221,11 @@ fun PatientRegistrationFirstScreen(
 
         // ------------------------ PASSWORD --------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.password.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.password.state.value ?: "",
             hintResourceId = R.string.hint_password,
             labelResourceId = R.string.label_password,
-            visualTransformation = PasswordVisualTransformation(),
+            isPasswordField = true,
             errorMessage = viewModel.password.error.value,
             onValueChange = {
                 viewModel.password.state.value = it
@@ -232,10 +240,11 @@ fun PatientRegistrationFirstScreen(
 
         // --------------------- CONFIRM PASSWORD ---------------------- //
 
-        DoktoTextFiled(textFieldValue = viewModel.confirmPassword.state.value ?: "",
+        DoktoTextFiled(
+            textFieldValue = viewModel.confirmPassword.state.value ?: "",
             hintResourceId = R.string.hint_confirm_password,
             labelResourceId = R.string.label_confirm_password,
-            visualTransformation = PasswordVisualTransformation(),
+            isPasswordField = true,
             errorMessage = viewModel.confirmPassword.error.value,
             onValueChange = {
                 viewModel.confirmPassword.state.value = it
@@ -251,23 +260,13 @@ fun PatientRegistrationFirstScreen(
 
         // ---------------------------- GENDER ------------------------- //
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                stringResource(id = R.string.hint_gender),
-                color = Color.White,
-            )
-        }
-        RadioGroup(
-            radioOptions = listOf(
-                context.getString(R.string.male),
-                context.getString(R.string.female),
-                context.getString(R.string.other),
-                context.getString(R.string.prefer_not_to_say),
-            ),
+        DoktoRadioGroup(
+            radioOptions = genderOptions,
+            labelResourceId = R.string.hint_gender,
+            errorMessage = viewModel.gender.error.value
         ) {
             viewModel.gender.state.value = it
+            viewModel.gender.error.value = null
         }
         Spacer(modifier = Modifier.height(30.dp))
 

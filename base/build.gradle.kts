@@ -25,6 +25,7 @@ dependencies {
     api("io.reactivex.rxjava3:rxandroid:3.0.0")
     api("com.orhanobut:logger:2.2.0")
     api("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    api("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 
     // Navigation component
     api("androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION")
@@ -56,6 +57,13 @@ dependencies {
     api("androidx.startup:startup-runtime:1.1.0")
 
     // ssp, sdp
-    api("com.intuit.ssp:ssp-android:1.0.6")
     api("com.intuit.sdp:sdp-android:1.0.6")
+    api("com.intuit.ssp:ssp-android:1.0.6")
+
+
+    // firebase
+    api(platform("com.google.firebase:firebase-bom:29.0.0"))
+    api("com.google.firebase:firebase-analytics-ktx")
+    api("com.google.firebase:firebase-crashlytics-ktx")
+    api("com.google.firebase:firebase-analytics-ktx")
 }

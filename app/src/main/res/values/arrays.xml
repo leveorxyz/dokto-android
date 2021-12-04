@@ -22,8 +22,8 @@
     </string-array>
     <string-array name="identification">
         <item>Passport</item>
-        <item>Driving Licence</item>
-        <item>National ID</item>
+        <item>Driver\'s license</item>
+        <item>State ID</item>
     </string-array>
     <string-array name="languages" >
         <item>English</item>
@@ -215,8 +215,8 @@
         <item>Wyoming Medicaid</item>
     </string-array>
     <string-array name="insurance_type">
-        <item>Self paid</item>
-        <item>Insurance Verified</item>
+        <item>Self-Pay</item>
+        <item>Insurance</item>
     </string-array>
     <string-array name="business_associate_agreement">
         <item>I have read and agree to the Business Associate Agreement</item>

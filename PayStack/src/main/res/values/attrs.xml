@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PaymentView">
+        <attr name="pentecostTheme" format="enum">
+            <enum name="black" value="0" />
+            <enum name="white" value="1" />
+        </attr>
+        <attr name="pentecostBackgroundColor" format="reference|color"/>
+        <attr name="pentecostBackgroundDrawable" format="reference"/>
+        <attr name="pentecostHeaderTitle" format="reference|string"/>
+        <attr name="pentecostHeaderBackgroundDrawable" format="reference"/>
+
+        <attr name="pentecostHeaderBorderRadius" format="reference|dimension"/>
+
+        <attr name="pentecostHeaderBackground" format="enum">
+            <enum name="show" value="0" />
+            <enum name="hide" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

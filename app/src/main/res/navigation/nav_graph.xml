@@ -7,6 +7,14 @@
 
     <include app:graph="@navigation/twilio_call_nav_graph"/>
 
+    <include app:graph="@navigation/stripe_payment_nav_graph"/>
+
+    <include app:graph="@navigation/flutterwave_payment_nav_graph"/>
+
+    <include app:graph="@navigation/paystack_nav_graph" />
+
+<!--    <include app:graph="@navigation/paypal_payment_nav_graph"/>-->
+
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.toybethsystems.dokto.ui.features.splash.SplashFragment"
@@ -42,6 +50,10 @@
             android:id="@+id/action_mainFragment_to_twilioCallFragment"
             app:destination="@id/twilio_call_nav_graph"/>
 
+        <action
+            android:id="@+id/action_mainFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment"/>
+
 
     </fragment>
 
@@ -51,9 +63,16 @@
         android:label="PaymentFragment" >
 
         <action
-            android:id="@+id/action_paymentFragment_to_twilioCallFragment"
-            app:destination="@id/twilio_call_nav_graph" />
+            android:id="@+id/action_paymentFragment_to_stripePaymentNavGraph"
+            app:destination="@id/stripePaymentNavGraph"/>
 
+        <action
+            android:id="@+id/action_paymentFragment_to_flutterwavePaymentNavGraph"
+            app:destination="@id/flutterwavePaymentNavGraph" />
+
+        <action
+            android:id="@+id/action_paymentFragment_to_payStackPaymentDialog"
+            app:destination="@id/payStackNavGraph" />
 
     </fragment>
 
@@ -180,5 +199,10 @@
             android:id="@+id/action_registrationCompleteFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.toybethsystems.dokto.ui.features.maps.MapsFragment"
+        android:label="MapsFragment" />
 
 </navigation>

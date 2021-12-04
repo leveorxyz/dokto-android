@@ -290,7 +290,7 @@ class PatientRegistrationViewModel @Inject constructor(
     }
 
     private fun getInsuranceTypes() {
-        this.insuranceTypes = listOf("Self paid", "Insurance verified")
+        this.insuranceTypes = repository.getInsuranceTypes()
     }
 
     private fun loadCountryList() {

@@ -5,12 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import java.lang.reflect.ParameterizedType
 
 abstract class BaseViewBindingFragment<ViewModel : BaseViewModel, Binding: ViewBinding> : BaseFragment<ViewModel>() {
 

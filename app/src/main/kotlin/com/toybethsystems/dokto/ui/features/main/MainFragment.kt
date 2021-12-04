@@ -22,29 +22,22 @@ class MainFragment : BaseFragment<MainViewModel>() {
     override val composeView: ComposeView
         get() = ComposeView(requireContext()).apply {
             setContentView {
-                VideoCallStartButton()
+                MainScreen(
+                    ::navigateToPayment,
+                    ::navigateToVideoCall
+                )
             }
         }
-
-    @Composable
-    private fun VideoCallStartButton() {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(
-                onClick = {
-                    navigateToVideoCall()
-                }
-            ) {
-                Text(text = "Start Video Call", color = Color.White)
-            }
-        }
-    }
 
     private fun navigateToVideoCall() {
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToTwilioCallFragment()
+        )
+    }
+
+    private fun navigateToPayment() {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToPaymentFragment()
         )
     }
 

@@ -6,11 +6,11 @@
 
     <fragment
         android:id="@+id/twilioCallFragment"
-        android:name="com.toybeth.dokto.twilio.ui.call.TwilioCallFragment"
+        android:name="com.toybethsystems.dokto.twilio.ui.call.TwilioCallFragment"
         android:label="MainFragment" />
     <fragment
         android:id="@+id/preparationFragment"
-        android:name="com.toybeth.dokto.twilio.ui.preparation.PreparationFragment"
+        android:name="com.toybethsystems.dokto.twilio.ui.preparation.PreparationFragment"
         android:label="PreparationFragment">
         <action
             android:id="@+id/action_preparationFragment_to_twilioCallFragment"

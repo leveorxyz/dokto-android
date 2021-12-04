@@ -7,7 +7,7 @@
 
     <dialog
         android:id="@+id/payStackPaymentDialog"
-        android:name="com.toybeth.dokto.paystack.ui.PayStackPaymentDialog"
+        android:name="com.toybethsystems.dokto.paystack.ui.PayStackPaymentDialog"
         android:label="PayStackPaymentDialog"
         tools:layout="@layout/dialog_paystack_payment" />
 

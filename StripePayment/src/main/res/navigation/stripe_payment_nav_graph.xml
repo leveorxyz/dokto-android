@@ -6,7 +6,7 @@
 
     <dialog
         android:id="@+id/stripePaymentFragment"
-        android:name="com.toybeth.dokto.stripepayment.ui.StripePaymentFragment"
+        android:name="com.toybethsystems.dokto.stripepayment.ui.StripePaymentFragment"
         android:label="StripPaymentFragment" />
 
 </navigation>

@@ -20,10 +20,10 @@ dependencies {
     implementation(project(":twilio"))
 
     // Google Maps
-    implementation("com.google.android.gms:play-services-maps:17.0.1")
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
 
-    addTestDependencies()
+
 
     // mockwebserver
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.3.1")
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.3")
 }

@@ -16,5 +16,5 @@ android {
 
 dependencies {
     implementation(project(":base"))
-    implementation("com.stripe:stripe-android:17.2.0")
+    implementation("com.stripe:stripe-android:18.2.0")
 }

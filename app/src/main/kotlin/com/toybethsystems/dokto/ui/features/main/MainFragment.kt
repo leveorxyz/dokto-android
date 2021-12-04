@@ -24,7 +24,8 @@ class MainFragment : BaseFragment<MainViewModel>() {
             setContentView {
                 MainScreen(
                     ::navigateToPayment,
-                    ::navigateToVideoCall
+                    ::navigateToVideoCall,
+                    ::logout
                 )
             }
         }
@@ -38,6 +39,13 @@ class MainFragment : BaseFragment<MainViewModel>() {
     private fun navigateToPayment() {
         findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToPaymentFragment()
+        )
+    }
+
+    private fun logout() {
+        viewModel.logout()
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToLogin()
         )
     }
 

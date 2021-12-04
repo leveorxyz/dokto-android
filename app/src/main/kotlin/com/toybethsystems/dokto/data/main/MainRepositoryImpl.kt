@@ -19,4 +19,7 @@ class MainRepositoryImpl @Inject constructor(
         preference.isFirstTimeUser = false
     }
 
+    override fun logout() {
+        preference.user = null
+    }
 }

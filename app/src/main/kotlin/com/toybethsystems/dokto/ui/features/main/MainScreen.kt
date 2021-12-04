@@ -13,14 +13,17 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun MainScreen(
     navigateToPayment: () -> Unit,
-    navigateToVideoCall: () -> Unit
+    navigateToVideoCall: () -> Unit,
+    logout: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         VideoCallStartButton(navigateToVideoCall)
         PaymentPageButton(navigateToPayment)
+        LogoutButton(logout)
     }
 }
 
@@ -56,6 +59,25 @@ private fun VideoCallStartButton(
             }
         ) {
             Text(text = "Start Video Call", color = Color.White)
+        }
+    }
+}
+
+
+@Composable
+private fun LogoutButton(
+    logout: () -> Unit
+) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+            onClick = {
+                logout()
+            }
+        ) {
+            Text(text = "Logout", color = Color.White)
         }
     }
 }

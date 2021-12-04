@@ -54,6 +54,10 @@
             android:id="@+id/action_mainFragment_to_paymentFragment"
             app:destination="@id/paymentFragment"/>
 
+        <action
+            android:id="@+id/action_mainFragment_to_login"
+            app:destination="@+id/loginFragment"/>
+
 
     </fragment>
 

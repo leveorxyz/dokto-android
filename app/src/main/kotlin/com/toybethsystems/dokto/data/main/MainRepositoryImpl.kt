@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
     private val preference: AppPreference
-) : com.toybethsystems.dokto.data.main.MainRepository {
+) : MainRepository {
 
     override fun isFirstTimeUser(): Boolean {
         return preference.isFirstTimeUser
@@ -19,4 +19,7 @@ class MainRepositoryImpl @Inject constructor(
         preference.isFirstTimeUser = false
     }
 
+    override fun logout() {
+        preference.user = null
+    }
 }

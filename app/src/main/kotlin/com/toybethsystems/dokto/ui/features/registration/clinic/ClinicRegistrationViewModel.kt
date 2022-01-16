@@ -12,6 +12,7 @@ import com.toybethsystems.dokto.base.utils.extensions.launchIOWithExceptionHandl
 import com.toybethsystems.dokto.data.Country
 import com.toybethsystems.dokto.data.Property
 import com.toybethsystems.dokto.data.registration.RegistrationRepository
+import com.toybethsystems.dokto.ui.features.registration.doctor.form.RegistrationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

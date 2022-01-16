@@ -7,4 +7,6 @@ interface MainRepository {
     fun isUserLoggedIn(): Boolean
 
     fun onBoardingPassed()
+
+    fun logout()
 }

@@ -27,6 +27,10 @@
             </intent-filter>
         </activity>
 
+        <!--   FixMe: Google Maps Api Key     -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDfox7w4F1SlXzUWzSQ4V7OjyoAGdSA0Sg"/>
+
     </application>
 
 </manifest>

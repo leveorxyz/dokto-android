@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/video_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_primary_video"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:identity="@string/you"
+        app:tviScaleType="balanced"
+        app:cardCornerRadius="@dimen/_7sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/remote_video_thumbnails">
+
+        <RelativeLayout
+            android:id="@+id/selected_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/participant_selected_background">
+
+            <ImageView
+                android:id="@+id/stub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/profile_picture"
+                app:srcCompat="@drawable/ic_account_circle_white_48px" />
+
+            <TextView
+                android:id="@+id/selected_identity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/stub"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <com.toybethsystems.dokto.twilio.ui.call.ParticipantPrimaryView
+            android:id="@+id/primary_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:identity="@string/you"
+            app:tviScaleType="balanced"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/remote_video_thumbnails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:scrollbars="horizontal"
+        tools:listitem="@layout/participant_view"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

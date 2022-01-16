@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Lobby" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/lobbyColorPrimary</item>
+        <item name="colorPrimaryDark">@color/lobbyColorPrimaryDark</item>
+        <item name="colorAccent">@color/lobbyColorAccent</item>
+
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textColorHint">@color/lobbyHint</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/lobbyToolbar</item>
+    </style>
+
+    <style name="AppTheme.Lobby.PopupMenu" parent="Widget.AppCompat.Light.PopupMenu">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.Lobby.Drawer" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.Lobby.ClearableEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textCursorDrawable">@drawable/edit_text_cursor</item>
+    </style>
+
+    <style name="AppTheme.Lobby.BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@drawable/join_button</item>
+    </style>
+
+    <style name="Stats.TextTitle" parent="AppTheme.Lobby.Drawer">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Stats.TextValue" parent="Stats.TextTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Stats.TextTrack" parent="AppTheme.Lobby.Drawer">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    </style>
+</resources>

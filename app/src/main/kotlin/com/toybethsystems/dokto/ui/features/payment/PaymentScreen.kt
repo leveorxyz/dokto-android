@@ -14,7 +14,12 @@ import com.toybethsystems.dokto.ui.features.payment.components.selectPaymentType
 import com.toybethsystems.dokto.ui.features.payment.data.paymentTypes
 
 @Composable
-fun PaymentScreen() {
+fun PaymentScreen(
+    navigateToStripePayment: () -> Unit,
+    navigateToFlutterwavePayment: () -> Unit,
+    navigateToPayStackPayment: (() -> Unit)? = null,
+    navigateToPaymentScreen : () -> Unit,
+) {
 
     var selectedPayment by remember {
         mutableStateOf(paymentTypes[0])
@@ -41,7 +46,17 @@ fun PaymentScreen() {
         }
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                if(selectedPayment.name.equals("stripe", true)) {
+                    navigateToStripePayment()
+                } else if(selectedPayment.name.equals("Flutterwave", true)) {
+                    navigateToFlutterwavePayment()
+                } else if(selectedPayment.name.equals("Paystack", true)) {
+                    navigateToPayStackPayment?.invoke()
+                } else if(selectedPayment.name.equals("Paypal", true)) {
+                    navigateToPaymentScreen?.invoke()
+                }
+            },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .height(56.dp)

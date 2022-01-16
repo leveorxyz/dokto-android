@@ -7,35 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1026716118628:android:fdc0108b6bd07aacacf971",
-        "android_client_info": {
-          "package_name": "com.toybeth.dokto"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1026716118628-q4drr3a0himaotsi07j18vfncf1752nh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBPpGxGAsiSbsx5UCXMM-vO3U8XaJlDL4U"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1026716118628-q4drr3a0himaotsi07j18vfncf1752nh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:1026716118628:android:e7e77adb6f60769aacf971",
         "android_client_info": {
           "package_name": "com.toybethsystems.dokto"

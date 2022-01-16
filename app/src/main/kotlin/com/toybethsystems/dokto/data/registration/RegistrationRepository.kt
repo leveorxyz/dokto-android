@@ -2,6 +2,8 @@ package com.toybethsystems.dokto.data.registration
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.ui.text.toUpperCase
+import com.toybethsystems.dokto.R
 import com.toybethsystems.dokto.base.data.preference.AppPreference
 import com.toybethsystems.dokto.data.*
 import com.toybethsystems.dokto.base.data.model.ResultWrapper
@@ -13,6 +15,7 @@ import com.toybethsystems.dokto.data.registration.model.EducationItemInDoctorReg
 import com.toybethsystems.dokto.data.registration.model.ExperienceItemInDoctorRegistrationRequestBody
 import com.toybethsystems.dokto.data.registration.model.PatientRegistrationRequestBody
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.*
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
@@ -53,10 +56,10 @@ class RegistrationRepository @Inject constructor(
             contactNo = phoneCode + contactNo,
             email = email,
             password = password,
-            gender = gender,
+            gender = gender.uppercase(),
             dateOfBirth = dateOfBirth,
             profilePhoto = profilePhotoString,
-            identificationType = identificationType,
+            identificationType = identificationType.uppercase(),
             identificationNumber = identificationNumber,
             identificationPhoto = identificationPhotoString,
             street = street,
@@ -67,7 +70,7 @@ class RegistrationRepository @Inject constructor(
             referringDoctorAddress = referringDoctorAddress,
             referringDoctorFullName = referringDoctorFullName,
             referringDoctorPhoneNumber = referringDoctorPhoneNumber,
-            insuranceType = insuranceType,
+            insuranceType = insuranceType.uppercase(),
             insuranceName = insuranceName,
             insuranceNumber = insuranceNumber,
             insurancePolicyHolderName = insurancePolicyHolderName
@@ -149,10 +152,10 @@ class RegistrationRepository @Inject constructor(
             contactNo = phoneCode + contactNo,
             email = email,
             password = password,
-            gender = gender,
+            gender = gender.uppercase(),
             dateOfBirth = dateOfBirth,
             profilePhoto = profilePhotoString,
-            identificationType = identificationType,
+            identificationType = identificationType.uppercase(),
             identificationNumber = identificationNumber,
             identificationPhoto = identificationPhotoString,
             street = street,
@@ -229,5 +232,9 @@ class RegistrationRepository @Inject constructor(
             }
             else -> listOf()
         }
+    }
+
+    fun getInsuranceTypes(): List<String> {
+        return context.resources.getStringArray(R.array.insurance_type).toList()
     }
 }

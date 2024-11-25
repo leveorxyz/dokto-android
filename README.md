@@ -1,5 +1,7 @@
 # Dokto-Android
 
+![dokto_android_mockups](https://github.com/user-attachments/assets/eed63d3e-6124-4157-83ae-c765a3aa4792)
+
 ### Demo Video
 
 [Watch on YouTube](https://youtu.be/dmaDBWmmuRA)
